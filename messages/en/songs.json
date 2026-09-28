@@ -1,0 +1,28 @@
+{
+  "title": "Songs",
+  "subtitle": "Browse every song and chart in Pump It Up.",
+  "search": {
+    "label": "Search songs",
+    "placeholder": "Search by title or composer",
+    "submit": "Search",
+    "clear": "Clear"
+  },
+  "resultsCount": "{count, plural, one {# song} other {# songs}}",
+  "noResults": "No songs match “{query}”.",
+  "types": {
+    "NORMAL": "Arcade",
+    "REMIX": "Remix",
+    "FULLSONG": "Full Song",
+    "SHORTCUT": "Short Cut"
+  },
+  "bpm": "{bpm} BPM",
+  "debut": "Debut: {series}",
+  "removed": "Removed in Phoenix 2",
+  "chartsLabel": "Charts",
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page {page} of {total}"
+  }
+}

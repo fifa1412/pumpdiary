@@ -35,6 +35,12 @@ export function SiteHeader({
         <Logo compact />
         <nav className="flex min-w-0 items-center gap-1 sm:gap-3">
           <Link
+            href="/songs"
+            className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+          >
+            {t("nav.songs")}
+          </Link>
+          <Link
             href="/#features"
             className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:block"
           >

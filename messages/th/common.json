@@ -9,7 +9,8 @@
     "dashboard": "แดชบอร์ด",
     "login": "เข้าสู่ระบบ",
     "register": "สมัครสมาชิก",
-    "logout": "ออกจากระบบ"
+    "logout": "ออกจากระบบ",
+    "songs": "เพลง"
   },
   "language": {
     "switchLabel": "เปลี่ยนภาษา"

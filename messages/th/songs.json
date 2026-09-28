@@ -1,0 +1,28 @@
+{
+  "title": "เพลง",
+  "subtitle": "ดูเพลงและชาร์ตทั้งหมดของ Pump It Up",
+  "search": {
+    "label": "ค้นหาเพลง",
+    "placeholder": "ค้นหาจากชื่อเพลงหรือผู้แต่ง",
+    "submit": "ค้นหา",
+    "clear": "ล้างคำค้น"
+  },
+  "resultsCount": "{count} เพลง",
+  "noResults": "ไม่พบเพลงที่ตรงกับ “{query}”",
+  "types": {
+    "NORMAL": "Arcade",
+    "REMIX": "Remix",
+    "FULLSONG": "Full Song",
+    "SHORTCUT": "Short Cut"
+  },
+  "bpm": "{bpm} BPM",
+  "debut": "เปิดตัวใน: {series}",
+  "removed": "ถูกนำออกใน Phoenix 2",
+  "chartsLabel": "ชาร์ต",
+  "pagination": {
+    "label": "เปลี่ยนหน้า",
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป",
+    "page": "หน้า {page} จาก {total}"
+  }
+}

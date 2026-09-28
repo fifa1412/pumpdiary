@@ -9,7 +9,8 @@
     "dashboard": "Dashboard",
     "login": "Log in",
     "register": "Sign up",
-    "logout": "Log out"
+    "logout": "Log out",
+    "songs": "Songs"
   },
   "language": {
     "switchLabel": "Switch language"

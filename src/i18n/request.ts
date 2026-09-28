@@ -15,6 +15,7 @@ export default getRequestConfig(async () => {
       home: (await import(`../../messages/${locale}/home.json`)).default,
       auth: (await import(`../../messages/${locale}/auth.json`)).default,
       dashboard: (await import(`../../messages/${locale}/dashboard.json`)).default,
+      songs: (await import(`../../messages/${locale}/songs.json`)).default,
     },
   };
 });

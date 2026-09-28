@@ -13,7 +13,7 @@ export async function SongCard({ song }: { song: SongWithCharts }) {
       : `${song.bpm_min}\u2013${song.bpm_max}`;
 
   return (
-    <li className="flex h-full min-h-56 flex-col rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/40">
+    <li className="flex h-full min-h-56 flex-col rounded-[3px] border border-border border-t-[3px] border-t-primary bg-card p-4 transition-colors hover:border-primary/40">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         <h2
           title={song.title}
@@ -36,7 +36,7 @@ export async function SongCard({ song }: { song: SongWithCharts }) {
         {song.composer}
       </p>
       <p className="mt-0.5 text-sm text-muted-foreground">
-        {t("bpm", { bpm })}
+        <span className="font-numeric tabular-nums">{t("bpm", { bpm })}</span>
         {song.game_series && (
           <>
             <span aria-hidden> · </span>

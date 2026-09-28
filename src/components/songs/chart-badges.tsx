@@ -18,8 +18,8 @@ const STEP_PREFIX: Record<StepType, string> = {
 };
 
 const STEP_CLASS: Record<StepType, string> = {
-  SINGLE: "border-primary/40 bg-primary/10 text-primary",
-  DOUBLE: "border-accent/40 bg-accent/10 text-accent",
+  SINGLE: "border-0 rounded-[3px] bg-single-bg text-single-foreground",
+  DOUBLE: "border-0 rounded-[3px] bg-double-bg text-double-foreground",
   HALFDOUBLE: "border-border bg-secondary text-secondary-foreground",
 };
 
@@ -42,11 +42,11 @@ export function ChartBadges({
           <Link
             href={`/scores/new?chart=${chart.id}`}
             aria-label={`${STEP_PREFIX[chart.step_type]}${chart.level}`}
-            className="inline-flex rounded-full outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            className="inline-flex rounded-[3px] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
           >
             <Badge
               variant="outline"
-              className={cn("font-display tabular-nums", STEP_CLASS[chart.step_type])}
+              className={cn("font-numeric tabular-nums", STEP_CLASS[chart.step_type])}
             >
               {STEP_PREFIX[chart.step_type]}
               {chart.level}

@@ -11,16 +11,20 @@ export function Logo({
   compact?: boolean;
 }) {
   return (
-    <Link href="/" className={cn("inline-flex shrink-0 items-center gap-2", className)}>
+    <Link
+      href="/"
+      aria-label="PumpDiary"
+      className={cn("inline-flex shrink-0 items-center gap-2", className)}
+    >
       <PadIcon className="size-7" />
       <span
         className={cn(
-          "font-display text-lg font-bold tracking-tight",
+          "font-display text-xl font-extrabold uppercase tracking-wide",
           compact && "max-[399px]:sr-only",
         )}
       >
-        <span className="text-foreground">Pump</span>
-        <span className="text-primary">Diary</span>
+        <span className="text-foreground">PUMP</span>
+        <span className="text-primary">DIARY</span>
       </span>
     </Link>
   );

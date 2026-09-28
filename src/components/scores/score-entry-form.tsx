@@ -414,7 +414,7 @@ function ScoreEntryFormContent({
             <div className="space-y-2">
               <Label htmlFor="plate">{t("fields.plate")}</Label>
               <select id="plate" disabled={!stagePass}
-                className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                className="h-9 w-full rounded-md border border-input bg-surface-deep px-3 text-sm disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
                 aria-invalid={!!errors.plate} aria-describedby={errors.plate ? "plate-error" : undefined}
                 {...form.register("plate")}>
                 <option value="">{t("fields.plateNone")}</option>
@@ -427,7 +427,7 @@ function ScoreEntryFormContent({
           <div className="space-y-2">
             <Label htmlFor="note">{t("fields.note")}</Label>
             <textarea id="note" maxLength={500} rows={4}
-              className="w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive md:text-sm"
+              className="w-full min-w-0 rounded-md border border-input bg-surface-deep px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive md:text-sm"
               aria-invalid={!!errors.note} aria-describedby={errors.note ? "note-error" : undefined}
               {...form.register("note")} />
             <FieldError id="note-error" message={fieldError("note")} />

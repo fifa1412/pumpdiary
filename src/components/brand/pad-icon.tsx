@@ -6,56 +6,39 @@ interface PadIconProps {
 export function PadIcon({ className, ariaHidden = true }: PadIconProps) {
   return (
     <svg
-      viewBox="0 0 100 100"
+      viewBox="0 0 64 64"
       className={className}
       aria-hidden={ariaHidden}
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect
-        x="5"
-        y="5"
-        width="30"
-        height="30"
-        rx="8"
-        className="fill-secondary stroke-border"
+        x="2"
+        y="2"
+        width="60"
+        height="60"
+        rx="9"
+        fill="#2d3236"
+        stroke="#3a4044"
+        strokeWidth="2"
       />
-      <rect
-        x="65"
-        y="5"
-        width="30"
-        height="30"
-        rx="8"
-        className="fill-secondary stroke-border"
+      <polygon points="10,10 27,10 21,16 29,24 24,29 16,21 10,27" fill="#2fb86b" />
+      <polygon
+        points="10,10 27,10 21,16 29,24 24,29 16,21 10,27"
+        fill="#2fb86b"
+        transform="translate(64 0) scale(-1 1)"
       />
-      <rect
-        x="5"
-        y="65"
-        width="30"
-        height="30"
-        rx="8"
-        className="fill-secondary stroke-border"
+      <polygon
+        points="10,10 27,10 21,16 29,24 24,29 16,21 10,27"
+        fill="#2fb86b"
+        transform="translate(0 64) scale(1 -1)"
       />
-      <rect
-        x="65"
-        y="65"
-        width="30"
-        height="30"
-        rx="8"
-        className="fill-secondary stroke-border"
+      <polygon
+        points="10,10 27,10 21,16 29,24 24,29 16,21 10,27"
+        fill="#2fb86b"
+        transform="translate(64 64) scale(-1 -1)"
       />
-      <rect x="39" y="39" width="22" height="22" rx="6" className="fill-primary" />
-      <g
-        className="stroke-primary"
-        strokeWidth="4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M27 27 15 15 M15 21 V15 H21" />
-        <path d="M73 27 85 15 M79 15 H85 V21" />
-        <path d="M27 73 15 85 M15 79 V85 H21" />
-        <path d="M73 73 85 85 M79 85 H85 V79" />
-      </g>
+      <rect x="26" y="26" width="12" height="12" rx="2" fill="#f2c230" />
     </svg>
   );
 }

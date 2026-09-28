@@ -7,8 +7,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-ibm-plex-sans-thai);
-  --font-display: var(--font-chakra-petch);
+  --font-sans: var(--font-noto-sans-thai);
+  --font-display: var(--font-barlow-condensed), var(--font-noto-sans-thai), sans-serif;
+  --font-numeric: var(--font-barlow), var(--font-noto-sans-thai), sans-serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Monaco, Consolas,
     "Liberation Mono", "Courier New", monospace;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -40,82 +41,97 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-surface-deep: var(--surface-deep);
+  --color-single-bg: var(--single-bg);
+  --color-single-foreground: var(--single-foreground);
+  --color-double-bg: var(--double-bg);
+  --color-double-foreground: var(--double-foreground);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
+  --radius-4xl: var(--radius);
 }
 
 :root {
-  --background: #06100b;
-  --foreground: #e8fff0;
-  --card: #0c1a12;
-  --card-foreground: #e8fff0;
-  --popover: #0c1a12;
-  --popover-foreground: #e8fff0;
-  --primary: #3dff8b;
-  --primary-foreground: #04140a;
-  --secondary: #13261a;
-  --secondary-foreground: #e8fff0;
-  --muted: #13261a;
-  --muted-foreground: #8fb8a0;
-  --accent: #c6ff3d;
-  --accent-foreground: #04140a;
-  --destructive: #ff4d6d;
-  --border: #1c3526;
-  --input: #1c3526;
-  --ring: #3dff8b;
-  --chart-1: #3dff8b;
-  --chart-2: #c6ff3d;
-  --chart-3: #8fb8a0;
-  --chart-4: #1c3526;
-  --chart-5: #0c1a12;
-  --radius: 0.625rem;
-  --sidebar: #0c1a12;
-  --sidebar-foreground: #e8fff0;
-  --sidebar-primary: #3dff8b;
-  --sidebar-primary-foreground: #04140a;
-  --sidebar-accent: #c6ff3d;
-  --sidebar-accent-foreground: #04140a;
-  --sidebar-border: #1c3526;
-  --sidebar-ring: #3dff8b;
+  --background: #1f2224;
+  --foreground: #eceeed;
+  --card: #272b2e;
+  --card-foreground: #eceeed;
+  --popover: #272b2e;
+  --popover-foreground: #eceeed;
+  --surface-deep: #181b1d;
+  --primary: #2fb86b;
+  --primary-foreground: #0f1a13;
+  --secondary: #2d3236;
+  --secondary-foreground: #eceeed;
+  --muted: #2d3236;
+  --muted-foreground: #9aa2a5;
+  --accent: #f2c230;
+  --accent-foreground: #1f1a05;
+  --destructive: #ef5b4d;
+  --border: #3a4044;
+  --input: #3a4044;
+  --ring: #2fb86b;
+  --single-bg: #1f3a2a;
+  --single-foreground: #6fe0a0;
+  --double-bg: #3d3418;
+  --double-foreground: #f5d466;
+  --chart-1: #2fb86b;
+  --chart-2: #f2c230;
+  --chart-3: #9aa2a5;
+  --chart-4: #3a4044;
+  --chart-5: #272b2e;
+  --radius: 3px;
+  --sidebar: #272b2e;
+  --sidebar-foreground: #eceeed;
+  --sidebar-primary: #2fb86b;
+  --sidebar-primary-foreground: #0f1a13;
+  --sidebar-accent: #f2c230;
+  --sidebar-accent-foreground: #1f1a05;
+  --sidebar-border: #3a4044;
+  --sidebar-ring: #2fb86b;
 }
 
 .dark {
-  --background: #06100b;
-  --foreground: #e8fff0;
-  --card: #0c1a12;
-  --card-foreground: #e8fff0;
-  --popover: #0c1a12;
-  --popover-foreground: #e8fff0;
-  --primary: #3dff8b;
-  --primary-foreground: #04140a;
-  --secondary: #13261a;
-  --secondary-foreground: #e8fff0;
-  --muted: #13261a;
-  --muted-foreground: #8fb8a0;
-  --accent: #c6ff3d;
-  --accent-foreground: #04140a;
-  --destructive: #ff4d6d;
-  --border: #1c3526;
-  --input: #1c3526;
-  --ring: #3dff8b;
-  --chart-1: #3dff8b;
-  --chart-2: #c6ff3d;
-  --chart-3: #8fb8a0;
-  --chart-4: #1c3526;
-  --chart-5: #0c1a12;
-  --sidebar: #0c1a12;
-  --sidebar-foreground: #e8fff0;
-  --sidebar-primary: #3dff8b;
-  --sidebar-primary-foreground: #04140a;
-  --sidebar-accent: #c6ff3d;
-  --sidebar-accent-foreground: #04140a;
-  --sidebar-border: #1c3526;
-  --sidebar-ring: #3dff8b;
+  --background: #1f2224;
+  --foreground: #eceeed;
+  --card: #272b2e;
+  --card-foreground: #eceeed;
+  --popover: #272b2e;
+  --popover-foreground: #eceeed;
+  --surface-deep: #181b1d;
+  --primary: #2fb86b;
+  --primary-foreground: #0f1a13;
+  --secondary: #2d3236;
+  --secondary-foreground: #eceeed;
+  --muted: #2d3236;
+  --muted-foreground: #9aa2a5;
+  --accent: #f2c230;
+  --accent-foreground: #1f1a05;
+  --destructive: #ef5b4d;
+  --border: #3a4044;
+  --input: #3a4044;
+  --ring: #2fb86b;
+  --single-bg: #1f3a2a;
+  --single-foreground: #6fe0a0;
+  --double-bg: #3d3418;
+  --double-foreground: #f5d466;
+  --chart-1: #2fb86b;
+  --chart-2: #f2c230;
+  --chart-3: #9aa2a5;
+  --chart-4: #3a4044;
+  --chart-5: #272b2e;
+  --sidebar: #272b2e;
+  --sidebar-foreground: #eceeed;
+  --sidebar-primary: #2fb86b;
+  --sidebar-primary-foreground: #0f1a13;
+  --sidebar-accent: #f2c230;
+  --sidebar-accent-foreground: #1f1a05;
+  --sidebar-border: #3a4044;
+  --sidebar-ring: #2fb86b;
 }
 
 @layer base {
@@ -130,49 +146,15 @@
   }
 }
 
-/* 001c — homepage utilities (Task 001c). Append-only; do not touch tokens above. */
-.bg-grid {
-  background-image: linear-gradient(
-      to right,
-      color-mix(in oklab, var(--primary) 4%, transparent) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in oklab, var(--primary) 4%, transparent) 1px,
-      transparent 1px
-    );
-  background-size: 44px 44px;
-}
-
-.glow-primary {
-  background: radial-gradient(
-    closest-side,
-    color-mix(in oklab, var(--primary) 22%, transparent),
-    transparent
-  );
-  animation: glow-pulse 6s ease-in-out infinite;
-}
-
-@keyframes glow-pulse {
-  0%,
-  100% {
-    opacity: 0.7;
+@layer base {
+  h1,
+  h2,
+  h3 {
+    @apply font-display uppercase;
+    letter-spacing: 0.02em;
   }
-  50% {
-    opacity: 1;
-  }
-}
 
-.text-gradient-brand {
-  background-image: linear-gradient(90deg, var(--primary), var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .glow-primary {
-    animation: none;
+  input[type="number"] {
+    @apply font-numeric tabular-nums;
   }
 }

@@ -40,7 +40,7 @@ export async function SongsPagination({
           {t("pagination.previous")}
         </Button>
       )}
-      <span className="text-sm text-muted-foreground">
+      <span className="font-numeric text-sm text-muted-foreground">
         {t("pagination.page", { page, total: totalPages })}
       </span>
       {page < totalPages ? (

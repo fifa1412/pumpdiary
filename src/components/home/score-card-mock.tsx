@@ -23,7 +23,7 @@ export async function ScoreCardMock() {
   const t = await getTranslations("home");
 
   return (
-    <Card className="relative w-full">
+    <Card className="relative w-full border-t-[3px] border-t-primary">
       <CardHeader>
         <CardTitle className="font-display text-xl">Neon Phoenix</CardTitle>
         <CardDescription>PumpDiary Demo</CardDescription>
@@ -35,10 +35,10 @@ export async function ScoreCardMock() {
       </CardHeader>
       <CardContent className="flex flex-col gap-5">
         <div className="flex items-end justify-between gap-4">
-          <span className="font-display text-5xl font-bold leading-none text-primary">
+          <span className="font-display text-5xl font-bold leading-none text-accent">
             SS+
           </span>
-          <span className="font-display text-2xl font-semibold leading-none tabular-nums">
+          <span className="font-numeric text-2xl font-semibold leading-none tabular-nums">
             987,654
           </span>
         </div>
@@ -54,17 +54,17 @@ export async function ScoreCardMock() {
                   style={{ width: j.width }}
                 />
               </div>
-              <span className="w-10 shrink-0 text-right text-xs tabular-nums text-muted-foreground">
+              <span className="w-10 shrink-0 text-right font-numeric text-xs tabular-nums text-muted-foreground">
                 {j.count}
               </span>
             </div>
           ))}
         </div>
-        <div className="flex aspect-video flex-col items-center justify-center gap-3 rounded-lg border border-border bg-gradient-to-br from-secondary to-background">
+        <div className="flex aspect-video flex-col items-center justify-center gap-3 rounded-[3px] border border-border bg-secondary">
           <svg
             aria-hidden
             viewBox="0 0 48 48"
-            className="size-14 drop-shadow-[0_0_14px_rgba(61,255,139,0.45)]"
+            className="size-14"
           >
             <circle
               cx="24"
@@ -80,7 +80,7 @@ export async function ScoreCardMock() {
           </p>
         </div>
       </CardContent>
-      <CardFooter className="justify-end text-xs tabular-nums text-muted-foreground">
+      <CardFooter className="justify-end font-numeric text-xs tabular-nums text-muted-foreground">
         24/09/2026
       </CardFooter>
     </Card>

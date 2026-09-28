@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ChartBadges } from "./chart-badges";
 import type { SongWithCharts } from "./types";
 
-export async function SongRow({ song }: { song: SongWithCharts }) {
+export async function SongCard({ song }: { song: SongWithCharts }) {
   const t = await getTranslations("songs");
 
   const bpm =
@@ -13,21 +13,29 @@ export async function SongRow({ song }: { song: SongWithCharts }) {
       : `${song.bpm_min}\u2013${song.bpm_max}`;
 
   return (
-    <li className="rounded-lg border border-border bg-card p-4">
+    <li className="flex h-full min-h-56 flex-col rounded-lg border border-border bg-card p-4 transition-colors hover:border-primary/40">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <h2 className="font-display text-lg font-semibold leading-tight">
+        <h2
+          title={song.title}
+          className="line-clamp-2 font-display text-lg font-semibold leading-tight"
+        >
           {song.title}
         </h2>
-        <Badge variant="outline">{t(`types.${song.song_type}`)}</Badge>
-        {!song.is_available && (
+        <Badge variant="outline" className="shrink-0">
+          {t(`types.${song.song_type}`)}
+        </Badge>
+      </div>
+      {!song.is_available && (
+        <div className="mt-1.5">
           <Badge variant="secondary" className="text-muted-foreground">
             {t("removed")}
           </Badge>
-        )}
-      </div>
-      <p className="mt-1 text-sm text-muted-foreground">
+        </div>
+      )}
+      <p className="mt-2 truncate text-sm text-muted-foreground">
         {song.composer}
-        <span aria-hidden> · </span>
+      </p>
+      <p className="mt-0.5 text-sm text-muted-foreground">
         {t("bpm", { bpm })}
         {song.game_series && (
           <>
@@ -37,7 +45,7 @@ export async function SongRow({ song }: { song: SongWithCharts }) {
         )}
       </p>
       {song.stepcharts.length > 0 && (
-        <div className="mt-3">
+        <div className="mt-auto pt-3">
           <ChartBadges charts={song.stepcharts} label={t("chartsLabel")} />
         </div>
       )}

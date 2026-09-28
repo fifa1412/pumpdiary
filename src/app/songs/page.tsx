@@ -3,12 +3,12 @@ import { getTranslations } from "next-intl/server";
 
 import { SearchForm } from "@/components/songs/search-form";
 import { SongsPagination } from "@/components/songs/pagination";
-import { SongRow } from "@/components/songs/song-row";
+import { SongCard } from "@/components/songs/song-card";
 import type { SongWithCharts } from "@/components/songs/types";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
 import { createClient } from "@/lib/supabase/server";
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 48;
 
 const SONG_SELECT =
   "id, title, composer, song_type, bpm_min, bpm_max, is_available, game_series(name), stepcharts(id, step_type, level)";
@@ -92,9 +92,9 @@ export default async function SongsPage({
               {t("noResults", { query })}
             </p>
           ) : (
-            <ul className="mt-4 flex flex-col gap-3">
+            <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {songs.map((song) => (
-                <SongRow key={song.id} song={song} />
+                <SongCard key={song.id} song={song} />
               ))}
             </ul>
           )}

@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "titleDefault": "PumpDiary — สมุดบันทึกคะแนน Pump It Up",
+    "description": "PumpDiary คือสมุดบันทึกส่วนตัวของสายปั๊ม เก็บคะแนน เกรด และวิดีโอการเล่นไว้ในที่เดียว แล้วดูพัฒนาการของตัวเองในทุกชาร์ต"
+  },
+  "nav": {
+    "features": "ฟีเจอร์",
+    "howItWorks": "วิธีใช้งาน",
+    "dashboard": "แดชบอร์ด",
+    "login": "เข้าสู่ระบบ",
+    "register": "สมัครสมาชิก",
+    "logout": "ออกจากระบบ"
+  },
+  "language": {
+    "switchLabel": "เปลี่ยนภาษา"
+  },
+  "errors": {
+    "generic": "เกิดข้อผิดพลาด กรุณาลองอีกครั้ง"
+  },
+  "footer": {
+    "disclaimer": "PumpDiary เป็นโปรเจกต์แฟนเมด ไม่มีส่วนเกี่ยวข้องกับ Andamiro หรือ Pump It Up อย่างเป็นทางการ"
+  }
+}

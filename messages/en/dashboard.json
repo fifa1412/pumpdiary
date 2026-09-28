@@ -1,0 +1,6 @@
+{
+  "title": "Dashboard",
+  "greeting": "Hi, {name}",
+  "emptyTitle": "No scores logged yet",
+  "addScoreSoon": "Add score (coming soon)"
+}

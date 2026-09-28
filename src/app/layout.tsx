@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { getLocale, getMessages, getTranslations } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
 import { Chakra_Petch, IBM_Plex_Sans_Thai } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -20,28 +22,37 @@ const ibmPlexSansThai = IBM_Plex_Sans_Thai({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "PumpDiary — สมุดบันทึกคะแนน Pump It Up",
-    template: "%s | PumpDiary",
-  },
-  description:
-    "PumpDiary คือสมุดบันทึกส่วนตัวของสายปั๊ม เก็บคะแนน เกรด และวิดีโอการเล่นไว้ในที่เดียว แล้วดูพัฒนาการของตัวเองในทุกชาร์ต",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("common");
+
+  return {
+    title: {
+      default: t("metadata.titleDefault"),
+      template: "%s | PumpDiary",
+    },
+    description: t("metadata.description"),
+  };
+}
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const user = await getCurrentUser();
+  const [user, locale, messages] = await Promise.all([
+    getCurrentUser(),
+    getLocale(),
+    getMessages(),
+  ]);
 
   return (
     <html
-      lang="th"
+      lang={locale}
       className={`dark ${chakraPetch.variable} ${ibmPlexSansThai.variable} h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col">
-        <SiteHeader initialUser={user} />
-        <main className="flex flex-1 flex-col">{children}</main>
-        <SiteFooter />
-        <Toaster theme="dark" />
+        <NextIntlClientProvider messages={messages}>
+          <SiteHeader initialUser={user} />
+          <main className="flex flex-1 flex-col">{children}</main>
+          <SiteFooter />
+          <Toaster theme="dark" />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

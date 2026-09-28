@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useTranslations } from "next-intl";
 
 import { Logo } from "@/components/brand/logo";
+import { LanguageToggle } from "@/components/language-toggle";
 import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import { logoutUser, type CurrentUser } from "@/lib/auth";
-
-const GENERIC_ERROR = 'เกิดข้อผิดพลาด กรุณาลองอีกครั้ง';
 
 export function SiteHeader({
   initialUser,
@@ -17,6 +17,7 @@ export function SiteHeader({
   initialUser: CurrentUser | null;
 }) {
   const router = useRouter();
+  const t = useTranslations("common");
   const { user } = useCurrentUser(initialUser);
 
   async function handleLogout() {
@@ -24,52 +25,53 @@ export function SiteHeader({
       await logoutUser();
       router.push("/");
     } catch {
-      toast.error(GENERIC_ERROR);
+      toast.error(t("errors.generic"));
     }
   }
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-        <Logo />
-        <nav className="flex items-center gap-4">
+        <Logo compact />
+        <nav className="flex min-w-0 items-center gap-1 sm:gap-3">
           <Link
             href="/#features"
             className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:block"
           >
-            ฟีเจอร์
+            {t("nav.features")}
           </Link>
           <Link
             href="/#how-it-works"
             className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:block"
           >
-            วิธีใช้งาน
+            {t("nav.howItWorks")}
           </Link>
           {user ? (
-            <div className="flex items-center gap-3">
-              <span className="hidden text-sm font-medium sm:inline">
+            <div className="flex items-center gap-1">
+              <span className="hidden max-w-28 truncate text-sm font-medium md:inline">
                 {user.name}
               </span>
               <Link
                 href="/dashboard"
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
-                แดชบอร์ด
+                {t("nav.dashboard")}
               </Link>
-              <Button variant="ghost" size="sm" onClick={handleLogout}>
-                ออกจากระบบ
+              <Button className="px-2 sm:px-3" variant="ghost" size="sm" onClick={handleLogout}>
+                {t("nav.logout")}
               </Button>
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="sm" asChild>
-                <Link href="/login">เข้าสู่ระบบ</Link>
+              <Button className="px-2" variant="ghost" size="sm" asChild>
+                <Link href="/login">{t("nav.login")}</Link>
               </Button>
-              <Button size="sm" asChild>
-                <Link href="/register">สมัครสมาชิก</Link>
+              <Button className="px-2" size="sm" asChild>
+                <Link href="/register">{t("nav.register")}</Link>
               </Button>
             </div>
           )}
+          <LanguageToggle />
         </nav>
       </div>
     </header>

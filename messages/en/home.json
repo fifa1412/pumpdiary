@@ -1,0 +1,48 @@
+{
+  "hero": {
+    "badge": "For Pump It Up players",
+    "headlineLine1": "Log every step.",
+    "headlineLine2Lead": "Keep ",
+    "headlineLine2Highlight": "every score.",
+    "subcopy": "PumpDiary is your personal Pump It Up diary. Keep your scores, grades, and play videos in one place, and watch yourself improve on every chart.",
+    "ctaPrimary": "Start logging for free",
+    "ctaSecondary": "See features"
+  },
+  "scoreCard": {
+    "videoLabel": "Gameplay video"
+  },
+  "highlights": {
+    "singleDouble": "Single and Double supported",
+    "youtube": "Attach YouTube video links",
+    "history": "Look back at your stats anytime"
+  },
+  "features": {
+    "title": "Everything a pump player needs",
+    "scores": {
+      "title": "Score log",
+      "description": "Save the score, grade, judgements, and level of every play."
+    },
+    "videos": {
+      "title": "Video library",
+      "description": "Keep your play videos in one place, sorted by song and level."
+    },
+    "progress": {
+      "title": "Track progress",
+      "description": "See your scores improve over time."
+    },
+    "goals": {
+      "title": "Set goals",
+      "description": "Set target grades and track the charts you've cleared."
+    }
+  },
+  "howItWorks": {
+    "title": "Get started in 3 steps",
+    "step1": "Sign up",
+    "step2": "Log your score and attach a video after you play",
+    "step3": "Review your progress and set your next goal"
+  },
+  "cta": {
+    "title": "Ready to log every step?",
+    "button": "Sign up for free"
+  }
+}

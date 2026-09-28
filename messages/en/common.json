@@ -1,0 +1,23 @@
+{
+  "metadata": {
+    "titleDefault": "PumpDiary — Pump It Up score diary",
+    "description": "PumpDiary is your personal Pump It Up diary. Keep your scores, grades, and play videos in one place, and watch yourself improve on every chart."
+  },
+  "nav": {
+    "features": "Features",
+    "howItWorks": "How it works",
+    "dashboard": "Dashboard",
+    "login": "Log in",
+    "register": "Sign up",
+    "logout": "Log out"
+  },
+  "language": {
+    "switchLabel": "Switch language"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again."
+  },
+  "footer": {
+    "disclaimer": "PumpDiary is a fan project and is not affiliated with Andamiro or Pump It Up."
+  }
+}

@@ -1,3 +1,5 @@
+import { getTranslations } from "next-intl/server";
+
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -17,7 +19,9 @@ const JUDGEMENTS = [
   { label: "Miss", count: "1", width: "7%" },
 ] as const;
 
-export function ScoreCardMock() {
+export async function ScoreCardMock() {
+  const t = await getTranslations("home");
+
   return (
     <Card className="relative w-full">
       <CardHeader>
@@ -71,7 +75,9 @@ export function ScoreCardMock() {
             />
             <path d="M20 16.5v15l12.5-7.5z" className="fill-primary" />
           </svg>
-          <p className="text-xs text-muted-foreground">วิดีโอการเล่น</p>
+          <p className="text-xs text-muted-foreground">
+            {t("scoreCard.videoLabel")}
+          </p>
         </div>
       </CardContent>
       <CardFooter className="justify-end text-xs tabular-nums text-muted-foreground">

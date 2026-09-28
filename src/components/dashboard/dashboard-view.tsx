@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -12,37 +13,37 @@ import {
 } from "@/components/ui/card";
 import { logoutUser, type CurrentUser } from "@/lib/auth";
 
-const GENERIC_ERROR = 'เกิดข้อผิดพลาด กรุณาลองอีกครั้ง';
-
 export function DashboardView({ user }: { user: CurrentUser }) {
   const router = useRouter();
+  const t = useTranslations("dashboard");
+  const tc = useTranslations("common");
 
   async function handleLogout() {
     try {
       await logoutUser();
       router.replace("/");
     } catch {
-      toast.error(GENERIC_ERROR);
+      toast.error(tc("errors.generic"));
     }
   }
 
   return (
     <div className="flex flex-1 flex-col items-center gap-8 px-4 py-12">
       <h1 className="font-display text-3xl font-bold">
-        สวัสดี {user.name}
+        {t("greeting", { name: user.name })}
       </h1>
       <Card className="w-full max-w-[420px]">
         <CardHeader>
           <CardTitle className="font-display text-xl">
-            ยังไม่มีคะแนนที่บันทึก
+            {t("emptyTitle")}
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
           <Button className="w-full" disabled>
-            เพิ่มคะแนน (เร็ว ๆ นี้)
+            {t("addScoreSoon")}
           </Button>
           <Button variant="outline" className="w-full" onClick={handleLogout}>
-            ออกจากระบบ
+            {tc("nav.logout")}
           </Button>
         </CardContent>
       </Card>

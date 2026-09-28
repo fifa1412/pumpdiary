@@ -3,8 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -21,26 +22,28 @@ import {
 import { Input } from "@/components/ui/input";
 import { AuthError, loginUser } from "@/lib/auth";
 
-const GENERIC_ERROR = 'เกิดข้อผิดพลาด กรุณาลองอีกครั้ง';
-
-const loginSchema = z.object({
-  email: z.string().email('กรุณากรอกอีเมลให้ถูกต้อง'),
-  password: z.string().min(1, 'กรุณากรอกรหัสผ่าน'),
-});
-
-type LoginValues = z.infer<typeof loginSchema>;
-
 export function LoginForm() {
   const router = useRouter();
+  const t = useTranslations("auth");
+  const tc = useTranslations("common");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
-  const form = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
+  const schema = useMemo(
+    () =>
+      z.object({
+        email: z.string().email(t("validation.emailInvalid")),
+        password: z.string().min(1, t("validation.passwordRequired")),
+      }),
+    [t]
+  );
+
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
     defaultValues: { email: "", password: "" },
   });
 
-  async function onSubmit(data: LoginValues) {
+  async function onSubmit(data: z.infer<typeof schema>) {
     setFormError(null);
     setIsSubmitting(true);
     try {
@@ -48,14 +51,14 @@ export function LoginForm() {
         email: data.email,
         password: data.password,
       });
-      toast(`ยินดีต้อนรับกลับมา ${logged.name}`);
+      toast(t("toasts.welcomeBack", { name: logged.name }));
       router.replace("/dashboard");
     } catch (error) {
       const code = error instanceof AuthError ? error.code : null;
       if (code === "INVALID_CREDENTIALS") {
-        setFormError('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+        setFormError(t("errors.invalidCredentials"));
       } else {
-        setFormError(GENERIC_ERROR);
+        setFormError(tc("errors.generic"));
       }
     } finally {
       setIsSubmitting(false);
@@ -74,7 +77,7 @@ export function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>อีเมล</FormLabel>
+              <FormLabel>{t("fields.email")}</FormLabel>
               <FormControl>
                 <Input type="email" autoComplete="email" {...field} />
               </FormControl>
@@ -87,7 +90,7 @@ export function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>รหัสผ่าน</FormLabel>
+              <FormLabel>{t("fields.password")}</FormLabel>
               <FormControl>
                 <Input
                   type="password"
@@ -108,14 +111,16 @@ export function LoginForm() {
           {isSubmitting ? (
             <>
               <Loader2 aria-hidden="true" className="animate-spin" />
-              {'กำลังเข้าสู่ระบบ…'}
+              {t("login.submitting")}
             </>
-          ) : 'เข้าสู่ระบบ'}
+          ) : (
+            t("login.submit")
+          )}
         </Button>
         <p className="text-center text-sm text-muted-foreground">
-          ยังไม่มีบัญชี?{" "}
+          {t("login.noAccount")}{" "}
           <Link href="/register" className="text-primary hover:underline">
-            สมัครสมาชิก
+            {t("login.toRegister")}
           </Link>
         </p>
       </form>

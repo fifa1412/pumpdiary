@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
@@ -37,13 +39,19 @@ export function ChartBadges({
     <ul aria-label={label} className="flex flex-wrap gap-1.5">
       {sorted.map((chart) => (
         <li key={`${chart.step_type}-${chart.level}`}>
-          <Badge
-            variant="outline"
-            className={cn("font-display tabular-nums", STEP_CLASS[chart.step_type])}
+          <Link
+            href={`/scores/new?chart=${chart.id}`}
+            aria-label={`${STEP_PREFIX[chart.step_type]}${chart.level}`}
+            className="inline-flex rounded-full outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
           >
-            {STEP_PREFIX[chart.step_type]}
-            {chart.level}
-          </Badge>
+            <Badge
+              variant="outline"
+              className={cn("font-display tabular-nums", STEP_CLASS[chart.step_type])}
+            >
+              {STEP_PREFIX[chart.step_type]}
+              {chart.level}
+            </Badge>
+          </Link>
         </li>
       ))}
     </ul>

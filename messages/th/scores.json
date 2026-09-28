@@ -1,0 +1,83 @@
+{
+  "pageTitle": "บันทึกคะแนน",
+  "title": "บันทึกผลการเล่น",
+  "picker": {
+    "title": "เลือกเพลงและชาร์ต",
+    "searchLabel": "ค้นหาเพลง",
+    "searchPlaceholder": "ค้นหาจากชื่อเพลงหรือผู้แต่ง",
+    "search": "ค้นหา",
+    "searching": "กำลังค้นหา…",
+    "noResults": "ไม่พบเพลงที่ตรงกัน",
+    "chooseChart": "เลือกชาร์ต",
+    "noCharts": "เพลงนี้ไม่มีชาร์ตให้เลือก"
+  },
+  "fields": {
+    "score": "คะแนน",
+    "grade": "เกรด",
+    "judgments": "ผลตัดสินและคอมโบ",
+    "perfect": "Perfect",
+    "great": "Great",
+    "good": "Good",
+    "bad": "Bad",
+    "miss": "Miss",
+    "maxCombo": "คอมโบสูงสุด",
+    "playedAt": "วันที่เล่น",
+    "videoUrl": "ลิงก์ YouTube (ไม่บังคับ)",
+    "stagePass": "ผ่านด่าน",
+    "plate": "Plate (ไม่บังคับ)",
+    "plateNone": "ไม่มี Plate",
+    "note": "บันทึกเพิ่มเติม (ไม่บังคับ)",
+    "screenshot": "ภาพหน้าจอ (ไม่บังคับ)",
+    "screenshotHelp": "ระบบจะย่อภาพและแปลงเป็น WebP โดยด้านยาวไม่เกิน 1,600 px ขนาดไฟล์หลังแปลงไม่เกิน 5 MB",
+    "resizing": "กำลังเตรียมภาพ…",
+    "screenshotPreview": "ตัวอย่างภาพหน้าจอ",
+    "removeScreenshot": "นำภาพออก"
+  },
+  "grades": {
+    "SSS+": "SSS+", "SSS": "SSS", "SS+": "SS+", "SS": "SS", "S+": "S+", "S": "S",
+    "AAA+": "AAA+", "AAA": "AAA", "AA+": "AA+", "AA": "AA", "A+": "A+", "A": "A",
+    "B": "B", "C": "C", "D": "D", "F": "F"
+  },
+  "plates": {
+    "PERFECT GAME": "PERFECT GAME",
+    "ULTIMATE GAME": "ULTIMATE GAME",
+    "EXTREME GAME": "EXTREME GAME",
+    "SUPERB GAME": "SUPERB GAME",
+    "MARVELOUS GAME": "MARVELOUS GAME",
+    "TALENTED GAME": "TALENTED GAME",
+    "FAIR GAME": "FAIR GAME",
+    "ROUGH GAME": "ROUGH GAME"
+  },
+  "validation": {
+    "numberRequired": "กรุณากรอกตัวเลข",
+    "integer": "กรุณากรอกจำนวนเต็ม",
+    "nonnegative": "กรุณากรอกศูนย์หรือจำนวนบวก",
+    "scoreRange": "คะแนนต้องอยู่ระหว่าง 0 ถึง 1,000,000",
+    "chooseChart": "กรุณาเลือกชาร์ตก่อน",
+    "gradeRequired": "กรุณาเลือกเกรด",
+    "dateRequired": "กรุณาเลือกวันที่เล่น",
+    "dateInvalid": "กรุณากรอกวันที่ให้ถูกต้อง",
+    "dateFuture": "วันที่เล่นต้องไม่เป็นวันในอนาคต",
+    "youtubeUrl": "กรุณากรอกลิงก์ YouTube แบบ HTTPS ที่ถูกต้อง",
+    "noteLength": "บันทึกเพิ่มเติมต้องมีไม่เกิน 500 ตัวอักษร",
+    "failedStagePlate": "ด่านที่เล่นไม่ผ่านจะไม่มี Plate",
+    "imageType": "กรุณาเลือกภาพ WebP, JPEG หรือ PNG",
+    "imageProcessing": "แปลงภาพเป็น WebP ขนาดไม่เกิน 5 MB ไม่สำเร็จ ลองเลือกภาพอื่น"
+  },
+  "submit": {
+    "label": "บันทึกคะแนน",
+    "saving": "กำลังบันทึก…"
+  },
+  "errors": {
+    "generic": "เกิดข้อผิดพลาด กรุณาลองอีกครั้ง",
+    "sessionExpired": "เซสชันหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง",
+    "screenshotUpload": "อัปโหลดภาพหน้าจอไม่สำเร็จ ยังไม่ได้บันทึกคะแนน",
+    "orphanCleanup": "บันทึกคะแนนไม่สำเร็จ และตรวจสอบการลบภาพหน้าจอไม่ได้",
+    "validation": "ข้อมูลคะแนนบางส่วนไม่ถูกต้อง กรุณาตรวจสอบแล้วลองอีกครั้ง",
+    "invalidChart": "ไม่พบชาร์ตนี้แล้ว กรุณาเลือกชาร์ตอื่น",
+    "permission": "ไม่มีสิทธิ์บันทึกคะแนนนี้ กรุณาเข้าสู่ระบบอีกครั้ง"
+  },
+  "toasts": {
+    "saved": "บันทึกคะแนนแล้ว"
+  }
+}

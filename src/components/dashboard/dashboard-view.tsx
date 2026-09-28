@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -39,8 +40,8 @@ export function DashboardView({ user }: { user: CurrentUser }) {
           </CardTitle>
         </CardHeader>
         <CardContent className="flex flex-col gap-3">
-          <Button className="w-full" disabled>
-            {t("addScoreSoon")}
+          <Button className="w-full" asChild>
+            <Link href="/scores/new">{t("addScore")}</Link>
           </Button>
           <Button variant="outline" className="w-full" onClick={handleLogout}>
             {tc("nav.logout")}

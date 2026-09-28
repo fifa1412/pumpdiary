@@ -5,6 +5,7 @@ export const STEP_TYPES = ["SINGLE", "DOUBLE", "HALFDOUBLE"] as const;
 export type StepType = (typeof STEP_TYPES)[number];
 
 export type SongChart = {
+  id: number;
   step_type: StepType;
   level: number;
 };

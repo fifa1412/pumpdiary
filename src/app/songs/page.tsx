@@ -5,18 +5,13 @@ import { SearchForm } from "@/components/songs/search-form";
 import { SongsPagination } from "@/components/songs/pagination";
 import { SongRow } from "@/components/songs/song-row";
 import type { SongWithCharts } from "@/components/songs/types";
+import { sanitizeSongSearchQuery } from "@/lib/songs/search";
 import { createClient } from "@/lib/supabase/server";
 
 const PAGE_SIZE = 50;
 
 const SONG_SELECT =
-  "id, title, composer, song_type, bpm_min, bpm_max, is_available, game_series(name), stepcharts(step_type, level)";
-
-function sanitizeQuery(raw: string | string[] | undefined): string {
-  const value = Array.isArray(raw) ? raw[0] : raw;
-  if (typeof value !== "string") return "";
-  return value.trim().slice(0, 100).replace(/[,()*%\\]/g, "");
-}
+  "id, title, composer, song_type, bpm_min, bpm_max, is_available, game_series(name), stepcharts(id, step_type, level)";
 
 function parsePage(raw: string | string[] | undefined): number {
   const value = Array.isArray(raw) ? raw[0] : raw;
@@ -41,7 +36,7 @@ export default async function SongsPage({
     searchParams,
   ]);
 
-  const query = sanitizeQuery(params.q);
+  const query = sanitizeSongSearchQuery(params.q);
   const requestedPage = parsePage(params.page);
 
   const supabase = await createClient();

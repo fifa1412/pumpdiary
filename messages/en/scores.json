@@ -1,0 +1,83 @@
+{
+  "pageTitle": "Record a score",
+  "title": "Log a play",
+  "picker": {
+    "title": "Choose song and chart",
+    "searchLabel": "Search songs",
+    "searchPlaceholder": "Search by title or composer",
+    "search": "Search",
+    "searching": "Searching…",
+    "noResults": "No matching songs found.",
+    "chooseChart": "Choose a chart",
+    "noCharts": "This song has no charts to select."
+  },
+  "fields": {
+    "score": "Score",
+    "grade": "Grade",
+    "judgments": "Judgments and combo",
+    "perfect": "Perfect",
+    "great": "Great",
+    "good": "Good",
+    "bad": "Bad",
+    "miss": "Miss",
+    "maxCombo": "Max combo",
+    "playedAt": "Played date",
+    "videoUrl": "YouTube URL (optional)",
+    "stagePass": "Stage cleared",
+    "plate": "Plate (optional)",
+    "plateNone": "No plate",
+    "note": "Note (optional)",
+    "screenshot": "Screenshot (optional)",
+    "screenshotHelp": "Images are resized to WebP, at most 1600 px on the long edge. Maximum upload size: 5 MB.",
+    "resizing": "Preparing screenshot…",
+    "screenshotPreview": "Screenshot preview",
+    "removeScreenshot": "Remove screenshot"
+  },
+  "grades": {
+    "SSS+": "SSS+", "SSS": "SSS", "SS+": "SS+", "SS": "SS", "S+": "S+", "S": "S",
+    "AAA+": "AAA+", "AAA": "AAA", "AA+": "AA+", "AA": "AA", "A+": "A+", "A": "A",
+    "B": "B", "C": "C", "D": "D", "F": "F"
+  },
+  "plates": {
+    "PERFECT GAME": "PERFECT GAME",
+    "ULTIMATE GAME": "ULTIMATE GAME",
+    "EXTREME GAME": "EXTREME GAME",
+    "SUPERB GAME": "SUPERB GAME",
+    "MARVELOUS GAME": "MARVELOUS GAME",
+    "TALENTED GAME": "TALENTED GAME",
+    "FAIR GAME": "FAIR GAME",
+    "ROUGH GAME": "ROUGH GAME"
+  },
+  "validation": {
+    "numberRequired": "Enter a number.",
+    "integer": "Enter a whole number.",
+    "nonnegative": "Enter zero or a positive number.",
+    "scoreRange": "Score must be between 0 and 1,000,000.",
+    "chooseChart": "Choose a chart first.",
+    "gradeRequired": "Choose a grade.",
+    "dateRequired": "Choose the played date.",
+    "dateInvalid": "Enter a valid date.",
+    "dateFuture": "Played date cannot be in the future.",
+    "youtubeUrl": "Enter an HTTPS YouTube watch, short, or Shorts URL.",
+    "noteLength": "Note must be 500 characters or fewer.",
+    "failedStagePlate": "A failed stage cannot have a plate.",
+    "imageType": "Choose a WebP, JPEG, or PNG image.",
+    "imageProcessing": "Could not resize this image to WebP under 5 MB. Try another image."
+  },
+  "submit": {
+    "label": "Save score",
+    "saving": "Saving…"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "sessionExpired": "Your session expired. Please sign in again.",
+    "screenshotUpload": "Could not upload the screenshot. Your score was not saved.",
+    "orphanCleanup": "The score was not saved, and screenshot cleanup could not be confirmed.",
+    "validation": "Some score details were rejected. Check the values and try again.",
+    "invalidChart": "That chart is no longer available. Choose another chart.",
+    "permission": "You are not allowed to save this score. Please sign in again."
+  },
+  "toasts": {
+    "saved": "Score saved."
+  }
+}

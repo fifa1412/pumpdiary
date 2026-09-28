@@ -2,19 +2,30 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
 import { Logo } from "@/components/brand/logo";
 import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks/use-current-user";
-import { logoutUser } from "@/lib/mock-auth";
+import { logoutUser, type CurrentUser } from "@/lib/auth";
 
-export function SiteHeader() {
+const GENERIC_ERROR = 'เกิดข้อผิดพลาด กรุณาลองอีกครั้ง';
+
+export function SiteHeader({
+  initialUser,
+}: {
+  initialUser: CurrentUser | null;
+}) {
   const router = useRouter();
-  const { user, ready } = useCurrentUser();
-  const loggedIn = ready && user !== null;
+  const { user } = useCurrentUser(initialUser);
 
-  function handleLogout() {
-    logoutUser();
-    router.push("/");
+  async function handleLogout() {
+    try {
+      await logoutUser();
+      router.push("/");
+    } catch {
+      toast.error(GENERIC_ERROR);
+    }
   }
 
   return (
@@ -34,10 +45,10 @@ export function SiteHeader() {
           >
             วิธีใช้งาน
           </Link>
-          {loggedIn ? (
+          {user ? (
             <div className="flex items-center gap-3">
               <span className="hidden text-sm font-medium sm:inline">
-                {user?.name}
+                {user.name}
               </span>
               <Link
                 href="/dashboard"

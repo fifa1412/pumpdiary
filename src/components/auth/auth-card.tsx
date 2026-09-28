@@ -25,9 +25,6 @@ export function AuthCard({
         </CardHeader>
         <CardContent>
           {children}
-          <p className="mt-6 text-center text-xs text-muted-foreground">
-            โหมดทดลอง: ข้อมูลบัญชีถูกเก็บไว้ในเบราว์เซอร์นี้เท่านั้น
-          </p>
         </CardContent>
       </Card>
     </div>

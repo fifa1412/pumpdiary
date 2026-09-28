@@ -1,36 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PumpDiary
 
-## Getting Started
+PumpDiary is a web app for [Pump It Up](https://en.wikipedia.org/wiki/Pump_It_Up)
+players to log their scores, grades, and gameplay videos, and to track their
+progress over time. The UI is in Thai; the brand name and game terms (Single,
+Double, Perfect, Great, grades) stay in English.
 
-First, run the development server:
+This is an unofficial fan project. It is not affiliated with or endorsed by
+Andamiro or Pump It Up.
+
+## Stack
+
+- [Next.js](https://nextjs.org) (App Router) + React + TypeScript
+- [Tailwind CSS](https://tailwindcss.com) with [shadcn/ui](https://ui.shadcn.com)
+- [Supabase Auth](https://supabase.com/docs/guides/auth) for register/login and
+  a `profiles` table for the player name
+- Package manager: npm
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000> to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Before the first run you need a Supabase project with your credentials in
+`.env.local` and the database migrations applied. Follow
+[docs/setup-supabase.md](docs/setup-supabase.md) for the full setup, including
+the email-confirmation setting and troubleshooting.

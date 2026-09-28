@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -19,8 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { MockAuthError, registerUser } from "@/lib/mock-auth";
+import { AuthError, registerUser } from "@/lib/auth";
 
 const GENERIC_ERROR = 'เกิดข้อผิดพลาด กรุณาลองอีกครั้ง';
 
@@ -40,7 +39,6 @@ type RegisterValues = z.infer<typeof registerSchema>;
 
 export function RegisterForm() {
   const router = useRouter();
-  const { user, ready } = useCurrentUser();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
@@ -49,17 +47,10 @@ export function RegisterForm() {
     defaultValues: { name: "", email: "", password: "", confirm: "" },
   });
 
-  useEffect(() => {
-    if (ready && user) {
-      router.replace("/dashboard");
-    }
-  }, [ready, user, router]);
-
   async function onSubmit(data: RegisterValues) {
     setFormError(null);
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 600));
       await registerUser({
         name: data.name,
         email: data.email,
@@ -68,10 +59,12 @@ export function RegisterForm() {
       toast('สมัครสมาชิกสำเร็จ');
       router.replace("/dashboard");
     } catch (error) {
-      const code = error instanceof MockAuthError ? error.code : null;
+      const code = error instanceof AuthError ? error.code : null;
       if (code === "EMAIL_TAKEN") {
         form.setError("email", { message: 'อีเมลนี้ถูกใช้แล้ว' });
-      } else if (code !== "INVALID_CREDENTIALS") {
+      } else if (code === "INVALID_CREDENTIALS") {
+        setFormError('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
+      } else {
         setFormError(GENERIC_ERROR);
       }
     } finally {

@@ -3,6 +3,7 @@ import { Chakra_Petch, IBM_Plex_Sans_Thai } from "next/font/google";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Toaster } from "@/components/ui/sonner";
+import { getCurrentUser } from "@/lib/supabase/server";
 import "./globals.css";
 
 const chakraPetch = Chakra_Petch({
@@ -28,14 +29,16 @@ export const metadata: Metadata = {
     "PumpDiary คือสมุดบันทึกส่วนตัวของสายปั๊ม เก็บคะแนน เกรด และวิดีโอการเล่นไว้ในที่เดียว แล้วดูพัฒนาการของตัวเองในทุกชาร์ต",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const user = await getCurrentUser();
+
   return (
     <html
       lang="th"
       className={`dark ${chakraPetch.variable} ${ibmPlexSansThai.variable} h-full antialiased`}
     >
       <body className="min-h-screen flex flex-col">
-        <SiteHeader />
+        <SiteHeader initialUser={user} />
         <main className="flex flex-1 flex-col">{children}</main>
         <SiteFooter />
         <Toaster theme="dark" />

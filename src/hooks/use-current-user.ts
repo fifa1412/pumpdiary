@@ -1,30 +1,30 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
-import { AUTH_CHANGE_EVENT, getCurrentUser, type CurrentUser } from "@/lib/mock-auth";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+
+import { createClient } from "@/lib/supabase/client";
+import type { CurrentUser } from "@/lib/auth";
 
 export interface CurrentUserState {
   user: CurrentUser | null;
   ready: boolean;
 }
 
-function subscribeAuthChanges(onStoreChange: () => void) {
-  window.addEventListener(AUTH_CHANGE_EVENT, onStoreChange);
-  window.addEventListener("storage", onStoreChange);
-  return () => {
-    window.removeEventListener(AUTH_CHANGE_EVENT, onStoreChange);
-    window.removeEventListener("storage", onStoreChange);
-  };
-}
+export function useCurrentUser(initialUser: CurrentUser | null): CurrentUserState {
+  const router = useRouter();
 
-const subscribeNoop = () => () => {};
+  useEffect(() => {
+    const supabase = createClient();
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event) => {
+      if (event === "INITIAL_SESSION") return;
+      router.refresh();
+    });
 
-export function useCurrentUser(): CurrentUserState {
-  const user = useSyncExternalStore(
-    subscribeAuthChanges,
-    () => getCurrentUser(),
-    () => null
-  );
-  const ready = useSyncExternalStore(subscribeNoop, () => true, () => false);
-  return { user, ready };
+    return () => subscription.unsubscribe();
+  }, [router]);
+
+  return { user: initialUser, ready: true };
 }

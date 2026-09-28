@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,37 +10,20 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { logoutUser } from "@/lib/mock-auth";
+import { logoutUser, type CurrentUser } from "@/lib/auth";
 
-export function DashboardView() {
+const GENERIC_ERROR = 'เกิดข้อผิดพลาด กรุณาลองอีกครั้ง';
+
+export function DashboardView({ user }: { user: CurrentUser }) {
   const router = useRouter();
-  const { user, ready } = useCurrentUser();
-  // undefined = never observed a user (fresh load); true = was logged in.
-  // Distinguishes "no session on load" (→ /login) from "just logged out"
-  // (→ /, matching the header logout and the spec's logout target).
-  const wasLoggedInRef = useRef<boolean | undefined>(undefined);
 
-  useEffect(() => {
-    if (!ready) return;
-    if (user !== null) {
-      wasLoggedInRef.current = true;
-      return;
-    }
-    if (wasLoggedInRef.current === undefined) {
-      router.replace("/login");
-    } else {
+  async function handleLogout() {
+    try {
+      await logoutUser();
       router.replace("/");
+    } catch {
+      toast.error(GENERIC_ERROR);
     }
-  }, [ready, user, router]);
-
-  if (!ready || user === null) {
-    return null;
-  }
-
-  function handleLogout() {
-    logoutUser();
-    router.replace("/");
   }
 
   return (

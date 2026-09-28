@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -19,8 +19,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useCurrentUser } from "@/hooks/use-current-user";
-import { MockAuthError, loginUser } from "@/lib/mock-auth";
+import { AuthError, loginUser } from "@/lib/auth";
 
 const GENERIC_ERROR = 'เกิดข้อผิดพลาด กรุณาลองอีกครั้ง';
 
@@ -33,7 +32,6 @@ type LoginValues = z.infer<typeof loginSchema>;
 
 export function LoginForm() {
   const router = useRouter();
-  const { user, ready } = useCurrentUser();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState<string | null>(null);
 
@@ -42,17 +40,10 @@ export function LoginForm() {
     defaultValues: { email: "", password: "" },
   });
 
-  useEffect(() => {
-    if (ready && user) {
-      router.replace("/dashboard");
-    }
-  }, [ready, user, router]);
-
   async function onSubmit(data: LoginValues) {
     setFormError(null);
     setIsSubmitting(true);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 600));
       const logged = await loginUser({
         email: data.email,
         password: data.password,
@@ -60,10 +51,10 @@ export function LoginForm() {
       toast(`ยินดีต้อนรับกลับมา ${logged.name}`);
       router.replace("/dashboard");
     } catch (error) {
-      const code = error instanceof MockAuthError ? error.code : null;
+      const code = error instanceof AuthError ? error.code : null;
       if (code === "INVALID_CREDENTIALS") {
         setFormError('อีเมลหรือรหัสผ่านไม่ถูกต้อง');
-      } else if (code !== "EMAIL_TAKEN") {
+      } else {
         setFormError(GENERIC_ERROR);
       }
     } finally {

@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useLocale } from "next-intl";
+import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { logoutUser, type CurrentUser } from "@/lib/auth";
+import { ScreenshotLightbox } from "@/components/scores/screenshot-lightbox";
 
 export type DashboardScore = {
   id: number;
@@ -39,8 +41,11 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
 }) {
   const router = useRouter();
   const t = useTranslations("dashboard");
+  const ts = useTranslations("scores");
   const tc = useTranslations("common");
   const locale = useLocale();
+  const [zoomedScreenshot, setZoomedScreenshot] = useState<{ scoreId: number; src: string } | null>(null);
+  const zoomTrigger = useRef<HTMLButtonElement>(null);
   const myScoresLabel = t.has("myScores") ? t("myScores") : t("title");
   const noScoresLabel = t.has("noScores") ? t("noScores") : t("emptyTitle");
 
@@ -80,6 +85,7 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
             {scores.map((score) => {
               const chart = score.stepchart;
               if (!chart?.song) return null;
+              const screenshotUrl = score.screenshotUrl;
               const chartPrefix = chart.step_type === "SINGLE" ? "S" : chart.step_type === "DOUBLE" ? "D" : "HD";
               const playedDate = new Date(score.played_at).toLocaleDateString(locale, {
                 timeZone: "UTC",
@@ -87,22 +93,41 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
               });
               return (
                 <li key={score.id} className="h-full">
-                  <Link href={`/scores/${score.id}/edit`} className="group block h-full rounded-[3px] focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
-                    <Card className="flex h-full min-h-56 flex-col transition-colors group-hover:border-primary/50 group-focus-visible:border-primary">
+                  <Card className="group relative flex h-full min-h-56 flex-col transition-colors hover:border-primary/50">
+                    <Link
+                      href={`/scores/${score.id}/edit`}
+                      aria-label={chart.song.title}
+                      className="absolute inset-0 z-0 rounded-[3px] focus-visible:z-20 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                    >
+                      <span className="sr-only">{chart.song.title}</span>
+                    </Link>
+                    <div className="pointer-events-none relative z-10 flex h-full flex-col">
                       <CardHeader className="pb-3">
                         <CardTitle title={chart.song.title} className="line-clamp-2 min-h-12 font-display text-lg leading-tight">{chart.song.title}</CardTitle>
                         <div className="relative aspect-video overflow-hidden rounded-sm bg-muted/60">
-                          {score.screenshotUrl ? (
-                            <Image
-                              src={score.screenshotUrl}
-                              alt=""
-                              fill
-                              unoptimized
-                              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                              className="object-cover"
-                            />
+                          {screenshotUrl ? (
+                            <button
+                              ref={zoomTrigger}
+                              type="button"
+                              aria-label={ts("fields.screenshotPreview")}
+                              aria-haspopup="dialog"
+                              onClick={(event) => {
+                                zoomTrigger.current = event.currentTarget;
+                                setZoomedScreenshot({ scoreId: score.id, src: screenshotUrl });
+                              }}
+                              className="pointer-events-auto absolute inset-0 z-30 h-full w-full cursor-zoom-in rounded-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/70"
+                            >
+                              <Image
+                                src={screenshotUrl}
+                                alt=""
+                                fill
+                                unoptimized
+                                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                                className="object-cover"
+                              />
+                            </button>
                           ) : null}
-                          <span className="absolute right-2 top-2 rounded-sm bg-background/90 px-2 py-1 text-xs font-semibold text-foreground shadow-sm">
+                          <span aria-hidden="true" className="pointer-events-none absolute right-2 top-2 z-30 rounded-sm bg-background/90 px-2 py-1 text-xs font-semibold text-foreground shadow-sm">
                             {chartPrefix}{chart.level}
                           </span>
                         </div>
@@ -115,8 +140,18 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                         {score.plate ? <p className="truncate text-xs font-medium text-muted-foreground">{score.plate}</p> : null}
                         <p className="text-sm text-muted-foreground">{playedDate}</p>
                       </CardContent>
-                    </Card>
-                  </Link>
+                    </div>
+                  </Card>
+                  {zoomedScreenshot?.scoreId === score.id ? (
+                    <ScreenshotLightbox
+                      open
+                      src={zoomedScreenshot.src}
+                      alt={ts("fields.screenshotPreview")}
+                      closeLabel={ts("fields.closePreview")}
+                      onClose={() => setZoomedScreenshot(null)}
+                      triggerRef={zoomTrigger}
+                    />
+                  ) : null}
                 </li>
               );
             })}

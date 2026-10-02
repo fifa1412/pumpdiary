@@ -18,6 +18,7 @@ import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
 import type { CabinetOption } from "@/components/cabinets/types";
+import { ScreenshotLightbox } from "./screenshot-lightbox";
 import { SongChartPicker } from "./song-chart-picker";
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
 
@@ -161,7 +162,6 @@ function ScoreEntryFormContent({
   const [songPickerKey, setSongPickerKey] = useState(0);
   const [cabinetId, setCabinetId] = useState(initialCabinetId);
   const screenshotInput = useRef<HTMLInputElement>(null);
-  const previewDialog = useRef<HTMLDialogElement>(null);
   const ocrDialog = useRef<HTMLDialogElement>(null);
   const previewTrigger = useRef<HTMLButtonElement>(null);
   const decodedImage = useRef<Blob | null>(null);
@@ -175,13 +175,6 @@ function ScoreEntryFormContent({
     if (!previewUrl) return;
     return () => URL.revokeObjectURL(previewUrl);
   }, [previewUrl]);
-
-  useEffect(() => {
-    const dialog = previewDialog.current;
-    if (!dialog) return;
-    if (isPreviewOpen && !dialog.open) dialog.showModal();
-    else if (!isPreviewOpen && dialog.open) dialog.close();
-  }, [isPreviewOpen]);
 
   useEffect(() => {
     const dialog = ocrDialog.current;
@@ -773,40 +766,17 @@ function ScoreEntryFormContent({
                 </Button>
               </div>
             ) : null}
-            {screenshot && previewUrl ? <dialog
-              ref={previewDialog}
-              aria-label={t("fields.screenshotPreview")}
-              onCancel={() => setIsPreviewOpen(false)}
-              onClose={() => {
-                setIsPreviewOpen(false);
-                previewTrigger.current?.focus();
-              }}
-              onClick={(event) => {
-                if (event.target === event.currentTarget) setIsPreviewOpen(false);
-              }}
-              className="m-auto max-h-[96dvh] max-w-[98vw] bg-transparent p-0 text-foreground backdrop:bg-black/85"
-              style={{ touchAction: "pinch-zoom" }}
-            >
-              <div className="relative flex max-h-[96dvh] max-w-[98vw] items-center justify-center p-2">
-                <Button
-                  type="button"
-                  variant="secondary"
-                  size="icon"
-                  aria-label={t("fields.closePreview")}
-                  onClick={() => setIsPreviewOpen(false)}
-                  className="absolute right-3 top-3 z-10"
-                >
-                  <X aria-hidden="true" />
-                </Button>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={previewUrl}
-                  alt={t("fields.screenshotPreview")}
-                  className={`max-h-[92dvh] max-w-[96vw] object-contain ${isFlipped ? "scale-x-[-1]" : ""}`}
-                  style={{ touchAction: "pinch-zoom" }}
-                />
-              </div>
-            </dialog> : null}
+            {screenshot && previewUrl ? (
+              <ScreenshotLightbox
+                open={isPreviewOpen}
+                src={previewUrl}
+                alt={t("fields.screenshotPreview")}
+                closeLabel={t("fields.closePreview")}
+                onClose={() => setIsPreviewOpen(false)}
+                triggerRef={previewTrigger}
+                flipped={isFlipped}
+              />
+            ) : null}
           </div>
 
           {formError ? <p role="alert" className="text-sm text-destructive">{formError}</p> : null}

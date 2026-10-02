@@ -46,7 +46,11 @@ export async function SongCard({ song }: { song: SongWithCharts }) {
       </p>
       {song.stepcharts.length > 0 && (
         <div className="mt-auto pt-3">
-          <ChartBadges charts={song.stepcharts} label={t("chartsLabel")} />
+          <ChartBadges
+            charts={song.stepcharts}
+            label={t("chartsLabel")}
+            leaderboardLabel={t("leaderboardLink")}
+          />
         </div>
       )}
     </li>

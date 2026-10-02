@@ -28,10 +28,12 @@ export type DashboardScore = {
   } | null;
 };
 
-export function DashboardView({ user, scores, scoresFailed = false }: {
+export function DashboardView({ user, scores, scoresFailed = false, historyPage, historyPages }: {
   user: CurrentUser;
   scores: DashboardScore[];
   scoresFailed?: boolean;
+  historyPage: number;
+  historyPages: number;
 }) {
   const router = useRouter();
   const t = useTranslations("dashboard");
@@ -57,7 +59,10 @@ export function DashboardView({ user, scores, scoresFailed = false }: {
       <section aria-labelledby="my-scores-heading" className="space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 id="my-scores-heading" className="font-display text-2xl font-bold">{myScoresLabel}</h2>
-          <Button asChild><Link href="/scores/new">{t("addScore")}</Link></Button>
+          <div className="flex flex-wrap gap-2">
+            <Button variant="outline" asChild><Link href="/scores/bests">{t("personalBests")}</Link></Button>
+            <Button asChild><Link href="/scores/new">{t("addScore")}</Link></Button>
+          </div>
         </div>
         {scoresFailed ? (
           <p role="alert" className="text-sm text-destructive">{tc("errors.generic")}</p>
@@ -101,6 +106,19 @@ export function DashboardView({ user, scores, scoresFailed = false }: {
             })}
           </ul>
         )}
+        {!scoresFailed && historyPages > 1 ? (
+          <nav aria-label={t("pagination.label")} className="flex items-center justify-center gap-2">
+            {historyPage > 1 ? (
+              <Button variant="outline" size="sm" asChild><Link href={`/dashboard?page=${historyPage - 1}`}>{t("pagination.previous")}</Link></Button>
+            ) : <Button variant="outline" size="sm" disabled>{t("pagination.previous")}</Button>}
+            <span className="font-numeric text-sm text-muted-foreground">
+              {t("pagination.page", { page: historyPage, total: historyPages })}
+            </span>
+            {historyPage < historyPages ? (
+              <Button variant="outline" size="sm" asChild><Link href={`/dashboard?page=${historyPage + 1}`}>{t("pagination.next")}</Link></Button>
+            ) : <Button variant="outline" size="sm" disabled>{t("pagination.next")}</Button>}
+          </nav>
+        ) : null}
       </section>
       <div className="flex justify-end">
         <Button variant="outline" onClick={handleLogout}>{tc("nav.logout")}</Button>

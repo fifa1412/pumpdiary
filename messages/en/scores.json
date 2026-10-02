@@ -112,5 +112,32 @@
       "created": "Cabinet added."
     }
   },
-  "editTitle": "Edit score"
+  "editTitle": "Edit score",
+  "personalBests": {
+    "title": "Personal bests",
+    "description": "Your highest score on every chart you have played.",
+    "empty": "You have not logged any scores yet.",
+    "error": "Could not load your personal bests. Please try again.",
+    "backToDashboard": "Back to dashboard",
+    "viewLeaderboard": "View leaderboard",
+    "pagination": {
+      "label": "Personal best pages",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {page} of {total}"
+    }
+  },
+  "leaderboard": {
+    "title": "Chart leaderboard",
+    "description": "Best score per player for this chart.",
+    "rank": "Rank",
+    "player": "Player",
+    "score": "Score",
+    "grade": "Grade",
+    "plate": "Plate",
+    "date": "Date",
+    "empty": "No scores have been recorded for this chart yet.",
+    "error": "Could not load the leaderboard. Please try again.",
+    "unknownPlayer": "Unknown player"
+  }
 }

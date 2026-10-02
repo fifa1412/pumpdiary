@@ -19,6 +19,7 @@
   "debut": "Debut: {series}",
   "removed": "Removed in Phoenix 2",
   "chartsLabel": "Charts",
+  "leaderboardLink": "View leaderboard",
   "pagination": {
     "label": "Pagination",
     "previous": "Previous",

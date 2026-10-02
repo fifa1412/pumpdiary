@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Trophy } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -26,9 +27,11 @@ const STEP_CLASS: Record<StepType, string> = {
 export function ChartBadges({
   charts,
   label,
+  leaderboardLabel,
 }: {
   charts: SongChart[];
   label: string;
+  leaderboardLabel: string;
 }) {
   const sorted = [...charts].sort(
     (a, b) =>
@@ -38,7 +41,7 @@ export function ChartBadges({
   return (
     <ul aria-label={label} className="flex flex-wrap gap-1.5">
       {sorted.map((chart) => (
-        <li key={`${chart.step_type}-${chart.level}`}>
+        <li key={`${chart.step_type}-${chart.level}`} className="inline-flex items-center gap-0.5">
           <Link
             href={`/scores/new?chart=${chart.id}`}
             aria-label={`${STEP_PREFIX[chart.step_type]}${chart.level}`}
@@ -51,6 +54,14 @@ export function ChartBadges({
               {STEP_PREFIX[chart.step_type]}
               {chart.level}
             </Badge>
+          </Link>
+          <Link
+            href={`/charts/${chart.id}/leaderboard`}
+            aria-label={`${leaderboardLabel} ${STEP_PREFIX[chart.step_type]}${chart.level}`}
+            title={`${leaderboardLabel} ${STEP_PREFIX[chart.step_type]}${chart.level}`}
+            className="inline-flex size-6 items-center justify-center rounded-[3px] text-muted-foreground outline-none hover:bg-accent hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          >
+            <Trophy aria-hidden="true" className="size-3.5" />
           </Link>
         </li>
       ))}

@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored browser OCR runtime; linting minified third-party bundles is not useful.
+    "public/ocr/**",
   ]),
 ]);
 

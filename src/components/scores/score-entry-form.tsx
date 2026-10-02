@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
+import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 
 import { SongChartPicker } from "./song-chart-picker";
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
@@ -85,6 +86,17 @@ async function resizeScreenshot(file: File): Promise<File> {
   }
 }
 
+function isHeicFile(file: File): boolean {
+  const type = file.type.toLowerCase();
+  const extension = file.name.toLowerCase().match(/\.(heic|heif)$/)?.[1];
+  return type.startsWith("image/heic") || type.startsWith("image/heif") || Boolean(extension);
+}
+
+async function decodeHeic(file: File): Promise<Blob> {
+  const { heicTo } = await import("heic-to");
+  return heicTo({ blob: file, type: "image/jpeg", quality: 0.92 });
+}
+
 function FieldError({ id, message }: { id: string; message?: string }) {
   return message ? (
     <p id={id} className="text-sm text-destructive">
@@ -108,8 +120,17 @@ function ScoreEntryFormContent({
   const [previewUrl, setPreviewUrl] = useState("");
   const [today, setToday] = useState("");
   const [isResizing, setIsResizing] = useState(false);
+  const [isReading, setIsReading] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
   const [screenshotError, setScreenshotError] = useState("");
+  const [detectedFields, setDetectedFields] = useState<Set<string>>(new Set());
+  const [ocrTitle, setOcrTitle] = useState<string>();
+  const [ocrStepType, setOcrStepType] = useState<OcrScoreFields["stepType"]>();
+  const [ocrLevel, setOcrLevel] = useState<number>();
+  const [songPickerKey, setSongPickerKey] = useState(0);
   const screenshotInput = useRef<HTMLInputElement>(null);
+  const decodedImage = useRef<Blob | null>(null);
+  const ocrRequest = useRef(0);
 
   useEffect(() => {
     if (!previewUrl) return;
@@ -200,22 +221,109 @@ function ScoreEntryFormContent({
     return typeof message === "string" ? message : undefined;
   }
 
+  function detectedNote(name: string) {
+    return detectedFields.has(name)
+      ? <p className="text-xs text-muted-foreground">{t("fields.detected")}</p>
+      : null;
+  }
+
+  function resetOcrPrefill() {
+    const previous = detectedFields;
+    for (const name of previous) {
+      if (name === "stepchartId" || name === "score" || name === "perfect" || name === "great" || name === "good" || name === "bad" || name === "miss" || name === "maxCombo" || name === "grade" || name === "plate" || name === "stagePass") {
+        if (!form.getFieldState(name).isDirty) form.resetField(name);
+      }
+    }
+    setDetectedFields(new Set());
+    setOcrTitle(undefined);
+    setOcrStepType(undefined);
+    setOcrLevel(undefined);
+    setSongPickerKey((key) => key + 1);
+  }
+
+  function applyOcrFields(fields: OcrScoreFields) {
+    const detected = new Set<string>();
+    const fillNumber = (name: "score" | "perfect" | "great" | "good" | "bad" | "miss" | "maxCombo", value: number | undefined) => {
+      if (value === undefined || form.getFieldState(name).isDirty) return;
+      form.setValue(name, value, { shouldDirty: false });
+      detected.add(name);
+    };
+    fillNumber("score", fields.score);
+    fillNumber("perfect", fields.perfect);
+    fillNumber("great", fields.great);
+    fillNumber("good", fields.good);
+    fillNumber("bad", fields.bad);
+    fillNumber("miss", fields.miss);
+    fillNumber("maxCombo", fields.maxCombo);
+    if (fields.grade && !form.getFieldState("grade").isDirty) {
+      form.setValue("grade", fields.grade, { shouldDirty: false });
+      detected.add("grade");
+    }
+    if (fields.stagePass !== undefined && !form.getFieldState("stagePass").isDirty) {
+      form.setValue("stagePass", fields.stagePass, { shouldDirty: false });
+      detected.add("stagePass");
+    }
+    if (fields.plate && fields.stagePass !== false && !form.getFieldState("plate").isDirty) {
+      form.setValue("plate", fields.plate, { shouldDirty: false });
+      detected.add("plate");
+    }
+    setDetectedFields(detected);
+    setOcrTitle(fields.title);
+    setOcrStepType(fields.stepType);
+    setOcrLevel(fields.level);
+  }
+
+  const onChartChange = useCallback((chartId: number, source?: "ocr") => {
+    form.setValue("stepchartId", chartId, { shouldDirty: source !== "ocr", shouldValidate: true });
+    form.clearErrors("stepchartId");
+  }, [form]);
+
+  async function readScreenshot(image: Blob, flipped: boolean) {
+    const request = ++ocrRequest.current;
+    setIsReading(true);
+    try {
+      const fields = await recognizeScoreImage(image, flipped);
+      if (request === ocrRequest.current) applyOcrFields(fields);
+    } catch {
+      // OCR is optional; the player can still fill the form manually.
+    } finally {
+      if (request === ocrRequest.current) setIsReading(false);
+    }
+  }
+
   async function onScreenshotChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
     setScreenshotError("");
-    if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
+    if (!ACCEPTED_IMAGE_TYPES.includes(file.type) && !isHeicFile(file)) {
       setScreenshotError(t("validation.imageType"));
       event.target.value = "";
       return;
     }
+    ocrRequest.current += 1;
+    decodedImage.current = null;
+    setIsReading(false);
+    setIsFlipped(false);
+    resetOcrPrefill();
+    setScreenshot(null);
+    setPreviewUrl("");
 
     setIsResizing(true);
     try {
-      const resized = await resizeScreenshot(file);
+      const decoded = isHeicFile(file) ? await decodeHeic(file) : file;
+      decodedImage.current = decoded;
+      void readScreenshot(decoded, false);
+      const decodedFile = new File([decoded], file.name.replace(/\.(heic|heif)$/i, ".jpg"), {
+        type: decoded.type || (isHeicFile(file) ? "image/jpeg" : file.type),
+        lastModified: file.lastModified,
+      });
+      const resized = await resizeScreenshot(decodedFile);
       setScreenshot(resized);
       setPreviewUrl(URL.createObjectURL(resized));
     } catch {
+      ocrRequest.current += 1;
+      decodedImage.current = null;
+      setIsReading(false);
       setScreenshotError(t("validation.imageProcessing"));
       setScreenshot(null);
       setPreviewUrl("");
@@ -226,10 +334,24 @@ function ScoreEntryFormContent({
   }
 
   function removeScreenshot() {
+    ocrRequest.current += 1;
+    decodedImage.current = null;
+    setIsReading(false);
+    setIsFlipped(false);
+    resetOcrPrefill();
     setScreenshot(null);
     setPreviewUrl("");
     setScreenshotError("");
     if (screenshotInput.current) screenshotInput.current.value = "";
+  }
+
+  function toggleScreenshotFlip() {
+    const nextFlipped = !isFlipped;
+    setIsFlipped(nextFlipped);
+    if (decodedImage.current) {
+      resetOcrPrefill();
+      void readScreenshot(decodedImage.current, nextFlipped);
+    }
   }
 
   async function cleanupUploadedScreenshot(path: string): Promise<boolean> {
@@ -331,12 +453,13 @@ function ScoreEntryFormContent({
         <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-6">
           <input type="hidden" {...form.register("stepchartId", { valueAsNumber: true })} />
           <SongChartPicker
+            key={songPickerKey}
             initialSong={initialSong}
             selectedChartId={selectedChartId}
-            onChartChange={(chartId) => {
-              form.setValue("stepchartId", chartId, { shouldDirty: true, shouldValidate: true });
-              form.clearErrors("stepchartId");
-            }}
+            onChartChange={onChartChange}
+            ocrTitle={ocrTitle}
+            ocrStepType={ocrStepType}
+            ocrLevel={ocrLevel}
             error={fieldError("stepchartId")}
           />
 
@@ -346,6 +469,7 @@ function ScoreEntryFormContent({
               <Input id="score" type="number" min="0" max="1000000" step="1" inputMode="numeric"
                 aria-invalid={!!errors.score} aria-describedby={errors.score ? "score-error" : undefined}
                 {...form.register("score", { valueAsNumber: true })} />
+              {detectedNote("score")}
               <FieldError id="score-error" message={fieldError("score")} />
             </div>
             <div className="space-y-2">
@@ -355,6 +479,7 @@ function ScoreEntryFormContent({
                 {...form.register("grade")}>
                 {SCORE_GRADES.map((grade) => <option key={grade} value={grade}>{t(`grades.${grade}`)}</option>)}
               </select>
+              {detectedNote("grade")}
               <FieldError id="grade-error" message={fieldError("grade")} />
             </div>
           </div>
@@ -375,6 +500,7 @@ function ScoreEntryFormContent({
                     <Input id={id} type="number" min="0" step="1" inputMode="numeric"
                       aria-invalid={!!error} aria-describedby={error ? `${id}-error` : undefined}
                       {...form.register(name, { valueAsNumber: true })} />
+                    {detectedNote(name)}
                     <FieldError id={`${id}-error`} message={error} />
                   </div>
                 );
@@ -411,6 +537,7 @@ function ScoreEntryFormContent({
                 })} />
               <Label htmlFor="stage-pass">{t("fields.stagePass")}</Label>
             </div>
+            {detectedNote("stagePass")}
             <div className="space-y-2">
               <Label htmlFor="plate">{t("fields.plate")}</Label>
               <select id="plate" disabled={!stagePass}
@@ -420,6 +547,7 @@ function ScoreEntryFormContent({
                 <option value="">{t("fields.plateNone")}</option>
                 {SCORE_PLATES.map((plate) => <option key={plate} value={plate}>{t(`plates.${plate}`)}</option>)}
               </select>
+              {detectedNote("plate")}
               <FieldError id="plate-error" message={fieldError("plate")} />
             </div>
           </div>
@@ -435,18 +563,24 @@ function ScoreEntryFormContent({
 
           <div className="space-y-3">
             <Label htmlFor="screenshot">{t("fields.screenshot")}</Label>
-            <Input ref={screenshotInput} id="screenshot" type="file" accept="image/webp,image/jpeg,image/png"
+            <Input ref={screenshotInput} id="screenshot" type="file" accept="image/webp,image/jpeg,image/png,image/heic,image/heif,.heic,.heif"
               disabled={isResizing || isSubmitting} onChange={onScreenshotChange}
               aria-describedby={screenshotError ? "screenshot-error" : "screenshot-help"}
               aria-invalid={!!screenshotError} />
             <p id="screenshot-help" className="text-sm text-muted-foreground">{t("fields.screenshotHelp")}</p>
             {isResizing ? <p role="status" className="text-sm text-muted-foreground">{t("fields.resizing")}</p> : null}
+            {isReading ? <p role="status" className="text-sm text-muted-foreground">{t("fields.reading")}</p> : null}
             {screenshotError ? <p id="screenshot-error" role="alert" className="text-sm text-destructive">{screenshotError}</p> : null}
             {screenshot && previewUrl ? (
               <div className="flex flex-wrap items-start gap-3">
                 {/* This local preview is an object URL and is revoked when it changes or unmounts. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={previewUrl} alt={t("fields.screenshotPreview")} className="max-h-48 max-w-full rounded-md border object-contain" />
+                <img src={previewUrl} alt={t("fields.screenshotPreview")}
+                  className={`max-h-48 max-w-full rounded-md border object-contain ${isFlipped ? "scale-x-[-1]" : ""}`} />
+                <Button type="button" variant="outline" size="sm" onClick={toggleScreenshotFlip} disabled={isReading || isResizing || isSubmitting}
+                  aria-pressed={isFlipped}>
+                  {t("fields.flipScreenshot")}
+                </Button>
                 <Button type="button" variant="outline" size="sm" onClick={removeScreenshot} aria-label={t("fields.removeScreenshot")}>
                   <X aria-hidden="true" />
                   {t("fields.removeScreenshot")}

@@ -28,8 +28,13 @@
     "plateNone": "No plate",
     "note": "Note (optional)",
     "screenshot": "Screenshot (optional)",
-    "screenshotHelp": "Images are resized to WebP, at most 1600 px on the long edge. Maximum upload size: 5 MB.",
+    "screenshotHelp": "Choose a WebP, JPEG, PNG, HEIC, or HEIF image. Images are resized to WebP, at most 1600 px on the long edge. Maximum upload size: 5 MB.",
     "resizing": "Preparing screenshot…",
+    "reading": "Reading screenshot…",
+    "flipScreenshot": "Flip horizontally and read again",
+    "detected": "Detected — check this value",
+    "detectedSong": "Song matched — check this selection",
+    "detectedChart": "Chart detected — check this selection",
     "screenshotPreview": "Screenshot preview",
     "removeScreenshot": "Remove screenshot"
   },
@@ -61,8 +66,8 @@
     "youtubeUrl": "Enter an HTTPS YouTube watch, short, or Shorts URL.",
     "noteLength": "Note must be 500 characters or fewer.",
     "failedStagePlate": "A failed stage cannot have a plate.",
-    "imageType": "Choose a WebP, JPEG, or PNG image.",
-    "imageProcessing": "Could not resize this image to WebP under 5 MB. Try another image."
+    "imageType": "Choose a WebP, JPEG, PNG, HEIC, or HEIF image.",
+    "imageProcessing": "Could not process this image. Try another image."
   },
   "submit": {
     "label": "Save score",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
@@ -16,11 +16,17 @@ export function SongChartPicker({
   selectedChartId,
   onChartChange,
   error,
+  ocrTitle,
+  ocrStepType,
+  ocrLevel,
 }: {
   initialSong: SongOption | null;
   selectedChartId: number;
-  onChartChange: (chartId: number) => void;
+  onChartChange: (chartId: number, source?: "ocr") => void;
   error?: string;
+  ocrTitle?: string;
+  ocrStepType?: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
+  ocrLevel?: number;
 }) {
   const t = useTranslations("scores");
   const [song, setSong] = useState<SongOption | null>(initialSong);
@@ -29,6 +35,52 @@ export function SongChartPicker({
   const [hasSearched, setHasSearched] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState(false);
+  const [ocrMatchedSong, setOcrMatchedSong] = useState(false);
+  const [ocrMatchedChartId, setOcrMatchedChartId] = useState<number | null>(null);
+  const matchRequest = useRef(0);
+  const hasManualSelection = useRef(false);
+  const onChartChangeRef = useRef(onChartChange);
+
+  useEffect(() => {
+    onChartChangeRef.current = onChartChange;
+  }, [onChartChange]);
+
+  useEffect(() => {
+    if (!ocrTitle || initialSong || hasManualSelection.current) return;
+    const requestedTitle = ocrTitle;
+    const sanitized = sanitizeSongSearchQuery(requestedTitle).replace(/_/g, "");
+    if (!sanitized) return;
+    const request = ++matchRequest.current;
+    const normalize = (value: string) => value.normalize("NFKD").replace(/[^\p{L}\p{N}]/gu, "").toLocaleLowerCase("en");
+
+    async function matchTitle() {
+      const { data, error: requestError } = await createClient()
+        .from("songs")
+        .select("id, title, composer, stepcharts(id, step_type, level)")
+        .or(`title.ilike.%${sanitized}%,composer.ilike.%${sanitized}%`)
+        .order("title", { ascending: true })
+        .limit(20);
+      if (request !== matchRequest.current || requestError) return;
+      const candidates = ((data ?? []) as unknown as SongOption[])
+        .filter((candidate) => normalize(candidate.title) === normalize(requestedTitle));
+      if (candidates.length !== 1) return;
+      const match = candidates[0];
+      setSong(match);
+      setOcrMatchedSong(true);
+      const chartMatches = match.stepcharts.filter((chart) =>
+        chart.step_type === ocrStepType && chart.level === ocrLevel,
+      );
+      if (chartMatches.length === 1) {
+        setOcrMatchedChartId(chartMatches[0].id);
+        onChartChangeRef.current(chartMatches[0].id, "ocr");
+      }
+    }
+
+    void matchTitle();
+    return () => {
+      matchRequest.current += 1;
+    };
+  }, [initialSong, ocrLevel, ocrStepType, ocrTitle]);
 
   async function searchSongs() {
     const sanitized = sanitizeSongSearchQuery(query);
@@ -63,10 +115,20 @@ export function SongChartPicker({
   }
 
   function chooseSong(option: SongOption) {
+    hasManualSelection.current = true;
+    matchRequest.current += 1;
+    setOcrMatchedSong(false);
+    setOcrMatchedChartId(null);
     setSong(option);
     onChartChange(0);
     setResults([]);
     setHasSearched(false);
+  }
+
+  function chooseChart(chartId: number) {
+    hasManualSelection.current = true;
+    setOcrMatchedChartId(null);
+    onChartChange(chartId);
   }
 
   const charts = [...(song?.stepcharts ?? [])].sort((a, b) => {
@@ -140,6 +202,7 @@ export function SongChartPicker({
           <div>
             <p className="font-medium">{song.title}</p>
             <p className="text-sm text-muted-foreground">{song.composer}</p>
+            {ocrMatchedSong ? <p className="mt-1 text-xs text-muted-foreground">{t("fields.detectedSong")}</p> : null}
           </div>
           {charts.length > 0 ? (
             <div className="space-y-2">
@@ -158,13 +221,14 @@ export function SongChartPicker({
                       size="sm"
                       variant={selectedChartId === chart.id ? "default" : "outline"}
                       aria-pressed={selectedChartId === chart.id}
-                      onClick={() => onChartChange(chart.id)}
+                      onClick={() => chooseChart(chart.id)}
                     >
                       {prefix}{chart.level}
                     </Button>
                   );
                 })}
               </div>
+              {ocrMatchedChartId ? <p className="text-xs text-muted-foreground">{t("fields.detectedChart")}</p> : null}
             </div>
           ) : (
             <p className="text-sm text-muted-foreground">{t("picker.noCharts")}</p>

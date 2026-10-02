@@ -16,6 +16,8 @@ import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 
+import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
+import type { CabinetOption } from "@/components/cabinets/types";
 import { SongChartPicker } from "./song-chart-picker";
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
 
@@ -129,10 +131,14 @@ function ScoreEntryFormContent({
   initialSong,
   initialChartId,
   initialScore,
+  cabinets,
+  initialCabinetId,
 }: {
   initialSong: SongOption | null;
   initialChartId: number;
   initialScore?: EditableScore;
+  cabinets: CabinetOption[];
+  initialCabinetId: number | null;
 }) {
   const t = useTranslations("scores");
   const tc = useTranslations("common");
@@ -153,6 +159,7 @@ function ScoreEntryFormContent({
   const [ocrStepType, setOcrStepType] = useState<OcrScoreFields["stepType"]>();
   const [ocrLevel, setOcrLevel] = useState<number>();
   const [songPickerKey, setSongPickerKey] = useState(0);
+  const [cabinetId, setCabinetId] = useState(initialCabinetId);
   const screenshotInput = useRef<HTMLInputElement>(null);
   const previewDialog = useRef<HTMLDialogElement>(null);
   const ocrDialog = useRef<HTMLDialogElement>(null);
@@ -519,6 +526,7 @@ function ScoreEntryFormContent({
         plate: values.stagePass && values.plate ? values.plate : null,
         stage_pass: values.stagePass,
         screenshot_path: screenshotPath ?? initialScore?.screenshotPath ?? null,
+        ...(cabinetId ? { cabinet_id: cabinetId } : {}),
       };
 
       const { data: savedScore, error: saveError } = initialScore
@@ -595,6 +603,15 @@ function ScoreEntryFormContent({
             ocrLevel={ocrLevel}
             error={fieldError("stepchartId")}
           />
+
+          {!initialScore ? (
+            <CabinetPicker
+              cabinets={cabinets}
+              initialCabinetId={cabinetId}
+              chartId={selectedChartId}
+              onChange={setCabinetId}
+            />
+          ) : null}
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
@@ -806,7 +823,16 @@ export function ScoreEntryForm(props: {
   initialSong: SongOption | null;
   initialChartId: number;
   initialScore?: EditableScore;
+  cabinets?: CabinetOption[];
+  initialCabinetId?: number | null;
 }) {
   const locale = useLocale();
-  return <ScoreEntryFormContent key={locale} {...props} />;
+  return (
+    <ScoreEntryFormContent
+      key={locale}
+      {...props}
+      cabinets={props.cabinets ?? []}
+      initialCabinetId={props.initialCabinetId ?? null}
+    />
+  );
 }

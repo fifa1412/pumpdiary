@@ -6,6 +6,14 @@ import { ScoreEntryForm } from "@/components/scores/score-entry-form";
 import type { SongOption } from "@/components/scores/types";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
 
+type CabinetOption = {
+  id: number;
+  serial_number: string;
+  name: string;
+  location: string;
+  country: string;
+};
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("scores");
   return { title: t("pageTitle") };
@@ -14,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function NewScorePage({
   searchParams,
 }: {
-  searchParams: Promise<{ chart?: string | string[] }>;
+  searchParams: Promise<{ chart?: string | string[]; cabinet?: string | string[] }>;
 }) {
   const [user, params, t] = await Promise.all([
     getCurrentUser(),
@@ -23,13 +31,19 @@ export default async function NewScorePage({
   ]);
   if (!user) redirect("/login");
 
+  const supabase = await createClient();
+  const { data: cabinets } = await supabase
+    .from("cabinets")
+    .select("id, serial_number, name, location, country")
+    .order("name")
+    .limit(250);
+
   const rawChart = Array.isArray(params.chart) ? params.chart[0] : params.chart;
   const chartId = rawChart && /^\d+$/.test(rawChart) ? Number(rawChart) : 0;
   let initialSong: SongOption | null = null;
   let initialChartId = 0;
 
   if (Number.isSafeInteger(chartId) && chartId > 0) {
-    const supabase = await createClient();
     const { data: chart } = await supabase
       .from("stepcharts")
       .select("id, song_id")
@@ -64,7 +78,12 @@ export default async function NewScorePage({
       <div className="mb-6 w-full max-w-2xl">
         <h1 className="font-display text-3xl font-bold">{t("pageTitle")}</h1>
       </div>
-      <ScoreEntryForm initialSong={initialSong} initialChartId={initialChartId} />
+      <ScoreEntryForm
+        initialSong={initialSong}
+        initialChartId={initialChartId}
+        cabinets={(cabinets ?? []) as CabinetOption[]}
+        initialCabinetId={Number(Array.isArray(params.cabinet) ? params.cabinet[0] : params.cabinet) || null}
+      />
     </div>
   );
 }

@@ -87,5 +87,30 @@
   "toasts": {
     "saved": "Score saved."
   },
+  "cabinet": {
+    "select": "Cabinet (optional)",
+    "search": "Search cabinets",
+    "searchPlaceholder": "Search by serial number, name, location, or country",
+    "noResults": "No cabinets found.",
+    "none": "No cabinet",
+    "addLink": "Can't find it? Add a cabinet",
+    "newTitle": "Add a cabinet",
+    "newDescription": "Add a cabinet to the shared catalog.",
+    "fields": {
+      "serialNumber": "Serial number",
+      "name": "Cabinet name",
+      "location": "Location",
+      "country": "Country"
+    },
+    "submit": "Add cabinet",
+    "saving": "Saving…",
+    "errors": {
+      "required": "Complete all cabinet fields.",
+      "duplicateSerial": "A cabinet with this serial number already exists."
+    },
+    "toasts": {
+      "created": "Cabinet added."
+    }
+  },
   "editTitle": "Edit score"
 }

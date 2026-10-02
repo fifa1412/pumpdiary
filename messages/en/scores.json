@@ -31,6 +31,7 @@
     "screenshotHelp": "Choose a WebP, JPEG, PNG, HEIC, or HEIF image. Images are resized to WebP, at most 1600 px on the long edge. Maximum upload size: 5 MB.",
     "resizing": "Preparing screenshot…",
     "reading": "Reading screenshot…",
+    "cancelReading": "Cancel",
     "flipScreenshot": "Flip horizontally and read again",
     "detected": "Detected — check this value",
     "detectedSong": "Song matched — check this selection",

@@ -326,7 +326,8 @@ function recognizedFieldCount(fields: OcrScoreFields): number {
   ].filter((value) => value !== undefined).length;
 }
 
-export async function recognizeScoreImage(image: Blob, flipped = false): Promise<OcrScoreFields> {
+export async function recognizeScoreImage(image: Blob, flipped = false, signal?: AbortSignal): Promise<OcrScoreFields> {
+  if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
   const { createWorker } = await import("tesseract.js");
   const assetBase = new URL("/ocr/", window.location.href);
   const worker = await createWorker("eng", 1, {
@@ -337,7 +338,16 @@ export async function recognizeScoreImage(image: Blob, flipped = false): Promise
   });
   let bitmap: ImageBitmap | undefined;
   let workerTerminated = false;
+  let termination: ReturnType<typeof worker.terminate> | undefined;
+  const terminateWorker = () => {
+    if (workerTerminated) return;
+    workerTerminated = true;
+    termination = worker.terminate();
+    void termination;
+  };
+  signal?.addEventListener("abort", terminateWorker, { once: true });
   try {
+    if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
     await worker.setParameters({
       preserve_interword_spaces: "1",
       tessedit_pageseg_mode: "11" as Parameters<typeof worker.setParameters>[0]["tessedit_pageseg_mode"],
@@ -359,7 +369,9 @@ export async function recognizeScoreImage(image: Blob, flipped = false): Promise
     context.filter = "grayscale(1) contrast(1.15)";
     context.drawImage(bitmap, cropLeft, cropTop, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
     const input = canvas;
+    if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
     const result = await worker.recognize(input, {}, { blocks: true });
+    if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
     const lines = result.data.blocks?.flatMap((block) => block.paragraphs.flatMap((paragraph) => paragraph.lines.map((line) => ({
       text: line.text,
       confidence: line.confidence,
@@ -397,7 +409,9 @@ export async function recognizeScoreImage(image: Blob, flipped = false): Promise
           tessedit_pageseg_mode: "11" as Parameters<typeof worker.setParameters>[0]["tessedit_pageseg_mode"],
           tessedit_char_whitelist: "0123456789",
         });
+        if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
         const scoreResult = await worker.recognize(scoreCanvas, {}, { blocks: true });
+        if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
         const values = scoreResult.data.blocks?.flatMap((block) => block.paragraphs.flatMap((paragraph) => paragraph.lines.flatMap((line) =>
           line.words.flatMap((word) => {
             const digits = word.text.replace(/,/g, "").match(/^(\d{6,7})$/)?.[1];
@@ -415,6 +429,7 @@ export async function recognizeScoreImage(image: Blob, flipped = false): Promise
         { left: 0.125, top: 0.39, width: 0.235, height: 0.07, contrast: 1 },
         { left: 0.17, top: 0.405, width: 0.17, height: 0.055, contrast: 1.1 },
       ]) {
+        if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
         const left = Math.round(bitmap.width * (flipped ? 1 - region.left - region.width : region.left));
         const top = Math.round(bitmap.height * region.top);
         const width = Math.round(bitmap.width * region.width);
@@ -462,7 +477,9 @@ export async function recognizeScoreImage(image: Blob, flipped = false): Promise
           tessedit_pageseg_mode: "6" as Parameters<typeof worker.setParameters>[0]["tessedit_pageseg_mode"],
           tessedit_char_whitelist: "",
         });
+        if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
         const plateResult = await worker.recognize(plateCanvas, {}, { blocks: true });
+        if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
         const plateLines = plateResult.data.blocks?.flatMap((block) => block.paragraphs.flatMap((paragraph) => paragraph.lines.map((line) => ({
           text: line.text,
           confidence: line.confidence,
@@ -477,14 +494,15 @@ export async function recognizeScoreImage(image: Blob, flipped = false): Promise
       }
     }
     if (!flipped && recognizedFieldCount(fields) === 0) {
-      await worker.terminate();
-      workerTerminated = true;
-      const reversedFields = await recognizeScoreImage(image, true);
+      terminateWorker();
+      const reversedFields = await recognizeScoreImage(image, true, signal);
       if (recognizedFieldCount(reversedFields) > 0) return reversedFields;
     }
     return fields;
   } finally {
+    signal?.removeEventListener("abort", terminateWorker);
     bitmap?.close();
-    if (!workerTerminated) await worker.terminate();
+    if (!workerTerminated) terminateWorker();
+    await termination;
   }
 }

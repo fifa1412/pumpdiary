@@ -132,9 +132,11 @@ function ScoreEntryFormContent({
   const [songPickerKey, setSongPickerKey] = useState(0);
   const screenshotInput = useRef<HTMLInputElement>(null);
   const previewDialog = useRef<HTMLDialogElement>(null);
+  const ocrDialog = useRef<HTMLDialogElement>(null);
   const previewTrigger = useRef<HTMLButtonElement>(null);
   const decodedImage = useRef<Blob | null>(null);
   const ocrRequest = useRef(0);
+  const ocrAbortController = useRef<AbortController | null>(null);
   const captureDateRequest = useRef(0);
   const captureDatePrefilled = useRef(false);
   const captureDateEdited = useRef(false);
@@ -150,6 +152,15 @@ function ScoreEntryFormContent({
     if (isPreviewOpen && !dialog.open) dialog.showModal();
     else if (!isPreviewOpen && dialog.open) dialog.close();
   }, [isPreviewOpen]);
+
+  useEffect(() => {
+    const dialog = ocrDialog.current;
+    if (!dialog) return;
+    if (isReading && !dialog.open) dialog.showModal();
+    else if (!isReading && dialog.open) dialog.close();
+  }, [isReading]);
+
+  useEffect(() => () => ocrAbortController.current?.abort(), []);
 
   const schema = useMemo(() => {
     const count = z.number({ invalid_type_error: t("validation.numberRequired") })
@@ -315,16 +326,29 @@ function ScoreEntryFormContent({
   }, [form]);
 
   async function readScreenshot(image: Blob, flipped: boolean) {
+    ocrAbortController.current?.abort();
+    const controller = new AbortController();
+    ocrAbortController.current = controller;
     const request = ++ocrRequest.current;
     setIsReading(true);
     try {
-      const fields = await recognizeScoreImage(image, flipped);
+      const fields = await recognizeScoreImage(image, flipped, controller.signal);
       if (request === ocrRequest.current) applyOcrFields(fields);
     } catch {
       // OCR is optional; the player can still fill the form manually.
     } finally {
-      if (request === ocrRequest.current) setIsReading(false);
+      if (request === ocrRequest.current) {
+        setIsReading(false);
+        ocrAbortController.current = null;
+      }
     }
+  }
+
+  function cancelOcr() {
+    ocrRequest.current += 1;
+    ocrAbortController.current?.abort();
+    ocrAbortController.current = null;
+    setIsReading(false);
   }
 
   async function onScreenshotChange(event: ChangeEvent<HTMLInputElement>) {
@@ -338,7 +362,7 @@ function ScoreEntryFormContent({
     }
     const captureRequest = ++captureDateRequest.current;
     resetCaptureDatePrefill();
-    ocrRequest.current += 1;
+    cancelOcr();
     decodedImage.current = null;
     setIsReading(false);
     setIsFlipped(false);
@@ -362,7 +386,7 @@ function ScoreEntryFormContent({
     } catch {
       captureDateRequest.current += 1;
       resetCaptureDatePrefill();
-      ocrRequest.current += 1;
+      cancelOcr();
       decodedImage.current = null;
       setIsReading(false);
       setScreenshotError(t("validation.imageProcessing"));
@@ -377,7 +401,7 @@ function ScoreEntryFormContent({
   function removeScreenshot() {
     captureDateRequest.current += 1;
     resetCaptureDatePrefill();
-    ocrRequest.current += 1;
+    cancelOcr();
     decodedImage.current = null;
     setIsReading(false);
     setIsFlipped(false);
@@ -618,7 +642,22 @@ function ScoreEntryFormContent({
               aria-invalid={!!screenshotError} />
             <p id="screenshot-help" className="text-sm text-muted-foreground">{t("fields.screenshotHelp")}</p>
             {isResizing ? <p role="status" className="text-sm text-muted-foreground">{t("fields.resizing")}</p> : null}
-            {isReading ? <p role="status" className="text-sm text-muted-foreground">{t("fields.reading")}</p> : null}
+            {isReading ? (
+              <dialog
+                ref={ocrDialog}
+                aria-labelledby="ocr-dialog-title"
+                onCancel={(event) => {
+                  event.preventDefault();
+                  cancelOcr();
+                }}
+                className="fixed inset-0 m-auto w-[min(24rem,calc(100%-2rem))] rounded-lg border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50"
+              >
+                <div className="space-y-5">
+                  <h2 id="ocr-dialog-title" className="text-lg font-semibold">{t("fields.reading")}</h2>
+                  <Button type="button" variant="outline" onClick={cancelOcr}>{t("fields.cancelReading")}</Button>
+                </div>
+              </dialog>
+            ) : null}
             {screenshotError ? <p id="screenshot-error" role="alert" className="text-sm text-destructive">{screenshotError}</p> : null}
             {screenshot && previewUrl ? (
               <div className="flex flex-wrap items-start gap-3">

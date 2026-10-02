@@ -125,6 +125,7 @@ function ScoreEntryFormContent({
   const [isFlipped, setIsFlipped] = useState(false);
   const [screenshotError, setScreenshotError] = useState("");
   const [detectedFields, setDetectedFields] = useState<Set<string>>(new Set());
+  const [isCaptureDateDetected, setIsCaptureDateDetected] = useState(false);
   const [ocrTitle, setOcrTitle] = useState<string>();
   const [ocrStepType, setOcrStepType] = useState<OcrScoreFields["stepType"]>();
   const [ocrLevel, setOcrLevel] = useState<number>();
@@ -134,6 +135,9 @@ function ScoreEntryFormContent({
   const previewTrigger = useRef<HTMLButtonElement>(null);
   const decodedImage = useRef<Blob | null>(null);
   const ocrRequest = useRef(0);
+  const captureDateRequest = useRef(0);
+  const captureDatePrefilled = useRef(false);
+  const captureDateEdited = useRef(false);
 
   useEffect(() => {
     if (!previewUrl) return;
@@ -211,16 +215,16 @@ function ScoreEntryFormContent({
       stagePass: true,
     },
   });
-  const { setValue } = form;
+  const { getValues, setValue } = form;
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       const localToday = todayLocalDate();
       setToday(localToday);
-      setValue("playedAt", localToday);
+      if (!getValues("playedAt")) setValue("playedAt", localToday);
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [setValue]);
+  }, [getValues, setValue]);
 
   const stagePass = useWatch({ control: form.control, name: "stagePass" });
   const selectedChartId = useWatch({ control: form.control, name: "stepchartId" });
@@ -232,9 +236,31 @@ function ScoreEntryFormContent({
   }
 
   function detectedNote(name: string) {
-    return detectedFields.has(name)
+    return detectedFields.has(name) || (name === "playedAt" && isCaptureDateDetected)
       ? <p className="text-xs text-muted-foreground">{t("fields.detected")}</p>
       : null;
+  }
+
+  function resetCaptureDatePrefill() {
+    if (captureDatePrefilled.current && !captureDateEdited.current) {
+      form.setValue("playedAt", todayLocalDate(), { shouldDirty: false });
+    }
+    captureDatePrefilled.current = false;
+    setIsCaptureDateDetected(false);
+  }
+
+  async function readScreenshotCaptureDate(file: File, request: number) {
+    try {
+      const { readCaptureDate } = await import("@/lib/scores/capture-date");
+      const captureDate = await readCaptureDate(file);
+      if (request !== captureDateRequest.current || !captureDate
+        || captureDate > todayLocalDate() || captureDateEdited.current) return;
+      form.setValue("playedAt", captureDate, { shouldDirty: false, shouldValidate: true });
+      captureDatePrefilled.current = true;
+      setIsCaptureDateDetected(true);
+    } catch {
+      // A missing or unreadable capture date leaves the current date unchanged.
+    }
   }
 
   function resetOcrPrefill() {
@@ -310,6 +336,8 @@ function ScoreEntryFormContent({
       event.target.value = "";
       return;
     }
+    const captureRequest = ++captureDateRequest.current;
+    resetCaptureDatePrefill();
     ocrRequest.current += 1;
     decodedImage.current = null;
     setIsReading(false);
@@ -320,6 +348,7 @@ function ScoreEntryFormContent({
 
     setIsResizing(true);
     try {
+      void readScreenshotCaptureDate(file, captureRequest);
       const decoded = isHeicFile(file) ? await decodeHeic(file) : file;
       decodedImage.current = decoded;
       void readScreenshot(decoded, false);
@@ -331,6 +360,8 @@ function ScoreEntryFormContent({
       setScreenshot(resized);
       setPreviewUrl(URL.createObjectURL(resized));
     } catch {
+      captureDateRequest.current += 1;
+      resetCaptureDatePrefill();
       ocrRequest.current += 1;
       decodedImage.current = null;
       setIsReading(false);
@@ -344,6 +375,8 @@ function ScoreEntryFormContent({
   }
 
   function removeScreenshot() {
+    captureDateRequest.current += 1;
+    resetCaptureDatePrefill();
     ocrRequest.current += 1;
     decodedImage.current = null;
     setIsReading(false);
@@ -523,8 +556,14 @@ function ScoreEntryFormContent({
               <Label htmlFor="played-at">{t("fields.playedAt")}</Label>
               <Input id="played-at" type="date" max={today || undefined}
                 aria-invalid={!!errors.playedAt} aria-describedby={errors.playedAt ? "played-at-error" : undefined}
-                {...form.register("playedAt")} />
+                {...form.register("playedAt")} onInput={(event) => {
+                  form.setValue("playedAt", event.currentTarget.value, { shouldDirty: true, shouldValidate: true });
+                  captureDateEdited.current = true;
+                  captureDatePrefilled.current = false;
+                  setIsCaptureDateDetected(false);
+                }} />
               <FieldError id="played-at-error" message={fieldError("playedAt")} />
+              {detectedNote("playedAt")}
             </div>
             <div className="space-y-2">
               <Label htmlFor="video-url">{t("fields.videoUrl")}</Label>

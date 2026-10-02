@@ -363,7 +363,7 @@ function ScoreEntryFormContent({
       detected.add("plate");
     }
     setDetectedFields(detected);
-    setOcrTitle(fields.title);
+    setOcrTitle(fields.titleCandidates?.join("\n") || fields.title);
     setOcrStepType(fields.stepType);
     setOcrLevel(fields.level);
   }

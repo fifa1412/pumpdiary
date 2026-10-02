@@ -16,6 +16,7 @@ export const OCR_FIELD_CONFIDENCE = {
 
 export type OcrScoreFields = {
   title?: string;
+  titleCandidates?: string[];
   stepType?: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
   level?: number;
   score?: number;
@@ -198,14 +199,15 @@ function findPlate(lines: OcrLine[], cropped = false): (typeof PLATES)[number] |
   return undefined;
 }
 
-function parseTitle(lines: OcrLine[]): string | undefined {
+function titleCandidate(lines: OcrLine[]): OcrLine | undefined {
   const candidates = lines.filter((line) => {
     const center = lineCenter(line);
     const text = line.text.trim().replace(/\s+/g, " ");
     const words = usefulWords(line);
     const contentWords = words.filter((word) => normalizedWord(word.text).length > 1);
-    if (center.y < 0.07 || center.y > 0.3 || center.x < 0.38 || center.x > 0.62 || line.confidence < 40 || !text || text.length > 60 || /#\s?\d+/.test(text)) return false;
-    if (contentWords.length === 0 || contentWords.some((word) => word.confidence < OCR_FIELD_CONFIDENCE.titleWord)) return false;
+    const inTitleBand = center.y >= 0.08 && center.y <= 0.27 && center.x >= 0.35 && center.x <= 0.65;
+    if (center.y < 0.025 || center.y > 0.3 || center.x < 0.3 || center.x > 0.7 || line.confidence < 25 || !text || text.length > 60 || /#\s?\d+/.test(text)) return false;
+    if (contentWords.length === 0 || contentWords.some((word) => word.confidence < (inTitleBand ? 25 : OCR_FIELD_CONFIDENCE.titleWord))) return false;
     if (/\b(?:LET'?S\s+PLAY|MBK\s+CENTER|FIFAZ|SINGLE|DOUBLE|HALF\s?DOUBLE|S\s?\d{1,2}|D\s?\d{1,2}|HD\s?\d{1,2})\b/i.test(text)) return false;
     if (/\b(?:PERFECT|GREAT|GOOD|BAD|MISS|MAX\s?COMBO|GAME|MARVELOUS|TALENTED|ULTIMATE|EXTREME|SUPERB|ROUGH|FAIR|PASS|FAILED|STAGE|SCORE|CREDIT|BGA|ABSOLUTE|EXPER\w*|NORMAL|HARD|DARK|LV)\b/i.test(text)) return false;
     if (/^[\d\s,.:+%-]+$/.test(text)) return false;
@@ -213,8 +215,63 @@ function parseTitle(lines: OcrLine[]): string | undefined {
     const digits = text.replace(/[^\p{N}]/gu, "").length;
     return letters >= 4 || (digits === 4 && letters === 0);
   });
-  candidates.sort((a, b) => b.confidence - a.confidence || Math.abs(lineCenter(a).y - 0.22) - Math.abs(lineCenter(b).y - 0.22));
-  return candidates[0]?.text.trim().replace(/\s+/g, " ");
+  candidates.sort((a, b) => {
+    const aWidth = a.bbox.x1 - a.bbox.x0;
+    const bWidth = b.bbox.x1 - b.bbox.x0;
+    return (b.confidence + bWidth * 100) - (a.confidence + aWidth * 100)
+      || Math.abs(lineCenter(a).y - 0.19) - Math.abs(lineCenter(b).y - 0.19);
+  });
+  return candidates[0];
+}
+
+function parseTitle(lines: OcrLine[]): string | undefined {
+  return titleCandidate(lines)?.text.trim().replace(/\s+/g, " ");
+}
+
+function parseAnchoredTitle(text: string): string | undefined {
+  const candidates = text.split(/\r?\n/).map((line) =>
+    line.replace(/[^\p{L}\p{N}]+/gu, " ").trim().replace(/\s+/g, " "),
+  ).filter((line) => {
+    const letters = line.replace(/[^\p{L}]/gu, "").length;
+    return line.length <= 60 && letters >= 4
+      && !/\b(?:FIFAZ|SINGLE|DOUBLE|PERFECT|GREAT|GOOD|BAD|MISS|GAME|SCORE|EXPERT|NORMAL|HARD|DARK|PASS|FAILED|STAGE)\b/i.test(line);
+  });
+  candidates.sort((a, b) => b.replace(/\s/g, "").length - a.replace(/\s/g, "").length);
+  return candidates[0];
+}
+
+function titleBarCenterY(bitmap: ImageBitmap): number {
+  const probeWidth = 256;
+  const probeHeight = Math.round(probeWidth * bitmap.height / bitmap.width);
+  const canvas = document.createElement("canvas");
+  canvas.width = probeWidth;
+  canvas.height = probeHeight;
+  const context = canvas.getContext("2d", { willReadFrequently: true });
+  if (!context) return 0.31;
+  context.drawImage(bitmap, 0, 0, probeWidth, probeHeight);
+  const { data } = context.getImageData(0, 0, probeWidth, probeHeight);
+  const minY = Math.floor(probeHeight * 0.14);
+  const maxY = Math.ceil(probeHeight * 0.32);
+  const span = Math.max(2, Math.round(probeHeight * 0.025));
+  let bestCenter = Math.round(probeHeight * 0.2);
+  let bestCount = 0;
+  for (let center = minY + span; center < maxY - span; center += 1) {
+    let count = 0;
+    for (let y = center - span; y <= center + span; y += 2) {
+      for (let x = Math.floor(probeWidth * 0.12); x < Math.ceil(probeWidth * 0.88); x += 2) {
+        const offset = (y * probeWidth + x) * 4;
+        const red = data[offset];
+        const green = data[offset + 1];
+        const blue = data[offset + 2];
+        if (green > red * 1.12 && green > blue * 1.05 && green > 45) count += 1;
+      }
+    }
+    if (count > bestCount) {
+      bestCount = count;
+      bestCenter = center;
+    }
+  }
+  return bestCount > probeWidth * 0.5 ? bestCenter / probeHeight : 0.31;
 }
 
 export function parseScoreOcr(lines: OcrLine[]): OcrScoreFields {
@@ -388,6 +445,70 @@ export async function recognizeScoreImage(image: Blob, flipped = false, signal?:
       })),
     })))) ?? [];
     const fields = parseScoreOcr(lines);
+    const detectedTitleLine = titleCandidate(lines);
+    const barCenterY = detectedTitleLine
+      ? cropTop / bitmap.height + lineCenter(detectedTitleLine).y * (cropHeight / bitmap.height)
+      : titleBarCenterY(bitmap);
+    const titleCropWidth = Math.round(bitmap.width * 0.34);
+    const titleCropHeight = Math.round(bitmap.height * 0.08);
+    const titleCrop = {
+      left: Math.round(bitmap.width * 0.35),
+      top: Math.max(0, Math.min(bitmap.height - titleCropHeight, Math.round(bitmap.height * (barCenterY - 0.034)))),
+      width: titleCropWidth,
+      height: titleCropHeight,
+    };
+    const titleCanvas = document.createElement("canvas");
+    titleCanvas.width = titleCrop.width * 3;
+    titleCanvas.height = titleCrop.height * 3;
+    const titleContext = titleCanvas.getContext("2d", { willReadFrequently: true });
+    if (titleContext) {
+      if (flipped) {
+        titleContext.translate(titleCanvas.width, 0);
+        titleContext.scale(-1, 1);
+      }
+      titleContext.drawImage(bitmap, titleCrop.left, titleCrop.top, titleCrop.width, titleCrop.height, 0, 0, titleCanvas.width, titleCanvas.height);
+      const imageData = titleContext.getImageData(0, 0, titleCanvas.width, titleCanvas.height);
+      for (let index = 0; index < imageData.data.length; index += 4) {
+        const red = imageData.data[index];
+        const green = imageData.data[index + 1];
+        const blue = imageData.data[index + 2];
+        const brightest = Math.max(red, green, blue);
+        const darkest = Math.min(red, green, blue);
+        const isGreen = green > red * 1.12 && green > blue * 1.05 && green > 45;
+        const value = isGreen ? 20 : brightest > 165 && brightest - darkest < 115 ? 255 : 0;
+        imageData.data[index] = value;
+        imageData.data[index + 1] = value;
+        imageData.data[index + 2] = value;
+        imageData.data[index + 3] = 255;
+      }
+      titleContext.putImageData(imageData, 0, 0);
+      await worker.setParameters({
+        preserve_interword_spaces: "1",
+        tessedit_pageseg_mode: "7" as Parameters<typeof worker.setParameters>[0]["tessedit_pageseg_mode"],
+        tessedit_char_whitelist: "",
+      });
+      if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
+      const titleResult = await worker.recognize(titleCanvas, {}, { blocks: true });
+      if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
+      const anchoredTitles = [parseAnchoredTitle(titleResult.data.text)].filter((title): title is string => Boolean(title));
+      if (anchoredTitles.length === 0 || !detectedTitleLine || detectedTitleLine.confidence < 70) {
+        const smallerTitleCanvas = document.createElement("canvas");
+        smallerTitleCanvas.width = titleCrop.width * 2;
+        smallerTitleCanvas.height = titleCrop.height * 2;
+        const smallerTitleContext = smallerTitleCanvas.getContext("2d");
+        if (smallerTitleContext) {
+          smallerTitleContext.drawImage(titleCanvas, 0, 0, smallerTitleCanvas.width, smallerTitleCanvas.height);
+          const smallerTitleResult = await worker.recognize(smallerTitleCanvas, {}, { blocks: true });
+          if (signal?.aborted) throw new DOMException("OCR cancelled", "AbortError");
+          const smallerTitle = parseAnchoredTitle(smallerTitleResult.data.text);
+          if (smallerTitle) anchoredTitles.push(smallerTitle);
+        }
+      }
+      if (anchoredTitles.length > 0) {
+        fields.titleCandidates = [...new Set([fields.title, ...anchoredTitles].filter((candidate): candidate is string => Boolean(candidate)))];
+        if (!fields.title) fields.title = anchoredTitles[0];
+      }
+    }
     if (fields.score === undefined) {
       const scoreCanvas = document.createElement("canvas");
       const scale = 4;

@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { matchSongTitle, songTitleSearchTerms } from "@/lib/songs/fuzzy-match";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
 import { createClient } from "@/lib/supabase/client";
 
@@ -48,29 +49,21 @@ export function SongChartPicker({
   useEffect(() => {
     if (!ocrTitle || initialSong || hasManualSelection.current) return;
     const requestedTitle = ocrTitle;
-    const sanitized = sanitizeSongSearchQuery(requestedTitle).replace(/_/g, "");
-    if (!sanitized) return;
+    const searchTerms = songTitleSearchTerms(requestedTitle);
+    if (searchTerms.length === 0) return;
     const request = ++matchRequest.current;
-    const normalize = (value: string) => value.normalize("NFKD").replace(/[^\p{L}\p{N}]/gu, "").toLocaleLowerCase("en");
 
     async function matchTitle() {
       const { data, error: requestError } = await createClient()
         .from("songs")
         .select("id, title, composer, stepcharts(id, step_type, level)")
-        .ilike("title", `${sanitized}%`)
+        .or(searchTerms.map((term) => `title.ilike.%${term}%`).join(","))
         .order("title", { ascending: true })
-        .limit(20);
+        .limit(100);
       if (request !== matchRequest.current || requestError) return;
-      const requestedNormalized = normalize(requestedTitle);
       const allSongs = (data ?? []) as unknown as SongOption[];
-      const exact = allSongs.filter((candidate) => normalize(candidate.title) === requestedNormalized);
-      const candidates = exact.length > 0
-        ? exact
-        : requestedNormalized.length >= 6
-          ? allSongs.filter((candidate) => normalize(candidate.title).startsWith(requestedNormalized))
-          : [];
-      if (candidates.length !== 1) return;
-      const match = candidates[0];
+      const match = matchSongTitle(requestedTitle, allSongs);
+      if (!match) return;
       setSong(match);
       setOcrMatchedSong(true);
       const chartMatches = match.stepcharts.filter((chart) =>

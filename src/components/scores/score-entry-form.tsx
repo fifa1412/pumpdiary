@@ -118,6 +118,7 @@ function ScoreEntryFormContent({
   const [formError, setFormError] = useState("");
   const [screenshot, setScreenshot] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState("");
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
   const [today, setToday] = useState("");
   const [isResizing, setIsResizing] = useState(false);
   const [isReading, setIsReading] = useState(false);
@@ -129,6 +130,8 @@ function ScoreEntryFormContent({
   const [ocrLevel, setOcrLevel] = useState<number>();
   const [songPickerKey, setSongPickerKey] = useState(0);
   const screenshotInput = useRef<HTMLInputElement>(null);
+  const previewDialog = useRef<HTMLDialogElement>(null);
+  const previewTrigger = useRef<HTMLButtonElement>(null);
   const decodedImage = useRef<Blob | null>(null);
   const ocrRequest = useRef(0);
 
@@ -136,6 +139,13 @@ function ScoreEntryFormContent({
     if (!previewUrl) return;
     return () => URL.revokeObjectURL(previewUrl);
   }, [previewUrl]);
+
+  useEffect(() => {
+    const dialog = previewDialog.current;
+    if (!dialog) return;
+    if (isPreviewOpen && !dialog.open) dialog.showModal();
+    else if (!isPreviewOpen && dialog.open) dialog.close();
+  }, [isPreviewOpen]);
 
   const schema = useMemo(() => {
     const count = z.number({ invalid_type_error: t("validation.numberRequired") })
@@ -574,9 +584,18 @@ function ScoreEntryFormContent({
             {screenshot && previewUrl ? (
               <div className="flex flex-wrap items-start gap-3">
                 {/* This local preview is an object URL and is revoked when it changes or unmounts. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={previewUrl} alt={t("fields.screenshotPreview")}
-                  className={`max-h-48 max-w-full rounded-md border object-contain ${isFlipped ? "scale-x-[-1]" : ""}`} />
+                <button
+                  ref={previewTrigger}
+                  type="button"
+                  aria-label={t("fields.screenshotPreview")}
+                  aria-haspopup="dialog"
+                  onClick={() => setIsPreviewOpen(true)}
+                  className="cursor-zoom-in rounded-md text-left focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={previewUrl} alt={t("fields.screenshotPreview")}
+                    className={`max-h-48 max-w-full rounded-md border object-contain ${isFlipped ? "scale-x-[-1]" : ""}`} />
+                </button>
                 <Button type="button" variant="outline" size="sm" onClick={toggleScreenshotFlip} disabled={isReading || isResizing || isSubmitting}
                   aria-pressed={isFlipped}>
                   {t("fields.flipScreenshot")}
@@ -587,6 +606,40 @@ function ScoreEntryFormContent({
                 </Button>
               </div>
             ) : null}
+            {screenshot && previewUrl ? <dialog
+              ref={previewDialog}
+              aria-label={t("fields.screenshotPreview")}
+              onCancel={() => setIsPreviewOpen(false)}
+              onClose={() => {
+                setIsPreviewOpen(false);
+                previewTrigger.current?.focus();
+              }}
+              onClick={(event) => {
+                if (event.target === event.currentTarget) setIsPreviewOpen(false);
+              }}
+              className="m-auto max-h-[96dvh] max-w-[98vw] bg-transparent p-0 text-foreground backdrop:bg-black/85"
+              style={{ touchAction: "pinch-zoom" }}
+            >
+              <div className="relative flex max-h-[96dvh] max-w-[98vw] items-center justify-center p-2">
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="icon"
+                  aria-label={t("fields.closePreview")}
+                  onClick={() => setIsPreviewOpen(false)}
+                  className="absolute right-3 top-3 z-10"
+                >
+                  <X aria-hidden="true" />
+                </Button>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={previewUrl}
+                  alt={t("fields.screenshotPreview")}
+                  className={`max-h-[92dvh] max-w-[96vw] object-contain ${isFlipped ? "scale-x-[-1]" : ""}`}
+                  style={{ touchAction: "pinch-zoom" }}
+                />
+              </div>
+            </dialog> : null}
           </div>
 
           {formError ? <p role="alert" className="text-sm text-destructive">{formError}</p> : null}

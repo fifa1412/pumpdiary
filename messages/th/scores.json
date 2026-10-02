@@ -36,6 +36,7 @@
     "detectedSong": "จับคู่เพลงจากภาพ — โปรดตรวจสอบรายการที่เลือก",
     "detectedChart": "ตรวจพบชาร์ตจากภาพ — โปรดตรวจสอบรายการที่เลือก",
     "screenshotPreview": "ตัวอย่างภาพหน้าจอ",
+    "closePreview": "ปิดภาพขยาย",
     "removeScreenshot": "นำภาพออก"
   },
   "grades": {

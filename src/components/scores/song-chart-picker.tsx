@@ -57,12 +57,18 @@ export function SongChartPicker({
       const { data, error: requestError } = await createClient()
         .from("songs")
         .select("id, title, composer, stepcharts(id, step_type, level)")
-        .or(`title.ilike.%${sanitized}%,composer.ilike.%${sanitized}%`)
+        .ilike("title", `${sanitized}%`)
         .order("title", { ascending: true })
         .limit(20);
       if (request !== matchRequest.current || requestError) return;
-      const candidates = ((data ?? []) as unknown as SongOption[])
-        .filter((candidate) => normalize(candidate.title) === normalize(requestedTitle));
+      const requestedNormalized = normalize(requestedTitle);
+      const allSongs = (data ?? []) as unknown as SongOption[];
+      const exact = allSongs.filter((candidate) => normalize(candidate.title) === requestedNormalized);
+      const candidates = exact.length > 0
+        ? exact
+        : requestedNormalized.length >= 6
+          ? allSongs.filter((candidate) => normalize(candidate.title).startsWith(requestedNormalized))
+          : [];
       if (candidates.length !== 1) return;
       const match = candidates[0];
       setSong(match);

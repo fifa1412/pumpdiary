@@ -36,6 +36,7 @@
     "detectedSong": "Song matched — check this selection",
     "detectedChart": "Chart detected — check this selection",
     "screenshotPreview": "Screenshot preview",
+    "closePreview": "Close image preview",
     "removeScreenshot": "Remove screenshot"
   },
   "grades": {

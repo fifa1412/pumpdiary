@@ -2,5 +2,7 @@
   "title": "Dashboard",
   "greeting": "Hi, {name}",
   "emptyTitle": "No scores logged yet",
-  "addScore": "Add score"
+  "addScore": "Add score",
+  "myScores": "My scores",
+  "noScores": "You have not added any scores yet."
 }

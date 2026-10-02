@@ -19,6 +19,26 @@ import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { SongChartPicker } from "./song-chart-picker";
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
 
+export type EditableScore = {
+  id: number;
+  stepchartId: number;
+  score: number;
+  grade: (typeof SCORE_GRADES)[number];
+  perfect: number;
+  great: number;
+  good: number;
+  bad: number;
+  miss: number;
+  maxCombo: number;
+  playedAt: string;
+  videoUrl: string;
+  note: string;
+  plate: (typeof SCORE_PLATES)[number] | "";
+  stagePass: boolean;
+  screenshotPath: string | null;
+  screenshotUrl: string | null;
+};
+
 const MAX_SCREENSHOT_BYTES = 5 * 1024 * 1024;
 const ACCEPTED_IMAGE_TYPES = ["image/webp", "image/jpeg", "image/png"];
 const YOUTUBE_URL =
@@ -108,11 +128,14 @@ function FieldError({ id, message }: { id: string; message?: string }) {
 function ScoreEntryFormContent({
   initialSong,
   initialChartId,
+  initialScore,
 }: {
   initialSong: SongOption | null;
   initialChartId: number;
+  initialScore?: EditableScore;
 }) {
   const t = useTranslations("scores");
+  const tc = useTranslations("common");
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
@@ -210,32 +233,50 @@ function ScoreEntryFormContent({
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      stepchartId: initialChartId,
-      score: undefined,
-      grade: "F",
-      perfect: 0,
-      great: 0,
-      good: 0,
-      bad: 0,
-      miss: 0,
-      maxCombo: 0,
-      playedAt: "",
-      videoUrl: "",
-      note: "",
-      plate: "",
-      stagePass: true,
+      stepchartId: initialScore?.stepchartId ?? initialChartId,
+      score: initialScore?.score,
+      grade: initialScore?.grade ?? "F",
+      perfect: initialScore?.perfect ?? 0,
+      great: initialScore?.great ?? 0,
+      good: initialScore?.good ?? 0,
+      bad: initialScore?.bad ?? 0,
+      miss: initialScore?.miss ?? 0,
+      maxCombo: initialScore?.maxCombo ?? 0,
+      playedAt: initialScore?.playedAt ?? "",
+      videoUrl: initialScore?.videoUrl ?? "",
+      note: initialScore?.note ?? "",
+      plate: initialScore?.plate ?? "",
+      stagePass: initialScore?.stagePass ?? true,
     },
   });
-  const { getValues, setValue } = form;
+  const { getValues, reset, setValue } = form;
 
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       const localToday = todayLocalDate();
       setToday(localToday);
+      if (initialScore) {
+        reset({
+          stepchartId: initialScore.stepchartId,
+          score: initialScore.score,
+          grade: initialScore.grade,
+          perfect: initialScore.perfect,
+          great: initialScore.great,
+          good: initialScore.good,
+          bad: initialScore.bad,
+          miss: initialScore.miss,
+          maxCombo: initialScore.maxCombo,
+          playedAt: initialScore.playedAt,
+          videoUrl: initialScore.videoUrl,
+          note: initialScore.note,
+          plate: initialScore.plate,
+          stagePass: initialScore.stagePass,
+        });
+      }
       if (!getValues("playedAt")) setValue("playedAt", localToday);
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [getValues, setValue]);
+  }, [getValues, reset, setValue, initialScore]);
 
   const stagePass = useWatch({ control: form.control, name: "stagePass" });
   const selectedChartId = useWatch({ control: form.control, name: "stepchartId" });
@@ -461,9 +502,8 @@ function ScoreEntryFormContent({
         }
       }
 
-      const playedAt = new Date(`${values.playedAt}T00:00:00`).toISOString();
-      const { error: insertError } = await supabase.from("scores").insert({
-        user_id: authData.user.id,
+      const playedAt = new Date(`${values.playedAt}T00:00:00.000Z`).toISOString();
+      const scoreValues = {
         stepchart_id: values.stepchartId,
         score: values.score,
         grade: values.grade,
@@ -478,24 +518,46 @@ function ScoreEntryFormContent({
         note: values.note.trim() || null,
         plate: values.stagePass && values.plate ? values.plate : null,
         stage_pass: values.stagePass,
-        screenshot_path: screenshotPath,
-      });
+        screenshot_path: screenshotPath ?? initialScore?.screenshotPath ?? null,
+      };
 
-      if (insertError) {
+      const { data: savedScore, error: saveError } = initialScore
+        ? await supabase.from("scores").update(scoreValues)
+          .eq("id", initialScore.id)
+          .eq("user_id", authData.user.id)
+          .select("id")
+          .maybeSingle()
+        : await supabase.from("scores").insert({
+          ...scoreValues,
+          user_id: authData.user.id,
+        }).select("id").maybeSingle();
+
+      if (saveError || !savedScore) {
         if (screenshotPath) {
           const cleaned = await cleanupUploadedScreenshot(screenshotPath);
           if (!cleaned) setScreenshotError(t("errors.orphanCleanup"));
         }
-        if (insertError.code === "23514") {
+        if (saveError?.code === "23514") {
           setFormError(t("errors.validation"));
-        } else if (insertError.code === "23503") {
+        } else if (saveError?.code === "23503") {
           setFormError(t("errors.invalidChart"));
-        } else if (insertError.code === "42501") {
+        } else if (saveError?.code === "42501" || !savedScore) {
           setFormError(t("errors.permission"));
         } else {
           setFormError(t("errors.generic"));
         }
         return;
+      }
+
+      if (initialScore?.screenshotPath && screenshotPath) {
+        try {
+          const { error: removeOldError } = await supabase.storage
+            .from("score-screenshots")
+            .remove([initialScore.screenshotPath]);
+          if (removeOldError) toast.error(tc("errors.generic"));
+        } catch {
+          toast.error(tc("errors.generic"));
+        }
       }
 
       toast.success(t("toasts.saved"));
@@ -514,7 +576,11 @@ function ScoreEntryFormContent({
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle className="font-display text-xl">{t("title")}</CardTitle>
+        <CardTitle className="font-display text-xl">
+          {initialScore
+            ? t.has("editTitle") ? t("editTitle") : t("pageTitle")
+            : t("title")}
+        </CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-6">
@@ -641,6 +707,12 @@ function ScoreEntryFormContent({
               aria-describedby={screenshotError ? "screenshot-error" : "screenshot-help"}
               aria-invalid={!!screenshotError} />
             <p id="screenshot-help" className="text-sm text-muted-foreground">{t("fields.screenshotHelp")}</p>
+            {initialScore?.screenshotUrl && !screenshot ? (
+              <div className="space-y-2">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={initialScore.screenshotUrl} alt={t("fields.screenshotPreview")} className="max-h-48 max-w-full rounded-md border object-contain" />
+              </div>
+            ) : null}
             {isResizing ? <p role="status" className="text-sm text-muted-foreground">{t("fields.resizing")}</p> : null}
             {isReading ? (
               <dialog
@@ -733,6 +805,7 @@ function ScoreEntryFormContent({
 export function ScoreEntryForm(props: {
   initialSong: SongOption | null;
   initialChartId: number;
+  initialScore?: EditableScore;
 }) {
   const locale = useLocale();
   return <ScoreEntryFormContent key={locale} {...props} />;

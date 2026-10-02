@@ -86,5 +86,6 @@
   },
   "toasts": {
     "saved": "Score saved."
-  }
+  },
+  "editTitle": "Edit score"
 }

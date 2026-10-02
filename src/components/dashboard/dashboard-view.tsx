@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -21,6 +22,7 @@ export type DashboardScore = {
   grade: string;
   plate: string | null;
   played_at: string;
+  screenshotUrl: string | null;
   stepchart: {
     step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
     level: number;
@@ -89,7 +91,21 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                     <Card className="flex h-full min-h-56 flex-col transition-colors group-hover:border-primary/50 group-focus-visible:border-primary">
                       <CardHeader className="pb-3">
                         <CardTitle title={chart.song.title} className="line-clamp-2 min-h-12 font-display text-lg leading-tight">{chart.song.title}</CardTitle>
-                        <p className="text-sm text-muted-foreground">{chartPrefix}{chart.level}</p>
+                        <div className="relative aspect-video overflow-hidden rounded-sm bg-muted/60">
+                          {score.screenshotUrl ? (
+                            <Image
+                              src={score.screenshotUrl}
+                              alt=""
+                              fill
+                              unoptimized
+                              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                              className="object-cover"
+                            />
+                          ) : null}
+                          <span className="absolute right-2 top-2 rounded-sm bg-background/90 px-2 py-1 text-xs font-semibold text-foreground shadow-sm">
+                            {chartPrefix}{chart.level}
+                          </span>
+                        </div>
                       </CardHeader>
                       <CardContent className="mt-auto space-y-2">
                         <div className="flex items-baseline justify-between gap-2">

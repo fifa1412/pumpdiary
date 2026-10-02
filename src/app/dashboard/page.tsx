@@ -32,14 +32,25 @@ export default async function DashboardPage({
   const page = Math.min(Math.max(1, parsedPage), totalPages);
   const { data, error } = await supabase
     .from("scores")
-    .select("id, score, grade, plate, played_at, stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title))")
+    .select("id, score, grade, plate, played_at, screenshot_path, stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title))")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .range((page - 1) * MY_SCORES_LIMIT, page * MY_SCORES_LIMIT - 1);
 
+  const scores = await Promise.all((data ?? []).map(async (score) => {
+    const { data: screenshot } = score.screenshot_path
+      ? await supabase.storage.from("score-screenshots").createSignedUrl(score.screenshot_path, 3600)
+      : { data: null };
+
+    return {
+      ...score,
+      screenshotUrl: screenshot?.signedUrl ?? null,
+    };
+  }));
+
   return <DashboardView
     user={user}
-    scores={(data ?? []) as unknown as DashboardScore[]}
+    scores={scores as unknown as DashboardScore[]}
     scoresFailed={Boolean(countError || error)}
     historyPage={page}
     historyPages={totalPages}

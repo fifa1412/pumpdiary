@@ -11,6 +11,10 @@
   "scoreCard": {
     "videoLabel": "วิดีโอการเล่น"
   },
+  "recentScores": {
+    "title": "คะแนนล่าสุด",
+    "empty": "ยังไม่มีใครแชร์คะแนน มาเป็นคนแรกที่บันทึกผลการเล่นกันเลย"
+  },
   "highlights": {
     "singleDouble": "รองรับ Single และ Double",
     "youtube": "แนบลิงก์วิดีโอ YouTube",

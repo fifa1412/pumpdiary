@@ -11,6 +11,10 @@
   "scoreCard": {
     "videoLabel": "Gameplay video"
   },
+  "recentScores": {
+    "title": "Recent scores",
+    "empty": "No scores have been shared yet. Be the first to log a play."
+  },
   "highlights": {
     "singleDouble": "Single and Double supported",
     "youtube": "Attach YouTube video links",

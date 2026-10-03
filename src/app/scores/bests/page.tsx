@@ -6,6 +6,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
 
 const PAGE_SIZE = 24;
@@ -32,10 +33,6 @@ function parsePage(raw: string | string[] | undefined): number {
   return Number.isSafeInteger(parsed) && parsed > 0 ? parsed : 1;
 }
 
-function chartPrefix(type: ChartDetails["step_type"]) {
-  return type === "SINGLE" ? "S" : type === "DOUBLE" ? "D" : "HD";
-}
-
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("scores.personalBests");
   return { title: t("title") };
@@ -46,8 +43,8 @@ export default async function PersonalBestsPage({
 }: {
   searchParams: Promise<{ page?: string | string[] }>;
 }) {
-  const [user, params, t, locale] = await Promise.all([
-    getCurrentUser(), searchParams, getTranslations("scores.personalBests"), getLocale(),
+  const [user, params, t, locale, common] = await Promise.all([
+    getCurrentUser(), searchParams, getTranslations("scores.personalBests"), getLocale(), getTranslations("common"),
   ]);
   if (!user) redirect("/login");
 
@@ -101,11 +98,16 @@ export default async function PersonalBestsPage({
               return (
                 <li key={score.stepchart_id}>
                   <Card className="h-full">
-                    <CardHeader className="pb-3">
-                      <CardTitle title={song.title} className="line-clamp-2 font-display text-lg leading-tight">
+                    <CardHeader className="flex flex-row items-start justify-between gap-3 pb-3">
+                      <CardTitle title={song.title} className="min-w-0 flex-1 line-clamp-2 font-display text-lg leading-tight">
                         {song.title}
                       </CardTitle>
-                      <p className="text-sm text-muted-foreground">{chartPrefix(chart.step_type)}{chart.level}</p>
+                      <LevelRingBadge
+                        stepType={chart.step_type}
+                        level={chart.level}
+                        label={chart.step_type === "SINGLE" ? common("stepTypes.single") : chart.step_type === "DOUBLE" ? common("stepTypes.double") : common("stepTypes.halfDouble")}
+                        size={64}
+                      />
                     </CardHeader>
                     <CardContent className="space-y-2">
                       <div className="flex items-baseline justify-between gap-2">

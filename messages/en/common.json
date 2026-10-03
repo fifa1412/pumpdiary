@@ -20,5 +20,10 @@
   },
   "footer": {
     "disclaimer": "PumpDiary is a fan project and is not affiliated with Andamiro or Pump It Up."
+  },
+  "stepTypes": {
+    "single": "SINGLE",
+    "double": "DOUBLE",
+    "halfDouble": "HALF DOUBLE"
   }
 }

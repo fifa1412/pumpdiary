@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { createClient } from "@/lib/supabase/server";
 
 type BestScoreRow = {
@@ -26,8 +27,8 @@ export default async function ChartLeaderboardPage({
 }: {
   params: Promise<{ chartId: string }>;
 }) {
-  const [{ chartId: rawChartId }, t, locale] = await Promise.all([
-    params, getTranslations("scores.leaderboard"), getLocale(),
+  const [{ chartId: rawChartId }, t, locale, common] = await Promise.all([
+    params, getTranslations("scores.leaderboard"), getLocale(), getTranslations("common"),
   ]);
   if (!/^\d+$/.test(rawChartId) || !Number.isSafeInteger(Number(rawChartId)) || Number(rawChartId) < 1) notFound();
   const chartId = Number(rawChartId);
@@ -57,14 +58,21 @@ export default async function ChartLeaderboardPage({
     : { data: [], error: null };
   const playerById = new Map(((players ?? []) as PlayerProfile[]).map((player) => [player.id, player.player_name]));
   const failed = Boolean(scoreError || playerError);
-  const chartPrefix = chart.step_type === "SINGLE" ? "S" : chart.step_type === "DOUBLE" ? "D" : "HD";
 
   return (
     <div className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:py-14">
-      <div className="mb-6">
-        <h1 className="font-display text-3xl font-bold">{t("title")}</h1>
-        <p className="mt-2 text-muted-foreground">{song.title} · {chartPrefix}{chart.level}</p>
-        <p className="mt-1 text-sm text-muted-foreground">{t("description")}</p>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 className="font-display text-3xl font-bold">{t("title")}</h1>
+          <p className="mt-2 text-muted-foreground">{song.title}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{t("description")}</p>
+        </div>
+        <LevelRingBadge
+          stepType={chart.step_type}
+          level={chart.level}
+          label={chart.step_type === "SINGLE" ? common("stepTypes.single") : chart.step_type === "DOUBLE" ? common("stepTypes.double") : common("stepTypes.halfDouble")}
+          size={72}
+        />
       </div>
 
       {failed ? (

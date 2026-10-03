@@ -16,6 +16,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { logoutUser, type CurrentUser } from "@/lib/auth";
+import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { ScreenshotLightbox } from "@/components/scores/screenshot-lightbox";
 
 export type DashboardScore = {
@@ -86,7 +87,6 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
               const chart = score.stepchart;
               if (!chart?.song) return null;
               const screenshotUrl = score.screenshotUrl;
-              const chartPrefix = chart.step_type === "SINGLE" ? "S" : chart.step_type === "DOUBLE" ? "D" : "HD";
               const playedDate = new Date(score.played_at).toLocaleDateString(locale, {
                 timeZone: "UTC",
                 year: "numeric", month: "short", day: "numeric",
@@ -127,9 +127,13 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                               />
                             </button>
                           ) : null}
-                          <span aria-hidden="true" className="pointer-events-none absolute right-2 top-2 z-30 rounded-sm bg-background/90 px-2 py-1 text-xs font-semibold text-foreground shadow-sm">
-                            {chartPrefix}{chart.level}
-                          </span>
+                          <LevelRingBadge
+                            stepType={chart.step_type}
+                            level={chart.level}
+                            label={chart.step_type === "SINGLE" ? tc("stepTypes.single") : chart.step_type === "DOUBLE" ? tc("stepTypes.double") : tc("stepTypes.halfDouble")}
+                            size={56}
+                            className="pointer-events-none absolute right-1 top-1 z-30"
+                          />
                         </div>
                       </CardHeader>
                       <CardContent className="mt-auto space-y-2">

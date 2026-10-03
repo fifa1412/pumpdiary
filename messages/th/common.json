@@ -20,5 +20,10 @@
   },
   "footer": {
     "disclaimer": "PumpDiary เป็นโปรเจกต์แฟนเมด ไม่มีส่วนเกี่ยวข้องกับ Andamiro หรือ Pump It Up อย่างเป็นทางการ"
+  },
+  "stepTypes": {
+    "single": "SINGLE",
+    "double": "DOUBLE",
+    "halfDouble": "HALF DOUBLE"
   }
 }

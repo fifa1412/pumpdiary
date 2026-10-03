@@ -82,7 +82,7 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
             </CardContent>
           </Card>
         ) : (
-          <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <ul className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-5">
             {scores.map((score) => {
               const chart = score.stepchart;
               if (!chart?.song) return null;
@@ -93,7 +93,7 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
               });
               return (
                 <li key={score.id} className="h-full">
-                  <Card className="group relative flex h-full min-h-56 flex-col transition-colors hover:border-primary/50">
+                  <Card className="group relative flex h-full min-h-0 flex-col gap-0 overflow-hidden p-0 transition-colors hover:border-primary/50">
                     <Link
                       href={`/scores/${score.id}/edit`}
                       aria-label={chart.song.title}
@@ -102,41 +102,41 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                       <span className="sr-only">{chart.song.title}</span>
                     </Link>
                     <div className="pointer-events-none relative z-10 flex h-full flex-col">
-                      <CardHeader className="pb-3">
-                        <CardTitle title={chart.song.title} className="line-clamp-2 min-h-12 font-display text-lg leading-tight">{chart.song.title}</CardTitle>
-                        <div className="relative aspect-video overflow-hidden rounded-sm bg-muted/60">
-                          {screenshotUrl ? (
-                            <button
-                              ref={zoomTrigger}
-                              type="button"
-                              aria-label={ts("fields.screenshotPreview")}
-                              aria-haspopup="dialog"
-                              onClick={(event) => {
-                                zoomTrigger.current = event.currentTarget;
-                                setZoomedScreenshot({ scoreId: score.id, src: screenshotUrl });
-                              }}
-                              className="pointer-events-auto absolute inset-0 z-30 h-full w-full cursor-zoom-in rounded-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/70"
-                            >
-                              <Image
-                                src={screenshotUrl}
-                                alt=""
-                                fill
-                                unoptimized
-                                sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-                                className="object-cover"
-                              />
-                            </button>
-                          ) : null}
-                          <LevelRingBadge
-                            stepType={chart.step_type}
-                            level={chart.level}
-                            label={chart.step_type === "SINGLE" ? tc("stepTypes.single") : chart.step_type === "DOUBLE" ? tc("stepTypes.double") : tc("stepTypes.halfDouble")}
-                            size={56}
-                            className="pointer-events-none absolute right-1 top-1 z-30"
-                          />
-                        </div>
-                      </CardHeader>
-                      <CardContent className="mt-auto space-y-2">
+                      <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-muted/60">
+                        {screenshotUrl ? (
+                          <button
+                            ref={zoomTrigger}
+                            type="button"
+                            aria-label={ts("fields.screenshotPreview")}
+                            aria-haspopup="dialog"
+                            onClick={(event) => {
+                              zoomTrigger.current = event.currentTarget;
+                              setZoomedScreenshot({ scoreId: score.id, src: screenshotUrl });
+                            }}
+                            className="pointer-events-auto absolute inset-0 z-30 h-full w-full cursor-zoom-in rounded-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/70"
+                          >
+                            <Image
+                              src={screenshotUrl}
+                              alt=""
+                              fill
+                              unoptimized
+                              sizes="(min-width: 1280px) 20vw, (min-width: 768px) 33vw, 50vw"
+                              className="object-cover"
+                            />
+                          </button>
+                        ) : null}
+                        <LevelRingBadge
+                          stepType={chart.step_type}
+                          level={chart.level}
+                          label={chart.step_type === "SINGLE" ? tc("stepTypes.single") : chart.step_type === "DOUBLE" ? tc("stepTypes.double") : tc("stepTypes.halfDouble")}
+                          size={56}
+                          className="pointer-events-none absolute right-1 top-1 z-30"
+                        />
+                        <CardTitle title={chart.song.title} className="absolute inset-x-0 bottom-0 z-30 truncate bg-background/90 px-3 py-2 text-sm font-semibold leading-tight">
+                          {chart.song.title}
+                        </CardTitle>
+                      </div>
+                      <CardContent className="mt-auto space-y-2 px-3 pb-3 pt-3">
                         <div className="flex items-baseline justify-between gap-2">
                           <span className="font-display text-2xl font-bold text-accent">{score.grade}</span>
                           <span className="font-numeric text-lg font-semibold tabular-nums">{score.score.toLocaleString(locale)}</span>

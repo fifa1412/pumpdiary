@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Trophy } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { levelBadgeUrl } from "@/lib/songs/level-badges";
 import { cn } from "@/lib/utils";
 
 import type { SongChart, StepType } from "./types";
@@ -40,31 +42,45 @@ export function ChartBadges({
 
   return (
     <ul aria-label={label} className="flex flex-wrap gap-1.5">
-      {sorted.map((chart) => (
-        <li key={`${chart.step_type}-${chart.level}`} className="inline-flex items-center gap-0.5">
-          <Link
-            href={`/scores/new?chart=${chart.id}`}
-            aria-label={`${STEP_PREFIX[chart.step_type]}${chart.level}`}
-            className="inline-flex rounded-[3px] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
-          >
-            <Badge
-              variant="outline"
-              className={cn("font-numeric tabular-nums", STEP_CLASS[chart.step_type])}
+      {sorted.map((chart) => {
+        const badgeUrl = levelBadgeUrl(chart.step_type, chart.level);
+        return (
+          <li key={`${chart.step_type}-${chart.level}`} className="inline-flex items-center gap-0.5">
+            <Link
+              href={`/scores/new?chart=${chart.id}`}
+              aria-label={`${STEP_PREFIX[chart.step_type]}${chart.level}`}
+              className="inline-flex rounded-[3px] outline-none transition-transform hover:scale-105 focus-visible:ring-[3px] focus-visible:ring-ring/50"
             >
-              {STEP_PREFIX[chart.step_type]}
-              {chart.level}
-            </Badge>
-          </Link>
-          <Link
-            href={`/charts/${chart.id}/leaderboard`}
-            aria-label={`${leaderboardLabel} ${STEP_PREFIX[chart.step_type]}${chart.level}`}
-            title={`${leaderboardLabel} ${STEP_PREFIX[chart.step_type]}${chart.level}`}
-            className="inline-flex size-6 items-center justify-center rounded-[3px] text-muted-foreground outline-none hover:bg-accent hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50"
-          >
-            <Trophy aria-hidden="true" className="size-3.5" />
-          </Link>
-        </li>
-      ))}
+              {badgeUrl ? (
+                <Image
+                  src={badgeUrl}
+                  alt=""
+                  width={44}
+                  height={44}
+                  unoptimized
+                  className="size-11"
+                />
+              ) : (
+                <Badge
+                  variant="outline"
+                  className={cn("font-numeric tabular-nums", STEP_CLASS[chart.step_type])}
+                >
+                  {STEP_PREFIX[chart.step_type]}
+                  {chart.level}
+                </Badge>
+              )}
+            </Link>
+            <Link
+              href={`/charts/${chart.id}/leaderboard`}
+              aria-label={`${leaderboardLabel} ${STEP_PREFIX[chart.step_type]}${chart.level}`}
+              title={`${leaderboardLabel} ${STEP_PREFIX[chart.step_type]}${chart.level}`}
+              className="inline-flex size-6 items-center justify-center rounded-[3px] text-muted-foreground outline-none hover:bg-accent hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            >
+              <Trophy aria-hidden="true" className="size-3.5" />
+            </Link>
+          </li>
+        );
+      })}
     </ul>
   );
 }

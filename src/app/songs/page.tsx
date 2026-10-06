@@ -92,7 +92,7 @@ export default async function SongsPage({
               {t("noResults", { query })}
             </p>
           ) : (
-            <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {songs.map((song) => (
                 <SongCard key={song.id} song={song} />
               ))}

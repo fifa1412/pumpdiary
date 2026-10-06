@@ -45,6 +45,8 @@ const TAG_TYPES = {
   remix: "REMIX",
 };
 const SKIPPED_TAGS = new Set(["skill up"]);
+// Series folders whose "_B" images are never used (the plain file is the card).
+const NO_B_SERIES = /phoenix 2/i;
 
 function fail(message) {
   console.error(`import_jackets: ${message}`);
@@ -120,7 +122,10 @@ async function chooseImage(folder) {
   // XX-era folders carry a "-wide[XX]" title card, which beats every other image.
   const xxWide = files.filter((file) => /-wide\[XX\]\.(png|jpe?g)$/i.test(file)).sort()[0];
   if (xxWide) return { file: xxWide, how: "-wide[XX]" };
-  const images = files.filter((file) => /\.(png|jpe?g)$/i.test(file) && !/-wide\./i.test(file)).sort();
+  const images = files
+    .filter((file) => /\.(png|jpe?g)$/i.test(file) && !/-wide\./i.test(file))
+    .filter((file) => !(NO_B_SERIES.test(folder.series) && /_B\.(png|jpe?g)$/i.test(file)))
+    .sort();
   if (images.length <= 1) return images[0] ? { file: images[0], how: "only image" } : null;
 
   // "X.png" next to "X_B.png": X is the plain title card when it is 4:3
@@ -312,6 +317,9 @@ async function main() {
   }
 
   const withImage = new Set(chosen.map((c) => c.song.id));
+  const changes = chosen
+    .map((c) => ({ c, before: manifest[`${c.song.title.toLowerCase()}|${c.song.song_type}`]?.source }))
+    .filter(({ c, before }) => before !== relative(args.dir, join(c.folder.path, c.file)));
   const missingSongs = songs.filter((song) => !withImage.has(song.id));
   const report = [
     "# Jacket import report",
@@ -322,6 +330,10 @@ async function main() {
     `- Catalog songs with an image found: ${chosen.length} of ${songs.length}`,
     `- Uploaded so far (manifest): ${Object.keys(manifest).length}`,
     `- Folders skipped: ${skipped.length}; folders matching no catalog song: ${unmatched.length}`,
+    "",
+    `## Image changes ${args.upload ? "not uploaded (outside --only)" : "pending (run with --upload)"} (${changes.length})`,
+    "",
+    ...changes.map(({ c, before }) => `- ${mdCell(c.song.title)} (${c.song.song_type}): ${before ? mdCell(before) : "new"} -> ${mdCell(`${c.folder.series}/${c.folder.name}/${c.file}`)}`),
     "",
     "## Image choices with more than one candidate",
     "",

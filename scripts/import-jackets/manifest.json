@@ -41,6 +41,12 @@
     "path": "1359-f4df1685da.webp",
     "source": "07.NX~NXA/(2) D14 - 2006 Love Song/D14.png"
   },
+  "404 (new era)|NORMAL": {
+    "title": "404 (New Era)",
+    "song_type": "NORMAL",
+    "path": "3257-b7be585119.webp",
+    "source": "22-PHOENIX 2/19130 - 404 (New Era)/404 (New Era).png"
+  },
   "4nt|NORMAL": {
     "title": "4NT",
     "song_type": "NORMAL",
@@ -281,6 +287,12 @@
     "path": "1512-4e88c803e8.webp",
     "source": "11.PRIME/1412 - B2/1412.png"
   },
+  "b3|NORMAL": {
+    "title": "B3",
+    "song_type": "NORMAL",
+    "path": "3268-b38ab61cba.webp",
+    "source": "22-PHOENIX 2/19030 - B3/B3.png"
+  },
   "bad apple!! feat. nomico|FULLSONG": {
     "title": "Bad Apple!! feat. Nomico",
     "song_type": "FULLSONG",
@@ -292,6 +304,12 @@
     "song_type": "NORMAL",
     "path": "1556-4b53aa12d6.webp",
     "source": "11.PRIME/1481 - Bad Apple!! (feat. Nomico)/1481.png"
+  },
+  "bang bang|NORMAL": {
+    "title": "BANG BANG",
+    "song_type": "NORMAL",
+    "path": "3258-187e345183.webp",
+    "source": "22-PHOENIX 2/19120 - BANG BANG/BANG BANG.png"
   },
   "banya classic remix|REMIX": {
     "title": "Banya Classic Remix",
@@ -461,6 +479,12 @@
     "path": "1336-b6ec233c88.webp",
     "source": "06.EXCEED~ZERO/(3) A04 - Blazing/A04.PNG"
   },
+  "blazor|NORMAL": {
+    "title": "BLAZOR",
+    "song_type": "NORMAL",
+    "path": "3250-82af2d06ee.webp",
+    "source": "22-PHOENIX 2/19020 - BLAZOR/BLAZOR.png"
+  },
   "bluish rose|NORMAL": {
     "title": "Bluish Rose",
     "song_type": "NORMAL",
@@ -545,11 +569,23 @@
     "path": "1442-c3b8f1adea.webp",
     "source": "09.FIESTA EX/1105 - Butterfly/1105.png"
   },
+  "call me back|NORMAL": {
+    "title": "CALL ME BACK",
+    "song_type": "NORMAL",
+    "path": "3265-8c897584af.webp",
+    "source": "22-PHOENIX 2/19135 - CALL ME BACK/CALL ME BACK.png"
+  },
   "campanella|NORMAL": {
     "title": "Campanella",
     "song_type": "NORMAL",
     "path": "1533-30d1b40537.webp",
     "source": "11.PRIME/1434 - Campanella/1434.png"
+  },
+  "can i friend you on bassbook? lol|NORMAL": {
+    "title": "Can I friend you on Bassbook? lol",
+    "song_type": "NORMAL",
+    "path": "3239-d999c788a5.webp",
+    "source": "22-PHOENIX 2/19249 - Can I friend you on Bassbook lol/Can I friend you on Bassbook lol.png"
   },
   "can-can ~orpheus in the party mix~ - short cut -|SHORTCUT": {
     "title": "Can-can ~Orpheus in The Party Mix~ - SHORT CUT -",
@@ -719,6 +755,12 @@
     "path": "1538-2ac4ddbd94.webp",
     "source": "11.PRIME/1457 - Cosmical Rhythm/1457.PNG"
   },
+  "crash-landing rendezvous|NORMAL": {
+    "title": "Crash-Landing Rendezvous",
+    "song_type": "NORMAL",
+    "path": "3246-fd72d33a50.webp",
+    "source": "22-PHOENIX 2/19250 - Crash-Landing Rendezvous/Crash-Landing Rendezvous.png"
+  },
   "crimson hood|NORMAL": {
     "title": "Crimson hood",
     "song_type": "NORMAL",
@@ -887,6 +929,18 @@
     "path": "1735-5eaa37eb70.webp",
     "source": "13.XX/1632 - DESTRUCIMATE/1632.png"
   },
+  "die another day|NORMAL": {
+    "title": "DIE ANOTHER DAY",
+    "song_type": "NORMAL",
+    "path": "3254-ddbc7cf667.webp",
+    "source": "22-PHOENIX 2/19140 - DIE ANOTHER DAY/DIE ANOTHER DAY.png"
+  },
+  "digitalis|NORMAL": {
+    "title": "Digitalis",
+    "song_type": "NORMAL",
+    "path": "3252-91658dcfe6.webp",
+    "source": "22-PHOENIX 2/19040 - Digitalis/Digitalis.png"
+  },
   "dignity -full song-|FULLSONG": {
     "title": "Dignity -FULL SONG-",
     "song_type": "FULLSONG",
@@ -935,6 +989,12 @@
     "path": "1851-016f27541d.webp",
     "source": "15.PHOENIX/18067.5 - DO or DIE/DO or DIE_B.png"
   },
+  "do the dance|NORMAL": {
+    "title": "Do the Dance",
+    "song_type": "NORMAL",
+    "path": "3264-5410506db1.webp",
+    "source": "22-PHOENIX 2/19110 - Do the Dance/Do the Dance.png"
+  },
   "dolly kiss|NORMAL": {
     "title": "Dolly KiSS",
     "song_type": "NORMAL",
@@ -970,6 +1030,12 @@
     "song_type": "NORMAL",
     "path": "1473-58a48ad6aa.webp",
     "source": "10.FIESTA 2/(1) 1228 - Dream To Nightmare/1228.PNG"
+  },
+  "dreamchasers|NORMAL": {
+    "title": "Dreamchasers",
+    "song_type": "NORMAL",
+    "path": "3263-6e37707f57.webp",
+    "source": "22-PHOENIX 2/19450 - Dreamchasers/Dreamchasers.png"
   },
   "dual racing <red vs blue>|NORMAL": {
     "title": "Dual Racing <RED vs BLUE>",
@@ -1036,6 +1102,12 @@
     "song_type": "NORMAL",
     "path": "1793-4de8a641ac.webp",
     "source": "15.PHOENIX/18210 - Energy Synergy Matrix/Energy Synergy Matrix_B.png"
+  },
+  "enjoy the show|NORMAL": {
+    "title": "Enjoy The Show",
+    "song_type": "NORMAL",
+    "path": "3240-64d61036e8.webp",
+    "source": "22-PHOENIX 2/19001 - Enjoy the Show/Enjoy The Show.png"
   },
   "errorcode: 0|REMIX": {
     "title": "ERRORCODE: 0",
@@ -1241,6 +1313,12 @@
     "path": "1290-0d584fd226.webp",
     "source": "04.1ST~PERFECT/(1) 308 - Free Style/308.png"
   },
+  "freedom dive|NORMAL": {
+    "title": "Freedom Dive",
+    "song_type": "NORMAL",
+    "path": "3233-bcc1cb0eed.webp",
+    "source": "22-PHOENIX 2/19290 - FREEDOM DiVE/FREEDOM DiVE.png"
+  },
   "full moon - full song -|FULLSONG": {
     "title": "Full Moon - FULL SONG -",
     "song_type": "FULLSONG",
@@ -1294,6 +1372,12 @@
     "song_type": "NORMAL",
     "path": "1310-414a50a724.webp",
     "source": "05.EXTRA~PREX 3/(2) 703 - Get Your Groove On/703.png"
+  },
+  "ghost bloody train|NORMAL": {
+    "title": "Ghost Bloody Train",
+    "song_type": "NORMAL",
+    "path": "3243-d7f138f0ec.webp",
+    "source": "22-PHOENIX 2/19015 - Ghost Bloody Train/Ghost Bloody Train.png"
   },
   "ghroth - short cut -|SHORTCUT": {
     "title": "Ghroth - SHORT CUT -",
@@ -1631,6 +1715,12 @@
     "path": "1720-f7603d5b21.webp",
     "source": "13.XX/1669 - Indestructible/1669.png"
   },
+  "infinite enerzy -overdoze-|NORMAL": {
+    "title": "INFiNiTE ENERZY -Overdoze-",
+    "song_type": "NORMAL",
+    "path": "3242-725a8129e9.webp",
+    "source": "22-PHOENIX 2/19280 - INFiNiTE ENERZY -Overdoze-/INFiNiTE ENERZY -Overdoze-.png"
+  },
   "infinity rmx|REMIX": {
     "title": "Infinity RMX",
     "song_type": "REMIX",
@@ -1793,6 +1883,12 @@
     "path": "1786-dabbc761ed.webp",
     "source": "15.PHOENIX/18030 - KUGUTSU/KUGUTSU_B.png"
   },
+  "l (piu edit)|NORMAL": {
+    "title": "L (PIU Edit)",
+    "song_type": "NORMAL",
+    "path": "3234-91a530cdc1.webp",
+    "source": "22-PHOENIX 2/19245 - L (PIU Edit)/L (PIU Edit).png"
+  },
   "la cinquantaine|NORMAL": {
     "title": "La Cinquantaine",
     "song_type": "NORMAL",
@@ -1858,6 +1954,12 @@
     "song_type": "REMIX",
     "path": "1611-eb93159012.webp",
     "source": "12.PRIME 2/15D3 - [Remix] Leather/15D3.png"
+  },
+  "legendary dominion|NORMAL": {
+    "title": "Legendary Dominion",
+    "song_type": "NORMAL",
+    "path": "3232-27b5052f99.webp",
+    "source": "22-PHOENIX 2/19070 - Legendary Dominion/Legendary Dominion.png"
   },
   "lepton strike|NORMAL": {
     "title": "Lepton Strike",
@@ -2237,6 +2339,12 @@
     "path": "1753-1ba8b5bfb5.webp",
     "source": "09.FIESTA EX/1151 - Night Duty/1151.png"
   },
+  "nighttheater|NORMAL": {
+    "title": "NightTheater",
+    "song_type": "NORMAL",
+    "path": "3261-0698e63763.webp",
+    "source": "22-PHOENIX 2/19270 - NightTheater/NightTheater.png"
+  },
   "nihilism -another ver.-|NORMAL": {
     "title": "Nihilism -Another Ver.-",
     "song_type": "NORMAL",
@@ -2332,6 +2440,12 @@
     "song_type": "NORMAL",
     "path": "1608-30702066d9.webp",
     "source": "12.PRIME 2/1518 - Overblow2/1518.png"
+  },
+  "overnight flower|NORMAL": {
+    "title": "OVERNIGHT FLOWER",
+    "song_type": "NORMAL",
+    "path": "3235-7dac5e499e.webp",
+    "source": "22-PHOENIX 2/19060 - OVERNIGHT FLOWER/OVERNIGHT FLOWER.png"
   },
   "oy oy oy|NORMAL": {
     "title": "Oy Oy Oy",
@@ -2591,11 +2705,23 @@
     "path": "1376-49a1b79365.webp",
     "source": "07.NX~NXA/(1) E13 - Pumptris Quattro/E13.png"
   },
+  "punishment restaurant|NORMAL": {
+    "title": "Punishment Restaurant",
+    "song_type": "NORMAL",
+    "path": "3262-511982433f.webp",
+    "source": "22-PHOENIX 2/19010 - Punishment Restaurant/Punishment Restaurant.png"
+  },
   "pupa|NORMAL": {
     "title": "PUPA",
     "song_type": "NORMAL",
     "path": "1816-5bda91139f.webp",
     "source": "15.PHOENIX/18238 - PUPA/PUPA_B.png"
+  },
+  "quattuorux|NORMAL": {
+    "title": "QUATTUORUX",
+    "song_type": "NORMAL",
+    "path": "3236-2139449af4.webp",
+    "source": "22-PHOENIX 2/19260 - QUATTUORUX/QUATTUORUX.png"
   },
   "queen of the red|NORMAL": {
     "title": "Queen Of The Red",
@@ -3053,6 +3179,12 @@
     "path": "1601-ffae773ced.webp",
     "source": "12.PRIME 2/15A7 - Super Stylin'/15A7.png"
   },
+  "super☆haraguro☆pop|NORMAL": {
+    "title": "SUPER☆HARAGURO☆POP",
+    "song_type": "NORMAL",
+    "path": "3248-fa958a1083.webp",
+    "source": "22-PHOENIX 2/19460 - SUPER HARAGURO POP/SUPER HARAGURO POP.png"
+  },
   "sweet wonderland|NORMAL": {
     "title": "SWEET WONDERLAND",
     "song_type": "NORMAL",
@@ -3070,6 +3202,12 @@
     "song_type": "NORMAL",
     "path": "1718-15f45b8bad.webp",
     "source": "13.XX/1602 - Switronic/1602.png"
+  },
+  "t.b.h|NORMAL": {
+    "title": "T.B.H",
+    "song_type": "NORMAL",
+    "path": "3244-98e437140e.webp",
+    "source": "22-PHOENIX 2/19100 - T.B.H/T.B.H.png"
   },
   "take out|NORMAL": {
     "title": "Take Out",
@@ -3155,6 +3293,12 @@
     "path": "1630-590af3476d.webp",
     "source": "12.PRIME 2/1595 - The Festival of Ghost2 (Sneak)/1595.png"
   },
+  "the last rebellion|NORMAL": {
+    "title": "The Last Rebellion",
+    "song_type": "NORMAL",
+    "path": "3241-f22442da4e.webp",
+    "source": "22-PHOENIX 2/19050 - The Last Rebellion/The Last Rebellion.png"
+  },
   "the people didn't know pumping up|REMIX": {
     "title": "The People didn't know Pumping up",
     "song_type": "REMIX",
@@ -3184,6 +3328,12 @@
     "song_type": "NORMAL",
     "path": "1536-2b0de06234.webp",
     "source": "11.PRIME/1453 - The Revolution/1453.png"
+  },
+  "the stranger|NORMAL": {
+    "title": "The Stranger",
+    "song_type": "NORMAL",
+    "path": "3238-ff623ed194.webp",
+    "source": "22-PHOENIX 2/19095 - The Stranger/The Stranger.png"
   },
   "till the end of time|NORMAL": {
     "title": "Till the end of time",

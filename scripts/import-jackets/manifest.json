@@ -221,6 +221,12 @@
     "path": "1281-4659b8c19b.webp",
     "source": "04.1ST~PERFECT/(3) 112 - Another Truth/112.PNG"
   },
+  "antique serenade|NORMAL": {
+    "title": "Antique Serenade",
+    "song_type": "NORMAL",
+    "path": "3256-a699f1e5f8.webp",
+    "source": "90-PIU SCORES/W07 - Antique Serenade/W07.png"
+  },
   "appassionata|NORMAL": {
     "title": "Appassionata",
     "song_type": "NORMAL",
@@ -875,6 +881,12 @@
     "path": "1764-45ae583014.webp",
     "source": "13.XX/16B4 - Cygnus/16B4.png"
   },
+  "cynical|NORMAL": {
+    "title": "Cynical",
+    "song_type": "NORMAL",
+    "path": "3260-9e6a6004f9.webp",
+    "source": "90-PIU SCORES/W08 - Cynical/W08.png"
+  },
   "d gang|NORMAL": {
     "title": "D Gang",
     "song_type": "NORMAL",
@@ -1019,6 +1031,12 @@
     "path": "1877-3dda3308eb.webp",
     "source": "15.PHOENIX/18D10 - [Remix] DISTRICT V/[Remix] DISTRICT V.png"
   },
+  "dizzy dance, street light|NORMAL": {
+    "title": "Dizzy Dance, Street Light",
+    "song_type": "NORMAL",
+    "path": "3251-62734f52eb.webp",
+    "source": "90-PIU SCORES/W04 - Dizzy Dance, Street Light/W04.png"
+  },
   "dj otada|NORMAL": {
     "title": "DJ Otada",
     "song_type": "NORMAL",
@@ -1162,6 +1180,12 @@
     "song_type": "NORMAL",
     "path": "3240-64d61036e8.webp",
     "source": "22-PHOENIX 2/19001 - Enjoy the Show/Enjoy The Show.png"
+  },
+  "ercitite|NORMAL": {
+    "title": "Ercitite",
+    "song_type": "NORMAL",
+    "path": "3255-cfe9397c39.webp",
+    "source": "90-PIU SCORES/W06 - Ercitite/W06.png"
   },
   "errorcode: 0|REMIX": {
     "title": "ERRORCODE: 0",
@@ -1985,6 +2009,12 @@
     "path": "1667-4882a23058.webp",
     "source": "13.XX/1630 - Kimchi Fingers/1630.png"
   },
+  "king’s tomb|NORMAL": {
+    "title": "King’s Tomb",
+    "song_type": "NORMAL",
+    "path": "3247-fe54040309.webp",
+    "source": "90-PIU SCORES/W02 - King’s Tomb/W02.png"
+  },
   "kitty cat|NORMAL": {
     "title": "Kitty Cat",
     "song_type": "NORMAL",
@@ -2182,6 +2212,12 @@
     "song_type": "NORMAL",
     "path": "1487-5f277f4083.webp",
     "source": "10.FIESTA 2/(1) 1314 - Lucid (PIU Edit)/1314.png"
+  },
+  "lucky star|NORMAL": {
+    "title": "Lucky Star",
+    "song_type": "NORMAL",
+    "path": "3266-631ab8e189.webp",
+    "source": "90-PIU SCORES/W09 - Lucky Star/W09.png"
   },
   "macaron day|NORMAL": {
     "title": "Macaron Day",
@@ -2807,6 +2843,12 @@
     "path": "1605-5eb5a95938.webp",
     "source": "12.PRIME 2/15F3 - [Short Cut] PRIME2 Opening/15F3.png"
   },
+  "pull me up (feat. monya)|NORMAL": {
+    "title": "Pull me up (Feat. Monya)",
+    "song_type": "NORMAL",
+    "path": "3267-a18955b897.webp",
+    "source": "90-PIU SCORES/W10 - Pull me up (Feat. Monya)/W10.png"
+  },
   "pump jump|NORMAL": {
     "title": "Pump Jump",
     "song_type": "NORMAL",
@@ -2968,6 +3010,12 @@
     "song_type": "NORMAL",
     "path": "1510-de9bf5ed7e.webp",
     "source": "11.PRIME/1410 - Requiem/1410.PNG"
+  },
+  "rise up (feat. miori celesta)|NORMAL": {
+    "title": "Rise Up (feat. Miori Celesta)",
+    "song_type": "NORMAL",
+    "path": "3253-72f899a2ed.webp",
+    "source": "90-PIU SCORES/W05 - Rise Up (feat. Miori Celesta)/W05.png"
   },
   "rising star|NORMAL": {
     "title": "Rising Star",
@@ -3653,6 +3701,12 @@
     "path": "1863-8a2133c43d.webp",
     "source": "15.PHOENIX/1726 - Underworld ft. Skizzo (PIU Edit.)/1726.png"
   },
+  "unfelicitas|NORMAL": {
+    "title": "Unfelicitas",
+    "song_type": "NORMAL",
+    "path": "3249-f8cbcffaed.webp",
+    "source": "90-PIU SCORES/W03 - Unfelicitas/W03.png"
+  },
   "unique|NORMAL": {
     "title": "Unique",
     "song_type": "NORMAL",
@@ -3784,6 +3838,12 @@
     "song_type": "NORMAL",
     "path": "1444-a4bc8b41ed.webp",
     "source": "09.FIESTA EX/1107 - We Got 2 Know/1107.png"
+  },
+  "we love your step|NORMAL": {
+    "title": "We Love Your Step",
+    "song_type": "NORMAL",
+    "path": "3245-db820bfaf9.webp",
+    "source": "90-PIU SCORES/W01 - We Love Your Step/W01.png"
   },
   "we will meet again|NORMAL": {
     "title": "We will meet again",

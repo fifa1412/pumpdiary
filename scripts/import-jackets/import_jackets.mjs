@@ -119,6 +119,14 @@ async function chooseImage(folder) {
   const images = files.filter((file) => /\.(png|jpe?g)$/i.test(file) && !/-wide\./i.test(file)).sort();
   if (images.length <= 1) return images[0] ? { file: images[0], how: "only image" } : null;
 
+  // "X.png" next to "X_B.png": X is the plain title card when it is 4:3
+  // (in Phoenix folders X is the 16:9 background instead, so _B wins there).
+  for (const file of images) {
+    const base = file.match(/^(.*)_B\.(png|jpe?g)$/i)?.[1];
+    const plain = base && images.find((other) => new RegExp(`^${escapeRegExp(base)}\\.(png|jpe?g)$`, "i").test(other));
+    if (plain && (await isFourByThree(join(folder.path, plain)))) return { file: plain, how: "plain over _B" };
+  }
+
   const ssc = files.find((file) => /\.ssc$/i.test(file));
   if (ssc) {
     const banner = readFileSync(join(folder.path, ssc), "latin1").match(/^#BANNER:([^;\r\n]*);/m)?.[1]?.trim();
@@ -128,10 +136,18 @@ async function chooseImage(folder) {
   const banner = images.find((file) => /_B\.(png|jpe?g)$/i.test(file));
   if (banner) return { file: banner, how: "_B file" };
   for (const file of images) {
-    const { width, height } = await sharp(join(folder.path, file)).metadata();
-    if (width && height && Math.abs(width / height - 4 / 3) < 0.02) return { file, how: "4:3" };
+    if (await isFourByThree(join(folder.path, file))) return { file, how: "4:3" };
   }
   return { file: images[0], how: "first of several" };
+}
+
+function escapeRegExp(text) {
+  return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+async function isFourByThree(file) {
+  const { width, height } = await sharp(file).metadata();
+  return Boolean(width && height && Math.abs(width / height - 4 / 3) < 0.02);
 }
 
 function encode(input) {

@@ -18,6 +18,7 @@ import {
 import { logoutUser, type CurrentUser } from "@/lib/auth";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { ScreenshotLightbox } from "@/components/scores/screenshot-lightbox";
+import { jacketUrl } from "@/lib/songs/jackets";
 
 export type DashboardScore = {
   id: number;
@@ -29,7 +30,7 @@ export type DashboardScore = {
   stepchart: {
     step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
     level: number;
-    song: { title: string } | null;
+    song: { title: string; jacket_path: string | null } | null;
   } | null;
 };
 
@@ -141,8 +142,24 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                           <span className="font-display text-2xl font-bold text-accent">{score.grade}</span>
                           <span className="font-numeric text-lg font-semibold tabular-nums">{score.score.toLocaleString(locale)}</span>
                         </div>
-                        {score.plate ? <p className="truncate text-xs font-medium text-muted-foreground">{score.plate}</p> : null}
-                        <p className="text-sm text-muted-foreground">{playedDate}</p>
+                        <div className="flex items-end justify-between gap-2">
+                          <div className="min-w-0 space-y-2">
+                            {score.plate ? <p className="truncate text-xs font-medium text-muted-foreground">{score.plate}</p> : null}
+                            <p className="text-sm text-muted-foreground">{playedDate}</p>
+                          </div>
+                          {chart.song.jacket_path ? (
+                            <div className="relative aspect-[4/3] w-16 shrink-0 overflow-hidden rounded-sm border border-border bg-muted">
+                              <Image
+                                src={jacketUrl(chart.song.jacket_path)}
+                                alt=""
+                                fill
+                                unoptimized
+                                sizes="64px"
+                                className="object-cover"
+                              />
+                            </div>
+                          ) : null}
+                        </div>
                       </CardContent>
                     </div>
                   </Card>

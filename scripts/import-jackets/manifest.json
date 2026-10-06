@@ -581,6 +581,12 @@
     "path": "1833-7c5cc0e3e0.webp",
     "source": "15.PHOENIX/18075 - Bubble/Bubble.png"
   },
+  "bullfighter's song|NORMAL": {
+    "title": "Bullfighter's Song",
+    "song_type": "NORMAL",
+    "path": "1362-79c901bdd1.webp",
+    "source": "07.NX~NXA/(2) D17 - Bullfighting's Song/D17.PNG"
+  },
   "burn out|NORMAL": {
     "title": "Burn Out",
     "song_type": "NORMAL",
@@ -689,6 +695,12 @@
     "path": "1305-9ef195d612.webp",
     "source": "05.EXTRA~PREX 3/(1) 911 - Chicken Wing/911.PNG"
   },
+  "chicken wing|SHORTCUT": {
+    "title": "CHICKEN WING",
+    "song_type": "SHORTCUT",
+    "path": "1425-78d8ad9a02.webp",
+    "source": "08.FIESTA/1054 - [Short Cut] Chiken Wing/1054.png"
+  },
   "chimera|NORMAL": {
     "title": "Chimera",
     "song_type": "NORMAL",
@@ -743,6 +755,12 @@
     "path": "1736-7d5d26168e.webp",
     "source": "13.XX/1633 - Clematis Rapsodia/1633.png"
   },
+  "close your eye|NORMAL": {
+    "title": "Close Your Eye",
+    "song_type": "NORMAL",
+    "path": "1289-c8d2ff780c.webp",
+    "source": "04.1ST~PERFECT/(1) 307 - Close Your Eyes/307.png"
+  },
   "club night|NORMAL": {
     "title": "Club Night",
     "song_type": "NORMAL",
@@ -796,6 +814,12 @@
     "song_type": "NORMAL",
     "path": "1639-196b07fd54.webp",
     "source": "12.PRIME 2/1505 - CROSS OVER feat. LyuU/1505.png"
+  },
+  "cross ray|NORMAL": {
+    "title": "Cross Ray",
+    "song_type": "NORMAL",
+    "path": "1763-fc909cce4b.webp",
+    "source": "13.XX/16B3 - CROSS RAY (feat. Lia)/16B3.png"
   },
   "cross soul|NORMAL": {
     "title": "CROSS SOUL",
@@ -1018,6 +1042,12 @@
     "song_type": "NORMAL",
     "path": "3264-5410506db1.webp",
     "source": "22-PHOENIX 2/19110 - Do the Dance/Do the Dance.png"
+  },
+  "do u know that-old school|NORMAL": {
+    "title": "Do U Know That-Old School",
+    "song_type": "NORMAL",
+    "path": "1360-5156bed795.webp",
+    "source": "07.NX~NXA/(2) D15 - Do You Know That -Old School-/D15.PNG"
   },
   "dolly kiss|NORMAL": {
     "title": "Dolly KiSS",
@@ -1247,6 +1277,18 @@
     "path": "1872-3c0da4b26f.webp",
     "source": "15.PHOENIX/1701 - Festival of Death Moon/1701.png"
   },
+  "fff|NORMAL": {
+    "title": "FFF",
+    "song_type": "NORMAL",
+    "path": "1482-7df20e65b0.webp",
+    "source": "10.FIESTA 2/(1) 1309 - Flew Far Faster/1309.png"
+  },
+  "fff|SHORTCUT": {
+    "title": "FFF",
+    "song_type": "SHORTCUT",
+    "path": "1498-19f65e28a9.webp",
+    "source": "10.FIESTA 2/(1) 13E3 - [Short Cut] Flew Far Faster/13E3.png"
+  },
   "final audition 2|NORMAL": {
     "title": "Final Audition 2",
     "song_type": "NORMAL",
@@ -1259,11 +1301,47 @@
     "path": "1419-0db0405041.webp",
     "source": "08.FIESTA/1048 - [Short Cut] Final Audition 2/1048.png"
   },
+  "final audition 3|NORMAL": {
+    "title": "Final Audition 3",
+    "song_type": "NORMAL",
+    "path": "1333-f38bb4ef9e.webp",
+    "source": "06.EXCEED~ZERO/(3) A01 - Final Audition 3 U.F/A01.PNG"
+  },
   "final audition 3|SHORTCUT": {
     "title": "Final Audition 3",
     "song_type": "SHORTCUT",
     "path": "1420-6f5d655b44.webp",
     "source": "08.FIESTA/1049 - [Short Cut] Final Audition 3/1049.png"
+  },
+  "final audition ep.1|NORMAL": {
+    "title": "Final Audition Ep.1",
+    "song_type": "NORMAL",
+    "path": "1306-094e0db9b5.webp",
+    "source": "05.EXTRA~PREX 3/(1) 922 - Final Audition Episode 1/922.PNG"
+  },
+  "final audition ep.2-1|NORMAL": {
+    "title": "Final Audition Ep.2-1",
+    "song_type": "NORMAL",
+    "path": "1364-d3b0d5c0ae.webp",
+    "source": "07.NX~NXA/(2) D28 - Final Audition Episode 2-1/D28.PNG"
+  },
+  "final audition ep.2-2|NORMAL": {
+    "title": "Final Audition Ep.2-2",
+    "song_type": "NORMAL",
+    "path": "1365-244e5a1a19.webp",
+    "source": "07.NX~NXA/(2) D30 - Final Audition Episode 2-2/D30.PNG"
+  },
+  "final audition ep.2-x|NORMAL": {
+    "title": "Final Audition Ep.2-X",
+    "song_type": "NORMAL",
+    "path": "1390-e591cc9395.webp",
+    "source": "07.NX~NXA/F29 - Final Audition Episode 2-X/F29.PNG"
+  },
+  "final audition ep.2-x|SHORTCUT": {
+    "title": "Final Audition EP.2-X",
+    "song_type": "SHORTCUT",
+    "path": "1421-42d050be3f.webp",
+    "source": "08.FIESTA/1050 - [Short Cut] Final Audition Episode 2-X/1050.png"
   },
   "final audition|NORMAL": {
     "title": "Final Audition",
@@ -1709,6 +1787,18 @@
     "path": "1559-c04dc1cbcf.webp",
     "source": "11.PRIME/1493 - Idealized Romance/1493.png"
   },
+  "ignis fatuus(dm ashura mix)|NORMAL": {
+    "title": "Ignis Fatuus(DM Ashura Mix)",
+    "song_type": "NORMAL",
+    "path": "1479-cbf0fb7915.webp",
+    "source": "10.FIESTA 2/(1) 1306 - Ignis Fatuus/1306.png"
+  },
+  "ignis fatuus(dm ashura mix)|SHORTCUT": {
+    "title": "Ignis Fatuus(DM Ashura Mix)",
+    "song_type": "SHORTCUT",
+    "path": "1497-3f5a2a57d5.webp",
+    "source": "10.FIESTA 2/(1) 13E2 - [Short Cut] Ignis Fatuus/13E2.png"
+  },
   "imaginarized city|NORMAL": {
     "title": "Imaginarized City",
     "song_type": "NORMAL",
@@ -1834,6 +1924,12 @@
     "song_type": "NORMAL",
     "path": "1784-43f84b5076.webp",
     "source": "15.PHOENIX/18025 - Jupin/Jupin.png"
+  },
+  "just hold on (to all fighters)|NORMAL": {
+    "title": "Just Hold on (To All Fighters)",
+    "song_type": "NORMAL",
+    "path": "1560-d367df282c.webp",
+    "source": "11.PRIME/1494 - Just Hold On/1494.PNG"
   },
   "k.o.a : alice in wonderworld|NORMAL": {
     "title": "K.O.A : Alice In Wonderworld",
@@ -2032,6 +2128,30 @@
     "song_type": "FULLSONG",
     "path": "1368-991a69b860.webp",
     "source": "07.NX~NXA/(2) D41 - [Full Song] Love is a Danger Zone 2/D41.PNG"
+  },
+  "love is a danger zone 2 try to b.p.m|REMIX": {
+    "title": "Love is a Danger Zone 2 Try To B.P.M",
+    "song_type": "REMIX",
+    "path": "1354-3d6a0339e9.webp",
+    "source": "06.EXCEED~ZERO/(1) C41 - [Remix] Love Is A Danger Zone - Try To B.P.M/C41.PNG"
+  },
+  "love is a danger zone pt.2 another|NORMAL": {
+    "title": "Love is a Danger Zone pt.2 another",
+    "song_type": "NORMAL",
+    "path": "1355-7a837055fd.webp",
+    "source": "06.EXCEED~ZERO/(1) DC04 - Love is a Danger Zone 2 (Another)/DC04.png"
+  },
+  "love is a danger zone pt.2|NORMAL": {
+    "title": "Love is a Danger Zone pt.2",
+    "song_type": "NORMAL",
+    "path": "1351-35ea092e57.webp",
+    "source": "06.EXCEED~ZERO/(1) C04 - Love is a Danger Zone 2/C04.PNG"
+  },
+  "love is a danger zone pt.2|SHORTCUT": {
+    "title": "Love is a Danger Zone pt.2",
+    "song_type": "SHORTCUT",
+    "path": "1423-7b1f3a6709.webp",
+    "source": "08.FIESTA/1052 - [Short Cut] Love is a Danger Zone 2/1052.png"
   },
   "love is a danger zone(cranky mix)|NORMAL": {
     "title": "Love Is A Danger Zone(Cranky Mix)",
@@ -2765,6 +2885,12 @@
     "path": "1799-a5ade8f1f3.webp",
     "source": "15.PHOENIX/18237 - R.I.P/R.I.P..png"
   },
+  "radetzky can can|NORMAL": {
+    "title": "Radetzky Can Can",
+    "song_type": "NORMAL",
+    "path": "1652-167d38ba8e.webp",
+    "source": "05.EXTRA~PREX 3/(1) 913 - Radezky Can Can/913.png"
+  },
   "rage of fire|NORMAL": {
     "title": "Rage of Fire",
     "song_type": "NORMAL",
@@ -3160,6 +3286,12 @@
     "song_type": "NORMAL",
     "path": "1823-ddc9bbf577.webp",
     "source": "15.PHOENIX/18055 - Sudden Appearance Image/Sudden Appearance Image.png"
+  },
+  "sudden romance [piu edit]|NORMAL": {
+    "title": "Sudden Romance [PIU Edit]",
+    "song_type": "NORMAL",
+    "path": "1553-843657a550.webp",
+    "source": "11.PRIME/1478 - Sudden Romance/1478.PNG"
   },
   "sugar conspiracy theory|NORMAL": {
     "title": "Sugar Conspiracy Theory",
@@ -3844,6 +3976,12 @@
     "song_type": "NORMAL",
     "path": "1685-eecc37dab9.webp",
     "source": "13.XX/1664 - YOU AND I/1664.png"
+  },
+  "you got me crazy|NORMAL": {
+    "title": "You Got Me Crazy",
+    "song_type": "NORMAL",
+    "path": "1511-f195d53d93.webp",
+    "source": "11.PRIME/1411 - U Got Me Crazy/1411.png"
   },
   "your mind|NORMAL": {
     "title": "Your Mind",

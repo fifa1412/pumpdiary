@@ -1,7 +1,9 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import { Badge } from "@/components/ui/badge";
 import { playableCharts } from "@/lib/songs/charts";
+import { jacketUrl } from "@/lib/songs/jackets";
 import { ChartBadges } from "./chart-badges";
 import type { SongWithCharts } from "./types";
 
@@ -46,6 +48,18 @@ export async function SongCard({ song }: { song: SongWithCharts }) {
           </>
         )}
       </p>
+      {song.jacket_path && (
+        <div className="relative mt-3 aspect-[4/3] w-full overflow-hidden rounded-[3px] border border-border bg-muted">
+          <Image
+            src={jacketUrl(song.jacket_path)}
+            alt=""
+            fill
+            unoptimized
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover"
+          />
+        </div>
+      )}
       {charts.length > 0 && (
         <div className="mt-auto pt-3">
           <ChartBadges

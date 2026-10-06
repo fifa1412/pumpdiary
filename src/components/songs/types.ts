@@ -19,6 +19,7 @@ export type SongWithCharts = {
   bpm_min: number;
   bpm_max: number;
   is_available: boolean;
+  jacket_path: string | null;
   game_series: { name: string } | null;
   stepcharts: SongChart[];
 };

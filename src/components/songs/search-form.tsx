@@ -4,16 +4,18 @@ import { getTranslations } from "next-intl/server";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { songsHref } from "@/lib/songs/search";
 
-export async function SearchForm({ query }: { query: string }) {
+export async function SearchForm({ query, showRemoved }: { query: string; showRemoved: boolean }) {
   const t = await getTranslations("songs");
 
   return (
     <form
       action="/songs"
       method="get"
-      className="flex flex-col gap-2 sm:flex-row sm:items-center"
+      className="flex flex-col gap-2 sm:flex-row sm:items-center lg:flex-1"
     >
+      {showRemoved ? null : <input type="hidden" name="removed" value="0" />}
       <Label htmlFor="song-search" className="sr-only">
         {t("search.label")}
       </Label>
@@ -31,7 +33,7 @@ export async function SearchForm({ query }: { query: string }) {
         </Button>
         {query ? (
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/songs">{t("search.clear")}</Link>
+            <Link href={songsHref("", 1, showRemoved)}>{t("search.clear")}</Link>
           </Button>
         ) : null}
       </div>

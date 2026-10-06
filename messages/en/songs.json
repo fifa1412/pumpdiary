@@ -18,6 +18,7 @@
   "bpm": "{bpm} BPM",
   "debut": "Debut: {series}",
   "removed": "Removed in Phoenix 2",
+  "showRemoved": "Show songs removed in Phoenix 2",
   "chartsLabel": "Charts",
   "leaderboardLink": "View leaderboard",
   "pagination": {

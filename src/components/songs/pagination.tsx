@@ -2,23 +2,18 @@ import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 
 import { Button } from "@/components/ui/button";
-
-function songsHref(query: string, page: number): string {
-  const params = new URLSearchParams();
-  if (query) params.set("q", query);
-  if (page > 1) params.set("page", String(page));
-  const qs = params.toString();
-  return qs ? `/songs?${qs}` : "/songs";
-}
+import { songsHref } from "@/lib/songs/search";
 
 export async function SongsPagination({
   query,
   page,
   totalPages,
+  showRemoved,
 }: {
   query: string;
   page: number;
   totalPages: number;
+  showRemoved: boolean;
 }) {
   const t = await getTranslations("songs");
 
@@ -31,7 +26,7 @@ export async function SongsPagination({
     >
       {page > 1 ? (
         <Button variant="outline" size="sm" asChild>
-          <Link href={songsHref(query, page - 1)}>
+          <Link href={songsHref(query, page - 1, showRemoved)}>
             {t("pagination.previous")}
           </Link>
         </Button>
@@ -45,7 +40,7 @@ export async function SongsPagination({
       </span>
       {page < totalPages ? (
         <Button variant="outline" size="sm" asChild>
-          <Link href={songsHref(query, page + 1)}>
+          <Link href={songsHref(query, page + 1, showRemoved)}>
             {t("pagination.next")}
           </Link>
         </Button>

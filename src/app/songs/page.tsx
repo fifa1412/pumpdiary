@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 
 import { SearchForm } from "@/components/songs/search-form";
 import { SongsPagination } from "@/components/songs/pagination";
+import { RemovedToggle } from "@/components/songs/removed-toggle";
 import { SongCard } from "@/components/songs/song-card";
 import type { SongWithCharts } from "@/components/songs/types";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
@@ -38,11 +39,14 @@ export default async function SongsPage({
 
   const query = sanitizeSongSearchQuery(params.q);
   const requestedPage = parsePage(params.page);
+  const rawRemoved = Array.isArray(params.removed) ? params.removed[0] : params.removed;
+  const showRemoved = rawRemoved !== "0";
 
   const supabase = await createClient();
 
   const buildQuery = (options: { count: "exact"; head?: true }) => {
     let builder = supabase.from("songs").select(SONG_SELECT, options);
+    if (!showRemoved) builder = builder.eq("is_available", true);
     if (query) {
       builder = builder.or(
         `title.ilike.%${query}%,composer.ilike.%${query}%`,
@@ -76,8 +80,9 @@ export default async function SongsPage({
       </h1>
       <p className="mt-2 max-w-2xl text-muted-foreground">{t("subtitle")}</p>
 
-      <div className="mt-6">
-        <SearchForm query={query} />
+      <div className="mt-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+        <SearchForm query={query} showRemoved={showRemoved} />
+        <RemovedToggle query={query} showRemoved={showRemoved} label={t("showRemoved")} />
       </div>
 
       {failed ? (
@@ -99,7 +104,7 @@ export default async function SongsPage({
             </ul>
           )}
           <div className="mt-8">
-            <SongsPagination query={query} page={page} totalPages={totalPages} />
+            <SongsPagination query={query} page={page} totalPages={totalPages} showRemoved={showRemoved} />
           </div>
         </>
       )}

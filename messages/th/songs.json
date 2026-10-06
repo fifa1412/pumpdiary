@@ -18,6 +18,7 @@
   "bpm": "{bpm} BPM",
   "debut": "เปิดตัวใน: {series}",
   "removed": "ถูกนำออกใน Phoenix 2",
+  "showRemoved": "แสดงเพลงที่ถูกนำออกใน Phoenix 2",
   "chartsLabel": "ชาร์ต",
   "leaderboardLink": "ดูกระดานผู้นำ",
   "pagination": {

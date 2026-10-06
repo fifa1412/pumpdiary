@@ -5,7 +5,7 @@ const LEVEL_BADGE_BUCKET = "level-badges";
 // Highest level each step type has a badge image for (level-badges bucket).
 const MAX_BADGE_LEVEL: Partial<Record<StepType, number>> = {
   SINGLE: 26,
-  DOUBLE: 28,
+  DOUBLE: 29,
 };
 
 /** Public URL of the badge image for a chart level, or null when there is none. */

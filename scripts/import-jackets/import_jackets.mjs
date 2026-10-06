@@ -14,7 +14,8 @@
 // catalog titles (exact, case-insensitive); repeat it for several songs.
 //
 // Folder layout: <series>/<"(n) "?><code> - <"[Full Song] " etc.?><title>/
-// Image choice: PNG/JPG files in the folder, never "-wide" ones; when several
+// Image choice: a "-wide[XX]" title card when there is one; otherwise PNG/JPG
+// files in the folder, never "-wide" ones; when several
 // are left, the .ssc #BANNER file, then a "_B" file, then a 4:3 one.
 //
 // Needs NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (to
@@ -116,6 +117,9 @@ function scanFolders(root) {
 
 async function chooseImage(folder) {
   const files = readdirSync(folder.path).filter((file) => statSync(join(folder.path, file)).isFile());
+  // XX-era folders carry a "-wide[XX]" title card, which beats every other image.
+  const xxWide = files.filter((file) => /-wide\[XX\]\.(png|jpe?g)$/i.test(file)).sort()[0];
+  if (xxWide) return { file: xxWide, how: "-wide[XX]" };
   const images = files.filter((file) => /\.(png|jpe?g)$/i.test(file) && !/-wide\./i.test(file)).sort();
   if (images.length <= 1) return images[0] ? { file: images[0], how: "only image" } : null;
 

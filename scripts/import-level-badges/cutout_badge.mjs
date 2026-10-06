@@ -28,8 +28,6 @@ if (!src || !out) {
 const { data, info } = await sharp(src).removeAlpha().raw().toBuffer({ resolveWithObject: true });
 const W = info.width, H = info.height;
 const isGreen = (p) => { const i = p * 3; return data[i + 1] > data[i] + 25 && data[i + 1] > data[i + 2]; };
-// orange/red backdrop of the screenshot (the badge itself has no orange)
-const isBackground = (p) => { const i = p * 3, r = data[i], g = data[i + 1], b = data[i + 2]; return r > g + 20 && r > b + 10; };
 // boundary candidates: leftmost/rightmost green per row, top/bottom per column
 const pts = [];
 for (let y = 0; y < H; y++) { let a = -1, b = -1; for (let x = 0; x < W; x++) if (isGreen(y * W + x)) { if (a < 0) a = x; b = x; } if (a >= 0) pts.push([a, y], [b, y]); }

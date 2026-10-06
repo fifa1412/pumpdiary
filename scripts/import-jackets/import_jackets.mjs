@@ -27,7 +27,7 @@ import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, rmSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
-import { basename, dirname, extname, join, relative } from "node:path";
+import { basename, dirname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import sharp from "sharp";

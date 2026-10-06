@@ -2,8 +2,8 @@
   "* this game does not exist *|NORMAL": {
     "title": "* this game does not exist *",
     "song_type": "NORMAL",
-    "path": "1860-2d62f926b5.webp",
-    "source": "15.PHOENIX/18238.7.1 - this game does not exist/this game does not exist_B.png"
+    "path": "1860-2bb13c9425.webp",
+    "source": "15.PHOENIX/18238.7.1 - this game does not exist/this game does not exist.png"
   },
   "%x (percent x)|NORMAL": {
     "title": "%X (Percent X)",
@@ -14,14 +14,14 @@
   "†doof†senc†|NORMAL": {
     "title": "†DOOF†SENC†",
     "song_type": "NORMAL",
-    "path": "1909-a4da74adbb.webp",
-    "source": "15.PHOENIX/18242.6 - DOOFSENC/DOOFSENC_B.png"
+    "path": "1909-99b47c7805.webp",
+    "source": "15.PHOENIX/18242.6 - DOOFSENC/DOOFSENC.png"
   },
   "1948|NORMAL": {
     "title": "1948",
     "song_type": "NORMAL",
-    "path": "1888-272214c53a.webp",
-    "source": "15.PHOENIX/18036.3 - 1948/1948_B.png"
+    "path": "1888-8289f91efb.webp",
+    "source": "15.PHOENIX/18036.3 - 1948/1948.png"
   },
   "1949|NORMAL": {
     "title": "1949",
@@ -50,8 +50,8 @@
   "4nt|NORMAL": {
     "title": "4NT",
     "song_type": "NORMAL",
-    "path": "1905-ace9cef637.webp",
-    "source": "15.PHOENIX/1734 - 4NT/1734_B.png"
+    "path": "1905-956a1e9b35.webp",
+    "source": "15.PHOENIX/1734 - 4NT/1734.png"
   },
   "86|FULLSONG": {
     "title": "86",
@@ -65,6 +65,12 @@
     "path": "1670-396e888c74.webp",
     "source": "13.XX/1670 - 8 6/1670.png"
   },
+  "a nightmare|NORMAL": {
+    "title": "A nightmare",
+    "song_type": "NORMAL",
+    "path": "1288-14910c7085.webp",
+    "source": "04.1ST~PERFECT/(1) 306 - Nightmare/306.png"
+  },
   "a site de la rue|NORMAL": {
     "title": "A Site De La Rue",
     "song_type": "NORMAL",
@@ -74,8 +80,8 @@
   "about the universe|NORMAL": {
     "title": "About The Universe",
     "song_type": "NORMAL",
-    "path": "1901-bd689034bb.webp",
-    "source": "15.PHOENIX/1717 - About The Universe/1717_B.png"
+    "path": "1901-ca8e13ad54.webp",
+    "source": "15.PHOENIX/1717 - About The Universe/1717.png"
   },
   "accident|NORMAL": {
     "title": "Accident",
@@ -92,8 +98,8 @@
   "acquire|NORMAL": {
     "title": "Acquire",
     "song_type": "NORMAL",
-    "path": "1795-b5545c7afb.webp",
-    "source": "15.PHOENIX/18220 - Acquire/Acquire_B.png"
+    "path": "1795-3c5bea3049.webp",
+    "source": "15.PHOENIX/18220 - Acquire/Acquire.png"
   },
   "adrenaline blaster|NORMAL": {
     "title": "Adrenaline Blaster",
@@ -110,26 +116,26 @@
   "after like|NORMAL": {
     "title": "After LIKE",
     "song_type": "NORMAL",
-    "path": "1774-8c2c531e3f.webp",
-    "source": "15.PHOENIX/18125 - After LIKE/After LIKE_B.png"
+    "path": "1774-af946cb971.webp",
+    "source": "15.PHOENIX/18125 - After LIKE/After LIKE.png"
   },
   "airplane|NORMAL": {
     "title": "Airplane",
     "song_type": "NORMAL",
-    "path": "1778-9b59ee7c28.webp",
-    "source": "15.PHOENIX/18140 - Airplane/Airplane_B.png"
+    "path": "1778-dc15c0c592.webp",
+    "source": "15.PHOENIX/18140 - Airplane/Airplane.png"
   },
   "alice in misanthrope|NORMAL": {
     "title": "Alice in Misanthrope",
     "song_type": "NORMAL",
-    "path": "1916-831f0347cc.webp",
-    "source": "15.PHOENIX/18236 - Alice in Misanthrope/Alice in Misanthrope_B.png"
+    "path": "1916-5f1cad006c.webp",
+    "source": "15.PHOENIX/18236 - Alice in Misanthrope/Alice in Misanthrope.png"
   },
   "alive|NORMAL": {
     "title": "ALiVE",
     "song_type": "NORMAL",
-    "path": "1902-0be4b1f8c0.webp",
-    "source": "15.PHOENIX/18243.7 - ALiVE/ALiVE_B.png"
+    "path": "1902-7d453ee532.webp",
+    "source": "15.PHOENIX/18243.7 - ALiVE/ALiVE.png"
   },
   "all i want for x-mas|NORMAL": {
     "title": "All I Want For X-mas",
@@ -164,14 +170,14 @@
   "alone|NORMAL": {
     "title": "Alone",
     "song_type": "NORMAL",
-    "path": "1772-cb58449fb9.webp",
-    "source": "15.PHOENIX/18115 - Alone/Alone_B.png"
+    "path": "1772-f0c6014b72.webp",
+    "source": "15.PHOENIX/18115 - Alone/Alone.png"
   },
   "altale|NORMAL": {
     "title": "Altale",
     "song_type": "NORMAL",
-    "path": "1797-1329761c92.webp",
-    "source": "15.PHOENIX/18230 - Altale/Altale_B.png"
+    "path": "1797-4d77114fc3.webp",
+    "source": "15.PHOENIX/18230 - Altale/Altale.png"
   },
   "amai yuuwaku dangerous|NORMAL": {
     "title": "Amai Yuuwaku Dangerous",
@@ -182,8 +188,8 @@
   "amor fati|NORMAL": {
     "title": "Amor Fati",
     "song_type": "NORMAL",
-    "path": "1773-b070f2b5c8.webp",
-    "source": "15.PHOENIX/18120 - Amor Fati/Amor Fati_B.png"
+    "path": "1773-bfdd43a892.webp",
+    "source": "15.PHOENIX/18120 - Amor Fati/Amor Fati.png"
   },
   "amphitryon|NORMAL": {
     "title": "Amphitryon",
@@ -218,14 +224,14 @@
   "appassionata|NORMAL": {
     "title": "Appassionata",
     "song_type": "NORMAL",
-    "path": "1852-5c0ce8a059.webp",
-    "source": "15.PHOENIX/18048 - Appassionata/Appassionata_B.png"
+    "path": "1852-d19f1ef657.webp",
+    "source": "15.PHOENIX/18048 - Appassionata/Appassionata.png"
   },
   "aragami|NORMAL": {
     "title": "Aragami",
     "song_type": "NORMAL",
-    "path": "1808-1fe13c5ea2.webp",
-    "source": "15.PHOENIX/18239 - Aragami/Aragami_B.png"
+    "path": "1808-6401748af9.webp",
+    "source": "15.PHOENIX/18239 - Aragami/Aragami.png"
   },
   "arcana force|NORMAL": {
     "title": "Arcana Force",
@@ -248,8 +254,8 @@
   "asdf|NORMAL": {
     "title": "ASDF",
     "song_type": "NORMAL",
-    "path": "1464-f3007ffc3a.webp",
-    "source": "09.FIESTA EX/1154 - ASDF/1154_B.png"
+    "path": "1464-04d08b6ad1.webp",
+    "source": "09.FIESTA EX/1154 - ASDF/1154.png"
   },
   "asterios -reentry-|NORMAL": {
     "title": "Asterios -ReEntry-",
@@ -260,8 +266,8 @@
   "athena's shield|NORMAL": {
     "title": "Athena's Shield",
     "song_type": "NORMAL",
-    "path": "1847-33923fe90c.webp",
-    "source": "15.PHOENIX/18A50 - Athena's Shield/Athena's Shield_B.png"
+    "path": "1847-3cf88fcd43.webp",
+    "source": "15.PHOENIX/18A50 - Athena's Shield/Athena's Shield.png"
   },
   "avalanche|NORMAL": {
     "title": "Avalanche",
@@ -281,6 +287,18 @@
     "path": "1637-9c4ce66162.webp",
     "source": "12.PRIME 2/1541 - Awakening/1541.png"
   },
+  "b.p classic remix 2|REMIX": {
+    "title": "B.P Classic Remix 2",
+    "song_type": "REMIX",
+    "path": "1416-cb0fc4d901.webp",
+    "source": "08.FIESTA/1034 - [Remix] Banya-P Classic Remix 2/1034.png"
+  },
+  "b.p classic remix|REMIX": {
+    "title": "B.P Classic Remix",
+    "song_type": "REMIX",
+    "path": "1414-6d55cacc1c.webp",
+    "source": "08.FIESTA/1031 - [Remix] Banya-P Classic Remix/1031.png"
+  },
   "b2|NORMAL": {
     "title": "B2",
     "song_type": "NORMAL",
@@ -296,8 +314,8 @@
   "bad apple!! feat. nomico|FULLSONG": {
     "title": "Bad Apple!! feat. Nomico",
     "song_type": "FULLSONG",
-    "path": "1568-3fe087b36f.webp",
-    "source": "11.PRIME/14C6 - [Full Song] Bad Apple!! (feat. Nomico)/14C6_B.png"
+    "path": "1568-9f155bf5a4.webp",
+    "source": "11.PRIME/14C6 - [Full Song] Bad Apple!! (feat. Nomico)/14C6.png"
   },
   "bad apple!! feat. nomico|NORMAL": {
     "title": "Bad Apple!! feat. Nomico",
@@ -338,14 +356,14 @@
   "barber's madness|NORMAL": {
     "title": "Barber's Madness",
     "song_type": "NORMAL",
-    "path": "1807-7c708668f2.webp",
-    "source": "15.PHOENIX/18043 - Barber's Madness/16B2_B.png"
+    "path": "1807-46d12abafb.webp",
+    "source": "15.PHOENIX/18043 - Barber's Madness/16B2.png"
   },
   "baroque virus - full song -|FULLSONG": {
     "title": "Baroque Virus - FULL SONG -",
     "song_type": "FULLSONG",
-    "path": "1741-4af8fb4f21.webp",
-    "source": "13.XX/16F9 - [Full Song] Baroque Virus/16F9.png"
+    "path": "1741-b643612902.webp",
+    "source": "13.XX/16F9 - [Full Song] Baroque Virus/16F9-wide.png"
   },
   "baroque virus|NORMAL": {
     "title": "Baroque Virus",
@@ -356,8 +374,8 @@
   "battle no.1|NORMAL": {
     "title": "BATTLE NO.1",
     "song_type": "NORMAL",
-    "path": "1801-8310fa7338.webp",
-    "source": "15.PHOENIX/18245 - BATTLE NO.1/BATTLE NO.1_B.png"
+    "path": "1801-2cc99bfb67.webp",
+    "source": "15.PHOENIX/18245 - BATTLE NO.1/BATTLE NO.1.png"
   },
   "beat of the war 2 full song|FULLSONG": {
     "title": "Beat of The War 2 Full Song",
@@ -386,14 +404,14 @@
   "beautiful liar|NORMAL": {
     "title": "Beautiful Liar",
     "song_type": "NORMAL",
-    "path": "1776-531092ecc3.webp",
-    "source": "15.PHOENIX/18130 - Beautiful Liar/Beautiful Liar_B.png"
+    "path": "1776-9798206f59.webp",
+    "source": "15.PHOENIX/18130 - Beautiful Liar/Beautiful Liar.png"
   },
   "becouse of you|NORMAL": {
     "title": "Becouse of You",
     "song_type": "NORMAL",
-    "path": "1900-10c9f061d6.webp",
-    "source": "15.PHOENIX/18242.6 - Becouse of You/Becouse of You_B.png"
+    "path": "1900-5f2cc5f3fd.webp",
+    "source": "15.PHOENIX/18242.6 - Becouse of You/Becouse of You.png"
   },
   "bedlam|NORMAL": {
     "title": "BEDLAM",
@@ -425,6 +443,12 @@
     "path": "1367-75bc3ff61e.webp",
     "source": "07.NX~NXA/(2) D35 - [Remix] Bemera/D35.PNG"
   },
+  "bemera|SHORTCUT": {
+    "title": "Bemera",
+    "song_type": "SHORTCUT",
+    "path": "1433-e56c26476d.webp",
+    "source": "08.FIESTA/1062 - [Short Cut] Beemera/1062.png"
+  },
   "betrayer -act.2-|NORMAL": {
     "title": "Betrayer -act.2-",
     "song_type": "NORMAL",
@@ -440,14 +464,14 @@
   "big daddy|NORMAL": {
     "title": "Big Daddy",
     "song_type": "NORMAL",
-    "path": "1840-ba3067226a.webp",
-    "source": "15.PHOENIX/18242.3 - Big Daddy/Big Daddy_B.png"
+    "path": "1840-7c498269e4.webp",
+    "source": "15.PHOENIX/18242.3 - Big Daddy/Big Daddy.png"
   },
   "binary star|NORMAL": {
     "title": "Binary star",
     "song_type": "NORMAL",
-    "path": "1915-e638ac2dd6.webp",
-    "source": "15.PHOENIX/1708 - Binary Star/1708_B.png"
+    "path": "1915-10e585766f.webp",
+    "source": "15.PHOENIX/1708 - Binary Star/1708.png"
   },
   "black dragon|NORMAL": {
     "title": "Black Dragon",
@@ -488,20 +512,20 @@
   "bluish rose|NORMAL": {
     "title": "Bluish Rose",
     "song_type": "NORMAL",
-    "path": "1819-8009ba89ef.webp",
-    "source": "15.PHOENIX/18044.5 - Bluish Rose/Bluish Rose_B.png"
+    "path": "1819-bfb8a2e07a.webp",
+    "source": "15.PHOENIX/18044.5 - Bluish Rose/Bluish Rose.png"
   },
   "boca|NORMAL": {
     "title": "BOCA",
     "song_type": "NORMAL",
-    "path": "1769-a87bec703c.webp",
-    "source": "15.PHOENIX/18100 - BOCA/BOCA_B.png"
+    "path": "1769-4fc09bdbe0.webp",
+    "source": "15.PHOENIX/18100 - BOCA/BOCA.png"
   },
   "booom!!|NORMAL": {
     "title": "BOOOM!!",
     "song_type": "NORMAL",
-    "path": "1782-91079e2df3.webp",
-    "source": "15.PHOENIX/18015 - BOOOM!!/BOOOM!!_B.png"
+    "path": "1782-b5e0071259.webp",
+    "source": "15.PHOENIX/18015 - BOOOM!!/BOOOM!!.png"
   },
   "brain power|NORMAL": {
     "title": "BRAIN POWER",
@@ -524,8 +548,8 @@
   "break through myself feat. risa yuzuki|NORMAL": {
     "title": "Break Through Myself feat. Risa Yuzuki",
     "song_type": "NORMAL",
-    "path": "1874-8911adcd1c.webp",
-    "source": "15.PHOENIX/18242.9 - Break Through Myself feat. Risa Yuzuki/Break Through Myself feat. Risa Yuzuki_B.png"
+    "path": "1874-772889c0fd.webp",
+    "source": "15.PHOENIX/18242.9 - Break Through Myself feat. Risa Yuzuki/Break Through Myself feat. Risa Yuzuki.png"
   },
   "bring back the beat|NORMAL": {
     "title": "Bring Back The Beat",
@@ -542,8 +566,8 @@
   "brown sky|REMIX": {
     "title": "Brown Sky",
     "song_type": "REMIX",
-    "path": "1767-4d82c8a704.webp",
-    "source": "13.XX/16B7 - [Remix] Brown Sky/16B7_B.png"
+    "path": "1767-04182b9aae.webp",
+    "source": "13.XX/16B7 - [Remix] Brown Sky/16B7.png"
   },
   "bspower explosion|NORMAL": {
     "title": "BSPower Explosion",
@@ -554,14 +578,14 @@
   "bubble|NORMAL": {
     "title": "Bubble",
     "song_type": "NORMAL",
-    "path": "1833-f40324cb20.webp",
-    "source": "15.PHOENIX/18075 - Bubble/Bubble_B.png"
+    "path": "1833-7c5cc0e3e0.webp",
+    "source": "15.PHOENIX/18075 - Bubble/Bubble.png"
   },
   "burn out|NORMAL": {
     "title": "Burn Out",
     "song_type": "NORMAL",
-    "path": "1891-39601eecd7.webp",
-    "source": "15.PHOENIX/1732 - Burn Out/1732_B.png"
+    "path": "1891-5d90e23b8b.webp",
+    "source": "15.PHOENIX/1732 - Burn Out/1732.png"
   },
   "butterfly|NORMAL": {
     "title": "Butterfly",
@@ -638,14 +662,14 @@
   "catastrophe|NORMAL": {
     "title": "Catastrophe",
     "song_type": "NORMAL",
-    "path": "1884-1e44cb032b.webp",
-    "source": "15.PHOENIX/1723 - Catastrophe/1723_B.png"
+    "path": "1884-3ab5853abd.webp",
+    "source": "15.PHOENIX/1723 - Catastrophe/1723.png"
   },
   "chaos again|NORMAL": {
     "title": "CHAOS AGAIN",
     "song_type": "NORMAL",
-    "path": "1790-58cc882b7c.webp",
-    "source": "15.PHOENIX/18050 - CHAOS AGAIN/CHAOS AGAIN_B.png"
+    "path": "1790-464f2dfdd6.webp",
+    "source": "15.PHOENIX/18050 - CHAOS AGAIN/CHAOS AGAIN.png"
   },
   "chase me|FULLSONG": {
     "title": "Chase Me",
@@ -680,8 +704,8 @@
   "chobit flavor|NORMAL": {
     "title": "Chobit Flavor",
     "song_type": "NORMAL",
-    "path": "1850-8bf0f24b37.webp",
-    "source": "15.PHOENIX/18243.5 - Chobit Flavor/Chobit Flavor_B.png"
+    "path": "1850-2d54b78b37.webp",
+    "source": "15.PHOENIX/18243.5 - Chobit Flavor/Chobit Flavor.png"
   },
   "chopsticks challenge|FULLSONG": {
     "title": "Chopsticks Challenge",
@@ -734,8 +758,8 @@
   "co5m1c r4ilr0ad|NORMAL": {
     "title": "CO5M1C R4ILR0AD",
     "song_type": "NORMAL",
-    "path": "1792-33661bc9d2.webp",
-    "source": "15.PHOENIX/18205 - CO5M1C R4ILR0AD/CO5M1C R4ILR0AD_B.png"
+    "path": "1792-bf28bc055d.webp",
+    "source": "15.PHOENIX/18205 - CO5M1C R4ILR0AD/CO5M1C R4ILR0AD.png"
   },
   "come to me|NORMAL": {
     "title": "Come to Me",
@@ -764,8 +788,8 @@
   "crimson hood|NORMAL": {
     "title": "Crimson hood",
     "song_type": "NORMAL",
-    "path": "1882-2a2cd75ffb.webp",
-    "source": "15.PHOENIX/18A90 - Crimson hood/Crimson hood_B.png"
+    "path": "1882-1de705c4f6.webp",
+    "source": "15.PHOENIX/18A90 - Crimson hood/Crimson hood.png"
   },
   "cross over feat. lyuu|NORMAL": {
     "title": "Cross Over feat. LyuU",
@@ -794,8 +818,8 @@
   "crush|NORMAL": {
     "title": "CRUSH",
     "song_type": "NORMAL",
-    "path": "1832-b54d8ce7ae.webp",
-    "source": "15.PHOENIX/18070 - CRUSH/CRUSH_B.png"
+    "path": "1832-8d634f380e.webp",
+    "source": "15.PHOENIX/18070 - CRUSH/CRUSH.png"
   },
   "csikos post|NORMAL": {
     "title": "Csikos Post",
@@ -806,8 +830,8 @@
   "curiosity overdrive|NORMAL": {
     "title": "Curiosity Overdrive",
     "song_type": "NORMAL",
-    "path": "1813-5dcba49a3d.webp",
-    "source": "15.PHOENIX/18049 - Curiosity Overdrive/Curiosity Overdrive_B.png"
+    "path": "1813-5de716d6fd.webp",
+    "source": "15.PHOENIX/18049 - Curiosity Overdrive/Curiosity Overdrive.png"
   },
   "cutie song|NORMAL": {
     "title": "Cutie Song",
@@ -848,8 +872,8 @@
   "dancing|NORMAL": {
     "title": "Dancing",
     "song_type": "NORMAL",
-    "path": "1854-abf5315a9d.webp",
-    "source": "15.PHOENIX/1720 - Dancing/1720_B.png"
+    "path": "1854-d05343cff6.webp",
+    "source": "15.PHOENIX/1720 - Dancing/1720.png"
   },
   "danger & danger|NORMAL": {
     "title": "Danger & Danger",
@@ -860,14 +884,14 @@
   "darkside of the mind|NORMAL": {
     "title": "Darkside Of The Mind",
     "song_type": "NORMAL",
-    "path": "1879-242981d6aa.webp",
-    "source": "15.PHOENIX/18049.6 - Darkside Of The Mind/Darkside Of The Mind_B.png"
+    "path": "1879-7e7c981d5e.webp",
+    "source": "15.PHOENIX/18049.6 - Darkside Of The Mind/Darkside Of The Mind.png"
   },
   "dead end|NORMAL": {
     "title": "Dead End",
     "song_type": "NORMAL",
-    "path": "1914-683dfa5ad5.webp",
-    "source": "15.PHOENIX/18033.2 - Dead End/Dead End_B.png"
+    "path": "1914-f56bd32649.webp",
+    "source": "15.PHOENIX/18033.2 - Dead End/Dead End.png"
   },
   "death moon|NORMAL": {
     "title": "Death Moon",
@@ -884,8 +908,8 @@
   "deca dance|NORMAL": {
     "title": "Deca Dance",
     "song_type": "NORMAL",
-    "path": "1890-d4ae6fab71.webp",
-    "source": "15.PHOENIX/18057 - Deca Dance/Deca Dance_B.png"
+    "path": "1890-9efddea853.webp",
+    "source": "15.PHOENIX/18057 - Deca Dance/Deca Dance.png"
   },
   "dement ~after legend~|NORMAL": {
     "title": "Dement ~After Legend~",
@@ -896,8 +920,8 @@
   "demon of laplace|NORMAL": {
     "title": "Demon of Laplace",
     "song_type": "NORMAL",
-    "path": "1908-a274c7a3f2.webp",
-    "source": "15.PHOENIX/18044.3 - Demon of Laplace/Demon of Laplace_B.png"
+    "path": "1908-1cf5197397.webp",
+    "source": "15.PHOENIX/18044.3 - Demon of Laplace/Demon of Laplace.png"
   },
   "desaparecer|REMIX": {
     "title": "Desaparecer",
@@ -920,8 +944,8 @@
   "destr0yer|NORMAL": {
     "title": "Destr0yer",
     "song_type": "NORMAL",
-    "path": "1831-522ef66cc4.webp",
-    "source": "15.PHOENIX/18242 - Destr0yer/Destr0yer_B.png"
+    "path": "1831-d248847bf0.webp",
+    "source": "15.PHOENIX/18242 - Destr0yer/Destr0yer.png"
   },
   "destrucimate|NORMAL": {
     "title": "DESTRUCIMATE",
@@ -956,8 +980,8 @@
   "discord|NORMAL": {
     "title": "Discord",
     "song_type": "NORMAL",
-    "path": "1842-e1b5e5eefd.webp",
-    "source": "15.PHOENIX/18072 - Discord/Discord_B.png"
+    "path": "1842-5ef55e9615.webp",
+    "source": "15.PHOENIX/18072 - Discord/Discord.png"
   },
   "district 1|NORMAL": {
     "title": "District 1",
@@ -968,8 +992,8 @@
   "district v|REMIX": {
     "title": "DISTRICT V",
     "song_type": "REMIX",
-    "path": "1877-51e8baf48a.webp",
-    "source": "15.PHOENIX/18D10 - [Remix] DISTRICT V/[Remix] DISTRICT V_B.png"
+    "path": "1877-3dda3308eb.webp",
+    "source": "15.PHOENIX/18D10 - [Remix] DISTRICT V/[Remix] DISTRICT V.png"
   },
   "dj otada|NORMAL": {
     "title": "DJ Otada",
@@ -986,8 +1010,8 @@
   "do or die|NORMAL": {
     "title": "DO or DIE",
     "song_type": "NORMAL",
-    "path": "1851-016f27541d.webp",
-    "source": "15.PHOENIX/18067.5 - DO or DIE/DO or DIE_B.png"
+    "path": "1851-237145c850.webp",
+    "source": "15.PHOENIX/18067.5 - DO or DIE/DO or DIE.png"
   },
   "do the dance|NORMAL": {
     "title": "Do the Dance",
@@ -1010,8 +1034,8 @@
   "doppelganger|NORMAL": {
     "title": "Doppelganger",
     "song_type": "NORMAL",
-    "path": "1867-07a9ed6e40.webp",
-    "source": "15.PHOENIX/18A99 - Doppelganger/Doppelganger_B.png"
+    "path": "1867-d25ba97921.webp",
+    "source": "15.PHOENIX/18A99 - Doppelganger/Doppelganger.png"
   },
   "dr. koa|REMIX": {
     "title": "Dr. KOA",
@@ -1046,32 +1070,32 @@
   "duel - short cut -|SHORTCUT": {
     "title": "DUEL - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1913-ef354f741b.webp",
-    "source": "15.PHOENIX/18F81 - [Short Cut] DUEL/[Short Cut] DUEL_B.png"
+    "path": "1913-44c88419f7.webp",
+    "source": "15.PHOENIX/18F81 - [Short Cut] DUEL/[Short Cut] DUEL.png"
   },
   "duel|NORMAL": {
     "title": "DUEL",
     "song_type": "NORMAL",
-    "path": "1861-42a72dd60c.webp",
-    "source": "15.PHOENIX/18036.5 - DUEL/DUEL_B.png"
+    "path": "1861-8fa72a8e1b.webp",
+    "source": "15.PHOENIX/18036.5 - DUEL/DUEL.png"
   },
   "e.o.n|NORMAL": {
     "title": "E.O.N",
     "song_type": "NORMAL",
-    "path": "1871-2db763470a.webp",
-    "source": "15.PHOENIX/18049.7 - E.O.N/E.O.N_B.png"
+    "path": "1871-52d11778b2.webp",
+    "source": "15.PHOENIX/18049.7 - E.O.N/E.O.N.png"
   },
   "earendel|NORMAL": {
     "title": "Earendel",
     "song_type": "NORMAL",
-    "path": "1846-e52171cd48.webp",
-    "source": "15.PHOENIX/18A30 - Earendel/Earendel_B.png"
+    "path": "1846-9d8676a3a2.webp",
+    "source": "15.PHOENIX/18A30 - Earendel/Earendel.png"
   },
   "eleven|NORMAL": {
     "title": "ELEVEN",
     "song_type": "NORMAL",
-    "path": "1809-ef4120c0da.webp",
-    "source": "15.PHOENIX/18126 - ELEVEN/ELEVEN_B.png"
+    "path": "1809-64b705d808.webp",
+    "source": "15.PHOENIX/18126 - ELEVEN/ELEVEN.png"
   },
   "elise|NORMAL": {
     "title": "Elise",
@@ -1088,8 +1112,8 @@
   "emomomo|NORMAL": {
     "title": "EMOMOMO",
     "song_type": "NORMAL",
-    "path": "1875-3325fa2ee3.webp",
-    "source": "15.PHOENIX/18237.5 - EMOMOMO/EMOMOMO_B.png"
+    "path": "1875-7849cc2e39.webp",
+    "source": "15.PHOENIX/18237.5 - EMOMOMO/EMOMOMO.png"
   },
   "emperor|NORMAL": {
     "title": "Emperor",
@@ -1100,8 +1124,8 @@
   "energy synergy matrix|NORMAL": {
     "title": "Energy Synergy Matrix",
     "song_type": "NORMAL",
-    "path": "1793-4de8a641ac.webp",
-    "source": "15.PHOENIX/18210 - Energy Synergy Matrix/Energy Synergy Matrix_B.png"
+    "path": "1793-f0c4b29ceb.webp",
+    "source": "15.PHOENIX/18210 - Energy Synergy Matrix/Energy Synergy Matrix.png"
   },
   "enjoy the show|NORMAL": {
     "title": "Enjoy The Show",
@@ -1130,26 +1154,26 @@
   "eternal universe|NORMAL": {
     "title": "Eternal Universe",
     "song_type": "NORMAL",
-    "path": "1899-286f24b7a2.webp",
-    "source": "15.PHOENIX/1730 - Eternal Universe/1730_B.png"
+    "path": "1899-f6cbb390f3.webp",
+    "source": "15.PHOENIX/1730 - Eternal Universe/1730.png"
   },
   "etude op 10-4|NORMAL": {
     "title": "Etude Op 10-4",
     "song_type": "NORMAL",
-    "path": "1787-4c26733732.webp",
-    "source": "15.PHOENIX/18035 - Etude Op 10-4/Etude Op 10-4_B.png"
+    "path": "1787-a7404948f4.webp",
+    "source": "15.PHOENIX/18035 - Etude Op 10-4/Etude Op 10-4.png"
   },
   "euphorianic -short cut-|SHORTCUT": {
     "title": "Euphorianic -SHORT CUT-",
     "song_type": "SHORTCUT",
-    "path": "1805-c255050aba.webp",
-    "source": "15.PHOENIX/18F60 - [Short Cut] Euphorianic/[Short Cut] Euphorianic_B.png"
+    "path": "1805-a0f13deb65.webp",
+    "source": "15.PHOENIX/18F60 - [Short Cut] Euphorianic/[Short Cut] Euphorianic.png"
   },
   "euphorianic|NORMAL": {
     "title": "Euphorianic",
     "song_type": "NORMAL",
-    "path": "1783-a706910a74.webp",
-    "source": "15.PHOENIX/18020 - Euphorianic/Euphorianic_B.png"
+    "path": "1783-01ec891fc8.webp",
+    "source": "15.PHOENIX/18020 - Euphorianic/Euphorianic.png"
   },
   "everybody got 2 know|REMIX": {
     "title": "Everybody Got 2 Know",
@@ -1184,14 +1208,14 @@
   "extreme music school 1st period feat. nanahira|NORMAL": {
     "title": "Extreme Music School 1st period feat. Nanahira",
     "song_type": "NORMAL",
-    "path": "1869-0a8d84a99d.webp",
-    "source": "15.PHOENIX/18244.4 - Extreme Music School 1st period feat. Nanahira/Extreme Music School 1st period feat. Nanahira_B.png"
+    "path": "1869-a95f1b29c8.webp",
+    "source": "15.PHOENIX/18244.4 - Extreme Music School 1st period feat. Nanahira/Extreme Music School 1st period feat. Nanahira.png"
   },
   "extreme music school 2nd period feat. nanahira|NORMAL": {
     "title": "Extreme Music School 2nd period feat. Nanahira",
     "song_type": "NORMAL",
-    "path": "1870-6841940e5a.webp",
-    "source": "15.PHOENIX/18244.5 - Extreme Music School 2nd period feat. Nanahira/Extreme Music School 2nd period feat. Nanahira_B.png"
+    "path": "1870-12239a1f04.webp",
+    "source": "15.PHOENIX/18244.5 - Extreme Music School 2nd period feat. Nanahira/Extreme Music School 2nd period feat. Nanahira.png"
   },
   "f(r)iend|NORMAL": {
     "title": "F(R)IEND",
@@ -1220,8 +1244,8 @@
   "festival of death moon|NORMAL": {
     "title": "Festival of Death Moon",
     "song_type": "NORMAL",
-    "path": "1872-692922c805.webp",
-    "source": "15.PHOENIX/1701 - Festival of Death Moon/1701_B.png"
+    "path": "1872-3c0da4b26f.webp",
+    "source": "15.PHOENIX/1701 - Festival of Death Moon/1701.png"
   },
   "final audition 2|NORMAL": {
     "title": "Final Audition 2",
@@ -1268,14 +1292,14 @@
   "flavor step!|NORMAL": {
     "title": "Flavor Step!",
     "song_type": "NORMAL",
-    "path": "1820-fd3401ad3b.webp",
-    "source": "15.PHOENIX/18033 - Flavor Step!/Flavor Step!_B.png"
+    "path": "1820-ee7d7997c4.webp",
+    "source": "15.PHOENIX/18033 - Flavor Step!/Flavor Step!.png"
   },
   "flvsh out|NORMAL": {
     "title": "FLVSH OUT",
     "song_type": "NORMAL",
-    "path": "1885-6d330299ad.webp",
-    "source": "15.PHOENIX/18242.4 - FLVSH OUT/FLVSH OUT_B.png"
+    "path": "1885-abb531a6f3.webp",
+    "source": "15.PHOENIX/18242.4 - FLVSH OUT/FLVSH OUT.png"
   },
   "fly high|NORMAL": {
     "title": "Fly high",
@@ -1304,8 +1328,8 @@
   "fracture temporelle|NORMAL": {
     "title": "Fracture Temporelle",
     "song_type": "NORMAL",
-    "path": "1848-05af8e72e2.webp",
-    "source": "15.PHOENIX/1722 - Fracture Temporelle/1722_B.png"
+    "path": "1848-ef287a1154.webp",
+    "source": "15.PHOENIX/1722 - Fracture Temporelle/1722.png"
   },
   "free style|NORMAL": {
     "title": "Free Style",
@@ -1322,8 +1346,8 @@
   "full moon - full song -|FULLSONG": {
     "title": "Full Moon - FULL SONG -",
     "song_type": "FULLSONG",
-    "path": "1747-25bedcfc4a.webp",
-    "source": "13.XX/16D7 - [Full Song] Full Moon/16D7_B.png"
+    "path": "1747-246c8e2135.webp",
+    "source": "13.XX/16D7 - [Full Song] Full Moon/16D7.png"
   },
   "full moon|NORMAL": {
     "title": "Full Moon",
@@ -1340,8 +1364,8 @@
   "galaxy collapse|NORMAL": {
     "title": "Galaxy Collapse",
     "song_type": "NORMAL",
-    "path": "1803-49d26eafee.webp",
-    "source": "15.PHOENIX/1721 - Galaxy Collapse/1721_B.png"
+    "path": "1803-3400d967b3.webp",
+    "source": "15.PHOENIX/1721 - Galaxy Collapse/1721.png"
   },
   "gargoyle|FULLSONG": {
     "title": "Gargoyle",
@@ -1382,26 +1406,26 @@
   "ghroth - short cut -|SHORTCUT": {
     "title": "Ghroth - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1887-dd4661f519.webp",
-    "source": "15.PHOENIX/18F75 - [Short Cut] Ghroth/[Short Cut] Ghroth_B.png"
+    "path": "1887-a80930235f.webp",
+    "source": "15.PHOENIX/18F75 - [Short Cut] Ghroth/[Short Cut] Ghroth.png"
   },
   "ghroth|NORMAL": {
     "title": "Ghroth",
     "song_type": "NORMAL",
-    "path": "1785-bc70396d52.webp",
-    "source": "15.PHOENIX/18027 - Ghroth/Ghroth_B.png"
+    "path": "1785-2edce00359.webp",
+    "source": "15.PHOENIX/18027 - Ghroth/Ghroth.png"
   },
   "giselle|NORMAL": {
     "title": "Giselle",
     "song_type": "NORMAL",
-    "path": "1839-34f699e9bb.webp",
-    "source": "15.PHOENIX/18238.8 - Giselle/Giselle_B.png"
+    "path": "1839-43a085c689.webp",
+    "source": "15.PHOENIX/18238.8 - Giselle/Giselle.png"
   },
   "glimmer gleam|NORMAL": {
     "title": "Glimmer Gleam",
     "song_type": "NORMAL",
-    "path": "1907-7bd7648c5b.webp",
-    "source": "15.PHOENIX/18054 - Glimmer Gleam/Glimmer Gleam_B.png"
+    "path": "1907-aa450b3f3e.webp",
+    "source": "15.PHOENIX/18054 - Glimmer Gleam/Glimmer Gleam.png"
   },
   "gloria|NORMAL": {
     "title": "GLORIA",
@@ -1424,8 +1448,8 @@
   "good night - full song -|FULLSONG": {
     "title": "GOOD NIGHT - FULL SONG -",
     "song_type": "FULLSONG",
-    "path": "1768-b63de0a72f.webp",
-    "source": "13.XX/16B8 - [Full Song] Good Night/16B8_B.png"
+    "path": "1768-033d10259c.webp",
+    "source": "13.XX/16B8 - [Full Song] Good Night/16B8.png"
   },
   "good night|NORMAL": {
     "title": "Good Night",
@@ -1436,14 +1460,14 @@
   "goodbounce|NORMAL": {
     "title": "GOODBOUNCE",
     "song_type": "NORMAL",
-    "path": "1798-b7f1c92d8b.webp",
-    "source": "15.PHOENIX/18235 - GOODBOUNCE/GOODBOUNCE_B.png"
+    "path": "1798-bc9d219ddc.webp",
+    "source": "15.PHOENIX/18235 - GOODBOUNCE/GOODBOUNCE.png"
   },
   "goodtek|NORMAL": {
     "title": "GOODTEK",
     "song_type": "NORMAL",
-    "path": "1791-ced8448a07.webp",
-    "source": "15.PHOENIX/18200 - GOODTEK/GOODTEK_B.png"
+    "path": "1791-eb4349b188.webp",
+    "source": "15.PHOENIX/18200 - GOODTEK/GOODTEK.png"
   },
   "gothique resonance|NORMAL": {
     "title": "Gothique Resonance",
@@ -1466,20 +1490,20 @@
   "halcyon|NORMAL": {
     "title": "Halcyon",
     "song_type": "NORMAL",
-    "path": "1800-1cb343ffb1.webp",
-    "source": "15.PHOENIX/18240 - Halcyon/Halcyon_B.png"
+    "path": "1800-7c3153d1bb.webp",
+    "source": "15.PHOENIX/18240 - Halcyon/Halcyon.png"
   },
   "halloween party ~multiverse~ - short cut -|SHORTCUT": {
     "title": "Halloween Party ~Multiverse~ - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1903-36fda4a5d7.webp",
-    "source": "15.PHOENIX/18F78 - [Short Cut] Halloween Party ~Multiverse~/[Short Cut] Halloween Party ~Multiverse~_B.png"
+    "path": "1903-d763dd05bb.webp",
+    "source": "15.PHOENIX/18F78 - [Short Cut] Halloween Party ~Multiverse~/[Short Cut] Halloween Party ~Multiverse~.png"
   },
   "halloween party ~multiverse~|NORMAL": {
     "title": "Halloween Party ~Multiverse~",
     "song_type": "NORMAL",
-    "path": "1806-59554f3893.webp",
-    "source": "15.PHOENIX/18022 - Halloween Party ~Multiverse~/Halloween Party ~Multiverse~_B.png"
+    "path": "1806-5a747e5d44.webp",
+    "source": "15.PHOENIX/18022 - Halloween Party ~Multiverse~/Halloween Party ~Multiverse~.png"
   },
   "hardkore of the north|NORMAL": {
     "title": "Hardkore of the North",
@@ -1544,8 +1568,8 @@
   "hercules|NORMAL": {
     "title": "hercules",
     "song_type": "NORMAL",
-    "path": "1836-642dc09ebb.webp",
-    "source": "15.PHOENIX/18A10 - Hercules/Hercules_B.png"
+    "path": "1836-abe54152f4.webp",
+    "source": "15.PHOENIX/18A10 - Hercules/Hercules.png"
   },
   "hestia|NORMAL": {
     "title": "Hestia",
@@ -1574,14 +1598,14 @@
   "highway chaser|NORMAL": {
     "title": "Highway Chaser",
     "song_type": "NORMAL",
-    "path": "1845-7f6cc78946.webp",
-    "source": "15.PHOENIX/1706 - Highway Chaser/1706_B.png"
+    "path": "1845-dae7af895e.webp",
+    "source": "15.PHOENIX/1706 - Highway Chaser/1706.png"
   },
   "horang pungryuga|NORMAL": {
     "title": "Horang Pungryuga",
     "song_type": "NORMAL",
-    "path": "1841-d58205b2a8.webp",
-    "source": "15.PHOENIX/18250 - Horang Pungryuga/Horang Pungryuga_B.png"
+    "path": "1841-36ba39a426.webp",
+    "source": "15.PHOENIX/18250 - Horang Pungryuga/Horang Pungryuga.png"
   },
   "houseplan|NORMAL": {
     "title": "Houseplan",
@@ -1598,8 +1622,8 @@
   "human extinction (piu edit.)|NORMAL": {
     "title": "Human Extinction (PIU Edit.)",
     "song_type": "NORMAL",
-    "path": "1894-e4a4a06e21.webp",
-    "source": "15.PHOENIX/1724 - Human Extinction (PIU Edit.)/1724_B.png"
+    "path": "1894-f71eab2b16.webp",
+    "source": "15.PHOENIX/1724 - Human Extinction (PIU Edit.)/1724.png"
   },
   "hungarian dance v|NORMAL": {
     "title": "Hungarian Dance V",
@@ -1628,14 +1652,14 @@
   "hymn of golden glory - short cut -|SHORTCUT": {
     "title": "Hymn of Golden Glory - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1896-874ee1ad5f.webp",
-    "source": "15.PHOENIX/18F77 - [Short Cut] Hymn of Golden Glory/[Short Cut] Hymn of Golden Glory_B.png"
+    "path": "1896-8f2287d0ee.webp",
+    "source": "15.PHOENIX/18F77 - [Short Cut] Hymn of Golden Glory/[Short Cut] Hymn of Golden Glory.png"
   },
   "hymn of golden glory|NORMAL": {
     "title": "Hymn of Golden Glory",
     "song_type": "NORMAL",
-    "path": "1858-9fefb4b5ba.webp",
-    "source": "15.PHOENIX/18A40 - Hymn of Golden Glory/Hymn of Golden Glory_B.png"
+    "path": "1858-ce63171cc1.webp",
+    "source": "15.PHOENIX/18A40 - Hymn of Golden Glory/Hymn of Golden Glory.png"
   },
   "hypercube|NORMAL": {
     "title": "HYPERCUBE",
@@ -1688,8 +1712,8 @@
   "imaginarized city|NORMAL": {
     "title": "Imaginarized City",
     "song_type": "NORMAL",
-    "path": "1873-10882c03e2.webp",
-    "source": "15.PHOENIX/18A80 - Imaginarized City/Imaginarized City_B.png"
+    "path": "1873-3f28f06aad.webp",
+    "source": "15.PHOENIX/18A80 - Imaginarized City/Imaginarized City.png"
   },
   "imagination|NORMAL": {
     "title": "Imagination",
@@ -1700,8 +1724,8 @@
   "imperium|NORMAL": {
     "title": "Imperium",
     "song_type": "NORMAL",
-    "path": "1835-cc081201a9.webp",
-    "source": "15.PHOENIX/18046.5 - Imperium/Imperium_B.png"
+    "path": "1835-2e5359d563.webp",
+    "source": "15.PHOENIX/18046.5 - Imperium/Imperium.png"
   },
   "imprinting|NORMAL": {
     "title": "Imprinting",
@@ -1748,8 +1772,8 @@
   "invasion|NORMAL": {
     "title": "INVASION",
     "song_type": "NORMAL",
-    "path": "1862-911e44d1ae.webp",
-    "source": "15.PHOENIX/18A20 - INVASION/INVASION_B.png"
+    "path": "1862-9624f98f4c.webp",
+    "source": "15.PHOENIX/18A20 - INVASION/INVASION.png"
   },
   "iolite sky|NORMAL": {
     "title": "Iolite Sky",
@@ -1760,8 +1784,8 @@
   "irellia|NORMAL": {
     "title": "iRELLiA",
     "song_type": "NORMAL",
-    "path": "1815-9f0eafe98d.webp",
-    "source": "15.PHOENIX/18233 - iRELLiA/iRELLiA_B.png"
+    "path": "1815-e33b48c1af.webp",
+    "source": "15.PHOENIX/18233 - iRELLiA/iRELLiA.png"
   },
   "j bong|NORMAL": {
     "title": "J Bong",
@@ -1802,14 +1826,14 @@
   "jupin - short cut -|SHORTCUT": {
     "title": "Jupin - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1878-93517a79cc.webp",
-    "source": "15.PHOENIX/18F70 - [Short Cut] Jupin/[Short Cut] Jupin_B.png"
+    "path": "1878-65d029a11d.webp",
+    "source": "15.PHOENIX/18F70 - [Short Cut] Jupin/[Short Cut] Jupin.png"
   },
   "jupin|NORMAL": {
     "title": "Jupin",
     "song_type": "NORMAL",
-    "path": "1784-c87bbf6a63.webp",
-    "source": "15.PHOENIX/18025 - Jupin/Jupin_B.png"
+    "path": "1784-43f84b5076.webp",
+    "source": "15.PHOENIX/18025 - Jupin/Jupin.png"
   },
   "k.o.a : alice in wonderworld|NORMAL": {
     "title": "K.O.A : Alice In Wonderworld",
@@ -1880,8 +1904,8 @@
   "kugutsu|NORMAL": {
     "title": "KUGUTSU",
     "song_type": "NORMAL",
-    "path": "1786-dabbc761ed.webp",
-    "source": "15.PHOENIX/18030 - KUGUTSU/KUGUTSU_B.png"
+    "path": "1786-33f84b606f.webp",
+    "source": "15.PHOENIX/18030 - KUGUTSU/KUGUTSU.png"
   },
   "l (piu edit)|NORMAL": {
     "title": "L (PIU Edit)",
@@ -1898,8 +1922,8 @@
   "lacrimosa|NORMAL": {
     "title": "Lacrimosa",
     "song_type": "NORMAL",
-    "path": "1802-b21f8a595e.webp",
-    "source": "15.PHOENIX/18037 - Lacrimosa/Lacrimosa_B.png"
+    "path": "1802-4154a95669.webp",
+    "source": "15.PHOENIX/18037 - Lacrimosa/Lacrimosa.png"
   },
   "ladybug|NORMAL": {
     "title": "Ladybug",
@@ -1940,8 +1964,8 @@
   "le nozze di figaro ~celebrazione remix~|NORMAL": {
     "title": "Le Nozze di Figaro ~Celebrazione Remix~",
     "song_type": "NORMAL",
-    "path": "1829-b955f22cbe.webp",
-    "source": "15.PHOENIX/18044.1 - Le Nozze di Figaro ~Celebrazione Remix~/16B4_B.png"
+    "path": "1829-319426e3d9.webp",
+    "source": "15.PHOENIX/18044.1 - Le Nozze di Figaro ~Celebrazione Remix~/16B4.png"
   },
   "leakage voltage|NORMAL": {
     "title": "Leakage Voltage",
@@ -1982,8 +2006,8 @@
   "little munchkin|NORMAL": {
     "title": "Little Munchkin",
     "song_type": "NORMAL",
-    "path": "1824-22f1ec169a.webp",
-    "source": "15.PHOENIX/18041 - Little Munchkin/16B0_B.png"
+    "path": "1824-52a1bb6c0e.webp",
+    "source": "15.PHOENIX/18041 - Little Munchkin/16B0.png"
   },
   "login|NORMAL": {
     "title": "Login",
@@ -1994,8 +2018,8 @@
   "lohxia|NORMAL": {
     "title": "Lohxia",
     "song_type": "NORMAL",
-    "path": "1789-15d9524096.webp",
-    "source": "15.PHOENIX/18045 - Lohxia/Lohxia_B.png"
+    "path": "1789-9e830d81bb.webp",
+    "source": "15.PHOENIX/18045 - Lohxia/Lohxia.png"
   },
   "loki|NORMAL": {
     "title": "Loki",
@@ -2030,8 +2054,8 @@
   "lucid dream|NORMAL": {
     "title": "Lucid Dream",
     "song_type": "NORMAL",
-    "path": "1827-594205d949.webp",
-    "source": "15.PHOENIX/18033.5 - Lucid Dream/Lucid Dream_B.png"
+    "path": "1827-9142890a79.webp",
+    "source": "15.PHOENIX/18033.5 - Lucid Dream/Lucid Dream.png"
   },
   "lucid(piu edit)|NORMAL": {
     "title": "Lucid(PIU Edit)",
@@ -2060,8 +2084,8 @@
   "mahika|NORMAL": {
     "title": "Mahika",
     "song_type": "NORMAL",
-    "path": "1855-0c64128e99.webp",
-    "source": "15.PHOENIX/18238.7.5 - Mahika/Mahika_B.png"
+    "path": "1855-db27b607f0.webp",
+    "source": "15.PHOENIX/18238.7.5 - Mahika/Mahika.png"
   },
   "maria|NORMAL": {
     "title": "Maria",
@@ -2078,8 +2102,8 @@
   "megaheartz|NORMAL": {
     "title": "MEGAHEARTZ",
     "song_type": "NORMAL",
-    "path": "1844-1cc3b0909e.webp",
-    "source": "15.PHOENIX/18049.5 - MEGAHEARTZ/MEGAHEARTZ_B.png"
+    "path": "1844-41d4da448f.webp",
+    "source": "15.PHOENIX/18049.5 - MEGAHEARTZ/MEGAHEARTZ.png"
   },
   "mental rider|NORMAL": {
     "title": "Mental Rider",
@@ -2108,8 +2132,8 @@
   "milk|NORMAL": {
     "title": "Milk",
     "song_type": "NORMAL",
-    "path": "1794-b7b16b30f1.webp",
-    "source": "15.PHOENIX/18215 - MilK/MilK_B.png"
+    "path": "1794-60f14e157e.webp",
+    "source": "15.PHOENIX/18215 - MilK/MilK.png"
   },
   "milky way galaxy|NORMAL": {
     "title": "Milky Way Galaxy",
@@ -2198,8 +2222,8 @@
   "move that body!|FULLSONG": {
     "title": "Move That Body!",
     "song_type": "FULLSONG",
-    "path": "1567-869d3608b0.webp",
-    "source": "11.PRIME/14C3 - [Full Song] Move That Body!/14C3_B.png"
+    "path": "1567-7c04f03909.webp",
+    "source": "11.PRIME/14C3 - [Full Song] Move That Body!/14C3.png"
   },
   "move that body!|NORMAL": {
     "title": "Move That Body!",
@@ -2234,20 +2258,20 @@
   "murdoch vs otada - short cut -|SHORTCUT": {
     "title": "Murdoch vs Otada - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1918-65fd435e51.webp",
-    "source": "15.PHOENIX/18F82 - [Short Cut] Murdoch vs Otada/[Short Cut] Murdoch vs Otada_B.png"
+    "path": "1918-c73b4cf4d6.webp",
+    "source": "15.PHOENIX/18F82 - [Short Cut] Murdoch vs Otada/[Short Cut] Murdoch vs Otada.png"
   },
   "murdoch vs otada|NORMAL": {
     "title": "Murdoch vs Otada",
     "song_type": "NORMAL",
-    "path": "1853-595fb13a42.webp",
-    "source": "15.PHOENIX/18A60 - Murdoch vs Otada/Murdoch vs Otada_B.png"
+    "path": "1853-49346ea6c3.webp",
+    "source": "15.PHOENIX/18A60 - Murdoch vs Otada/Murdoch vs Otada.png"
   },
   "murdoch|NORMAL": {
     "title": "MURDOCH",
     "song_type": "NORMAL",
-    "path": "1788-4a4542c1c9.webp",
-    "source": "15.PHOENIX/18040 - MURDOCH/16A9_B.png"
+    "path": "1788-dac4b91d36.webp",
+    "source": "15.PHOENIX/18040 - MURDOCH/16A9.png"
   },
   "my dreams|NORMAL": {
     "title": "My Dreams",
@@ -2270,8 +2294,8 @@
   "nade nade|NORMAL": {
     "title": "Nade Nade",
     "song_type": "NORMAL",
-    "path": "1883-b67f903236.webp",
-    "source": "15.PHOENIX/18180 - Nade Nade/Nade Nade_B.png"
+    "path": "1883-5bdb12c266.webp",
+    "source": "15.PHOENIX/18180 - Nade Nade/Nade Nade.png"
   },
   "naissance 2|NORMAL": {
     "title": "Naissance 2",
@@ -2318,20 +2342,20 @@
   "neo catharsis - short cut -|SHORTCUT": {
     "title": "Neo Catharsis - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1895-aedcda91d9.webp",
-    "source": "15.PHOENIX/18F76 - [Short Cut] Neo Catharsis/[Short Cut] Neo Catharsis_B.png"
+    "path": "1895-0cc604271a.webp",
+    "source": "15.PHOENIX/18F76 - [Short Cut] Neo Catharsis/[Short Cut] Neo Catharsis.png"
   },
   "neo catharsis|NORMAL": {
     "title": "Neo Catharsis",
     "song_type": "NORMAL",
-    "path": "1811-0c2c133421.webp",
-    "source": "15.PHOENIX/18047 - Neo Catharsis/Neo Catharsis_B.png"
+    "path": "1811-cdb3fa46d5.webp",
+    "source": "15.PHOENIX/18047 - Neo Catharsis/Neo Catharsis.png"
   },
   "new rose|NORMAL": {
     "title": "New Rose",
     "song_type": "NORMAL",
-    "path": "1881-72e115b0e0.webp",
-    "source": "15.PHOENIX/18060 - New Rose/New Rose_B.png"
+    "path": "1881-8199d88fdd.webp",
+    "source": "15.PHOENIX/18060 - New Rose/New Rose.png"
   },
   "night duty|NORMAL": {
     "title": "Night Duty",
@@ -2354,8 +2378,8 @@
   "nostalgia|NORMAL": {
     "title": "Nostalgia",
     "song_type": "NORMAL",
-    "path": "1856-17658b4185.webp",
-    "source": "15.PHOENIX/18145 - Nostalgia/Nostalgia_B.png"
+    "path": "1856-2da2eb17d2.webp",
+    "source": "15.PHOENIX/18145 - Nostalgia/Nostalgia.png"
   },
   "nx opening|SHORTCUT": {
     "title": "NX Opening",
@@ -2372,8 +2396,8 @@
   "nyan-turne (feat. kutina)|NORMAL": {
     "title": "Nyan-turne (feat. KuTiNA)",
     "song_type": "NORMAL",
-    "path": "1866-4e3f34d58d.webp",
-    "source": "15.PHOENIX/1751 - Nyan-turne (feat. KuTiNA)/1751_B.png"
+    "path": "1866-c500db8ddb.webp",
+    "source": "15.PHOENIX/1751 - Nyan-turne (feat. KuTiNA)/1751.png"
   },
   "nyarlathotep - short cut -|SHORTCUT": {
     "title": "Nyarlathotep - SHORT CUT -",
@@ -2402,8 +2426,8 @@
   "odin|NORMAL": {
     "title": "Odin",
     "song_type": "NORMAL",
-    "path": "1864-831c65c717.webp",
-    "source": "15.PHOENIX/18242.5 - Odin/Odin_B.png"
+    "path": "1864-a05673cb4b.webp",
+    "source": "15.PHOENIX/18242.5 - Odin/Odin.png"
   },
   "oh! rosa!|NORMAL": {
     "title": "Oh! Rosa!",
@@ -2456,8 +2480,8 @@
   "pandora|NORMAL": {
     "title": "PANDORA",
     "song_type": "NORMAL",
-    "path": "1818-079dce1167.webp",
-    "source": "15.PHOENIX/18133 - PANDORA/PANDORA_B.png"
+    "path": "1818-5718c9510c.webp",
+    "source": "15.PHOENIX/18133 - PANDORA/PANDORA.png"
   },
   "papa gonzales|NORMAL": {
     "title": "Papa Gonzales",
@@ -2474,8 +2498,8 @@
   "papasito (feat. kutina) - full song -|FULLSONG": {
     "title": "Papasito (feat. KuTiNa) - FULL SONG -",
     "song_type": "FULLSONG",
-    "path": "1759-89506909ef.webp",
-    "source": "13.XX/16C9 - [Full Song] Papasito (feat. KuTiNA)/16C9_B.png"
+    "path": "1759-83fb76b9b4.webp",
+    "source": "13.XX/16C9 - [Full Song] Papasito (feat. KuTiNA)/16C9.png"
   },
   "papasito feat. kutina|NORMAL": {
     "title": "Papasito feat. KuTiNA",
@@ -2486,8 +2510,8 @@
   "paradoxx - short cut -|SHORTCUT": {
     "title": "Paradoxx - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1766-b603081332.webp",
-    "source": "13.XX/16B6 - [Short Cut] PARADOXX/16B6_B.png"
+    "path": "1766-2da8e67600.webp",
+    "source": "13.XX/16B6 - [Short Cut] PARADOXX/16B6.png"
   },
   "paradoxx|REMIX": {
     "title": "PARADOXX",
@@ -2528,8 +2552,8 @@
   "perpetual|NORMAL": {
     "title": "Perpetual",
     "song_type": "NORMAL",
-    "path": "1859-16db6d0c44.webp",
-    "source": "15.PHOENIX/1719 - Perpetual/1719_B.png"
+    "path": "1859-45fd0227fe.webp",
+    "source": "15.PHOENIX/1719 - Perpetual/1719.png"
   },
   "phalanx \"rs2018 edit\"|NORMAL": {
     "title": "Phalanx \"RS2018 edit\"",
@@ -2558,20 +2582,20 @@
   "pine nut|NORMAL": {
     "title": "Pine Nut",
     "song_type": "NORMAL",
-    "path": "1463-0955cf33be.webp",
-    "source": "09.FIESTA EX/1153 - Pine Nut/1153_B.png"
+    "path": "1463-99b7597190.webp",
+    "source": "09.FIESTA EX/1153 - Pine Nut/1153.png"
   },
   "pirate|NORMAL": {
     "title": "Pirate",
     "song_type": "NORMAL",
-    "path": "1775-89cb2a96ee.webp",
-    "source": "15.PHOENIX/18127 - Pirate/Pirate_B.png"
+    "path": "1775-4aa95e9339.webp",
+    "source": "15.PHOENIX/18127 - Pirate/Pirate.png"
   },
   "pneumonoultramicroscopicsilicovolcanoconiosis ft. kagamine len/gumi|NORMAL": {
     "title": "Pneumonoultramicroscopicsilicovolcanoconiosis ft. Kagamine Len/GUMI",
     "song_type": "NORMAL",
-    "path": "1796-7f9ea539d3.webp",
-    "source": "15.PHOENIX/18225 - Pneumonoultramicroscopicsilicovolcanoconiosis ft. Kagamine Len GUMI/Pneumonoultramicroscopicsilicovolcanoconiosis ft. Kagamine Len GUMI_B.png"
+    "path": "1796-54c4aa61f4.webp",
+    "source": "15.PHOENIX/18225 - Pneumonoultramicroscopicsilicovolcanoconiosis ft. Kagamine Len GUMI/Pneumonoultramicroscopicsilicovolcanoconiosis ft. Kagamine Len GUMI.png"
   },
   "point break|NORMAL": {
     "title": "Point Break",
@@ -2612,8 +2636,8 @@
   "poppin' shower|NORMAL": {
     "title": "Poppin' Shower",
     "song_type": "NORMAL",
-    "path": "1838-b60fc68654.webp",
-    "source": "15.PHOENIX/18242.7 - Poppin' Shower/Poppin' Shower_B.png"
+    "path": "1838-4b01021e25.webp",
+    "source": "15.PHOENIX/18242.7 - Poppin' Shower/Poppin' Shower.png"
   },
   "poseidon - short cut –|SHORTCUT": {
     "title": "Poseidon - SHORT CUT –",
@@ -2630,14 +2654,14 @@
   "prima materia - short cut -|SHORTCUT": {
     "title": "PRiMA MATERiA - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1912-50107af66a.webp",
-    "source": "15.PHOENIX/18F80 - [Short Cut] PRiMA MATERiA/[Short Cut] PRiMA MATERiA_B.png"
+    "path": "1912-fc1c7ea742.webp",
+    "source": "15.PHOENIX/18F80 - [Short Cut] PRiMA MATERiA/[Short Cut] PRiMA MATERiA.png"
   },
   "prima materia|NORMAL": {
     "title": "PRiMA MATERiA",
     "song_type": "NORMAL",
-    "path": "1830-553b6faa16.webp",
-    "source": "15.PHOENIX/18046 - PRiMA MATERiA/PRiMA MATERiA_B.png"
+    "path": "1830-e62d13d901.webp",
+    "source": "15.PHOENIX/18046 - PRiMA MATERiA/PRiMA MATERiA.png"
   },
   "prime opening|SHORTCUT": {
     "title": "PRIME Opening",
@@ -2714,8 +2738,8 @@
   "pupa|NORMAL": {
     "title": "PUPA",
     "song_type": "NORMAL",
-    "path": "1816-5bda91139f.webp",
-    "source": "15.PHOENIX/18238 - PUPA/PUPA_B.png"
+    "path": "1816-1ef574e329.webp",
+    "source": "15.PHOENIX/18238 - PUPA/PUPA.png"
   },
   "quattuorux|NORMAL": {
     "title": "QUATTUORUX",
@@ -2732,8 +2756,8 @@
   "queencard|NORMAL": {
     "title": "Queencard",
     "song_type": "NORMAL",
-    "path": "1834-303c222265.webp",
-    "source": "15.PHOENIX/18080 - Queencard/Queencard_B.png"
+    "path": "1834-90167fa4ec.webp",
+    "source": "15.PHOENIX/18080 - Queencard/Queencard.png"
   },
   "r.i.p|NORMAL": {
     "title": "R.I.P",
@@ -2852,14 +2876,14 @@
   "rush-hour|NORMAL": {
     "title": "Rush-Hour",
     "song_type": "NORMAL",
-    "path": "1893-9f9c6f1a49.webp",
-    "source": "15.PHOENIX/18238.7.0 - Rush-Hour/Rush-Hour_B.png"
+    "path": "1893-5ecf864ecd.webp",
+    "source": "15.PHOENIX/18238.7.0 - Rush-Hour/Rush-Hour.png"
   },
   "rush-more|NORMAL": {
     "title": "Rush-More",
     "song_type": "NORMAL",
-    "path": "1849-95f48b32f4.webp",
-    "source": "15.PHOENIX/18238.7 - Rush-More/Rush-More_B.png"
+    "path": "1849-157722aa1f.webp",
+    "source": "15.PHOENIX/18238.7 - Rush-More/Rush-More.png"
   },
   "sarabande|NORMAL": {
     "title": "Sarabande",
@@ -2882,8 +2906,8 @@
   "see|NORMAL": {
     "title": "See",
     "song_type": "NORMAL",
-    "path": "1822-8fd8c69ed1.webp",
-    "source": "15.PHOENIX/18034 - See/See_B.png"
+    "path": "1822-59f211de1a.webp",
+    "source": "15.PHOENIX/18034 - See/See.png"
   },
   "selfishness|NORMAL": {
     "title": "Selfishness",
@@ -2918,8 +2942,8 @@
   "showdown|NORMAL": {
     "title": "Showdown",
     "song_type": "NORMAL",
-    "path": "1781-b688b515ee.webp",
-    "source": "15.PHOENIX/18010 - Showdown/Showdown_B.png"
+    "path": "1781-f311ba8350.webp",
+    "source": "15.PHOENIX/18010 - Showdown/Showdown.png"
   },
   "shub niggurath|NORMAL": {
     "title": "Shub Niggurath",
@@ -2960,8 +2984,8 @@
   "simon says, eurodance!! (feat. sara☆m)|NORMAL": {
     "title": "Simon Says, EURODANCE!! (feat. Sara☆M)",
     "song_type": "NORMAL",
-    "path": "1825-5304a12f09.webp",
-    "source": "15.PHOENIX/18042 - Simon Says, EURODANCE!! (feat. Sara M)/16B1_B.png"
+    "path": "1825-2f392618d4.webp",
+    "source": "15.PHOENIX/18042 - Simon Says, EURODANCE!! (feat. Sara M)/16B1.png"
   },
   "skeptic|NORMAL": {
     "title": "Skeptic",
@@ -2996,14 +3020,14 @@
   "soldiers (tano*c w team red anthem)|NORMAL": {
     "title": "Soldiers (TANO*C W TEAM RED ANTHEM)",
     "song_type": "NORMAL",
-    "path": "1865-e9f7200af9.webp",
-    "source": "15.PHOENIX/18247 - Soldiers (TANO C W TEAM RED ANTHEM)/Soldiers (TANO C W TEAM RED ANTHEM)_B.png"
+    "path": "1865-a7cb25aea6.webp",
+    "source": "15.PHOENIX/18247 - Soldiers (TANO C W TEAM RED ANTHEM)/Soldiers (TANO C W TEAM RED ANTHEM).png"
   },
   "solfeggietto|NORMAL": {
     "title": "Solfeggietto",
     "song_type": "NORMAL",
-    "path": "1828-5770335020.webp",
-    "source": "15.PHOENIX/18039 - Solfeggietto/16A8_B.png"
+    "path": "1828-5cc50a8033.webp",
+    "source": "15.PHOENIX/18039 - Solfeggietto/16A8.png"
   },
   "solitary 1.5|NORMAL": {
     "title": "Solitary 1.5",
@@ -3032,20 +3056,20 @@
   "solve my hurt - short cut -|SHORTCUT": {
     "title": "Solve My Hurt - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1917-fb5a46cd62.webp",
-    "source": "15.PHOENIX/18F83 - [Short Cut] Solve My Hurt/[Short Cut] Solve My Hurt_B.png"
+    "path": "1917-922c22e9fe.webp",
+    "source": "15.PHOENIX/18F83 - [Short Cut] Solve My Hurt/[Short Cut] Solve My Hurt.png"
   },
   "solve my hurt|NORMAL": {
     "title": "Solve My Hurt",
     "song_type": "NORMAL",
-    "path": "1898-7a1e82f7bf.webp",
-    "source": "15.PHOENIX/18053 - Solve My Hurt/Solve My Hurt_B.png"
+    "path": "1898-ae0573b6fb.webp",
+    "source": "15.PHOENIX/18053 - Solve My Hurt/Solve My Hurt.png"
   },
   "sonic boom|NORMAL": {
     "title": "SONIC BOOM",
     "song_type": "NORMAL",
-    "path": "1868-dcde1e3dee.webp",
-    "source": "15.PHOENIX/18049.3 - SONIC BOOM/SONIC BOOM_B.png"
+    "path": "1868-5b7f5de3f8.webp",
+    "source": "15.PHOENIX/18049.3 - SONIC BOOM/SONIC BOOM.png"
   },
   "sorceress elise|NORMAL": {
     "title": "Sorceress Elise",
@@ -3056,20 +3080,20 @@
   "spooky macaron|NORMAL": {
     "title": "Spooky Macaron",
     "song_type": "NORMAL",
-    "path": "1911-6ecad7ff51.webp",
-    "source": "15.PHOENIX/18238.9 - Spooky Macaron/Spooky Macaron_B.png"
+    "path": "1911-cc5dccb1b4.webp",
+    "source": "15.PHOENIX/18238.9 - Spooky Macaron/Spooky Macaron.png"
   },
   "spray|NORMAL": {
     "title": "Spray",
     "song_type": "NORMAL",
-    "path": "1814-555539d1d1.webp",
-    "source": "15.PHOENIX/18129.5 - Spray/Spray_B.png"
+    "path": "1814-c0c360dd2e.webp",
+    "source": "15.PHOENIX/18129.5 - Spray/Spray.png"
   },
   "stager|NORMAL": {
     "title": "STAGER",
     "song_type": "NORMAL",
-    "path": "1826-38d8ba18ea.webp",
-    "source": "15.PHOENIX/18238.5 - STAGER/STAGER_B.png"
+    "path": "1826-1940190ecb.webp",
+    "source": "15.PHOENIX/18238.5 - STAGER/STAGER.png"
   },
   "star command|NORMAL": {
     "title": "Star Command",
@@ -3080,14 +3104,14 @@
   "stardream -eurobeat remix- - short cut -|SHORTCUT": {
     "title": "Stardream -Eurobeat Remix- - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1904-528fb48ea2.webp",
-    "source": "15.PHOENIX/18F79 - [Short Cut] Stardream -Eurobeat Remix-/[Short Cut] Stardream -Eurobeat Remix-_B.png"
+    "path": "1904-f10713f8b0.webp",
+    "source": "15.PHOENIX/18F79 - [Short Cut] Stardream -Eurobeat Remix-/[Short Cut] Stardream -Eurobeat Remix-.png"
   },
   "stardream -eurobeat remix-|NORMAL": {
     "title": "Stardream -Eurobeat Remix-",
     "song_type": "NORMAL",
-    "path": "1857-88b1c25cb0.webp",
-    "source": "15.PHOENIX/18036 - Stardream -Eurobeat Remix-/Stardream -Eurobeat Remix-_B.png"
+    "path": "1857-6097ff1cb7.webp",
+    "source": "15.PHOENIX/18036 - Stardream -Eurobeat Remix-/Stardream -Eurobeat Remix-.png"
   },
   "stardream (feat. romelon)|NORMAL": {
     "title": "Stardream (feat. Romelon)",
@@ -3104,8 +3128,8 @@
   "stardust overdrive|SHORTCUT": {
     "title": "Stardust Overdrive",
     "song_type": "SHORTCUT",
-    "path": "1576-eb5b3a3b5a.webp",
-    "source": "11.PRIME/14E7 - [Short Cut] Stardust Overdrive/14E7_B.png"
+    "path": "1576-ee0894a58d.webp",
+    "source": "11.PRIME/14E7 - [Short Cut] Stardust Overdrive/14E7.png"
   },
   "start on red|NORMAL": {
     "title": "Start On Red",
@@ -3122,8 +3146,8 @@
   "storm|NORMAL": {
     "title": "STORM",
     "song_type": "NORMAL",
-    "path": "1777-d5ed4b6d68.webp",
-    "source": "15.PHOENIX/18135 - STORM/STORM_B.png"
+    "path": "1777-4c1ee80ef7.webp",
+    "source": "15.PHOENIX/18135 - STORM/STORM.png"
   },
   "street show down|NORMAL": {
     "title": "Street Show Down",
@@ -3134,8 +3158,8 @@
   "sudden appearance image|NORMAL": {
     "title": "Sudden Appearance Image",
     "song_type": "NORMAL",
-    "path": "1823-769adabdb9.webp",
-    "source": "15.PHOENIX/18055 - Sudden Appearance Image/Sudden Appearance Image_B.png"
+    "path": "1823-ddc9bbf577.webp",
+    "source": "15.PHOENIX/18055 - Sudden Appearance Image/Sudden Appearance Image.png"
   },
   "sugar conspiracy theory|NORMAL": {
     "title": "Sugar Conspiracy Theory",
@@ -3152,8 +3176,8 @@
   "super akuma emperor|NORMAL": {
     "title": "Super Akuma Emperor",
     "song_type": "NORMAL",
-    "path": "1889-bf39cc5c99.webp",
-    "source": "15.PHOENIX/18048.5 - Super Akuma Emperor/Super Akuma Emperor_B.png"
+    "path": "1889-37cf7bf93e.webp",
+    "source": "15.PHOENIX/18048.5 - Super Akuma Emperor/Super Akuma Emperor.png"
   },
   "super capriccio|NORMAL": {
     "title": "Super Capriccio",
@@ -3188,8 +3212,8 @@
   "sweet wonderland|NORMAL": {
     "title": "SWEET WONDERLAND",
     "song_type": "NORMAL",
-    "path": "3259-c955aaf19c.webp",
-    "source": "15.PHOENIX/18252 - SWEET WONDERLAND/SWEET WONDERLAND_B.png"
+    "path": "3259-ac1a5564d6.webp",
+    "source": "15.PHOENIX/18252 - SWEET WONDERLAND/SWEET WONDERLAND.png"
   },
   "switronic - short cut -|SHORTCUT": {
     "title": "Switronic - SHORT CUT -",
@@ -3236,14 +3260,14 @@
   "teddy bear - full song -|FULLSONG": {
     "title": "Teddy Bear - FULL SONG -",
     "song_type": "FULLSONG",
-    "path": "1876-6dcd332109.webp",
-    "source": "15.PHOENIX/18E10 - [Full Song] Teddy Bear/[Full Song] Teddy Bear_B.png"
+    "path": "1876-535cf58862.webp",
+    "source": "15.PHOENIX/18E10 - [Full Song] Teddy Bear/[Full Song] Teddy Bear.png"
   },
   "teddy bear|NORMAL": {
     "title": "Teddy Bear",
     "song_type": "NORMAL",
-    "path": "1771-4003a6cc71.webp",
-    "source": "15.PHOENIX/18110 - Teddy Bear/Teddy Bear_B.png"
+    "path": "1771-d2469f7536.webp",
+    "source": "15.PHOENIX/18110 - Teddy Bear/Teddy Bear.png"
   },
   "tek -club copenhagen-|NORMAL": {
     "title": "Tek -Club Copenhagen-",
@@ -3266,14 +3290,14 @@
   "that kitty (piu edit.)|NORMAL": {
     "title": "That Kitty (PIU Edit.)",
     "song_type": "NORMAL",
-    "path": "1910-214df30ebe.webp",
-    "source": "15.PHOENIX/1725 - That Kitty (PIU Edit.)/1725_B.png"
+    "path": "1910-482b2b8272.webp",
+    "source": "15.PHOENIX/1725 - That Kitty (PIU Edit.)/1725.png"
   },
   "the apocalypse|NORMAL": {
     "title": "The Apocalypse",
     "song_type": "NORMAL",
-    "path": "1906-1e93493d4e.webp",
-    "source": "15.PHOENIX/18006 - The Apocalypse/The Apocalypse_B.png"
+    "path": "1906-5404d11b17.webp",
+    "source": "15.PHOENIX/18006 - The Apocalypse/The Apocalypse.png"
   },
   "the devil|NORMAL": {
     "title": "The Devil",
@@ -3362,8 +3386,8 @@
   "tomboy|NORMAL": {
     "title": "TOMBOY",
     "song_type": "NORMAL",
-    "path": "1817-8f81c605ec.webp",
-    "source": "15.PHOENIX/18128 - TOMBOY/TOMBOY_B.png"
+    "path": "1817-820f5f6668.webp",
+    "source": "15.PHOENIX/18128 - TOMBOY/TOMBOY.png"
   },
   "top city|NORMAL": {
     "title": "Top City",
@@ -3398,8 +3422,8 @@
   "trickl4sh 220|NORMAL": {
     "title": "TRICKL4SH 220",
     "song_type": "NORMAL",
-    "path": "1821-ab36aec899.webp",
-    "source": "15.PHOENIX/18244 - TRICKL4SH 220/TRICKL4SH 220_B.png"
+    "path": "1821-ee9cbc94f6.webp",
+    "source": "15.PHOENIX/18244 - TRICKL4SH 220/TRICKL4SH 220.png"
   },
   "tritium|NORMAL": {
     "title": "Tritium",
@@ -3476,14 +3500,14 @@
   "uh-heung|NORMAL": {
     "title": "Uh-Heung",
     "song_type": "NORMAL",
-    "path": "1843-fcce141aee.webp",
-    "source": "15.PHOENIX/18065 - Uh-Heung/Uh-Heung_B.png"
+    "path": "1843-d9c5ba1122.webp",
+    "source": "15.PHOENIX/18065 - Uh-Heung/Uh-Heung.png"
   },
   "ultimate eyes|NORMAL": {
     "title": "Ultimate Eyes",
     "song_type": "NORMAL",
-    "path": "1892-4b1e2e5667.webp",
-    "source": "15.PHOENIX/1744 - Ultimate Eyes/1744_B.png"
+    "path": "1892-da63a35f93.webp",
+    "source": "15.PHOENIX/1744 - Ultimate Eyes/1744.png"
   },
   "ultimatum|NORMAL": {
     "title": "Ultimatum",
@@ -3494,8 +3518,8 @@
   "underworld ft. skizzo (piu edit.)|NORMAL": {
     "title": "Underworld ft. Skizzo (PIU Edit.)",
     "song_type": "NORMAL",
-    "path": "1863-2ff5a6a9d4.webp",
-    "source": "15.PHOENIX/1726 - Underworld ft. Skizzo (PIU Edit.)/1726_B.png"
+    "path": "1863-8a2133c43d.webp",
+    "source": "15.PHOENIX/1726 - Underworld ft. Skizzo (PIU Edit.)/1726.png"
   },
   "unique|NORMAL": {
     "title": "Unique",
@@ -3554,8 +3578,8 @@
   "vanish 2 - roar of the invisible dragon|NORMAL": {
     "title": "Vanish 2 - Roar of the invisible dragon",
     "song_type": "NORMAL",
-    "path": "1897-43bdd67d00.webp",
-    "source": "15.PHOENIX/18036.7 - Vanish 2 - Roar of the invisible dragon/Vanish 2 - Roar of the invisible dragon_B.png"
+    "path": "1897-e3ee76400c.webp",
+    "source": "15.PHOENIX/18036.7 - Vanish 2 - Roar of the invisible dragon/Vanish 2 - Roar of the invisible dragon.png"
   },
   "vanish|NORMAL": {
     "title": "VANISH",
@@ -3566,14 +3590,14 @@
   "vector|NORMAL": {
     "title": "Vector",
     "song_type": "NORMAL",
-    "path": "1779-4f8c07fe79.webp",
-    "source": "15.PHOENIX/18000 - VECTOR/VECTOR_B.png"
+    "path": "1779-2a246620dd.webp",
+    "source": "15.PHOENIX/18000 - VECTOR/VECTOR.png"
   },
   "versailles|NORMAL": {
     "title": "Versailles",
     "song_type": "NORMAL",
-    "path": "1780-2caf38201c.webp",
-    "source": "15.PHOENIX/18005 - Versailles/Versailles_B.png"
+    "path": "1780-cc2b545cf0.webp",
+    "source": "15.PHOENIX/18005 - Versailles/Versailles.png"
   },
   "video out c|NORMAL": {
     "title": "video out C",
@@ -3596,8 +3620,8 @@
   "viyella's nightmare|NORMAL": {
     "title": "Viyella's Nightmare",
     "song_type": "NORMAL",
-    "path": "1810-fafe2b8911.webp",
-    "source": "15.PHOENIX/18243 - Viyella's Nightmare/Viyella's Nightmare_B.png"
+    "path": "1810-fa7001758a.webp",
+    "source": "15.PHOENIX/18243 - Viyella's Nightmare/Viyella's Nightmare.png"
   },
   "vook|NORMAL": {
     "title": "Vook",
@@ -3662,8 +3686,8 @@
   "whisper|NORMAL": {
     "title": "WHISPER",
     "song_type": "NORMAL",
-    "path": "1804-e415623bb0.webp",
-    "source": "15.PHOENIX/18129 - WHISPER/WHISPER_B.png"
+    "path": "1804-1670ac6ad7.webp",
+    "source": "15.PHOENIX/18129 - WHISPER/WHISPER.png"
   },
   "wi-ex-doc-va|REMIX": {
     "title": "WI-EX-DOC-VA",
@@ -3728,8 +3752,8 @@
   "wither garden|NORMAL": {
     "title": "wither garden",
     "song_type": "NORMAL",
-    "path": "1837-ab697993b9.webp",
-    "source": "15.PHOENIX/18A70 - wither garden/wither garden_B.png"
+    "path": "1837-0b9e1d7d12.webp",
+    "source": "15.PHOENIX/18A70 - wither garden/wither garden.png"
   },
   "x-rave|NORMAL": {
     "title": "X-Rave",
@@ -3788,8 +3812,8 @@
   "yo! say!! fairy!!!|NORMAL": {
     "title": "Yo! Say!! Fairy!!!",
     "song_type": "NORMAL",
-    "path": "1812-049f67ad52.webp",
-    "source": "15.PHOENIX/18044 - Yo! Say!! Fairy!!!/16B3_B.png"
+    "path": "1812-ad0c2e96e1.webp",
+    "source": "15.PHOENIX/18044 - Yo! Say!! Fairy!!!/16B3.png"
   },
   "yog-sothoth|NORMAL": {
     "title": "Yog-Sothoth",

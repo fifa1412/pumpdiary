@@ -14,9 +14,10 @@
 // catalog titles (exact, case-insensitive); repeat it for several songs.
 //
 // Folder layout: <series>/<"(n) "?><code> - <"[Full Song] " etc.?><title>/
-// Image choice: a "-wide[XX]" title card when there is one; otherwise PNG/JPG
-// files in the folder, never "-wide" ones; when several
-// are left, the .ssc #BANNER file, then a "_B" file, then a 4:3 one.
+// Image choice: a hand pick from MANUAL_PICKS; else a "-wide[XX]" title card
+// when there is one; else PNG/JPG files in the folder, never "-wide" ones;
+// when several are left, X over X_B, then the .ssc #BANNER file, then a "_B"
+// file, then a 4:3 one.
 //
 // Needs NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY (to
 // read the catalog) and, for --upload, SUPABASE_SERVICE_ROLE_KEY, all from
@@ -26,7 +27,7 @@ import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "
 import { execFileSync } from "node:child_process";
 import { mkdtempSync, rmSync } from "node:fs";
 import { homedir, tmpdir } from "node:os";
-import { dirname, extname, join, relative } from "node:path";
+import { basename, dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import sharp from "sharp";
@@ -45,8 +46,17 @@ const TAG_TYPES = {
   remix: "REMIX",
 };
 const SKIPPED_TAGS = new Set(["skill up"]);
-// Series folders whose "_B" images are never used (the plain file is the card).
-const NO_B_SERIES = /phoenix 2/i;
+// Images picked by hand, for songs the folder names do not match or where the
+// rules pick the wrong file: "catalog title|song type" -> path under --dir.
+const MANUAL_PICKS = {
+  "A nightmare|NORMAL": "04.1ST~PERFECT/(1) 306 - Nightmare/306.png",
+  "B.P Classic Remix|REMIX": "08.FIESTA/1031 - [Remix] Banya-P Classic Remix/1031.png",
+  "B.P Classic Remix 2|REMIX": "08.FIESTA/1034 - [Remix] Banya-P Classic Remix 2/1034.png",
+  "Bemera|SHORTCUT": "08.FIESTA/1062 - [Short Cut] Beemera/1062.png",
+  "ASDF|NORMAL": "09.FIESTA EX/1154 - ASDF/1154.png",
+  "Bad Apple!! feat. Nomico|NORMAL": "11.PRIME/1481 - Bad Apple!! (feat. Nomico)/1481.png",
+  "Baroque Virus - FULL SONG -|FULLSONG": "13.XX/16F9 - [Full Song] Baroque Virus/16F9-wide.png",
+};
 
 function fail(message) {
   console.error(`import_jackets: ${message}`);
@@ -124,16 +134,14 @@ async function chooseImage(folder) {
   if (xxWide) return { file: xxWide, how: "-wide[XX]" };
   const images = files
     .filter((file) => /\.(png|jpe?g)$/i.test(file) && !/-wide\./i.test(file))
-    .filter((file) => !(NO_B_SERIES.test(folder.series) && /_B\.(png|jpe?g)$/i.test(file)))
     .sort();
   if (images.length <= 1) return images[0] ? { file: images[0], how: "only image" } : null;
 
-  // "X.png" next to "X_B.png": X is the plain title card when it is 4:3
-  // (in Phoenix folders X is the 16:9 background instead, so _B wins there).
+  // "X.png" next to "X_B.png": always X.
   for (const file of images) {
     const base = file.match(/^(.*)_B\.(png|jpe?g)$/i)?.[1];
     const plain = base && images.find((other) => new RegExp(`^${escapeRegExp(base)}\\.(png|jpe?g)$`, "i").test(other));
-    if (plain && (await isFourByThree(join(folder.path, plain)))) return { file: plain, how: "plain over _B" };
+    if (plain) return { file: plain, how: "plain over _B" };
   }
 
   const ssc = files.find((file) => /\.ssc$/i.test(file));
@@ -265,6 +273,13 @@ async function main() {
   const noImage = [];
   for (const song of songs) {
     const found = matchesBySong.get(song.id);
+    const manual = MANUAL_PICKS[`${song.title}|${song.song_type}`];
+    if (manual) {
+      const [series, name] = manual.split("/");
+      if (!existsSync(join(args.dir, manual))) fail(`manual pick not found: ${manual}`);
+      chosen.push({ song, folder: { series, name, path: join(args.dir, series, name) }, file: basename(manual), how: "manual", others: 0 });
+      continue;
+    }
     if (!found) continue;
     let pick = null;
     for (const folder of [...found].reverse()) {

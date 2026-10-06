@@ -65,7 +65,6 @@ export async function SongCard({ song }: { song: SongWithCharts }) {
           <ChartBadges
             charts={charts}
             label={t("chartsLabel")}
-            leaderboardLabel={t("leaderboardLink")}
           />
         </div>
       )}

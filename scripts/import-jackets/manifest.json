@@ -1,9 +1,633 @@
 {
+  "* this game does not exist *|NORMAL": {
+    "title": "* this game does not exist *",
+    "song_type": "NORMAL",
+    "path": "1860-2d62f926b5.webp",
+    "source": "15.PHOENIX/18238.7.1 - this game does not exist/this game does not exist_B.png"
+  },
+  "%x (percent x)|NORMAL": {
+    "title": "%X (Percent X)",
+    "song_type": "NORMAL",
+    "path": "1662-bddbc5ff0d.webp",
+    "source": "13.XX/1620 - %X (Percent X)/1620.png"
+  },
+  "†doof†senc†|NORMAL": {
+    "title": "†DOOF†SENC†",
+    "song_type": "NORMAL",
+    "path": "1909-a4da74adbb.webp",
+    "source": "15.PHOENIX/18242.6 - DOOFSENC/DOOFSENC_B.png"
+  },
+  "1948|NORMAL": {
+    "title": "1948",
+    "song_type": "NORMAL",
+    "path": "1888-272214c53a.webp",
+    "source": "15.PHOENIX/18036.3 - 1948/1948_B.png"
+  },
+  "1949|NORMAL": {
+    "title": "1949",
+    "song_type": "NORMAL",
+    "path": "1686-68e17be662.webp",
+    "source": "13.XX/1605 - 1949/1605.png"
+  },
   "1950|NORMAL": {
     "title": "1950",
     "song_type": "NORMAL",
     "path": "1524-63bae72adb.webp",
     "source": "11.PRIME/1424 - 1950/1424.png"
+  },
+  "2006 love song|NORMAL": {
+    "title": "2006 LOVE SONG",
+    "song_type": "NORMAL",
+    "path": "1359-f4df1685da.webp",
+    "source": "07.NX~NXA/(2) D14 - 2006 Love Song/D14.png"
+  },
+  "4nt|NORMAL": {
+    "title": "4NT",
+    "song_type": "NORMAL",
+    "path": "1905-ace9cef637.webp",
+    "source": "15.PHOENIX/1734 - 4NT/1734_B.png"
+  },
+  "86|FULLSONG": {
+    "title": "86",
+    "song_type": "FULLSONG",
+    "path": "1683-3a2ef97644.webp",
+    "source": "13.XX/16F7 - [Full Song] 8 6/16F7.png"
+  },
+  "86|NORMAL": {
+    "title": "86",
+    "song_type": "NORMAL",
+    "path": "1670-396e888c74.webp",
+    "source": "13.XX/1670 - 8 6/1670.png"
+  },
+  "a site de la rue|NORMAL": {
+    "title": "A Site De La Rue",
+    "song_type": "NORMAL",
+    "path": "1642-9e9ba5eb06.webp",
+    "source": "12.PRIME 2/15B6 - A Site De La Rue/15B6.png"
+  },
+  "about the universe|NORMAL": {
+    "title": "About The Universe",
+    "song_type": "NORMAL",
+    "path": "1901-bd689034bb.webp",
+    "source": "15.PHOENIX/1717 - About The Universe/1717_B.png"
+  },
+  "accident|NORMAL": {
+    "title": "Accident",
+    "song_type": "NORMAL",
+    "path": "1484-aed9a349dd.webp",
+    "source": "10.FIESTA 2/(1) 1311 - Accident/1311.png"
+  },
+  "achluoias|NORMAL": {
+    "title": "Achluoias",
+    "song_type": "NORMAL",
+    "path": "1544-58fb975cc0.webp",
+    "source": "11.PRIME/1463 - Achluoias/1463.png"
+  },
+  "acquire|NORMAL": {
+    "title": "Acquire",
+    "song_type": "NORMAL",
+    "path": "1795-b5545c7afb.webp",
+    "source": "15.PHOENIX/18220 - Acquire/Acquire_B.png"
+  },
+  "adrenaline blaster|NORMAL": {
+    "title": "Adrenaline Blaster",
+    "song_type": "NORMAL",
+    "path": "1724-8cdbf8288b.webp",
+    "source": "13.XX/1627 - Adrenaline Blaster/1627.png"
+  },
+  "after a thousand years|NORMAL": {
+    "title": "After a thousand years",
+    "song_type": "NORMAL",
+    "path": "1714-676a176101.webp",
+    "source": "13.XX/1673 - After a thousand years/1673.png"
+  },
+  "after like|NORMAL": {
+    "title": "After LIKE",
+    "song_type": "NORMAL",
+    "path": "1774-8c2c531e3f.webp",
+    "source": "15.PHOENIX/18125 - After LIKE/After LIKE_B.png"
+  },
+  "airplane|NORMAL": {
+    "title": "Airplane",
+    "song_type": "NORMAL",
+    "path": "1778-9b59ee7c28.webp",
+    "source": "15.PHOENIX/18140 - Airplane/Airplane_B.png"
+  },
+  "alice in misanthrope|NORMAL": {
+    "title": "Alice in Misanthrope",
+    "song_type": "NORMAL",
+    "path": "1916-831f0347cc.webp",
+    "source": "15.PHOENIX/18236 - Alice in Misanthrope/Alice in Misanthrope_B.png"
+  },
+  "alive|NORMAL": {
+    "title": "ALiVE",
+    "song_type": "NORMAL",
+    "path": "1902-0be4b1f8c0.webp",
+    "source": "15.PHOENIX/18243.7 - ALiVE/ALiVE_B.png"
+  },
+  "all i want for x-mas|NORMAL": {
+    "title": "All I Want For X-mas",
+    "song_type": "NORMAL",
+    "path": "1302-477c51731f.webp",
+    "source": "04.1ST~PERFECT/(3) 504 - All I Want For X-Mas/504.PNG"
+  },
+  "allegro con fuoco - full song -|FULLSONG": {
+    "title": "Allegro Con Fuoco - FULL SONG -",
+    "song_type": "FULLSONG",
+    "path": "1689-7c373b28e0.webp",
+    "source": "13.XX/16C5 - [Full Song] Allegro Con Fuoco/16C5.png"
+  },
+  "allegro con fuoco|NORMAL": {
+    "title": "Allegro Con Fuoco",
+    "song_type": "NORMAL",
+    "path": "1447-eca9d9fd63.webp",
+    "source": "09.FIESTA EX/1122 - Allegro Con Fuoco/1122.PNG"
+  },
+  "allegro furioso|NORMAL": {
+    "title": "Allegro Furioso",
+    "song_type": "NORMAL",
+    "path": "1600-1221feebc7.webp",
+    "source": "12.PRIME 2/1526 - Allegro Furioso/1526.png"
+  },
+  "allegro piu mosso|NORMAL": {
+    "title": "Allegro Piu Mosso",
+    "song_type": "NORMAL",
+    "path": "1526-0e897be194.webp",
+    "source": "11.PRIME/1426 - Allegro PIU Mosso/1426.png"
+  },
+  "alone|NORMAL": {
+    "title": "Alone",
+    "song_type": "NORMAL",
+    "path": "1772-cb58449fb9.webp",
+    "source": "15.PHOENIX/18115 - Alone/Alone_B.png"
+  },
+  "altale|NORMAL": {
+    "title": "Altale",
+    "song_type": "NORMAL",
+    "path": "1797-1329761c92.webp",
+    "source": "15.PHOENIX/18230 - Altale/Altale_B.png"
+  },
+  "amai yuuwaku dangerous|NORMAL": {
+    "title": "Amai Yuuwaku Dangerous",
+    "song_type": "NORMAL",
+    "path": "1550-1f55025dd1.webp",
+    "source": "11.PRIME/1475 - Amai Yuuwaku Dangerous/1475.png"
+  },
+  "amor fati|NORMAL": {
+    "title": "Amor Fati",
+    "song_type": "NORMAL",
+    "path": "1773-b070f2b5c8.webp",
+    "source": "15.PHOENIX/18120 - Amor Fati/Amor Fati_B.png"
+  },
+  "amphitryon|NORMAL": {
+    "title": "Amphitryon",
+    "song_type": "NORMAL",
+    "path": "1516-70d0dda440.webp",
+    "source": "11.PRIME/1416 - Amphitryon/1416.png"
+  },
+  "an interesting view|NORMAL": {
+    "title": "An Interesting View",
+    "song_type": "NORMAL",
+    "path": "1651-8b6d51e90f.webp",
+    "source": "04.1ST~PERFECT/(1) 305 - An Interesting View/305.PNG"
+  },
+  "anguished unmaking|NORMAL": {
+    "title": "Anguished Unmaking",
+    "song_type": "NORMAL",
+    "path": "1624-6263d38515.webp",
+    "source": "12.PRIME 2/1529 - Anguished Unmaking/1529.png"
+  },
+  "annihilator method|NORMAL": {
+    "title": "Annihilator Method",
+    "song_type": "NORMAL",
+    "path": "1527-e224a5dfc2.webp",
+    "source": "11.PRIME/1427 - Annihilator Method/1427.png"
+  },
+  "another truth|NORMAL": {
+    "title": "Another Truth",
+    "song_type": "NORMAL",
+    "path": "1281-4659b8c19b.webp",
+    "source": "04.1ST~PERFECT/(3) 112 - Another Truth/112.PNG"
+  },
+  "appassionata|NORMAL": {
+    "title": "Appassionata",
+    "song_type": "NORMAL",
+    "path": "1852-5c0ce8a059.webp",
+    "source": "15.PHOENIX/18048 - Appassionata/Appassionata_B.png"
+  },
+  "aragami|NORMAL": {
+    "title": "Aragami",
+    "song_type": "NORMAL",
+    "path": "1808-1fe13c5ea2.webp",
+    "source": "15.PHOENIX/18239 - Aragami/Aragami_B.png"
+  },
+  "arcana force|NORMAL": {
+    "title": "Arcana Force",
+    "song_type": "NORMAL",
+    "path": "1583-d24def7c8c.webp",
+    "source": "12.PRIME 2/1525 - Arcana Force/1525.png"
+  },
+  "arch of darkness|NORMAL": {
+    "title": "Arch of Darkness",
+    "song_type": "NORMAL",
+    "path": "1357-46695179cd.webp",
+    "source": "07.NX~NXA/(2) D02 - Arch of Darkness/D02.PNG"
+  },
+  "arirang|NORMAL": {
+    "title": "Arirang",
+    "song_type": "NORMAL",
+    "path": "1406-fc7dee4003.webp",
+    "source": "08.FIESTA/1023 - Arirang/1023.png"
+  },
+  "asdf|NORMAL": {
+    "title": "ASDF",
+    "song_type": "NORMAL",
+    "path": "1464-f3007ffc3a.webp",
+    "source": "09.FIESTA EX/1154 - ASDF/1154_B.png"
+  },
+  "asterios -reentry-|NORMAL": {
+    "title": "Asterios -ReEntry-",
+    "song_type": "NORMAL",
+    "path": "1586-c101faccd7.webp",
+    "source": "12.PRIME 2/15B0 - Asterios -ReEntry-/15B0.png"
+  },
+  "athena's shield|NORMAL": {
+    "title": "Athena's Shield",
+    "song_type": "NORMAL",
+    "path": "1847-33923fe90c.webp",
+    "source": "15.PHOENIX/18A50 - Athena's Shield/Athena's Shield_B.png"
+  },
+  "avalanche|NORMAL": {
+    "title": "Avalanche",
+    "song_type": "NORMAL",
+    "path": "1508-1dc2bcfb1c.webp",
+    "source": "11.PRIME/1408 - Avalanche/1408.png"
+  },
+  "avalanquiem|REMIX": {
+    "title": "Avalanquiem",
+    "song_type": "REMIX",
+    "path": "1565-e9b346e8f3.webp",
+    "source": "11.PRIME/14A1 - [Remix] Avalanquiem/14A1_B.png"
+  },
+  "awakening|NORMAL": {
+    "title": "Awakening",
+    "song_type": "NORMAL",
+    "path": "1637-9c4ce66162.webp",
+    "source": "12.PRIME 2/1541 - Awakening/1541.png"
+  },
+  "b2|NORMAL": {
+    "title": "B2",
+    "song_type": "NORMAL",
+    "path": "1512-4e88c803e8.webp",
+    "source": "11.PRIME/1412 - B2/1412.png"
+  },
+  "bad apple!! feat. nomico|FULLSONG": {
+    "title": "Bad Apple!! feat. Nomico",
+    "song_type": "FULLSONG",
+    "path": "1568-3fe087b36f.webp",
+    "source": "11.PRIME/14C6 - [Full Song] Bad Apple!! (feat. Nomico)/14C6_B.png"
+  },
+  "bad apple!! feat. nomico|NORMAL": {
+    "title": "Bad Apple!! feat. Nomico",
+    "song_type": "NORMAL",
+    "path": "1556-4b53aa12d6.webp",
+    "source": "11.PRIME/1481 - Bad Apple!! (feat. Nomico)/1481.png"
+  },
+  "banya classic remix|REMIX": {
+    "title": "Banya Classic Remix",
+    "song_type": "REMIX",
+    "path": "1345-07bd7eca85.webp",
+    "source": "06.EXCEED~ZERO/(2) B29 - [Remix] Banya Classic Remix/B29_B.png"
+  },
+  "banya hiphop remix|REMIX": {
+    "title": "Banya Hiphop Remix",
+    "song_type": "REMIX",
+    "path": "1346-05be803b9c.webp",
+    "source": "06.EXCEED~ZERO/(2) B56 - [Remix] Banya Hip Hop Remix/B56_B.png"
+  },
+  "banya-p classic remix|REMIX": {
+    "title": "Banya-P Classic Remix",
+    "song_type": "REMIX",
+    "path": "1654-9fcda938b1.webp",
+    "source": "08.FIESTA/1031 - [Remix] Banya-P Classic Remix/1031_b.png"
+  },
+  "banya-p guitar remix|REMIX": {
+    "title": "Banya-P Guitar Remix",
+    "song_type": "REMIX",
+    "path": "1380-f853ac94e3.webp",
+    "source": "07.NX~NXA/(1) E50 - [Remix] Banya P-Guitar Remix/E50_B.png"
+  },
+  "barber's madness|NORMAL": {
+    "title": "Barber's Madness",
+    "song_type": "NORMAL",
+    "path": "1807-7c708668f2.webp",
+    "source": "15.PHOENIX/18043 - Barber's Madness/16B2_B.png"
+  },
+  "baroque virus - full song -|FULLSONG": {
+    "title": "Baroque Virus - FULL SONG -",
+    "song_type": "FULLSONG",
+    "path": "1741-4af8fb4f21.webp",
+    "source": "13.XX/16F9 - [Full Song] Baroque Virus/16F9.png"
+  },
+  "baroque virus|NORMAL": {
+    "title": "Baroque Virus",
+    "song_type": "NORMAL",
+    "path": "1477-82858bbdf6.webp",
+    "source": "10.FIESTA 2/(1) 1304 - Baroque Virus/1304.PNG"
+  },
+  "battle no.1|NORMAL": {
+    "title": "BATTLE NO.1",
+    "song_type": "NORMAL",
+    "path": "1801-8310fa7338.webp",
+    "source": "15.PHOENIX/18245 - BATTLE NO.1/BATTLE NO.1_B.png"
+  },
+  "beat of the war 2 full song|FULLSONG": {
+    "title": "Beat of The War 2 Full Song",
+    "song_type": "FULLSONG",
+    "path": "1369-516b46e2eb.webp",
+    "source": "07.NX~NXA/(2) D42 - [Full Song] Beat of the War 2/D42_B.PNG"
+  },
+  "beat of the war 2|NORMAL": {
+    "title": "Beat of The War 2",
+    "song_type": "NORMAL",
+    "path": "1348-9a31b1561e.webp",
+    "source": "06.EXCEED~ZERO/(1) C01 - Beat of the War 2/C01.PNG"
+  },
+  "beat of the war|NORMAL": {
+    "title": "Beat of The War",
+    "song_type": "NORMAL",
+    "path": "1331-3171b28860.webp",
+    "source": "05.EXTRA~PREX 3/(1) 820 - Beat of the War/820.PNG"
+  },
+  "beat the ghost|NORMAL": {
+    "title": "Beat The Ghost",
+    "song_type": "NORMAL",
+    "path": "1371-28a18af93e.webp",
+    "source": "07.NX~NXA/(1) E02 - Beat the Ghost/E02.PNG"
+  },
+  "beautiful liar|NORMAL": {
+    "title": "Beautiful Liar",
+    "song_type": "NORMAL",
+    "path": "1776-531092ecc3.webp",
+    "source": "15.PHOENIX/18130 - Beautiful Liar/Beautiful Liar_B.png"
+  },
+  "becouse of you|NORMAL": {
+    "title": "Becouse of You",
+    "song_type": "NORMAL",
+    "path": "1900-10c9f061d6.webp",
+    "source": "15.PHOENIX/18242.6 - Becouse of You/Becouse of You_B.png"
+  },
+  "bedlam|NORMAL": {
+    "title": "BEDLAM",
+    "song_type": "NORMAL",
+    "path": "1610-84d33a8306.webp",
+    "source": "12.PRIME 2/15B5 - BEDLAM/15B5.png"
+  },
+  "bee|NORMAL": {
+    "title": "Bee",
+    "song_type": "NORMAL",
+    "path": "1328-92bb6b96f0.webp",
+    "source": "05.EXTRA~PREX 3/(1) 802 - Bee/802.PNG"
+  },
+  "beethoven influenza|REMIX": {
+    "title": "Beethoven Influenza",
+    "song_type": "REMIX",
+    "path": "1564-eb695f21bb.webp",
+    "source": "11.PRIME/14A0 - [Remix] Beethoven Influenza/14A0.png"
+  },
+  "beethoven virus|NORMAL": {
+    "title": "Beethoven Virus",
+    "song_type": "NORMAL",
+    "path": "1303-b41aa9b8ad.webp",
+    "source": "04.1ST~PERFECT/(3) 505 - Beethoven Virus/505.PNG"
+  },
+  "bemera|REMIX": {
+    "title": "BEMERA",
+    "song_type": "REMIX",
+    "path": "1367-ada671d4f2.webp",
+    "source": "07.NX~NXA/(2) D35 - [Remix] Bemera/D35_B.png"
+  },
+  "betrayer -act.2-|NORMAL": {
+    "title": "Betrayer -act.2-",
+    "song_type": "NORMAL",
+    "path": "1400-27310e0e7c.webp",
+    "source": "08.FIESTA/1003 - Betrayer -Act 2/1003.png"
+  },
+  "betrayer|NORMAL": {
+    "title": "Betrayer",
+    "song_type": "NORMAL",
+    "path": "1296-fab19928bb.webp",
+    "source": "04.1ST~PERFECT/(4) 403 - Betrayer/403.png"
+  },
+  "big daddy|NORMAL": {
+    "title": "Big Daddy",
+    "song_type": "NORMAL",
+    "path": "1840-ba3067226a.webp",
+    "source": "15.PHOENIX/18242.3 - Big Daddy/Big Daddy_B.png"
+  },
+  "binary star|NORMAL": {
+    "title": "Binary star",
+    "song_type": "NORMAL",
+    "path": "1915-e638ac2dd6.webp",
+    "source": "15.PHOENIX/1708 - Binary Star/1708_B.png"
+  },
+  "black dragon|NORMAL": {
+    "title": "Black Dragon",
+    "song_type": "NORMAL",
+    "path": "1641-ef0928a5ad.webp",
+    "source": "12.PRIME 2/15A0 - Black Dragon/15A0.png"
+  },
+  "black swan|NORMAL": {
+    "title": "Black Swan",
+    "song_type": "NORMAL",
+    "path": "1672-5102262946.webp",
+    "source": "13.XX/1679 - Black Swan/1679.png"
+  },
+  "blaze emotion(band version)|NORMAL": {
+    "title": "Blaze Emotion(Band version)",
+    "song_type": "NORMAL",
+    "path": "1523-ff3f91f473.webp",
+    "source": "11.PRIME/1423 - Blaze Emotion (Band Version)/1423.png"
+  },
+  "blaze emotion|NORMAL": {
+    "title": "Blaze Emotion",
+    "song_type": "NORMAL",
+    "path": "1382-bee4f8b96a.webp",
+    "source": "07.NX~NXA/F01 - Blaze Emotion/F01.png"
+  },
+  "blazing|NORMAL": {
+    "title": "Blazing",
+    "song_type": "NORMAL",
+    "path": "1336-b6ec233c88.webp",
+    "source": "06.EXCEED~ZERO/(3) A04 - Blazing/A04.PNG"
+  },
+  "bluish rose|NORMAL": {
+    "title": "Bluish Rose",
+    "song_type": "NORMAL",
+    "path": "1819-8009ba89ef.webp",
+    "source": "15.PHOENIX/18044.5 - Bluish Rose/Bluish Rose_B.png"
+  },
+  "boca|NORMAL": {
+    "title": "BOCA",
+    "song_type": "NORMAL",
+    "path": "1769-a87bec703c.webp",
+    "source": "15.PHOENIX/18100 - BOCA/BOCA_B.png"
+  },
+  "booom!!|NORMAL": {
+    "title": "BOOOM!!",
+    "song_type": "NORMAL",
+    "path": "1782-91079e2df3.webp",
+    "source": "15.PHOENIX/18015 - BOOOM!!/BOOOM!!_B.png"
+  },
+  "brain power|NORMAL": {
+    "title": "BRAIN POWER",
+    "song_type": "NORMAL",
+    "path": "1743-3f165cf623.webp",
+    "source": "13.XX/1697 - BRAIN POWER/1697.png"
+  },
+  "break it down|NORMAL": {
+    "title": "Break It Down",
+    "song_type": "NORMAL",
+    "path": "1561-b85ce55d6b.webp",
+    "source": "11.PRIME/1497 - Break It Down/1497.png"
+  },
+  "break out|NORMAL": {
+    "title": "Break Out",
+    "song_type": "NORMAL",
+    "path": "1644-4b4d259b10.webp",
+    "source": "12.PRIME 2/1513 - Break Out/1513.png"
+  },
+  "break through myself feat. risa yuzuki|NORMAL": {
+    "title": "Break Through Myself feat. Risa Yuzuki",
+    "song_type": "NORMAL",
+    "path": "1874-8911adcd1c.webp",
+    "source": "15.PHOENIX/18242.9 - Break Through Myself feat. Risa Yuzuki/Break Through Myself feat. Risa Yuzuki_B.png"
+  },
+  "bring back the beat|NORMAL": {
+    "title": "Bring Back The Beat",
+    "song_type": "NORMAL",
+    "path": "1581-f2f72c6d76.webp",
+    "source": "12.PRIME 2/1512 - Bring Back the Beat/1512.png"
+  },
+  "broken karma(piu edit)|NORMAL": {
+    "title": "Broken Karma(PIU Edit)",
+    "song_type": "NORMAL",
+    "path": "1731-ed63e73019.webp",
+    "source": "13.XX/1672 - Broken Karma (PIU EDIT)/1672.png"
+  },
+  "brown sky|REMIX": {
+    "title": "Brown Sky",
+    "song_type": "REMIX",
+    "path": "1767-4d82c8a704.webp",
+    "source": "13.XX/16B7 - [Remix] Brown Sky/16B7_B.png"
+  },
+  "bspower explosion|NORMAL": {
+    "title": "BSPower Explosion",
+    "song_type": "NORMAL",
+    "path": "1647-6d84ab2946.webp",
+    "source": "12.PRIME 2/15A1 - BSPower Explosion/15A1.png"
+  },
+  "bubble|NORMAL": {
+    "title": "Bubble",
+    "song_type": "NORMAL",
+    "path": "1833-f40324cb20.webp",
+    "source": "15.PHOENIX/18075 - Bubble/Bubble_B.png"
+  },
+  "burn out|NORMAL": {
+    "title": "Burn Out",
+    "song_type": "NORMAL",
+    "path": "1891-39601eecd7.webp",
+    "source": "15.PHOENIX/1732 - Burn Out/1732_B.png"
+  },
+  "butterfly|NORMAL": {
+    "title": "Butterfly",
+    "song_type": "NORMAL",
+    "path": "1442-c3b8f1adea.webp",
+    "source": "09.FIESTA EX/1105 - Butterfly/1105.png"
+  },
+  "campanella|NORMAL": {
+    "title": "Campanella",
+    "song_type": "NORMAL",
+    "path": "1533-30d1b40537.webp",
+    "source": "11.PRIME/1434 - Campanella/1434.png"
+  },
+  "can-can ~orpheus in the party mix~ - short cut -|SHORTCUT": {
+    "title": "Can-can ~Orpheus in The Party Mix~ - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1710-013f4d5a13.webp",
+    "source": "13.XX/16F2 - [Short Cut] Can-can ~Orpheus in The Party Mix~/16F2.png"
+  },
+  "can-can ~orpheus in the party mix~|NORMAL": {
+    "title": "Can-can ~Orpheus in The Party Mix~",
+    "song_type": "NORMAL",
+    "path": "1690-ab75de8321.webp",
+    "source": "13.XX/16A0 - Can-can ~Orpheus in The Party Mix~/16A0.png"
+  },
+  "cannon x.1|NORMAL": {
+    "title": "Cannon X.1",
+    "song_type": "NORMAL",
+    "path": "1383-9dfe395f9a.webp",
+    "source": "07.NX~NXA/F02 - Cannon X1/F02.png"
+  },
+  "canon d - full song -|FULLSONG": {
+    "title": "Canon D - FULL SONG -",
+    "song_type": "FULLSONG",
+    "path": "1347-0ef04a3fa0.webp",
+    "source": "06.EXCEED~ZERO/(2) B57 - [Full Song] Canon-D/B57_B.png"
+  },
+  "canon d|NORMAL": {
+    "title": "Canon D",
+    "song_type": "NORMAL",
+    "path": "1343-beb8280503.webp",
+    "source": "06.EXCEED~ZERO/(2) B19 - Canon-D/B19.PNG"
+  },
+  "caprice of dj otada|REMIX": {
+    "title": "Caprice of DJ Otada",
+    "song_type": "REMIX",
+    "path": "1392-97fe8cced2.webp",
+    "source": "07.NX~NXA/F33 - [Remix] Caprice of DJ Otada/F33_B.png"
+  },
+  "caprice of otada|NORMAL": {
+    "title": "Caprice of Otada",
+    "song_type": "NORMAL",
+    "path": "1372-599b3023c1.webp",
+    "source": "07.NX~NXA/(1) E03 - Caprice of Otada/E03.png"
+  },
+  "carmen bus|NORMAL": {
+    "title": "CARMEN BUS",
+    "song_type": "NORMAL",
+    "path": "1704-498de90754.webp",
+    "source": "13.XX/1623 - CARMEN BUS/1623.png"
+  },
+  "catastrophe|NORMAL": {
+    "title": "Catastrophe",
+    "song_type": "NORMAL",
+    "path": "1884-1e44cb032b.webp",
+    "source": "15.PHOENIX/1723 - Catastrophe/1723_B.png"
+  },
+  "chaos again|NORMAL": {
+    "title": "CHAOS AGAIN",
+    "song_type": "NORMAL",
+    "path": "1790-58cc882b7c.webp",
+    "source": "15.PHOENIX/18050 - CHAOS AGAIN/CHAOS AGAIN_B.png"
+  },
+  "chase me|FULLSONG": {
+    "title": "Chase Me",
+    "song_type": "FULLSONG",
+    "path": "1616-f014539895.webp",
+    "source": "12.PRIME 2/15E7 - [Full Song] Chase Me/15E7_B.png"
+  },
+  "chase me|NORMAL": {
+    "title": "Chase Me",
+    "song_type": "NORMAL",
+    "path": "1593-b83d96ea62.webp",
+    "source": "12.PRIME 2/1547 - Chase Me/1547.png"
+  },
+  "chicken wing|NORMAL": {
+    "title": "Chicken Wing",
+    "song_type": "NORMAL",
+    "path": "1305-9ef195d612.webp",
+    "source": "05.EXTRA~PREX 3/(1) 911 - Chicken Wing/911.PNG"
   },
   "chimera|NORMAL": {
     "title": "Chimera",
@@ -11,10 +635,3046 @@
     "path": "1358-10adb488c1.webp",
     "source": "07.NX~NXA/(2) D03 - Chimera/D03.PNG"
   },
+  "chinese restaurant|NORMAL": {
+    "title": "Chinese restaurant",
+    "song_type": "NORMAL",
+    "path": "1507-b030091bd8.webp",
+    "source": "11.PRIME/1407 - Chinese Restaurant/1407.PNG"
+  },
+  "chobit flavor|NORMAL": {
+    "title": "Chobit Flavor",
+    "song_type": "NORMAL",
+    "path": "1850-8bf0f24b37.webp",
+    "source": "15.PHOENIX/18243.5 - Chobit Flavor/Chobit Flavor_B.png"
+  },
+  "chopsticks challenge|FULLSONG": {
+    "title": "Chopsticks Challenge",
+    "song_type": "FULLSONG",
+    "path": "1396-205f49f4f1.webp",
+    "source": "07.NX~NXA/F50 - [Full Song] Chopsticks Challenge/F50_B.png"
+  },
+  "chopsticks challenge|NORMAL": {
+    "title": "Chopsticks Challenge",
+    "song_type": "NORMAL",
+    "path": "1384-b6957c866b.webp",
+    "source": "07.NX~NXA/F03 - Chopsticks Challenge/F03.png"
+  },
+  "christmas memories|NORMAL": {
+    "title": "Christmas Memories",
+    "song_type": "NORMAL",
+    "path": "1585-23f5095e9f.webp",
+    "source": "12.PRIME 2/15A8 - Christmas Memories/15A8.png"
+  },
+  "cleaner|NORMAL": {
+    "title": "Cleaner",
+    "song_type": "NORMAL",
+    "path": "1438-6db0b3c041.webp",
+    "source": "09.FIESTA EX/1101 - Cleaner/1101.png"
+  },
+  "cleaner|SHORTCUT": {
+    "title": "Cleaner",
+    "song_type": "SHORTCUT",
+    "path": "1458-8b90b6c072.webp",
+    "source": "09.FIESTA EX/1146 - [Short Cut] Cleaner/1146_B.png"
+  },
+  "clematis rapsodia|NORMAL": {
+    "title": "Clematis Rapsodia",
+    "song_type": "NORMAL",
+    "path": "1736-7d5d26168e.webp",
+    "source": "13.XX/1633 - Clematis Rapsodia/1633.png"
+  },
+  "club night|NORMAL": {
+    "title": "Club Night",
+    "song_type": "NORMAL",
+    "path": "1669-842fa4520c.webp",
+    "source": "13.XX/1668 - Club Night/1668.png"
+  },
+  "clue|NORMAL": {
+    "title": "Clue",
+    "song_type": "NORMAL",
+    "path": "1591-0d05232a2b.webp",
+    "source": "12.PRIME 2/15B7 - Clue/15B7.png"
+  },
+  "co5m1c r4ilr0ad|NORMAL": {
+    "title": "CO5M1C R4ILR0AD",
+    "song_type": "NORMAL",
+    "path": "1792-33661bc9d2.webp",
+    "source": "15.PHOENIX/18205 - CO5M1C R4ILR0AD/CO5M1C R4ILR0AD_B.png"
+  },
+  "come to me|NORMAL": {
+    "title": "Come to Me",
+    "song_type": "NORMAL",
+    "path": "1332-368af135d5.webp",
+    "source": "05.EXTRA~PREX 3/(1) 826 - Come to Me/826.PNG"
+  },
+  "conflict|NORMAL": {
+    "title": "Conflict",
+    "song_type": "NORMAL",
+    "path": "1695-27da09f197.webp",
+    "source": "13.XX/1676 - Conflict/1676.png"
+  },
+  "cosmical rhythm|NORMAL": {
+    "title": "Cosmical Rhythm",
+    "song_type": "NORMAL",
+    "path": "1538-2ac4ddbd94.webp",
+    "source": "11.PRIME/1457 - Cosmical Rhythm/1457.PNG"
+  },
+  "crimson hood|NORMAL": {
+    "title": "Crimson hood",
+    "song_type": "NORMAL",
+    "path": "1882-2a2cd75ffb.webp",
+    "source": "15.PHOENIX/18A90 - Crimson hood/Crimson hood_B.png"
+  },
+  "cross over feat. lyuu|NORMAL": {
+    "title": "Cross Over feat. LyuU",
+    "song_type": "NORMAL",
+    "path": "1639-196b07fd54.webp",
+    "source": "12.PRIME 2/1505 - CROSS OVER feat. LyuU/1505.png"
+  },
+  "cross soul|NORMAL": {
+    "title": "CROSS SOUL",
+    "song_type": "NORMAL",
+    "path": "1707-2e03b54a6a.webp",
+    "source": "13.XX/1671 - CROSS SOUL/1671.png"
+  },
+  "cross time|NORMAL": {
+    "title": "Cross Time",
+    "song_type": "NORMAL",
+    "path": "1620-adcf8daff8.webp",
+    "source": "12.PRIME 2/1594 - Cross Time/1594.png"
+  },
+  "crossing delta|NORMAL": {
+    "title": "Crossing Delta",
+    "song_type": "NORMAL",
+    "path": "1748-f9e473cfd1.webp",
+    "source": "13.XX/1640 - Crossing Delta/1640.png"
+  },
+  "crush|NORMAL": {
+    "title": "CRUSH",
+    "song_type": "NORMAL",
+    "path": "1832-b54d8ce7ae.webp",
+    "source": "15.PHOENIX/18070 - CRUSH/CRUSH_B.png"
+  },
+  "csikos post|NORMAL": {
+    "title": "Csikos Post",
+    "song_type": "NORMAL",
+    "path": "1327-63b465a132.webp",
+    "source": "05.EXTRA~PREX 3/(2) 736 - Csikos Post/736.PNG"
+  },
+  "curiosity overdrive|NORMAL": {
+    "title": "Curiosity Overdrive",
+    "song_type": "NORMAL",
+    "path": "1813-5dcba49a3d.webp",
+    "source": "15.PHOENIX/18049 - Curiosity Overdrive/Curiosity Overdrive_B.png"
+  },
+  "cutie song|NORMAL": {
+    "title": "Cutie Song",
+    "song_type": "NORMAL",
+    "path": "1732-2dd0af919c.webp",
+    "source": "13.XX/1687 - Cutie Song/1687.png"
+  },
+  "cycling!|NORMAL": {
+    "title": "Cycling!",
+    "song_type": "NORMAL",
+    "path": "1721-8ffe240a7f.webp",
+    "source": "13.XX/1683 - Cycling!/1683.png"
+  },
+  "cygnus|NORMAL": {
+    "title": "Cygnus",
+    "song_type": "NORMAL",
+    "path": "1764-45ae583014.webp",
+    "source": "13.XX/16B4 - Cygnus/16B4.png"
+  },
+  "d gang|NORMAL": {
+    "title": "D Gang",
+    "song_type": "NORMAL",
+    "path": "1329-20679c7cf1.webp",
+    "source": "05.EXTRA~PREX 3/(1) 807 - D Gang/807.png"
+  },
+  "d|NORMAL": {
+    "title": "D",
+    "song_type": "NORMAL",
+    "path": "1485-7d63c6f2a6.webp",
+    "source": "10.FIESTA 2/(1) 1312 - D/1312.png"
+  },
+  "dance with me|NORMAL": {
+    "title": "Dance with me",
+    "song_type": "NORMAL",
+    "path": "1325-67ba87df80.webp",
+    "source": "05.EXTRA~PREX 3/(2) 718 - Dance With Me/718.PNG"
+  },
+  "dancing|NORMAL": {
+    "title": "Dancing",
+    "song_type": "NORMAL",
+    "path": "1854-abf5315a9d.webp",
+    "source": "15.PHOENIX/1720 - Dancing/1720_B.png"
+  },
+  "danger & danger|NORMAL": {
+    "title": "Danger & Danger",
+    "song_type": "NORMAL",
+    "path": "1725-880859ec87.webp",
+    "source": "13.XX/1677 - Danger & Danger/1677.png"
+  },
+  "darkside of the mind|NORMAL": {
+    "title": "Darkside Of The Mind",
+    "song_type": "NORMAL",
+    "path": "1879-242981d6aa.webp",
+    "source": "15.PHOENIX/18049.6 - Darkside Of The Mind/Darkside Of The Mind_B.png"
+  },
+  "dead end|NORMAL": {
+    "title": "Dead End",
+    "song_type": "NORMAL",
+    "path": "1914-683dfa5ad5.webp",
+    "source": "15.PHOENIX/18033.2 - Dead End/Dead End_B.png"
+  },
+  "death moon|NORMAL": {
+    "title": "Death Moon",
+    "song_type": "NORMAL",
+    "path": "1584-da429ddc23.webp",
+    "source": "12.PRIME 2/15A6 - Death Moon/15A6.png"
+  },
+  "death moon|SHORTCUT": {
+    "title": "Death Moon",
+    "song_type": "SHORTCUT",
+    "path": "1590-189716ba02.webp",
+    "source": "12.PRIME 2/15F1 - [Short Cut] Death Moon/15F1_B.png"
+  },
+  "deca dance|NORMAL": {
+    "title": "Deca Dance",
+    "song_type": "NORMAL",
+    "path": "1890-d4ae6fab71.webp",
+    "source": "15.PHOENIX/18057 - Deca Dance/Deca Dance_B.png"
+  },
+  "dement ~after legend~|NORMAL": {
+    "title": "Dement ~After Legend~",
+    "song_type": "NORMAL",
+    "path": "1675-db0570c98e.webp",
+    "source": "13.XX/1691 - Dement ~After Legend~/1691.png"
+  },
+  "demon of laplace|NORMAL": {
+    "title": "Demon of Laplace",
+    "song_type": "NORMAL",
+    "path": "1908-a274c7a3f2.webp",
+    "source": "15.PHOENIX/18044.3 - Demon of Laplace/Demon of Laplace_B.png"
+  },
+  "desaparecer|REMIX": {
+    "title": "Desaparecer",
+    "song_type": "REMIX",
+    "path": "1676-110f8354f9.webp",
+    "source": "13.XX/16D0 - [Remix] Desaparecer/16d0.png"
+  },
+  "destination|NORMAL": {
+    "title": "Destination",
+    "song_type": "NORMAL",
+    "path": "1402-cc42f55037.webp",
+    "source": "08.FIESTA/1013 - Destination/1013.png"
+  },
+  "destination|SHORTCUT": {
+    "title": "Destination",
+    "song_type": "SHORTCUT",
+    "path": "1435-76b952c358.webp",
+    "source": "08.FIESTA/1064 - [Short Cut] Destination/1064_B.png"
+  },
+  "destr0yer|NORMAL": {
+    "title": "Destr0yer",
+    "song_type": "NORMAL",
+    "path": "1831-522ef66cc4.webp",
+    "source": "15.PHOENIX/18242 - Destr0yer/Destr0yer_B.png"
+  },
+  "destrucimate|NORMAL": {
+    "title": "DESTRUCIMATE",
+    "song_type": "NORMAL",
+    "path": "1735-5eaa37eb70.webp",
+    "source": "13.XX/1632 - DESTRUCIMATE/1632.png"
+  },
+  "dignity -full song-|FULLSONG": {
+    "title": "Dignity -FULL SONG-",
+    "song_type": "FULLSONG",
+    "path": "1702-b050e5d1b9.webp",
+    "source": "06.EXCEED~ZERO/(2) B51 - [Full Song] Dignity/B51_B.png"
+  },
+  "dignity|NORMAL": {
+    "title": "Dignity",
+    "song_type": "NORMAL",
+    "path": "1701-cb59534fd7.webp",
+    "source": "06.EXCEED~ZERO/(3) A08 - Dignity/A08.png"
+  },
+  "discord|NORMAL": {
+    "title": "Discord",
+    "song_type": "NORMAL",
+    "path": "1842-e1b5e5eefd.webp",
+    "source": "15.PHOENIX/18072 - Discord/Discord_B.png"
+  },
+  "district 1|NORMAL": {
+    "title": "District 1",
+    "song_type": "NORMAL",
+    "path": "1723-815deb0a23.webp",
+    "source": "13.XX/1609 - District 1/1609.png"
+  },
+  "district v|REMIX": {
+    "title": "DISTRICT V",
+    "song_type": "REMIX",
+    "path": "1877-51e8baf48a.webp",
+    "source": "15.PHOENIX/18D10 - [Remix] DISTRICT V/[Remix] DISTRICT V_B.png"
+  },
+  "dj otada|NORMAL": {
+    "title": "DJ Otada",
+    "song_type": "NORMAL",
+    "path": "1386-bccd7f8349.webp",
+    "source": "07.NX~NXA/F23 - Dj Otada/F23.png"
+  },
+  "do it reggae style|NORMAL": {
+    "title": "Do It Reggae Style",
+    "song_type": "NORMAL",
+    "path": "1404-f220c547bd.webp",
+    "source": "08.FIESTA/1021 - Do it Reggae Style/1021.png"
+  },
+  "do or die|NORMAL": {
+    "title": "DO or DIE",
+    "song_type": "NORMAL",
+    "path": "1851-016f27541d.webp",
+    "source": "15.PHOENIX/18067.5 - DO or DIE/DO or DIE_B.png"
+  },
+  "dolly kiss|NORMAL": {
+    "title": "Dolly KiSS",
+    "song_type": "NORMAL",
+    "path": "1539-fc5274cd3a.webp",
+    "source": "11.PRIME/1458 - Dolly Kiss/1458.png"
+  },
+  "donatello|NORMAL": {
+    "title": "Donatello",
+    "song_type": "NORMAL",
+    "path": "1631-544e5e186b.webp",
+    "source": "12.PRIME 2/15C0 - Donatello/15C0.png"
+  },
+  "doppelganger|NORMAL": {
+    "title": "Doppelganger",
+    "song_type": "NORMAL",
+    "path": "1867-07a9ed6e40.webp",
+    "source": "15.PHOENIX/18A99 - Doppelganger/Doppelganger_B.png"
+  },
+  "dr. koa|REMIX": {
+    "title": "Dr. KOA",
+    "song_type": "REMIX",
+    "path": "1393-58b8e83bbd.webp",
+    "source": "07.NX~NXA/F34 - [Remix] Dr. KOA/F34_B.png"
+  },
+  "dr. m|NORMAL": {
+    "title": "Dr. M",
+    "song_type": "NORMAL",
+    "path": "1308-abdd1b6b0e.webp",
+    "source": "05.EXTRA~PREX 3/(2) 701 - Dr. M/701.PNG"
+  },
+  "dream to nightmare|NORMAL": {
+    "title": "Dream To Nightmare",
+    "song_type": "NORMAL",
+    "path": "1473-58a48ad6aa.webp",
+    "source": "10.FIESTA 2/(1) 1228 - Dream To Nightmare/1228.PNG"
+  },
+  "dual racing <red vs blue>|NORMAL": {
+    "title": "Dual Racing <RED vs BLUE>",
+    "song_type": "NORMAL",
+    "path": "1727-1ff42a1cfa.webp",
+    "source": "13.XX/1682 - Dual Racing RED vs BLUE/1682.png"
+  },
+  "duel - short cut -|SHORTCUT": {
+    "title": "DUEL - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1913-ef354f741b.webp",
+    "source": "15.PHOENIX/18F81 - [Short Cut] DUEL/[Short Cut] DUEL_B.png"
+  },
+  "duel|NORMAL": {
+    "title": "DUEL",
+    "song_type": "NORMAL",
+    "path": "1861-42a72dd60c.webp",
+    "source": "15.PHOENIX/18036.5 - DUEL/DUEL_B.png"
+  },
+  "e.o.n|NORMAL": {
+    "title": "E.O.N",
+    "song_type": "NORMAL",
+    "path": "1871-2db763470a.webp",
+    "source": "15.PHOENIX/18049.7 - E.O.N/E.O.N_B.png"
+  },
+  "earendel|NORMAL": {
+    "title": "Earendel",
+    "song_type": "NORMAL",
+    "path": "1846-e52171cd48.webp",
+    "source": "15.PHOENIX/18A30 - Earendel/Earendel_B.png"
+  },
+  "eleven|NORMAL": {
+    "title": "ELEVEN",
+    "song_type": "NORMAL",
+    "path": "1809-ef4120c0da.webp",
+    "source": "15.PHOENIX/18126 - ELEVEN/ELEVEN_B.png"
+  },
+  "elise|NORMAL": {
+    "title": "Elise",
+    "song_type": "NORMAL",
+    "path": "1478-d3e4cf3c30.webp",
+    "source": "10.FIESTA 2/(1) 1305 - Elise/1305.png"
+  },
+  "elysium|NORMAL": {
+    "title": "Elysium",
+    "song_type": "NORMAL",
+    "path": "1504-b14baa85d0.webp",
+    "source": "11.PRIME/1404 - Elysium/1404.png"
+  },
+  "emomomo|NORMAL": {
+    "title": "EMOMOMO",
+    "song_type": "NORMAL",
+    "path": "1875-3325fa2ee3.webp",
+    "source": "15.PHOENIX/18237.5 - EMOMOMO/EMOMOMO_B.png"
+  },
+  "emperor|NORMAL": {
+    "title": "Emperor",
+    "song_type": "NORMAL",
+    "path": "1309-c4bed50d1f.webp",
+    "source": "05.EXTRA~PREX 3/(2) 702 - Emperor/702.PNG"
+  },
+  "energy synergy matrix|NORMAL": {
+    "title": "Energy Synergy Matrix",
+    "song_type": "NORMAL",
+    "path": "1793-4de8a641ac.webp",
+    "source": "15.PHOENIX/18210 - Energy Synergy Matrix/Energy Synergy Matrix_B.png"
+  },
+  "errorcode: 0|REMIX": {
+    "title": "ERRORCODE: 0",
+    "song_type": "REMIX",
+    "path": "1742-bcf2f01650.webp",
+    "source": "13.XX/16D1 - [Remix] ERRORCODE 0/16D1.png"
+  },
+  "escape|NORMAL": {
+    "title": "ESCAPE",
+    "song_type": "NORMAL",
+    "path": "1648-023d9bd817.webp",
+    "source": "12.PRIME 2/1542 - ESCAPE/1542.png"
+  },
+  "esp|NORMAL": {
+    "title": "ESP",
+    "song_type": "NORMAL",
+    "path": "1880-63ad9788e4.webp",
+    "source": "15.PHOENIX/1703 - ESP/1703_B.png"
+  },
+  "eternal universe|NORMAL": {
+    "title": "Eternal Universe",
+    "song_type": "NORMAL",
+    "path": "1899-286f24b7a2.webp",
+    "source": "15.PHOENIX/1730 - Eternal Universe/1730_B.png"
+  },
+  "etude op 10-4|NORMAL": {
+    "title": "Etude Op 10-4",
+    "song_type": "NORMAL",
+    "path": "1787-4c26733732.webp",
+    "source": "15.PHOENIX/18035 - Etude Op 10-4/Etude Op 10-4_B.png"
+  },
+  "euphorianic -short cut-|SHORTCUT": {
+    "title": "Euphorianic -SHORT CUT-",
+    "song_type": "SHORTCUT",
+    "path": "1805-c255050aba.webp",
+    "source": "15.PHOENIX/18F60 - [Short Cut] Euphorianic/[Short Cut] Euphorianic_B.png"
+  },
+  "euphorianic|NORMAL": {
+    "title": "Euphorianic",
+    "song_type": "NORMAL",
+    "path": "1783-a706910a74.webp",
+    "source": "15.PHOENIX/18020 - Euphorianic/Euphorianic_B.png"
+  },
+  "everybody got 2 know|REMIX": {
+    "title": "Everybody Got 2 Know",
+    "song_type": "REMIX",
+    "path": "1455-0a69eaa7df.webp",
+    "source": "09.FIESTA EX/1132 - [Remix] Everybody Got 2 Know/1132_B.png"
+  },
+  "exceed2 opening|SHORTCUT": {
+    "title": "Exceed2 Opening",
+    "song_type": "SHORTCUT",
+    "path": "1430-0cdb8cbd73.webp",
+    "source": "08.FIESTA/1059 - [Short Cut] Exceed 2 Opening/1059_B.png"
+  },
+  "extra banya remix|REMIX": {
+    "title": "EXTRA BanYa Remix",
+    "song_type": "REMIX",
+    "path": "1307-2e02401481.webp",
+    "source": "05.EXTRA~PREX 3/(1) 928 - [Remix] EXTRA BanYa Remix/E928_B.png"
+  },
+  "extravaganza|NORMAL": {
+    "title": "Extravaganza",
+    "song_type": "NORMAL",
+    "path": "1283-7afcd681ac.webp",
+    "source": "04.1ST~PERFECT/(2) 205 - Extravaganza/205.PNG"
+  },
+  "extravaganza|SHORTCUT": {
+    "title": "Extravaganza",
+    "song_type": "SHORTCUT",
+    "path": "1424-264ba18c4f.webp",
+    "source": "08.FIESTA/1053 - [Short Cut] Extravaganza/1053_B.png"
+  },
+  "extreme music school 1st period feat. nanahira|NORMAL": {
+    "title": "Extreme Music School 1st period feat. Nanahira",
+    "song_type": "NORMAL",
+    "path": "1869-0a8d84a99d.webp",
+    "source": "15.PHOENIX/18244.4 - Extreme Music School 1st period feat. Nanahira/Extreme Music School 1st period feat. Nanahira_B.png"
+  },
+  "extreme music school 2nd period feat. nanahira|NORMAL": {
+    "title": "Extreme Music School 2nd period feat. Nanahira",
+    "song_type": "NORMAL",
+    "path": "1870-6841940e5a.webp",
+    "source": "15.PHOENIX/18244.5 - Extreme Music School 2nd period feat. Nanahira/Extreme Music School 2nd period feat. Nanahira_B.png"
+  },
+  "f(r)iend|NORMAL": {
+    "title": "F(R)IEND",
+    "song_type": "NORMAL",
+    "path": "1699-550c4b6f4d.webp",
+    "source": "13.XX/1675 - F(R)IEND/1675.png"
+  },
+  "fallen angel|NORMAL": {
+    "title": "Fallen Angel",
+    "song_type": "NORMAL",
+    "path": "1612-f3f3712fb3.webp",
+    "source": "12.PRIME 2/15C5 - Fallen Angel/15C5.png"
+  },
+  "faster z|NORMAL": {
+    "title": "Faster Z",
+    "song_type": "NORMAL",
+    "path": "1375-1e397b4d3e.webp",
+    "source": "07.NX~NXA/(1) E12 - Faster Z/E12.png"
+  },
+  "feel my happiness|NORMAL": {
+    "title": "Feel My Happiness",
+    "song_type": "NORMAL",
+    "path": "1542-39e7d458ce.webp",
+    "source": "11.PRIME/1461 - Feel my Happiness/1461.png"
+  },
+  "festival of death moon|NORMAL": {
+    "title": "Festival of Death Moon",
+    "song_type": "NORMAL",
+    "path": "1872-692922c805.webp",
+    "source": "15.PHOENIX/1701 - Festival of Death Moon/1701_B.png"
+  },
+  "final audition 2|NORMAL": {
+    "title": "Final Audition 2",
+    "song_type": "NORMAL",
+    "path": "1285-c226a61f31.webp",
+    "source": "04.1ST~PERFECT/(1) 301 - Final Audition 2/301.PNG"
+  },
+  "final audition 2|SHORTCUT": {
+    "title": "Final Audition 2",
+    "song_type": "SHORTCUT",
+    "path": "1419-93377c5f3d.webp",
+    "source": "08.FIESTA/1048 - [Short Cut] Final Audition 2/1048_B.png"
+  },
+  "final audition 3|SHORTCUT": {
+    "title": "Final Audition 3",
+    "song_type": "SHORTCUT",
+    "path": "1420-58a717a7c0.webp",
+    "source": "08.FIESTA/1049 - [Short Cut] Final Audition 3/1049_B.png"
+  },
+  "final audition|NORMAL": {
+    "title": "Final Audition",
+    "song_type": "NORMAL",
+    "path": "1282-7e1e99d618.webp",
+    "source": "04.1ST~PERFECT/(2) 204 - Final Audition/204.PNG"
+  },
+  "fire noodle challenge|REMIX": {
+    "title": "Fire Noodle Challenge",
+    "song_type": "REMIX",
+    "path": "1728-a8293416f4.webp",
+    "source": "13.XX/16D5 - [Remix] Fire Noodle Challenge/16D5.png"
+  },
+  "fires of destiny|NORMAL": {
+    "title": "Fires of Destiny",
+    "song_type": "NORMAL",
+    "path": "1692-a21f3e2b74.webp",
+    "source": "13.XX/16A2 - Fires of Destiny/16a2.png"
+  },
+  "first love|NORMAL": {
+    "title": "First Love",
+    "song_type": "NORMAL",
+    "path": "1295-737b926ef4.webp",
+    "source": "04.1ST~PERFECT/(4) 402 - First Love/402.png"
+  },
+  "flavor step!|NORMAL": {
+    "title": "Flavor Step!",
+    "song_type": "NORMAL",
+    "path": "1820-fd3401ad3b.webp",
+    "source": "15.PHOENIX/18033 - Flavor Step!/Flavor Step!_B.png"
+  },
+  "flvsh out|NORMAL": {
+    "title": "FLVSH OUT",
+    "song_type": "NORMAL",
+    "path": "1885-6d330299ad.webp",
+    "source": "15.PHOENIX/18242.4 - FLVSH OUT/FLVSH OUT_B.png"
+  },
+  "fly high|NORMAL": {
+    "title": "Fly high",
+    "song_type": "NORMAL",
+    "path": "1668-89a798b691.webp",
+    "source": "13.XX/1645 - Fly high/1645.png"
+  },
+  "follow me|NORMAL": {
+    "title": "Follow me",
+    "song_type": "NORMAL",
+    "path": "1490-451a19296b.webp",
+    "source": "10.FIESTA 2/(1) 1340 - Follow Me/1340.PNG"
+  },
+  "force of ra|NORMAL": {
+    "title": "Force of Ra",
+    "song_type": "NORMAL",
+    "path": "1509-2106651fc4.webp",
+    "source": "11.PRIME/1409 - Force of Ra/1409.png"
+  },
+  "forgotten vampire|NORMAL": {
+    "title": "Forgotten Vampire",
+    "song_type": "NORMAL",
+    "path": "1694-2dd8582f31.webp",
+    "source": "13.XX/16A4 - Forgotten Vampire/16a4.png"
+  },
+  "fracture temporelle|NORMAL": {
+    "title": "Fracture Temporelle",
+    "song_type": "NORMAL",
+    "path": "1848-05af8e72e2.webp",
+    "source": "15.PHOENIX/1722 - Fracture Temporelle/1722_B.png"
+  },
+  "free style|NORMAL": {
+    "title": "Free Style",
+    "song_type": "NORMAL",
+    "path": "1290-0d584fd226.webp",
+    "source": "04.1ST~PERFECT/(1) 308 - Free Style/308.png"
+  },
+  "full moon - full song -|FULLSONG": {
+    "title": "Full Moon - FULL SONG -",
+    "song_type": "FULLSONG",
+    "path": "1747-25bedcfc4a.webp",
+    "source": "13.XX/16D7 - [Full Song] Full Moon/16D7_B.png"
+  },
+  "full moon|NORMAL": {
+    "title": "Full Moon",
+    "song_type": "NORMAL",
+    "path": "1703-0270dddc96.webp",
+    "source": "13.XX/1643 - Full Moon/1643.png"
+  },
+  "further|NORMAL": {
+    "title": "Further",
+    "song_type": "NORMAL",
+    "path": "1580-3a627593c4.webp",
+    "source": "12.PRIME 2/1509 - Further/1509.png"
+  },
+  "galaxy collapse|NORMAL": {
+    "title": "Galaxy Collapse",
+    "song_type": "NORMAL",
+    "path": "1803-49d26eafee.webp",
+    "source": "15.PHOENIX/1721 - Galaxy Collapse/1721_B.png"
+  },
+  "gargoyle|FULLSONG": {
+    "title": "Gargoyle",
+    "song_type": "FULLSONG",
+    "path": "1643-1682f7016b.webp",
+    "source": "12.PRIME 2/15E5 - [Full Song] Gargoyle/15E5_B.png"
+  },
+  "gargoyle|NORMAL": {
+    "title": "Gargoyle",
+    "song_type": "NORMAL",
+    "path": "1446-5a92ecb272.webp",
+    "source": "09.FIESTA EX/1121 - Gargoyle/1121.PNG"
+  },
+  "get up (and go)|NORMAL": {
+    "title": "Get Up (and go)",
+    "song_type": "NORMAL",
+    "path": "1410-9e8a7b3be4.webp",
+    "source": "08.FIESTA/1027 - Get Up (And Go)/1027.png"
+  },
+  "get up!|NORMAL": {
+    "title": "Get Up!",
+    "song_type": "NORMAL",
+    "path": "1339-07980e0c89.webp",
+    "source": "06.EXCEED~ZERO/(3) A07 - Get Up/A07.PNG"
+  },
+  "get your groove on|NORMAL": {
+    "title": "Get Your Groove On",
+    "song_type": "NORMAL",
+    "path": "1310-414a50a724.webp",
+    "source": "05.EXTRA~PREX 3/(2) 703 - Get Your Groove On/703.png"
+  },
+  "ghroth - short cut -|SHORTCUT": {
+    "title": "Ghroth - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1887-dd4661f519.webp",
+    "source": "15.PHOENIX/18F75 - [Short Cut] Ghroth/[Short Cut] Ghroth_B.png"
+  },
+  "ghroth|NORMAL": {
+    "title": "Ghroth",
+    "song_type": "NORMAL",
+    "path": "1785-bc70396d52.webp",
+    "source": "15.PHOENIX/18027 - Ghroth/Ghroth_B.png"
+  },
+  "giselle|NORMAL": {
+    "title": "Giselle",
+    "song_type": "NORMAL",
+    "path": "1839-34f699e9bb.webp",
+    "source": "15.PHOENIX/18238.8 - Giselle/Giselle_B.png"
+  },
+  "glimmer gleam|NORMAL": {
+    "title": "Glimmer Gleam",
+    "song_type": "NORMAL",
+    "path": "1907-7bd7648c5b.webp",
+    "source": "15.PHOENIX/18054 - Glimmer Gleam/Glimmer Gleam_B.png"
+  },
+  "gloria|NORMAL": {
+    "title": "GLORIA",
+    "song_type": "NORMAL",
+    "path": "1757-0f2eb8beab.webp",
+    "source": "13.XX/1699 - GLORIA/1699.png"
+  },
+  "god mode 2.0 feat skizzo|NORMAL": {
+    "title": "God Mode 2.0 feat Skizzo",
+    "song_type": "NORMAL",
+    "path": "1746-d9b7551011.webp",
+    "source": "13.XX/1702 - God Mode 2.0 feat. Skizzo/1702.png"
+  },
+  "god mode feat. skizzo|NORMAL": {
+    "title": "God Mode feat. skizzo",
+    "song_type": "NORMAL",
+    "path": "1579-bc6fd19925.webp",
+    "source": "12.PRIME 2/1507 - God Mode feat. skizzo/1507.png"
+  },
+  "good night - full song -|FULLSONG": {
+    "title": "GOOD NIGHT - FULL SONG -",
+    "song_type": "FULLSONG",
+    "path": "1768-b63de0a72f.webp",
+    "source": "13.XX/16B8 - [Full Song] Good Night/16B8_B.png"
+  },
+  "good night|NORMAL": {
+    "title": "Good Night",
+    "song_type": "NORMAL",
+    "path": "1603-60f61a36f6.webp",
+    "source": "12.PRIME 2/1554 - Good Night/1554.png"
+  },
+  "goodbounce|NORMAL": {
+    "title": "GOODBOUNCE",
+    "song_type": "NORMAL",
+    "path": "1798-b7f1c92d8b.webp",
+    "source": "15.PHOENIX/18235 - GOODBOUNCE/GOODBOUNCE_B.png"
+  },
+  "goodtek|NORMAL": {
+    "title": "GOODTEK",
+    "song_type": "NORMAL",
+    "path": "1791-ced8448a07.webp",
+    "source": "15.PHOENIX/18200 - GOODTEK/GOODTEK_B.png"
+  },
+  "gothique resonance|NORMAL": {
+    "title": "Gothique Resonance",
+    "song_type": "NORMAL",
+    "path": "1638-a2f8878930.webp",
+    "source": "12.PRIME 2/15B3 - Gothique Resonance/15B3.png"
+  },
+  "guitar man|NORMAL": {
+    "title": "Guitar Man",
+    "song_type": "NORMAL",
+    "path": "1377-c879114264.webp",
+    "source": "07.NX~NXA/(1) E23 - Guitar Man/E23.png"
+  },
+  "gun rock|NORMAL": {
+    "title": "Gun Rock",
+    "song_type": "NORMAL",
+    "path": "1361-b6c76642ff.webp",
+    "source": "07.NX~NXA/(2) D16 - Gun Rock/D16.PNG"
+  },
+  "halcyon|NORMAL": {
+    "title": "Halcyon",
+    "song_type": "NORMAL",
+    "path": "1800-1cb343ffb1.webp",
+    "source": "15.PHOENIX/18240 - Halcyon/Halcyon_B.png"
+  },
+  "halloween party ~multiverse~ - short cut -|SHORTCUT": {
+    "title": "Halloween Party ~Multiverse~ - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1903-36fda4a5d7.webp",
+    "source": "15.PHOENIX/18F78 - [Short Cut] Halloween Party ~Multiverse~/[Short Cut] Halloween Party ~Multiverse~_B.png"
+  },
+  "halloween party ~multiverse~|NORMAL": {
+    "title": "Halloween Party ~Multiverse~",
+    "song_type": "NORMAL",
+    "path": "1806-59554f3893.webp",
+    "source": "15.PHOENIX/18022 - Halloween Party ~Multiverse~/Halloween Party ~Multiverse~_B.png"
+  },
+  "hardkore of the north|NORMAL": {
+    "title": "Hardkore of the North",
+    "song_type": "NORMAL",
+    "path": "1468-790f645583.webp",
+    "source": "10.FIESTA 2/(2) 1212 - HardKore of The North/1212.png"
+  },
+  "harmagedon|NORMAL": {
+    "title": "Harmagedon",
+    "song_type": "NORMAL",
+    "path": "1749-bc47213884.webp",
+    "source": "13.XX/16A5 - Harmagedon/16A5.png"
+  },
+  "headless chicken|NORMAL": {
+    "title": "Headless Chicken",
+    "song_type": "NORMAL",
+    "path": "1738-c6ec4a368b.webp",
+    "source": "13.XX/1688 - Headless Chicken/1688.png"
+  },
+  "heart attack|NORMAL": {
+    "title": "Heart Attack",
+    "song_type": "NORMAL",
+    "path": "1619-0e69de181b.webp",
+    "source": "12.PRIME 2/1578 - Heart Attack/1578.png"
+  },
+  "heart rabbit coaster|NORMAL": {
+    "title": "HEART RABBIT COASTER",
+    "song_type": "NORMAL",
+    "path": "1697-fcd86ccef5.webp",
+    "source": "13.XX/1616 - HEART RABBIT COASTER/1616.png"
+  },
+  "heliosphere|NORMAL": {
+    "title": "Heliosphere",
+    "song_type": "NORMAL",
+    "path": "3237-30458c4add.webp",
+    "source": "15.PHOENIX/18251 - Heliosphere/Heliosphere.png"
+  },
+  "helix|NORMAL": {
+    "title": "HELIX",
+    "song_type": "NORMAL",
+    "path": "1595-57499e8eea.webp",
+    "source": "12.PRIME 2/1597 - HELIX/1597.png"
+  },
+  "hellfire|NORMAL": {
+    "title": "Hellfire",
+    "song_type": "NORMAL",
+    "path": "1578-211eb65c35.webp",
+    "source": "12.PRIME 2/1503 - Hellfire/1503.png"
+  },
+  "hello william|NORMAL": {
+    "title": "Hello William",
+    "song_type": "NORMAL",
+    "path": "1408-b19d1e99fb.webp",
+    "source": "08.FIESTA/1025 - Hello William/1025.png"
+  },
+  "hello|NORMAL": {
+    "title": "Hello",
+    "song_type": "NORMAL",
+    "path": "1330-b211df889e.webp",
+    "source": "05.EXTRA~PREX 3/(1) 811 - Hello/811.png"
+  },
+  "hercules|NORMAL": {
+    "title": "hercules",
+    "song_type": "NORMAL",
+    "path": "1836-642dc09ebb.webp",
+    "source": "15.PHOENIX/18A10 - Hercules/Hercules_B.png"
+  },
+  "hestia|NORMAL": {
+    "title": "Hestia",
+    "song_type": "NORMAL",
+    "path": "1515-8fe0bc1998.webp",
+    "source": "11.PRIME/1415 - Hestia/1415.png"
+  },
+  "hey u|NORMAL": {
+    "title": "Hey U",
+    "song_type": "NORMAL",
+    "path": "1609-4ca6b83c3d.webp",
+    "source": "12.PRIME 2/1533 - Hey U/1533.png"
+  },
+  "hi bi|NORMAL": {
+    "title": "Hi Bi",
+    "song_type": "NORMAL",
+    "path": "1341-9d8198cce8.webp",
+    "source": "06.EXCEED~ZERO/(2) B17 - Hi-Bi/B17.PNG"
+  },
+  "higgledy piggledy|NORMAL": {
+    "title": "Higgledy Piggledy",
+    "song_type": "NORMAL",
+    "path": "1378-f2807a2744.webp",
+    "source": "07.NX~NXA/(1) E24 - Higgledy Piggledy/E24.png"
+  },
+  "highway chaser|NORMAL": {
+    "title": "Highway Chaser",
+    "song_type": "NORMAL",
+    "path": "1845-7f6cc78946.webp",
+    "source": "15.PHOENIX/1706 - Highway Chaser/1706_B.png"
+  },
+  "horang pungryuga|NORMAL": {
+    "title": "Horang Pungryuga",
+    "song_type": "NORMAL",
+    "path": "1841-d58205b2a8.webp",
+    "source": "15.PHOENIX/18250 - Horang Pungryuga/Horang Pungryuga_B.png"
+  },
+  "houseplan|NORMAL": {
+    "title": "Houseplan",
+    "song_type": "NORMAL",
+    "path": "1740-e0b118a75e.webp",
+    "source": "13.XX/1692 - Houseplan/1692.png"
+  },
+  "http|NORMAL": {
+    "title": "HTTP",
+    "song_type": "NORMAL",
+    "path": "1626-bda1e1a243.webp",
+    "source": "12.PRIME 2/1537 - HTTP/1537.png"
+  },
+  "human extinction (piu edit.)|NORMAL": {
+    "title": "Human Extinction (PIU Edit.)",
+    "song_type": "NORMAL",
+    "path": "1894-e4a4a06e21.webp",
+    "source": "15.PHOENIX/1724 - Human Extinction (PIU Edit.)/1724_B.png"
+  },
+  "hungarian dance v|NORMAL": {
+    "title": "Hungarian Dance V",
+    "song_type": "NORMAL",
+    "path": "1448-1cc367b1cb.webp",
+    "source": "09.FIESTA EX/1123 - Hungarian Dance V/1123.PNG"
+  },
+  "hush|FULLSONG": {
+    "title": "HUSH",
+    "song_type": "FULLSONG",
+    "path": "1598-6ffb11a34f.webp",
+    "source": "12.PRIME 2/15E6 - [Full Song] HUSH/15E6_B.png"
+  },
+  "hush|NORMAL": {
+    "title": "HUSH",
+    "song_type": "NORMAL",
+    "path": "1597-123b0cb970.webp",
+    "source": "12.PRIME 2/1584 - HUSH/1584.png"
+  },
+  "hyacinth|NORMAL": {
+    "title": "Hyacinth",
+    "song_type": "NORMAL",
+    "path": "1522-5e3875ebeb.webp",
+    "source": "11.PRIME/1422 - Hyacinth/1422.png"
+  },
+  "hymn of golden glory - short cut -|SHORTCUT": {
+    "title": "Hymn of Golden Glory - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1896-874ee1ad5f.webp",
+    "source": "15.PHOENIX/18F77 - [Short Cut] Hymn of Golden Glory/[Short Cut] Hymn of Golden Glory_B.png"
+  },
+  "hymn of golden glory|NORMAL": {
+    "title": "Hymn of Golden Glory",
+    "song_type": "NORMAL",
+    "path": "1858-9fefb4b5ba.webp",
+    "source": "15.PHOENIX/18A40 - Hymn of Golden Glory/Hymn of Golden Glory_B.png"
+  },
+  "hypercube|NORMAL": {
+    "title": "HYPERCUBE",
+    "song_type": "NORMAL",
+    "path": "1562-36ac77cbf2.webp",
+    "source": "11.PRIME/1498 - Hypercube/1498.png"
+  },
+  "hyperion|NORMAL": {
+    "title": "Hyperion",
+    "song_type": "NORMAL",
+    "path": "1596-33ffdcaa77.webp",
+    "source": "12.PRIME 2/1598 - Hyperion/1598.png"
+  },
+  "hyperion|SHORTCUT": {
+    "title": "Hyperion",
+    "song_type": "SHORTCUT",
+    "path": "1627-0bdb44a2c3.webp",
+    "source": "12.PRIME 2/15F5 - [Short Cut] Hyperion/15F5_B.png"
+  },
+  "hypnosis(synthwulf mix)|NORMAL": {
+    "title": "Hypnosis(SynthWulf Mix)",
+    "song_type": "NORMAL",
+    "path": "1481-d1ba5b1aaa.webp",
+    "source": "10.FIESTA 2/(1) 1308 - Hypnosis (SynthWulf Mix)/1308.png"
+  },
+  "i want u - short cut -|SHORTCUT": {
+    "title": "I Want U - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1733-1f9f6ce102.webp",
+    "source": "13.XX/16F4 - [Short Cut] I Want U/16F4.png"
+  },
+  "i want u|NORMAL": {
+    "title": "I Want U",
+    "song_type": "NORMAL",
+    "path": "1659-6984d940e1.webp",
+    "source": "13.XX/1608 - I Want U/1608.png"
+  },
+  "ice of death|NORMAL": {
+    "title": "Ice of Death",
+    "song_type": "NORMAL",
+    "path": "1680-fb47345630.webp",
+    "source": "13.XX/1625 - Ice of Death/1625.png"
+  },
+  "idealized romance|NORMAL": {
+    "title": "Idealized Romance",
+    "song_type": "NORMAL",
+    "path": "1559-c04dc1cbcf.webp",
+    "source": "11.PRIME/1493 - Idealized Romance/1493.png"
+  },
+  "imaginarized city|NORMAL": {
+    "title": "Imaginarized City",
+    "song_type": "NORMAL",
+    "path": "1873-10882c03e2.webp",
+    "source": "15.PHOENIX/18A80 - Imaginarized City/Imaginarized City_B.png"
+  },
+  "imagination|NORMAL": {
+    "title": "Imagination",
+    "song_type": "NORMAL",
+    "path": "1671-f1d709ea4c.webp",
+    "source": "13.XX/1678 - Imagination/1678.png"
+  },
+  "imperium|NORMAL": {
+    "title": "Imperium",
+    "song_type": "NORMAL",
+    "path": "1835-cc081201a9.webp",
+    "source": "15.PHOENIX/18046.5 - Imperium/Imperium_B.png"
+  },
+  "imprinting|NORMAL": {
+    "title": "Imprinting",
+    "song_type": "NORMAL",
+    "path": "1552-16ebe5982f.webp",
+    "source": "11.PRIME/1477 - Imprinting/1477.png"
+  },
+  "indestructible|NORMAL": {
+    "title": "Indestructible",
+    "song_type": "NORMAL",
+    "path": "1720-f7603d5b21.webp",
+    "source": "13.XX/1669 - Indestructible/1669.png"
+  },
+  "infinity rmx|REMIX": {
+    "title": "Infinity RMX",
+    "song_type": "REMIX",
+    "path": "1493-85692fb4e0.webp",
+    "source": "10.FIESTA 2/(1) 13A2 - [Remix] Infinity RMX/13A2_B.png"
+  },
+  "infinity|NORMAL": {
+    "title": "INFINITY",
+    "song_type": "NORMAL",
+    "path": "1622-a0ab558ed7.webp",
+    "source": "12.PRIME 2/15B2 - INFINITY/15B2.png"
+  },
+  "interference|FULLSONG": {
+    "title": "Interference",
+    "song_type": "FULLSONG",
+    "path": "1456-a4f34801e9.webp",
+    "source": "09.FIESTA EX/1135 - [Full Song] Interference/1135_B.png"
+  },
+  "interference|NORMAL": {
+    "title": "Interference",
+    "song_type": "NORMAL",
+    "path": "1439-2d58ee8d8e.webp",
+    "source": "09.FIESTA EX/1102 - Interference/1102.png"
+  },
+  "invasion|NORMAL": {
+    "title": "INVASION",
+    "song_type": "NORMAL",
+    "path": "1862-911e44d1ae.webp",
+    "source": "15.PHOENIX/18A20 - INVASION/INVASION_B.png"
+  },
+  "iolite sky|NORMAL": {
+    "title": "Iolite Sky",
+    "song_type": "NORMAL",
+    "path": "1729-dc15d5208a.webp",
+    "source": "13.XX/1619 - Iolite Sky/1619.png"
+  },
+  "irellia|NORMAL": {
+    "title": "iRELLiA",
+    "song_type": "NORMAL",
+    "path": "1815-9f0eafe98d.webp",
+    "source": "15.PHOENIX/18233 - iRELLiA/iRELLiA_B.png"
+  },
+  "j bong|NORMAL": {
+    "title": "J Bong",
+    "song_type": "NORMAL",
+    "path": "1340-af12a26d98.webp",
+    "source": "06.EXCEED~ZERO/(2) B16 - J Bong/B16.PNG"
+  },
+  "jam o beat|NORMAL": {
+    "title": "Jam O Beat",
+    "song_type": "NORMAL",
+    "path": "1379-1d83f8f9f4.webp",
+    "source": "07.NX~NXA/(1) E25 - Jam O Beat/E25.png"
+  },
+  "janus|NORMAL": {
+    "title": "JANUS",
+    "song_type": "NORMAL",
+    "path": "1711-a1ec4b869c.webp",
+    "source": "13.XX/1607 - JANUS/1607.png"
+  },
+  "jogging|NORMAL": {
+    "title": "Jogging",
+    "song_type": "NORMAL",
+    "path": "1734-0ed7295245.webp",
+    "source": "13.XX/1641 - Jogging/1641.png"
+  },
+  "jonathan's dream|NORMAL": {
+    "title": "Jonathan's Dream",
+    "song_type": "NORMAL",
+    "path": "1465-5cfb8b22ec.webp",
+    "source": "09.FIESTA EX/1160 - Jonathan's Dream/1160.PNG"
+  },
+  "jump|NORMAL": {
+    "title": "Jump",
+    "song_type": "NORMAL",
+    "path": "1653-0af66d9fd0.webp",
+    "source": "06.EXCEED~ZERO/(1) C07 - Jump/C07.png"
+  },
+  "jupin - short cut -|SHORTCUT": {
+    "title": "Jupin - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1878-93517a79cc.webp",
+    "source": "15.PHOENIX/18F70 - [Short Cut] Jupin/[Short Cut] Jupin_B.png"
+  },
+  "jupin|NORMAL": {
+    "title": "Jupin",
+    "song_type": "NORMAL",
+    "path": "1784-c87bbf6a63.webp",
+    "source": "15.PHOENIX/18025 - Jupin/Jupin_B.png"
+  },
+  "k.o.a : alice in wonderworld|NORMAL": {
+    "title": "K.O.A : Alice In Wonderworld",
+    "song_type": "NORMAL",
+    "path": "1387-8c5f788fc3.webp",
+    "source": "07.NX~NXA/F24 - K.O.A. -Alice in Wonderworld-/F24.png"
+  },
+  "k.o.a : alice in wonderworld|SHORTCUT": {
+    "title": "K.O.A : Alice In Wonderworld",
+    "song_type": "SHORTCUT",
+    "path": "1432-8507964dc2.webp",
+    "source": "08.FIESTA/1061 - [Short Cut] K.O.A. Alice in Wonderworld/1061_B.png"
+  },
+  "karyawisata|NORMAL": {
+    "title": "Karyawisata",
+    "song_type": "NORMAL",
+    "path": "1545-5d509752e4.webp",
+    "source": "11.PRIME/1464 - Karyawisata/1464.PNG"
+  },
+  "kasou shinja|NORMAL": {
+    "title": "Kasou Shinja",
+    "song_type": "NORMAL",
+    "path": "1592-ad9e5c05dd.webp",
+    "source": "12.PRIME 2/1517 - Kasou Shinja/1517.png"
+  },
+  "kasou shinja|SHORTCUT": {
+    "title": "Kasou Shinja",
+    "song_type": "SHORTCUT",
+    "path": "1628-f22b452899.webp",
+    "source": "12.PRIME 2/15F6 - [Short Cut] Kasou Shinja/15F6_B.png"
+  },
+  "katkoi|NORMAL": {
+    "title": "Katkoi",
+    "song_type": "NORMAL",
+    "path": "1502-0d84d37867.webp",
+    "source": "11.PRIME/1402 - Katkoi/1402.png"
+  },
+  "keep on!|NORMAL": {
+    "title": "Keep On!",
+    "song_type": "NORMAL",
+    "path": "1617-85a6cd622c.webp",
+    "source": "12.PRIME 2/15A9 - Keep On!/15A9.png"
+  },
+  "kill them!|NORMAL": {
+    "title": "Kill Them!",
+    "song_type": "NORMAL",
+    "path": "1615-5f42c58b06.webp",
+    "source": "12.PRIME 2/15B9 - Kill Them!/15B9.png"
+  },
+  "kimchi fingers|NORMAL": {
+    "title": "Kimchi Fingers",
+    "song_type": "NORMAL",
+    "path": "1667-4882a23058.webp",
+    "source": "13.XX/1630 - Kimchi Fingers/1630.png"
+  },
+  "kitty cat|NORMAL": {
+    "title": "Kitty Cat",
+    "song_type": "NORMAL",
+    "path": "1656-940aa57392.webp",
+    "source": "10.FIESTA 2/(2) 1210 - Kitty Cat/1210.png"
+  },
+  "kokugen kairou labyrinth|NORMAL": {
+    "title": "Kokugen Kairou Labyrinth",
+    "song_type": "NORMAL",
+    "path": "1758-91132ab608.webp",
+    "source": "13.XX/1718 - Kokugen Kairou Labyrinth/1718.png"
+  },
+  "kugutsu|NORMAL": {
+    "title": "KUGUTSU",
+    "song_type": "NORMAL",
+    "path": "1786-dabbc761ed.webp",
+    "source": "15.PHOENIX/18030 - KUGUTSU/KUGUTSU_B.png"
+  },
+  "la cinquantaine|NORMAL": {
+    "title": "La Cinquantaine",
+    "song_type": "NORMAL",
+    "path": "1730-e640403aea.webp",
+    "source": "13.XX/1621 - La Cinquantaine/1621.png"
+  },
+  "lacrimosa|NORMAL": {
+    "title": "Lacrimosa",
+    "song_type": "NORMAL",
+    "path": "1802-b21f8a595e.webp",
+    "source": "15.PHOENIX/18037 - Lacrimosa/Lacrimosa_B.png"
+  },
+  "ladybug|NORMAL": {
+    "title": "Ladybug",
+    "song_type": "NORMAL",
+    "path": "1467-f31e14fdfa.webp",
+    "source": "10.FIESTA 2/(2) 1209 - Ladybug/1209.png"
+  },
+  "lala|NORMAL": {
+    "title": "Lala",
+    "song_type": "NORMAL",
+    "path": "1715-69e842f6a6.webp",
+    "source": "13.XX/1674 - Lala/1674.png"
+  },
+  "last rebirth|NORMAL": {
+    "title": "Last Rebirth",
+    "song_type": "NORMAL",
+    "path": "1577-ec37cc7ca5.webp",
+    "source": "12.PRIME 2/1501 - Last Rebirth/1501.png"
+  },
+  "latino virus|NORMAL": {
+    "title": "Latino Virus",
+    "song_type": "NORMAL",
+    "path": "1503-cdc5241071.webp",
+    "source": "11.PRIME/1403 - Latino Virus/1403.PNG"
+  },
+  "le grand bleu|NORMAL": {
+    "title": "Le Grand Bleu",
+    "song_type": "NORMAL",
+    "path": "1587-44d9b2ad25.webp",
+    "source": "12.PRIME 2/15B1 - Le Grand Bleu/15B1.png"
+  },
+  "le grand rouge|NORMAL": {
+    "title": "Le Grand Rouge",
+    "song_type": "NORMAL",
+    "path": "1663-9fef11dafd.webp",
+    "source": "13.XX/1622 - Le Grand Rouge/1622.png"
+  },
+  "le nozze di figaro ~celebrazione remix~|NORMAL": {
+    "title": "Le Nozze di Figaro ~Celebrazione Remix~",
+    "song_type": "NORMAL",
+    "path": "1829-b955f22cbe.webp",
+    "source": "15.PHOENIX/18044.1 - Le Nozze di Figaro ~Celebrazione Remix~/16B4_B.png"
+  },
+  "leakage voltage|NORMAL": {
+    "title": "Leakage Voltage",
+    "song_type": "NORMAL",
+    "path": "1517-7d3552379f.webp",
+    "source": "11.PRIME/1417 - Leakage Voltage/1417.png"
+  },
+  "leather|REMIX": {
+    "title": "Leather",
+    "song_type": "REMIX",
+    "path": "1611-b681a2c7dd.webp",
+    "source": "12.PRIME 2/15D3 - [Remix] Leather/15D3_B.png"
+  },
+  "lepton strike|NORMAL": {
+    "title": "Lepton Strike",
+    "song_type": "NORMAL",
+    "path": "1712-39a036cab0.webp",
+    "source": "13.XX/1617 - Lepton Strike/1617.png"
+  },
+  "life is piano|NORMAL": {
+    "title": "Life is PIANO",
+    "song_type": "NORMAL",
+    "path": "1744-042aee357c.webp",
+    "source": "13.XX/1698 - Life is PIANO/1698.png"
+  },
+  "like me|NORMAL": {
+    "title": "Like Me",
+    "song_type": "NORMAL",
+    "path": "1563-a264148e60.webp",
+    "source": "11.PRIME/1499 - Like Me/1499.png"
+  },
+  "little munchkin|NORMAL": {
+    "title": "Little Munchkin",
+    "song_type": "NORMAL",
+    "path": "1824-22f1ec169a.webp",
+    "source": "15.PHOENIX/18041 - Little Munchkin/16B0_B.png"
+  },
+  "login|NORMAL": {
+    "title": "Login",
+    "song_type": "NORMAL",
+    "path": "1488-1cb16ee0ff.webp",
+    "source": "10.FIESTA 2/(1) 1338 - Log-In/1338.png"
+  },
+  "lohxia|NORMAL": {
+    "title": "Lohxia",
+    "song_type": "NORMAL",
+    "path": "1789-15d9524096.webp",
+    "source": "15.PHOENIX/18045 - Lohxia/Lohxia_B.png"
+  },
+  "loki|NORMAL": {
+    "title": "Loki",
+    "song_type": "NORMAL",
+    "path": "1674-d0cca96fef.webp",
+    "source": "13.XX/1690 - Loki/1690.png"
+  },
+  "love is a danger zone 2 full song|FULLSONG": {
+    "title": "Love is a Danger Zone 2 Full Song",
+    "song_type": "FULLSONG",
+    "path": "1368-8981ec19d4.webp",
+    "source": "07.NX~NXA/(2) D41 - [Full Song] Love is a Danger Zone 2/D41_B.PNG"
+  },
+  "love is a danger zone(cranky mix)|NORMAL": {
+    "title": "Love Is A Danger Zone(Cranky Mix)",
+    "song_type": "NORMAL",
+    "path": "1480-4b380c4c4e.webp",
+    "source": "10.FIESTA 2/(1) 1307 - Love is a Danger Zone (Cranky Mix)/1307.PNG"
+  },
+  "love is a danger zone|NORMAL": {
+    "title": "Love is a Danger Zone",
+    "song_type": "NORMAL",
+    "path": "1311-21118a33af.webp",
+    "source": "05.EXTRA~PREX 3/(2) 704 - Love is a Danger Zone/704.PNG"
+  },
+  "love is a danger zone|SHORTCUT": {
+    "title": "Love is a Danger Zone",
+    "song_type": "SHORTCUT",
+    "path": "1422-d73303fd2c.webp",
+    "source": "08.FIESTA/1051 - [Short Cut] Love is a Danger Zone/1051_B.png"
+  },
+  "lucid dream|NORMAL": {
+    "title": "Lucid Dream",
+    "song_type": "NORMAL",
+    "path": "1827-594205d949.webp",
+    "source": "15.PHOENIX/18033.5 - Lucid Dream/Lucid Dream_B.png"
+  },
+  "lucid(piu edit)|NORMAL": {
+    "title": "Lucid(PIU Edit)",
+    "song_type": "NORMAL",
+    "path": "1487-5f277f4083.webp",
+    "source": "10.FIESTA 2/(1) 1314 - Lucid (PIU Edit)/1314.png"
+  },
+  "macaron day|NORMAL": {
+    "title": "Macaron Day",
+    "song_type": "NORMAL",
+    "path": "1664-014f16fd70.webp",
+    "source": "13.XX/1624 - Macaron Day/1624.png"
+  },
+  "mad5cience|NORMAL": {
+    "title": "Mad5cience",
+    "song_type": "NORMAL",
+    "path": "1514-4395752371.webp",
+    "source": "11.PRIME/1414 - Mad 5cience/1414.png"
+  },
+  "magical vacation|NORMAL": {
+    "title": "Magical Vacation",
+    "song_type": "NORMAL",
+    "path": "1607-e86b006ff8.webp",
+    "source": "12.PRIME 2/15A4 - Magical Vacation/15A4.png"
+  },
+  "mahika|NORMAL": {
+    "title": "Mahika",
+    "song_type": "NORMAL",
+    "path": "1855-0c64128e99.webp",
+    "source": "15.PHOENIX/18238.7.5 - Mahika/Mahika_B.png"
+  },
+  "maria|NORMAL": {
+    "title": "Maria",
+    "song_type": "NORMAL",
+    "path": "1312-c54c75993b.webp",
+    "source": "05.EXTRA~PREX 3/(2) 705 - Maria/705.PNG"
+  },
+  "matador|NORMAL": {
+    "title": "MATADOR",
+    "song_type": "NORMAL",
+    "path": "1540-10d05adbfc.webp",
+    "source": "11.PRIME/1459 - Matador/1459.PNG"
+  },
+  "megaheartz|NORMAL": {
+    "title": "MEGAHEARTZ",
+    "song_type": "NORMAL",
+    "path": "1844-1cc3b0909e.webp",
+    "source": "15.PHOENIX/18049.5 - MEGAHEARTZ/MEGAHEARTZ_B.png"
+  },
+  "mental rider|NORMAL": {
+    "title": "Mental Rider",
+    "song_type": "NORMAL",
+    "path": "1492-a22a05433d.webp",
+    "source": "10.FIESTA 2/(1) 1390 - Mental Rider/1390.png"
+  },
+  "meteo5cience (gadget mix)|REMIX": {
+    "title": "Meteo5cience (GADGET mix)",
+    "song_type": "REMIX",
+    "path": "1688-f64589c631.webp",
+    "source": "13.XX/16D3 - [Remix] Meteo5cience (GADGET mix)/16D3.png"
+  },
+  "meteorize|NORMAL": {
+    "title": "Meteorize",
+    "song_type": "NORMAL",
+    "path": "1513-a89309a4ed.webp",
+    "source": "11.PRIME/1413 - Meteorize/1413.PNG"
+  },
+  "midnight blue|NORMAL": {
+    "title": "Midnight Blue",
+    "song_type": "NORMAL",
+    "path": "1291-bfffa9bc2b.webp",
+    "source": "04.1ST~PERFECT/(1) 309 - Midnight Blue/309.PNG"
+  },
+  "milk|NORMAL": {
+    "title": "Milk",
+    "song_type": "NORMAL",
+    "path": "1794-b7b16b30f1.webp",
+    "source": "15.PHOENIX/18215 - MilK/MilK_B.png"
+  },
+  "milky way galaxy|NORMAL": {
+    "title": "Milky Way Galaxy",
+    "song_type": "NORMAL",
+    "path": "1541-dc88bb7573.webp",
+    "source": "11.PRIME/1460 - Milky Way Galaxy/1460.png"
+  },
+  "miss s'story|NORMAL": {
+    "title": "Miss S'Story",
+    "song_type": "NORMAL",
+    "path": "1323-6f20ffdb0f.webp",
+    "source": "05.EXTRA~PREX 3/(2) 716 - Miss's Story/716.png"
+  },
+  "mission possible -blow back-|NORMAL": {
+    "title": "Mission Possible -Blow Back-",
+    "song_type": "NORMAL",
+    "path": "1412-0240ccab7d.webp",
+    "source": "08.FIESTA/1029 - Mission Possible -BlowBack-/1029.png"
+  },
+  "mission possible|NORMAL": {
+    "title": "Mission Possible",
+    "song_type": "NORMAL",
+    "path": "1313-7ea1c89ddb.webp",
+    "source": "05.EXTRA~PREX 3/(2) 706 - Mission Possible/706.png"
+  },
+  "mitotsudaira|NORMAL": {
+    "title": "Mitotsudaira",
+    "song_type": "NORMAL",
+    "path": "1554-b21c1e973e.webp",
+    "source": "11.PRIME/1479 - Mitotsudaira/1479.PNG"
+  },
+  "moment day|NORMAL": {
+    "title": "Moment Day",
+    "song_type": "NORMAL",
+    "path": "1549-acda003ee9.webp",
+    "source": "11.PRIME/1474 - Moment Day/1474.png"
+  },
+  "money fingers|REMIX": {
+    "title": "Money Fingers",
+    "song_type": "REMIX",
+    "path": "1381-b79f48d93c.webp",
+    "source": "07.NX~NXA/(1) E52 - [Remix] Money Fingers/E52_B.png"
+  },
+  "money|NORMAL": {
+    "title": "Money",
+    "song_type": "NORMAL",
+    "path": "1373-e6d63e5522.webp",
+    "source": "07.NX~NXA/(1) E04 - Money/E04.png"
+  },
+  "monkey fingers 2|NORMAL": {
+    "title": "Monkey Fingers 2",
+    "song_type": "NORMAL",
+    "path": "1374-19b0d713cf.webp",
+    "source": "07.NX~NXA/(1) E05 - Monkey Fingers 2/E05.png"
+  },
+  "monkey fingers|NORMAL": {
+    "title": "Monkey Fingers",
+    "song_type": "NORMAL",
+    "path": "1335-7194218c57.webp",
+    "source": "06.EXCEED~ZERO/(3) A03 - Monkey Fingers/A03.PNG"
+  },
+  "monolith|NORMAL": {
+    "title": "Monolith",
+    "song_type": "NORMAL",
+    "path": "1466-cd2e195f72.webp",
+    "source": "10.FIESTA 2/(2) 1201 - Monolith/1201.png"
+  },
+  "moonlight|NORMAL": {
+    "title": "Moonlight",
+    "song_type": "NORMAL",
+    "path": "1349-f3ebf610d2.webp",
+    "source": "06.EXCEED~ZERO/(1) C02 - Moonlight/C02.PNG"
+  },
+  "moonlight|SHORTCUT": {
+    "title": "Moonlight",
+    "song_type": "SHORTCUT",
+    "path": "1428-fa38263cfd.webp",
+    "source": "08.FIESTA/1057 - [Short Cut] Moonlight/1057_B.png"
+  },
+  "mopemope|NORMAL": {
+    "title": "Mopemope",
+    "song_type": "NORMAL",
+    "path": "1761-3a54cb9b7e.webp",
+    "source": "13.XX/16B1 - Mopemope/16B1.png"
+  },
+  "move that body!|FULLSONG": {
+    "title": "Move That Body!",
+    "song_type": "FULLSONG",
+    "path": "1567-869d3608b0.webp",
+    "source": "11.PRIME/14C3 - [Full Song] Move That Body!/14C3_B.png"
+  },
+  "move that body!|NORMAL": {
+    "title": "Move That Body!",
+    "song_type": "NORMAL",
+    "path": "1528-a39df54d44.webp",
+    "source": "11.PRIME/1428 - Move That Body/1428.png"
+  },
+  "move that body!|SHORTCUT": {
+    "title": "Move That Body!",
+    "song_type": "SHORTCUT",
+    "path": "1574-18f6e2bb28.webp",
+    "source": "11.PRIME/14E5 - [Short Cut] Move That Body!/14E5_B.png"
+  },
+  "mr.larpus|NORMAL": {
+    "title": "Mr.Larpus",
+    "song_type": "NORMAL",
+    "path": "1298-d7372b11ba.webp",
+    "source": "04.1ST~PERFECT/(4) 405 - Mr. Larpus/405.PNG"
+  },
+  "msgoon rmx pt.1|REMIX": {
+    "title": "msgoon RMX pt.1",
+    "song_type": "REMIX",
+    "path": "1395-2b34e711ae.webp",
+    "source": "07.NX~NXA/F44 - [Remix] Msgoon RMX Pt.1/F44_B.png"
+  },
+  "msgoon rmx pt.6|REMIX": {
+    "title": "msgoon RMX pt.6",
+    "song_type": "REMIX",
+    "path": "1418-4806dd5078.webp",
+    "source": "08.FIESTA/1039 - [Remix] msgoon RMX pt.6/1039_b.png"
+  },
+  "murdoch vs otada - short cut -|SHORTCUT": {
+    "title": "Murdoch vs Otada - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1918-65fd435e51.webp",
+    "source": "15.PHOENIX/18F82 - [Short Cut] Murdoch vs Otada/[Short Cut] Murdoch vs Otada_B.png"
+  },
+  "murdoch vs otada|NORMAL": {
+    "title": "Murdoch vs Otada",
+    "song_type": "NORMAL",
+    "path": "1853-595fb13a42.webp",
+    "source": "15.PHOENIX/18A60 - Murdoch vs Otada/Murdoch vs Otada_B.png"
+  },
+  "murdoch|NORMAL": {
+    "title": "MURDOCH",
+    "song_type": "NORMAL",
+    "path": "1788-4a4542c1c9.webp",
+    "source": "15.PHOENIX/18040 - MURDOCH/16A9_B.png"
+  },
+  "my dreams|NORMAL": {
+    "title": "My Dreams",
+    "song_type": "NORMAL",
+    "path": "1388-17a5e28f0f.webp",
+    "source": "07.NX~NXA/F25 - My Dreams/F25.png"
+  },
+  "my way|NORMAL": {
+    "title": "My Way",
+    "song_type": "NORMAL",
+    "path": "1314-a552ecc54c.webp",
+    "source": "05.EXTRA~PREX 3/(2) 707 - My Way/707.PNG"
+  },
+  "n|NORMAL": {
+    "title": "N",
+    "song_type": "NORMAL",
+    "path": "1300-e065323848.webp",
+    "source": "04.1ST~PERFECT/(3) 502 - N/502.png"
+  },
+  "nade nade|NORMAL": {
+    "title": "Nade Nade",
+    "song_type": "NORMAL",
+    "path": "1883-b67f903236.webp",
+    "source": "15.PHOENIX/18180 - Nade Nade/Nade Nade_B.png"
+  },
+  "naissance 2|NORMAL": {
+    "title": "Naissance 2",
+    "song_type": "NORMAL",
+    "path": "1334-254e324410.webp",
+    "source": "06.EXCEED~ZERO/(3) A02 - Naissance 2/A02.PNG"
+  },
+  "naissance|NORMAL": {
+    "title": "Naissance",
+    "song_type": "NORMAL",
+    "path": "1286-37c79593bb.webp",
+    "source": "04.1ST~PERFECT/(1) 302 - Naissance/302.PNG"
+  },
+  "nakakapagpabagabag|NORMAL": {
+    "title": "Nakakapagpabagabag",
+    "song_type": "NORMAL",
+    "path": "1618-4ea8651d74.webp",
+    "source": "12.PRIME 2/1577 - Nakakapagpabagabag/1577.png"
+  },
+  "napalm|NORMAL": {
+    "title": "Napalm",
+    "song_type": "NORMAL",
+    "path": "1437-10688dbc8c.webp",
+    "source": "08.FIESTA/1095 - Napalm/1095.png"
+  },
+  "native|NORMAL": {
+    "title": "Native",
+    "song_type": "NORMAL",
+    "path": "1451-edbcac9eb9.webp",
+    "source": "09.FIESTA EX/1126 - Native/1126.PNG"
+  },
+  "necromancy|NORMAL": {
+    "title": "Necromancy",
+    "song_type": "NORMAL",
+    "path": "1453-f3f3588aef.webp",
+    "source": "09.FIESTA EX/1128 - Necromancy/1128.PNG"
+  },
+  "nemesis|NORMAL": {
+    "title": "Nemesis",
+    "song_type": "NORMAL",
+    "path": "1501-2519e05fdc.webp",
+    "source": "11.PRIME/1401 - Nemesis/1401.png"
+  },
+  "neo catharsis - short cut -|SHORTCUT": {
+    "title": "Neo Catharsis - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1895-aedcda91d9.webp",
+    "source": "15.PHOENIX/18F76 - [Short Cut] Neo Catharsis/[Short Cut] Neo Catharsis_B.png"
+  },
+  "neo catharsis|NORMAL": {
+    "title": "Neo Catharsis",
+    "song_type": "NORMAL",
+    "path": "1811-0c2c133421.webp",
+    "source": "15.PHOENIX/18047 - Neo Catharsis/Neo Catharsis_B.png"
+  },
+  "new rose|NORMAL": {
+    "title": "New Rose",
+    "song_type": "NORMAL",
+    "path": "1881-72e115b0e0.webp",
+    "source": "15.PHOENIX/18060 - New Rose/New Rose_B.png"
+  },
+  "night duty|NORMAL": {
+    "title": "Night Duty",
+    "song_type": "NORMAL",
+    "path": "1753-241e70f660.webp",
+    "source": "09.FIESTA EX/1151 - Night Duty/1151_B.png"
+  },
+  "nihilism -another ver.-|NORMAL": {
+    "title": "Nihilism -Another Ver.-",
+    "song_type": "NORMAL",
+    "path": "1682-f679b33304.webp",
+    "source": "13.XX/1694 - Nihilism - Another Ver. -/1694.png"
+  },
+  "nostalgia|NORMAL": {
+    "title": "Nostalgia",
+    "song_type": "NORMAL",
+    "path": "1856-17658b4185.webp",
+    "source": "15.PHOENIX/18145 - Nostalgia/Nostalgia_B.png"
+  },
+  "nx opening|SHORTCUT": {
+    "title": "NX Opening",
+    "song_type": "SHORTCUT",
+    "path": "1431-88ff30ea35.webp",
+    "source": "08.FIESTA/1060 - [Short Cut] NX Opening/1060_B.png"
+  },
+  "nxde|NORMAL": {
+    "title": "Nxde",
+    "song_type": "NORMAL",
+    "path": "1770-e01acf2786.webp",
+    "source": "15.PHOENIX/18105 - Nxde/Nxde.png"
+  },
+  "nyan-turne (feat. kutina)|NORMAL": {
+    "title": "Nyan-turne (feat. KuTiNA)",
+    "song_type": "NORMAL",
+    "path": "1866-4e3f34d58d.webp",
+    "source": "15.PHOENIX/1751 - Nyan-turne (feat. KuTiNA)/1751_B.png"
+  },
+  "nyarlathotep - short cut -|SHORTCUT": {
+    "title": "Nyarlathotep - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1677-c0edd25b97.webp",
+    "source": "13.XX/16F0 - [Short Cut] Nyarlathotep/16F0.png"
+  },
+  "nyarlathotep|NORMAL": {
+    "title": "Nyarlathotep",
+    "song_type": "NORMAL",
+    "path": "1660-6dd09fc571.webp",
+    "source": "13.XX/1615 - Nyarlathotep/1615.png"
+  },
+  "obelisque|NORMAL": {
+    "title": "Obelisque",
+    "song_type": "NORMAL",
+    "path": "1673-ff3d19ce43.webp",
+    "source": "13.XX/1680 - Obelisque/1680.png"
+  },
+  "obliteration|NORMAL": {
+    "title": "Obliteration",
+    "song_type": "NORMAL",
+    "path": "1658-983d972eee.webp",
+    "source": "13.XX/1603 - Obliteration/1603.png"
+  },
+  "odin|NORMAL": {
+    "title": "Odin",
+    "song_type": "NORMAL",
+    "path": "1864-831c65c717.webp",
+    "source": "15.PHOENIX/18242.5 - Odin/Odin_B.png"
+  },
+  "oh! rosa!|NORMAL": {
+    "title": "Oh! Rosa!",
+    "song_type": "NORMAL",
+    "path": "1294-852018cc55.webp",
+    "source": "04.1ST~PERFECT/(4) 401 - Oh! Rosa/401.png"
+  },
+  "orbit stabilizer|NORMAL": {
+    "title": "Orbit Stabilizer",
+    "song_type": "NORMAL",
+    "path": "1706-63aad069c9.webp",
+    "source": "13.XX/1631 - Orbit Stabilizer/1631.png"
+  },
+  "over the horizon|NORMAL": {
+    "title": "Over the Horizon",
+    "song_type": "NORMAL",
+    "path": "1739-0feca5cd89.webp",
+    "source": "13.XX/1689 - Over The Horizon/1689.png"
+  },
+  "overblow|NORMAL": {
+    "title": "Overblow",
+    "song_type": "NORMAL",
+    "path": "1443-bae5687646.webp",
+    "source": "09.FIESTA EX/1106 - Overblow/1106.png"
+  },
+  "overblow|SHORTCUT": {
+    "title": "Overblow",
+    "song_type": "SHORTCUT",
+    "path": "1460-d93856e832.webp",
+    "source": "09.FIESTA EX/1148 - [Short Cut] Overblow/1148_B.png"
+  },
+  "overblow2|NORMAL": {
+    "title": "Overblow2",
+    "song_type": "NORMAL",
+    "path": "1608-30702066d9.webp",
+    "source": "12.PRIME 2/1518 - Overblow2/1518.png"
+  },
+  "oy oy oy|NORMAL": {
+    "title": "Oy Oy Oy",
+    "song_type": "NORMAL",
+    "path": "1321-40c9d26fa5.webp",
+    "source": "05.EXTRA~PREX 3/(2) 714 - Oy Oy Oy/714.PNG"
+  },
+  "pandora|NORMAL": {
+    "title": "PANDORA",
+    "song_type": "NORMAL",
+    "path": "1818-079dce1167.webp",
+    "source": "15.PHOENIX/18133 - PANDORA/PANDORA_B.png"
+  },
+  "papa gonzales|NORMAL": {
+    "title": "Papa Gonzales",
+    "song_type": "NORMAL",
+    "path": "1353-28fd77741e.webp",
+    "source": "06.EXCEED~ZERO/(1) C06 - Papa Gonzales/C06.PNG"
+  },
+  "papa helloizing|REMIX": {
+    "title": "PaPa helloizing",
+    "song_type": "REMIX",
+    "path": "1415-60dbcce2af.webp",
+    "source": "08.FIESTA/1033 - [Remix] Papa Helloizing/1033_b.png"
+  },
+  "papasito (feat. kutina) - full song -|FULLSONG": {
+    "title": "Papasito (feat. KuTiNa) - FULL SONG -",
+    "song_type": "FULLSONG",
+    "path": "1759-89506909ef.webp",
+    "source": "13.XX/16C9 - [Full Song] Papasito (feat. KuTiNA)/16C9_B.png"
+  },
+  "papasito feat. kutina|NORMAL": {
+    "title": "Papasito feat. KuTiNA",
+    "song_type": "NORMAL",
+    "path": "1691-32713d76c1.webp",
+    "source": "13.XX/16A1 - Papasito (feat. KuTiNA)/16a1.png"
+  },
+  "paradoxx - short cut -|SHORTCUT": {
+    "title": "Paradoxx - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1766-b603081332.webp",
+    "source": "13.XX/16B6 - [Short Cut] PARADOXX/16B6_B.png"
+  },
+  "paradoxx|REMIX": {
+    "title": "PARADOXX",
+    "song_type": "REMIX",
+    "path": "1566-ab8a5ef456.webp",
+    "source": "11.PRIME/14A2 - [Remix] PARADOXX/14A2_B.PNG"
+  },
+  "passacaglia|NORMAL": {
+    "title": "Passacaglia",
+    "song_type": "NORMAL",
+    "path": "1476-719489c086.webp",
+    "source": "10.FIESTA 2/(1) 1303 - Passacaglia/1303.png"
+  },
+  "passacaglia|SHORTCUT": {
+    "title": "Passacaglia",
+    "song_type": "SHORTCUT",
+    "path": "1496-f988f70832.webp",
+    "source": "10.FIESTA 2/(1) 13E1 - [Short Cut] Passacaglia/13E1_B.png"
+  },
+  "passing rider|NORMAL": {
+    "title": "Passing Rider",
+    "song_type": "NORMAL",
+    "path": "1636-7b11348b95.webp",
+    "source": "12.PRIME 2/1524 - Passing Rider/1524.png"
+  },
+  "pavane|NORMAL": {
+    "title": "Pavane",
+    "song_type": "NORMAL",
+    "path": "1462-21d2ccbab2.webp",
+    "source": "09.FIESTA EX/1152 - Pavane/1152 XX.png"
+  },
+  "paved garden|NORMAL": {
+    "title": "Paved Garden",
+    "song_type": "NORMAL",
+    "path": "1751-559ebd3076.webp",
+    "source": "13.XX/1638 - Paved Garden/1638.png"
+  },
+  "perpetual|NORMAL": {
+    "title": "Perpetual",
+    "song_type": "NORMAL",
+    "path": "1859-16db6d0c44.webp",
+    "source": "15.PHOENIX/1719 - Perpetual/1719_B.png"
+  },
+  "phalanx \"rs2018 edit\"|NORMAL": {
+    "title": "Phalanx \"RS2018 edit\"",
+    "song_type": "NORMAL",
+    "path": "1708-7a1b41f51b.webp",
+    "source": "13.XX/1695 - Phalanx RS2018 edit/1695.png"
+  },
+  "phantom -intermezzo-|NORMAL": {
+    "title": "Phantom -Intermezzo-",
+    "song_type": "NORMAL",
+    "path": "1411-218c28f2e3.webp",
+    "source": "08.FIESTA/1028 - Phantom -Intermezzo-/1028.png"
+  },
+  "phantom|NORMAL": {
+    "title": "Phantom",
+    "song_type": "NORMAL",
+    "path": "1352-1c020834c9.webp",
+    "source": "06.EXCEED~ZERO/(1) C05 - Phantom/C05.PNG"
+  },
+  "phoenix opening - short cut -|SHORTCUT": {
+    "title": "Phoenix Opening - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1886-e674b63964.webp",
+    "source": "15.PHOENIX/18F65 - [Short Cut] Phoenix Opening/[Short Cut] Phoenix Opening_B 2024.png"
+  },
+  "pine nut|NORMAL": {
+    "title": "Pine Nut",
+    "song_type": "NORMAL",
+    "path": "1463-0955cf33be.webp",
+    "source": "09.FIESTA EX/1153 - Pine Nut/1153_B.png"
+  },
+  "pirate|NORMAL": {
+    "title": "Pirate",
+    "song_type": "NORMAL",
+    "path": "1775-89cb2a96ee.webp",
+    "source": "15.PHOENIX/18127 - Pirate/Pirate_B.png"
+  },
+  "pneumonoultramicroscopicsilicovolcanoconiosis ft. kagamine len/gumi|NORMAL": {
+    "title": "Pneumonoultramicroscopicsilicovolcanoconiosis ft. Kagamine Len/GUMI",
+    "song_type": "NORMAL",
+    "path": "1796-7f9ea539d3.webp",
+    "source": "15.PHOENIX/18225 - Pneumonoultramicroscopicsilicovolcanoconiosis ft. Kagamine Len GUMI/Pneumonoultramicroscopicsilicovolcanoconiosis ft. Kagamine Len GUMI_B.png"
+  },
+  "point break|NORMAL": {
+    "title": "Point Break",
+    "song_type": "NORMAL",
+    "path": "1315-9261eb059e.webp",
+    "source": "05.EXTRA~PREX 3/(2) 708 - Point Break/708.PNG"
+  },
+  "point zero 2|NORMAL": {
+    "title": "POINT ZERO 2",
+    "song_type": "NORMAL",
+    "path": "1726-1853330a4a.webp",
+    "source": "13.XX/1696 - POINT ZERO 2/1696.png"
+  },
+  "point zero one|NORMAL": {
+    "title": "Point Zero One",
+    "song_type": "NORMAL",
+    "path": "1531-3f2915556d.webp",
+    "source": "11.PRIME/1431 - Point Zero One/1431.png"
+  },
+  "pop sequence|NORMAL": {
+    "title": "Pop Sequence",
+    "song_type": "NORMAL",
+    "path": "1752-80e35d6b58.webp",
+    "source": "13.XX/1639 - Pop Sequence/1639.png"
+  },
+  "pop the track|NORMAL": {
+    "title": "Pop The Track",
+    "song_type": "NORMAL",
+    "path": "1475-6db1d80942.webp",
+    "source": "10.FIESTA 2/(1) 1301 - Pop The Track/1301.PNG"
+  },
+  "pop the track|SHORTCUT": {
+    "title": "Pop The Track",
+    "song_type": "SHORTCUT",
+    "path": "1495-7de06e3eeb.webp",
+    "source": "10.FIESTA 2/(1) 13E0 - [Short Cut] Pop The Track/13E0_B.png"
+  },
+  "poppin' shower|NORMAL": {
+    "title": "Poppin' Shower",
+    "song_type": "NORMAL",
+    "path": "1838-b60fc68654.webp",
+    "source": "15.PHOENIX/18242.7 - Poppin' Shower/Poppin' Shower_B.png"
+  },
+  "poseidon - short cut –|SHORTCUT": {
+    "title": "Poseidon - SHORT CUT –",
+    "song_type": "SHORTCUT",
+    "path": "1696-b31d1a0f3e.webp",
+    "source": "13.XX/16F5 - [Short Cut] Poseidon/16F5.png"
+  },
+  "poseidon|NORMAL": {
+    "title": "Poseidon",
+    "song_type": "NORMAL",
+    "path": "1665-029038f1ba.webp",
+    "source": "13.XX/1626 - Poseidon/1626.png"
+  },
+  "prima materia - short cut -|SHORTCUT": {
+    "title": "PRiMA MATERiA - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1912-50107af66a.webp",
+    "source": "15.PHOENIX/18F80 - [Short Cut] PRiMA MATERiA/[Short Cut] PRiMA MATERiA_B.png"
+  },
+  "prima materia|NORMAL": {
+    "title": "PRiMA MATERiA",
+    "song_type": "NORMAL",
+    "path": "1830-553b6faa16.webp",
+    "source": "15.PHOENIX/18046 - PRiMA MATERiA/PRiMA MATERiA_B.png"
+  },
+  "prime opening|SHORTCUT": {
+    "title": "PRIME Opening",
+    "song_type": "SHORTCUT",
+    "path": "1575-a176aefae1.webp",
+    "source": "11.PRIME/14E6 - [Short Cut] Prime Opening/14E6_B.png"
+  },
+  "prime time|REMIX": {
+    "title": "Prime Time",
+    "song_type": "REMIX",
+    "path": "1709-1283edb81d.webp",
+    "source": "13.XX/16D4 - [Remix] Prime Time/16D4.png"
+  },
+  "prime|NORMAL": {
+    "title": "PRIME",
+    "song_type": "NORMAL",
+    "path": "1557-8868504497.webp",
+    "source": "11.PRIME/1490 - Prime/1490.png"
+  },
+  "prime2 opening|SHORTCUT": {
+    "title": "PRIME2 Opening",
+    "song_type": "SHORTCUT",
+    "path": "1605-151c907bbf.webp",
+    "source": "12.PRIME 2/15F3 - [Short Cut] PRIME2 Opening/15F3_B.png"
+  },
+  "pump jump|NORMAL": {
+    "title": "Pump Jump",
+    "song_type": "NORMAL",
+    "path": "1299-7fcdd652e9.webp",
+    "source": "04.1ST~PERFECT/(3) 501 - Pump Jump/501.png"
+  },
+  "pump me amadeus|NORMAL": {
+    "title": "Pump Me Amadeus",
+    "song_type": "NORMAL",
+    "path": "1337-a3ea8c2eda.webp",
+    "source": "06.EXCEED~ZERO/(3) A05 - Pump Me Amadeus/A05.PNG"
+  },
+  "pumping jumping|NORMAL": {
+    "title": "Pumping Jumping",
+    "song_type": "NORMAL",
+    "path": "1413-6fc445befe.webp",
+    "source": "08.FIESTA/1030 - Pumping Jumping/1030.png"
+  },
+  "pumping up|NORMAL": {
+    "title": "Pumping Up",
+    "song_type": "NORMAL",
+    "path": "1293-c323d6a86b.webp",
+    "source": "04.1ST~PERFECT/(1) 311 - Pumping Up/311.png"
+  },
+  "pumptris 8bit ver.|NORMAL": {
+    "title": "Pumptris 8Bit ver.",
+    "song_type": "NORMAL",
+    "path": "1397-405efb3c69.webp",
+    "source": "07.NX~NXA/FE13B - Pumptris 8Bit ver/FE13B_B.png"
+  },
+  "pumptris 8bit ver.|SHORTCUT": {
+    "title": "Pumptris 8Bit ver.",
+    "song_type": "SHORTCUT",
+    "path": "1434-0ff9f59f15.webp",
+    "source": "08.FIESTA/1063 - [Short Cut] Pumptris 8bit Ver/1063_B.png"
+  },
+  "pumptris quattro|NORMAL": {
+    "title": "Pumptris Quattro",
+    "song_type": "NORMAL",
+    "path": "1376-49a1b79365.webp",
+    "source": "07.NX~NXA/(1) E13 - Pumptris Quattro/E13.png"
+  },
+  "pupa|NORMAL": {
+    "title": "PUPA",
+    "song_type": "NORMAL",
+    "path": "1816-5bda91139f.webp",
+    "source": "15.PHOENIX/18238 - PUPA/PUPA_B.png"
+  },
+  "queen of the red|NORMAL": {
+    "title": "Queen Of The Red",
+    "song_type": "NORMAL",
+    "path": "1558-20ccc4aed7.webp",
+    "source": "11.PRIME/1492 - Queen of the Red/1492.png"
+  },
+  "queencard|NORMAL": {
+    "title": "Queencard",
+    "song_type": "NORMAL",
+    "path": "1834-303c222265.webp",
+    "source": "15.PHOENIX/18080 - Queencard/Queencard_B.png"
+  },
+  "r.i.p|NORMAL": {
+    "title": "R.I.P",
+    "song_type": "NORMAL",
+    "path": "1799-a5ade8f1f3.webp",
+    "source": "15.PHOENIX/18237 - R.I.P/R.I.P..png"
+  },
+  "rage of fire|NORMAL": {
+    "title": "Rage of Fire",
+    "song_type": "NORMAL",
+    "path": "1687-ff58fef64a.webp",
+    "source": "13.XX/1681 - Rage of Fire/1681.png"
+  },
+  "ragnarok|NORMAL": {
+    "title": "Ragnarok",
+    "song_type": "NORMAL",
+    "path": "1543-adebbb907d.webp",
+    "source": "11.PRIME/1462 - Ragnarok/1462.PNG"
+  },
+  "rave'til the earth's end|NORMAL": {
+    "title": "Rave'til the earth's end",
+    "song_type": "NORMAL",
+    "path": "1629-18c39a6bd8.webp",
+    "source": "12.PRIME 2/1540 - Rave'til the earth's end/1540.png"
+  },
+  "re : end of a dream|NORMAL": {
+    "title": "Re : End of a Dream",
+    "song_type": "NORMAL",
+    "path": "1762-f8b8af69d7.webp",
+    "source": "13.XX/16B2 - Re End of a Dream/16B2.png"
+  },
+  "reality|NORMAL": {
+    "title": "Reality",
+    "song_type": "NORMAL",
+    "path": "1440-ca3b1e56cc.webp",
+    "source": "09.FIESTA EX/1103 - Reality/1103.png"
+  },
+  "red snow|NORMAL": {
+    "title": "Red Snow",
+    "song_type": "NORMAL",
+    "path": "1532-e69e3f183d.webp",
+    "source": "11.PRIME/1433 - Red Snow/1433.png"
+  },
+  "red swan|NORMAL": {
+    "title": "Red Swan",
+    "song_type": "NORMAL",
+    "path": "1521-c0a0e7d758.webp",
+    "source": "11.PRIME/1421 - Red Swan/1421.PNG"
+  },
+  "redline|NORMAL": {
+    "title": "Redline",
+    "song_type": "NORMAL",
+    "path": "1604-7be20e1c96.webp",
+    "source": "12.PRIME 2/15B8 - Redline/15B8.png"
+  },
+  "reminiscence|NORMAL": {
+    "title": "Reminiscence",
+    "song_type": "NORMAL",
+    "path": "1548-7b0f799d50.webp",
+    "source": "11.PRIME/1473 - Reminiscence/1473.png"
+  },
+  "removable disk0|NORMAL": {
+    "title": "Removable Disk0",
+    "song_type": "NORMAL",
+    "path": "1518-2e8c966730.webp",
+    "source": "11.PRIME/1418 - Removable Disk0/1418.PNG"
+  },
+  "repeatorment remix|REMIX": {
+    "title": "Repeatorment Remix",
+    "song_type": "REMIX",
+    "path": "1284-fdc86b546b.webp",
+    "source": "04.1ST~PERFECT/(2) 224 - [Remix] Repeatorment Remix/224_B.png"
+  },
+  "repentance|NORMAL": {
+    "title": "Repentance",
+    "song_type": "NORMAL",
+    "path": "1754-17a6dcd2da.webp",
+    "source": "13.XX/16A6 - Repentance/16A6.png"
+  },
+  "requiem|NORMAL": {
+    "title": "Requiem",
+    "song_type": "NORMAL",
+    "path": "1510-de9bf5ed7e.webp",
+    "source": "11.PRIME/1410 - Requiem/1410.PNG"
+  },
+  "rising star|NORMAL": {
+    "title": "Rising Star",
+    "song_type": "NORMAL",
+    "path": "1700-7e9ddc7a9a.webp",
+    "source": "13.XX/1686 - Rising Star/1686.png"
+  },
+  "robot battle|NORMAL": {
+    "title": "Robot Battle",
+    "song_type": "NORMAL",
+    "path": "1535-8101de746c.webp",
+    "source": "11.PRIME/1436 - Robot Battle/1436.PNG"
+  },
+  "rock the house|NORMAL": {
+    "title": "Rock the house",
+    "song_type": "NORMAL",
+    "path": "1529-7a04519c0a.webp",
+    "source": "11.PRIME/1429 - Rock The House/1429.PNG"
+  },
+  "rock the house|SHORTCUT": {
+    "title": "Rock the house",
+    "song_type": "SHORTCUT",
+    "path": "1573-74889f56f5.webp",
+    "source": "11.PRIME/14E4 - [Short Cut] Rock The House/14E4.png"
+  },
+  "rolling christmas|NORMAL": {
+    "title": "Rolling Christmas",
+    "song_type": "NORMAL",
+    "path": "1301-79eeab38c2.webp",
+    "source": "04.1ST~PERFECT/(3) 503 - Rolling Christmas/503.PNG"
+  },
+  "rush-hour|NORMAL": {
+    "title": "Rush-Hour",
+    "song_type": "NORMAL",
+    "path": "1893-9f9c6f1a49.webp",
+    "source": "15.PHOENIX/18238.7.0 - Rush-Hour/Rush-Hour_B.png"
+  },
+  "rush-more|NORMAL": {
+    "title": "Rush-More",
+    "song_type": "NORMAL",
+    "path": "1849-95f48b32f4.webp",
+    "source": "15.PHOENIX/18238.7 - Rush-More/Rush-More_B.png"
+  },
+  "sarabande|NORMAL": {
+    "title": "Sarabande",
+    "song_type": "NORMAL",
+    "path": "1582-0e40001e9d.webp",
+    "source": "12.PRIME 2/1516 - Sarabande/1516.png"
+  },
+  "sarabande|SHORTCUT": {
+    "title": "Sarabande",
+    "song_type": "SHORTCUT",
+    "path": "1589-ac36980891.webp",
+    "source": "12.PRIME 2/15F0 - [Short Cut] Sarabande/15F0_B.png"
+  },
+  "scorpion king|NORMAL": {
+    "title": "Scorpion King",
+    "song_type": "NORMAL",
+    "path": "1530-663ddcbb65.webp",
+    "source": "11.PRIME/1430 - Scorpion King/1430.png"
+  },
+  "see|NORMAL": {
+    "title": "See",
+    "song_type": "NORMAL",
+    "path": "1822-8fd8c69ed1.webp",
+    "source": "15.PHOENIX/18034 - See/See_B.png"
+  },
+  "selfishness|NORMAL": {
+    "title": "Selfishness",
+    "song_type": "NORMAL",
+    "path": "1537-aec818f429.webp",
+    "source": "11.PRIME/1454 - Selfishness/1454.png"
+  },
+  "selfishness|SHORTCUT": {
+    "title": "Selfishness",
+    "song_type": "SHORTCUT",
+    "path": "1572-1ac9b8de72.webp",
+    "source": "11.PRIME/14E3 - [Short Cut] Selfishness/14E3_B.png"
+  },
+  "set me up|NORMAL": {
+    "title": "Set me up",
+    "song_type": "NORMAL",
+    "path": "1324-5d5cf2cad6.webp",
+    "source": "05.EXTRA~PREX 3/(2) 717 - Set Me Up/717.PNG"
+  },
+  "set up me2 mix|REMIX": {
+    "title": "Set Up Me2 Mix",
+    "song_type": "REMIX",
+    "path": "1417-aba14f195a.webp",
+    "source": "08.FIESTA/1037 - [Remix] Set Up Me 2 Mix/1037_b.png"
+  },
+  "she likes pizza|NORMAL": {
+    "title": "She Likes Pizza",
+    "song_type": "NORMAL",
+    "path": "1292-824b41dd17.webp",
+    "source": "04.1ST~PERFECT/(1) 310 - She Likes Pizza/310.png"
+  },
+  "showdown|NORMAL": {
+    "title": "Showdown",
+    "song_type": "NORMAL",
+    "path": "1781-b688b515ee.webp",
+    "source": "15.PHOENIX/18010 - Showdown/Showdown_B.png"
+  },
+  "shub niggurath|NORMAL": {
+    "title": "Shub Niggurath",
+    "song_type": "NORMAL",
+    "path": "1606-23aa73214d.webp",
+    "source": "12.PRIME 2/1508 - Shub Niggurath/1508.png"
+  },
+  "shub niggurath|SHORTCUT": {
+    "title": "Shub Niggurath",
+    "song_type": "SHORTCUT",
+    "path": "1613-f9d629a786.webp",
+    "source": "12.PRIME 2/15F4 - [Short Cut] Shub Niggurath/15F4_B.png"
+  },
+  "shub sothoth|REMIX": {
+    "title": "Shub Sothoth",
+    "song_type": "REMIX",
+    "path": "1649-68c39b130f.webp",
+    "source": "12.PRIME 2/15D2 - [Remix] Shub Sothoth/15D2_B.png"
+  },
+  "silhouette effect|NORMAL": {
+    "title": "Silhouette Effect",
+    "song_type": "NORMAL",
+    "path": "1506-37a470c19b.webp",
+    "source": "11.PRIME/1406 - Silhouette Effect/1406.png"
+  },
+  "silhouette effect|SHORTCUT": {
+    "title": "Silhouette Effect",
+    "song_type": "SHORTCUT",
+    "path": "1571-58bbafb647.webp",
+    "source": "11.PRIME/14E2 - [Short Cut] Silhouette Effect/14E2_B.png"
+  },
+  "silver beat feat. chisauezono|NORMAL": {
+    "title": "Silver Beat feat. ChisaUezono",
+    "song_type": "NORMAL",
+    "path": "1634-5e6a419449.webp",
+    "source": "12.PRIME 2/1511 - Silver Beat feat. ChisaUezono/1511.png"
+  },
+  "simon says, eurodance!! (feat. sara☆m)|NORMAL": {
+    "title": "Simon Says, EURODANCE!! (feat. Sara☆M)",
+    "song_type": "NORMAL",
+    "path": "1825-5304a12f09.webp",
+    "source": "15.PHOENIX/18042 - Simon Says, EURODANCE!! (feat. Sara M)/16B1_B.png"
+  },
+  "skeptic|NORMAL": {
+    "title": "Skeptic",
+    "song_type": "NORMAL",
+    "path": "1661-d350b7e0aa.webp",
+    "source": "13.XX/1618 - Skeptic/1618.png"
+  },
+  "slam|NORMAL": {
+    "title": "Slam",
+    "song_type": "NORMAL",
+    "path": "1304-92b3de3d91.webp",
+    "source": "04.1ST~PERFECT/(3) 516 - Slam/516.PNG"
+  },
+  "slapstick parfait|NORMAL": {
+    "title": "Slapstick Parfait",
+    "song_type": "NORMAL",
+    "path": "1750-beaa3c07ee.webp",
+    "source": "13.XX/1637 - Slapstick Parfait/1637.png"
+  },
+  "smells like a chocolate|NORMAL": {
+    "title": "Smells Like A Chocolate",
+    "song_type": "NORMAL",
+    "path": "1452-c21a925c90.webp",
+    "source": "09.FIESTA EX/1127 - Smells Like a Chocolate/1127.PNG"
+  },
+  "smile diary|NORMAL": {
+    "title": "Smile Diary",
+    "song_type": "NORMAL",
+    "path": "1555-ae862f0619.webp",
+    "source": "11.PRIME/1480 - Smile Diary/1480.PNG"
+  },
+  "soldiers (tano*c w team red anthem)|NORMAL": {
+    "title": "Soldiers (TANO*C W TEAM RED ANTHEM)",
+    "song_type": "NORMAL",
+    "path": "1865-e9f7200af9.webp",
+    "source": "15.PHOENIX/18247 - Soldiers (TANO C W TEAM RED ANTHEM)/Soldiers (TANO C W TEAM RED ANTHEM)_B.png"
+  },
+  "solfeggietto|NORMAL": {
+    "title": "Solfeggietto",
+    "song_type": "NORMAL",
+    "path": "1828-5770335020.webp",
+    "source": "15.PHOENIX/18039 - Solfeggietto/16A8_B.png"
+  },
+  "solitary 1.5|NORMAL": {
+    "title": "Solitary 1.5",
+    "song_type": "NORMAL",
+    "path": "1370-1c4b6ae3cb.webp",
+    "source": "07.NX~NXA/(1) E01 - Solitary 1.5/E01.png"
+  },
+  "solitary 2|NORMAL": {
+    "title": "Solitary 2",
+    "song_type": "NORMAL",
+    "path": "1342-27656eccae.webp",
+    "source": "06.EXCEED~ZERO/(2) B18 - Solitary 2/B18.PNG"
+  },
+  "solitary 2|SHORTCUT": {
+    "title": "Solitary 2",
+    "song_type": "SHORTCUT",
+    "path": "1427-550f0d853b.webp",
+    "source": "08.FIESTA/1056 - [Short Cut] Solitary 2/1056_B.png"
+  },
+  "solitary|NORMAL": {
+    "title": "Solitary",
+    "song_type": "NORMAL",
+    "path": "1297-fdd9d740f7.webp",
+    "source": "04.1ST~PERFECT/(4) 404 - Solitary/404.PNG"
+  },
+  "solve my hurt - short cut -|SHORTCUT": {
+    "title": "Solve My Hurt - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1917-fb5a46cd62.webp",
+    "source": "15.PHOENIX/18F83 - [Short Cut] Solve My Hurt/[Short Cut] Solve My Hurt_B.png"
+  },
+  "solve my hurt|NORMAL": {
+    "title": "Solve My Hurt",
+    "song_type": "NORMAL",
+    "path": "1898-7a1e82f7bf.webp",
+    "source": "15.PHOENIX/18053 - Solve My Hurt/Solve My Hurt_B.png"
+  },
+  "sonic boom|NORMAL": {
+    "title": "SONIC BOOM",
+    "song_type": "NORMAL",
+    "path": "1868-dcde1e3dee.webp",
+    "source": "15.PHOENIX/18049.3 - SONIC BOOM/SONIC BOOM_B.png"
+  },
+  "sorceress elise|NORMAL": {
+    "title": "Sorceress Elise",
+    "song_type": "NORMAL",
+    "path": "1399-55189100ae.webp",
+    "source": "08.FIESTA/1002 - Sorceress Elise/1002.png"
+  },
+  "spooky macaron|NORMAL": {
+    "title": "Spooky Macaron",
+    "song_type": "NORMAL",
+    "path": "1911-6ecad7ff51.webp",
+    "source": "15.PHOENIX/18238.9 - Spooky Macaron/Spooky Macaron_B.png"
+  },
+  "spray|NORMAL": {
+    "title": "Spray",
+    "song_type": "NORMAL",
+    "path": "1814-555539d1d1.webp",
+    "source": "15.PHOENIX/18129.5 - Spray/Spray_B.png"
+  },
+  "stager|NORMAL": {
+    "title": "STAGER",
+    "song_type": "NORMAL",
+    "path": "1826-38d8ba18ea.webp",
+    "source": "15.PHOENIX/18238.5 - STAGER/STAGER_B.png"
+  },
+  "star command|NORMAL": {
+    "title": "Star Command",
+    "song_type": "NORMAL",
+    "path": "1472-f90c3a684a.webp",
+    "source": "10.FIESTA 2/(2) 1241 - Star Command/1241.png"
+  },
+  "stardream -eurobeat remix- - short cut -|SHORTCUT": {
+    "title": "Stardream -Eurobeat Remix- - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1904-528fb48ea2.webp",
+    "source": "15.PHOENIX/18F79 - [Short Cut] Stardream -Eurobeat Remix-/[Short Cut] Stardream -Eurobeat Remix-_B.png"
+  },
+  "stardream -eurobeat remix-|NORMAL": {
+    "title": "Stardream -Eurobeat Remix-",
+    "song_type": "NORMAL",
+    "path": "1857-88b1c25cb0.webp",
+    "source": "15.PHOENIX/18036 - Stardream -Eurobeat Remix-/Stardream -Eurobeat Remix-_B.png"
+  },
+  "stardream (feat. romelon)|NORMAL": {
+    "title": "Stardream (feat. Romelon)",
+    "song_type": "NORMAL",
+    "path": "1737-ec1e8d98b9.webp",
+    "source": "13.XX/1636 - Stardream (feat. Romelon)/1636.png"
+  },
+  "stardust overdrive|NORMAL": {
+    "title": "Stardust Overdrive",
+    "song_type": "NORMAL",
+    "path": "1547-0d3705b6fa.webp",
+    "source": "11.PRIME/1472 - Stardust Overdrive/1472.png"
+  },
+  "stardust overdrive|SHORTCUT": {
+    "title": "Stardust Overdrive",
+    "song_type": "SHORTCUT",
+    "path": "1576-eb5b3a3b5a.webp",
+    "source": "11.PRIME/14E7 - [Short Cut] Stardust Overdrive/14E7_B.png"
+  },
+  "start on red|NORMAL": {
+    "title": "Start On Red",
+    "song_type": "NORMAL",
+    "path": "1602-32af103f0e.webp",
+    "source": "12.PRIME 2/15A2 - Start On Red/15A2.png"
+  },
+  "step|NORMAL": {
+    "title": "STEP",
+    "song_type": "NORMAL",
+    "path": "1594-c7a449dbc9.webp",
+    "source": "12.PRIME 2/1575 - STEP/1575.png"
+  },
+  "storm|NORMAL": {
+    "title": "STORM",
+    "song_type": "NORMAL",
+    "path": "1777-d5ed4b6d68.webp",
+    "source": "15.PHOENIX/18135 - STORM/STORM_B.png"
+  },
+  "street show down|NORMAL": {
+    "title": "Street Show Down",
+    "song_type": "NORMAL",
+    "path": "1316-75812f2602.webp",
+    "source": "05.EXTRA~PREX 3/(2) 709 - Street Show Down/709.png"
+  },
+  "sudden appearance image|NORMAL": {
+    "title": "Sudden Appearance Image",
+    "song_type": "NORMAL",
+    "path": "1823-769adabdb9.webp",
+    "source": "15.PHOENIX/18055 - Sudden Appearance Image/Sudden Appearance Image_B.png"
+  },
+  "sugar conspiracy theory|NORMAL": {
+    "title": "Sugar Conspiracy Theory",
+    "song_type": "NORMAL",
+    "path": "1525-3b49143bd9.webp",
+    "source": "11.PRIME/1425 - Sugar Conspiracy Theory/1425.png"
+  },
+  "sugar plum|NORMAL": {
+    "title": "Sugar Plum",
+    "song_type": "NORMAL",
+    "path": "1755-cd1ca4c62d.webp",
+    "source": "13.XX/1613 - Sugar Plum/1613.png"
+  },
+  "super akuma emperor|NORMAL": {
+    "title": "Super Akuma Emperor",
+    "song_type": "NORMAL",
+    "path": "1889-bf39cc5c99.webp",
+    "source": "15.PHOENIX/18048.5 - Super Akuma Emperor/Super Akuma Emperor_B.png"
+  },
+  "super capriccio|NORMAL": {
+    "title": "Super Capriccio",
+    "song_type": "NORMAL",
+    "path": "1623-4b377be592.webp",
+    "source": "12.PRIME 2/1502 - Super Capriccio/1502.png"
+  },
+  "super fantasy|NORMAL": {
+    "title": "Super Fantasy",
+    "song_type": "NORMAL",
+    "path": "1519-65a1d7a27e.webp",
+    "source": "11.PRIME/1419 - Super Fantasy/1419.PNG"
+  },
+  "super fantasy|SHORTCUT": {
+    "title": "Super Fantasy",
+    "song_type": "SHORTCUT",
+    "path": "1569-7a8b3d250f.webp",
+    "source": "11.PRIME/14E0 - [Short Cut] Super Fantasy/14E0_B.png"
+  },
+  "super stylin'|NORMAL": {
+    "title": "Super Stylin'",
+    "song_type": "NORMAL",
+    "path": "1601-ffae773ced.webp",
+    "source": "12.PRIME 2/15A7 - Super Stylin'/15A7.png"
+  },
+  "sweet wonderland|NORMAL": {
+    "title": "SWEET WONDERLAND",
+    "song_type": "NORMAL",
+    "path": "3259-c955aaf19c.webp",
+    "source": "15.PHOENIX/18252 - SWEET WONDERLAND/SWEET WONDERLAND_B.png"
+  },
+  "switronic - short cut -|SHORTCUT": {
+    "title": "Switronic - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1722-eec4f04471.webp",
+    "source": "13.XX/16F6 - [Short Cut] Switronic/16F6.png"
+  },
+  "switronic|NORMAL": {
+    "title": "Switronic",
+    "song_type": "NORMAL",
+    "path": "1718-15f45b8bad.webp",
+    "source": "13.XX/1602 - Switronic/1602.png"
+  },
+  "take out|NORMAL": {
+    "title": "Take Out",
+    "song_type": "NORMAL",
+    "path": "1441-bae6edb4d7.webp",
+    "source": "09.FIESTA EX/1104 - Take Out/1104.png"
+  },
+  "take out|SHORTCUT": {
+    "title": "Take Out",
+    "song_type": "SHORTCUT",
+    "path": "1459-bc7ab46f59.webp",
+    "source": "09.FIESTA EX/1147 - [Short Cut] Take Out/1147_B.png"
+  },
+  "tales of pumpnia|NORMAL": {
+    "title": "Tales of Pumpnia",
+    "song_type": "NORMAL",
+    "path": "1705-56885b667c.webp",
+    "source": "13.XX/1629 - Tales of Pumpnia/1629.png"
+  },
+  "tantanmen|NORMAL": {
+    "title": "Tantanmen",
+    "song_type": "NORMAL",
+    "path": "1698-18897c2dfa.webp",
+    "source": "13.XX/1635 - Tantanmen/1635.png"
+  },
+  "teddy bear - full song -|FULLSONG": {
+    "title": "Teddy Bear - FULL SONG -",
+    "song_type": "FULLSONG",
+    "path": "1876-6dcd332109.webp",
+    "source": "15.PHOENIX/18E10 - [Full Song] Teddy Bear/[Full Song] Teddy Bear_B.png"
+  },
+  "teddy bear|NORMAL": {
+    "title": "Teddy Bear",
+    "song_type": "NORMAL",
+    "path": "1771-4003a6cc71.webp",
+    "source": "15.PHOENIX/18110 - Teddy Bear/Teddy Bear_B.png"
+  },
+  "tek -club copenhagen-|NORMAL": {
+    "title": "Tek -Club Copenhagen-",
+    "song_type": "NORMAL",
+    "path": "1407-6b373c4742.webp",
+    "source": "08.FIESTA/1024 - Tek -Club Copenhagen-/1024.png"
+  },
+  "telling fortune flower|NORMAL": {
+    "title": "Telling Fortune Flower",
+    "song_type": "NORMAL",
+    "path": "1756-3fbbf2588c.webp",
+    "source": "13.XX/1614 - Telling Fortune Flower/1614.png"
+  },
+  "tepris|NORMAL": {
+    "title": "Tepris",
+    "song_type": "NORMAL",
+    "path": "1436-7a5c942f14.webp",
+    "source": "08.FIESTA/1094 - Tepris/1094.png"
+  },
   "that kitty (piu edit.)|NORMAL": {
     "title": "That Kitty (PIU Edit.)",
     "song_type": "NORMAL",
     "path": "1910-214df30ebe.webp",
     "source": "15.PHOENIX/1725 - That Kitty (PIU Edit.)/1725_B.png"
+  },
+  "the apocalypse|NORMAL": {
+    "title": "The Apocalypse",
+    "song_type": "NORMAL",
+    "path": "1906-1e93493d4e.webp",
+    "source": "15.PHOENIX/18006 - The Apocalypse/The Apocalypse_B.png"
+  },
+  "the devil|NORMAL": {
+    "title": "The Devil",
+    "song_type": "NORMAL",
+    "path": "1449-b310366ad3.webp",
+    "source": "09.FIESTA EX/1124 - The Devil/1124.PNG"
+  },
+  "the end of the world ft. skizzo|NORMAL": {
+    "title": "The End of the World ft. Skizzo",
+    "song_type": "NORMAL",
+    "path": "1693-970db6630f.webp",
+    "source": "13.XX/16A3 - The End of the World ft. Skizzo/16A3.png"
+  },
+  "the festival of ghost2 (sneak)|NORMAL": {
+    "title": "The Festival of Ghost2 (Sneak)",
+    "song_type": "NORMAL",
+    "path": "1630-590af3476d.webp",
+    "source": "12.PRIME 2/1595 - The Festival of Ghost2 (Sneak)/1595.png"
+  },
+  "the people didn't know pumping up|REMIX": {
+    "title": "The People didn't know Pumping up",
+    "song_type": "REMIX",
+    "path": "1391-1ef65dcc43.webp",
+    "source": "07.NX~NXA/F31 - [Remix] The People Didn't Know ''Pumping Up''/F31_B.png"
+  },
+  "the people didn't know|NORMAL": {
+    "title": "The People didn't know",
+    "song_type": "NORMAL",
+    "path": "1385-f2f84e15f7.webp",
+    "source": "07.NX~NXA/F22 - The People didn't Know/F22.png"
+  },
+  "the quick brown fox jumps over the lazy dog|NORMAL": {
+    "title": "The Quick Brown Fox Jumps Over The Lazy Dog",
+    "song_type": "NORMAL",
+    "path": "1645-b0c2ae2161.webp",
+    "source": "12.PRIME 2/1510 - The Quick Brown Fox Jumps Over The Lazy Dog/1510.png"
+  },
+  "the reverie|NORMAL": {
+    "title": "The Reverie",
+    "song_type": "NORMAL",
+    "path": "1745-5b1b59ab91.webp",
+    "source": "13.XX/16A7 - The Reverie/16A7.png"
+  },
+  "the revolution|NORMAL": {
+    "title": "THE REVOLUTION",
+    "song_type": "NORMAL",
+    "path": "1536-2b0de06234.webp",
+    "source": "11.PRIME/1453 - The Revolution/1453.png"
+  },
+  "till the end of time|NORMAL": {
+    "title": "Till the end of time",
+    "song_type": "NORMAL",
+    "path": "1320-a33c593aa6.webp",
+    "source": "05.EXTRA~PREX 3/(2) 713 - Till The End of Time/713.PNG"
+  },
+  "time attack <blue>|NORMAL": {
+    "title": "Time Attack <Blue>",
+    "song_type": "NORMAL",
+    "path": "1614-7008bec1d5.webp",
+    "source": "12.PRIME 2/15A3 - Time Attack Blue/15A3.png"
+  },
+  "timing|NORMAL": {
+    "title": "Timing",
+    "song_type": "NORMAL",
+    "path": "1679-f07256283b.webp",
+    "source": "13.XX/1644 - Timing/1644.png"
+  },
+  "toccata|NORMAL": {
+    "title": "Toccata",
+    "song_type": "NORMAL",
+    "path": "1389-f2b5cc6080.webp",
+    "source": "07.NX~NXA/F26 - Toccata/F26.png"
+  },
+  "tomboy|NORMAL": {
+    "title": "TOMBOY",
+    "song_type": "NORMAL",
+    "path": "1817-8f81c605ec.webp",
+    "source": "15.PHOENIX/18128 - TOMBOY/TOMBOY_B.png"
+  },
+  "top city|NORMAL": {
+    "title": "Top City",
+    "song_type": "NORMAL",
+    "path": "1317-bbc1948f9c.webp",
+    "source": "05.EXTRA~PREX 3/(2) 710 - Top City/710.png"
+  },
+  "transacaglia in g-minor|NORMAL": {
+    "title": "Transacaglia in G-minor",
+    "song_type": "NORMAL",
+    "path": "1719-df9b524e31.webp",
+    "source": "13.XX/1604 - Transacaglia in G-minor/1604.png"
+  },
+  "travel to future|NORMAL": {
+    "title": "Travel to Future",
+    "song_type": "NORMAL",
+    "path": "1633-3717108d35.webp",
+    "source": "12.PRIME 2/1539 - Travel to Future/1539.png"
+  },
+  "tream vook of the war|REMIX": {
+    "title": "Tream Vook of the war",
+    "song_type": "REMIX",
+    "path": "1344-de8baa40fa.webp",
+    "source": "06.EXCEED~ZERO/(2) B28 - [Remix] Tream Vook of the War/B28_B.png"
+  },
+  "tribe attacker|NORMAL": {
+    "title": "Tribe Attacker",
+    "song_type": "NORMAL",
+    "path": "1469-7341333c5d.webp",
+    "source": "10.FIESTA 2/(2) 1219 - Tribe Attacker/1219.png"
+  },
+  "trickl4sh 220|NORMAL": {
+    "title": "TRICKL4SH 220",
+    "song_type": "NORMAL",
+    "path": "1821-ab36aec899.webp",
+    "source": "15.PHOENIX/18244 - TRICKL4SH 220/TRICKL4SH 220_B.png"
+  },
+  "tritium|NORMAL": {
+    "title": "Tritium",
+    "song_type": "NORMAL",
+    "path": "1635-49d5deb59a.webp",
+    "source": "12.PRIME 2/1504 - Tritium/1504.png"
+  },
+  "tropicanic|NORMAL": {
+    "title": "Tropicanic",
+    "song_type": "NORMAL",
+    "path": "1765-4131a8899f.webp",
+    "source": "13.XX/16B5 - Tropicanic/16B5.png"
+  },
+  "trotpris|SHORTCUT": {
+    "title": "Trotpris",
+    "song_type": "SHORTCUT",
+    "path": "1457-0d68dbd709.webp",
+    "source": "09.FIESTA EX/1145 - [Short Cut] Trotpris/1145_B.png"
+  },
+  "turkey march -minimal tunes-|NORMAL": {
+    "title": "Turkey March -Minimal Tunes-",
+    "song_type": "NORMAL",
+    "path": "1409-7c4c14fbab.webp",
+    "source": "08.FIESTA/1026 - Turkey March Minimal Tunes/1026.png"
+  },
+  "turkey march|NORMAL": {
+    "title": "Turkey March",
+    "song_type": "NORMAL",
+    "path": "1287-4eef06b216.webp",
+    "source": "04.1ST~PERFECT/(1) 303 - Turkey March/303.PNG"
+  },
+  "turkey virus|REMIX": {
+    "title": "Turkey Virus",
+    "song_type": "REMIX",
+    "path": "1394-1bfc6b11c4.webp",
+    "source": "07.NX~NXA/F43 - [Remix] Turkey Virus/F43_B.png"
+  },
+  "twist of fate (feat. ruriling)|NORMAL": {
+    "title": "Twist of Fate (feat. Ruriling)",
+    "song_type": "NORMAL",
+    "path": "1625-095360dbd8.webp",
+    "source": "12.PRIME 2/1536 - Twist of Fate (feat. Ruriling)/1536.png"
+  },
+  "u got 2 know|NORMAL": {
+    "title": "U Got 2 Know",
+    "song_type": "NORMAL",
+    "path": "1401-6058821dcd.webp",
+    "source": "08.FIESTA/1008 - U Got 2 Know/1008.png"
+  },
+  "u got me rocking|NORMAL": {
+    "title": "U Got Me Rocking",
+    "song_type": "NORMAL",
+    "path": "1486-d3fed8fc60.webp",
+    "source": "10.FIESTA 2/(1) 1313 - U Got Me Rocking/1313.PNG"
+  },
+  "u got me rocking|SHORTCUT": {
+    "title": "U Got Me Rocking",
+    "song_type": "SHORTCUT",
+    "path": "1500-da404c73b1.webp",
+    "source": "10.FIESTA 2/(1) 13E5 - [Short Cut] U Got Me Rocking/13E5_B.png"
+  },
+  "ugly dee|NORMAL": {
+    "title": "Ugly Dee",
+    "song_type": "NORMAL",
+    "path": "1363-b1067620e2.webp",
+    "source": "07.NX~NXA/(2) D18 - Ugly Dee/D18.PNG"
+  },
+  "ugly duck toccata|REMIX": {
+    "title": "Ugly Duck Toccata",
+    "song_type": "REMIX",
+    "path": "1655-5e39b1cc71.webp",
+    "source": "07.NX~NXA/F32 - [Remix] Ugly Duck Toccata/F32_B.png"
+  },
+  "uh-heung|NORMAL": {
+    "title": "Uh-Heung",
+    "song_type": "NORMAL",
+    "path": "1843-fcce141aee.webp",
+    "source": "15.PHOENIX/18065 - Uh-Heung/Uh-Heung_B.png"
+  },
+  "ultimate eyes|NORMAL": {
+    "title": "Ultimate Eyes",
+    "song_type": "NORMAL",
+    "path": "1892-4b1e2e5667.webp",
+    "source": "15.PHOENIX/1744 - Ultimate Eyes/1744_B.png"
+  },
+  "ultimatum|NORMAL": {
+    "title": "Ultimatum",
+    "song_type": "NORMAL",
+    "path": "1760-7f8b0772fc.webp",
+    "source": "13.XX/1705 - Ultimatum/1705.png"
+  },
+  "underworld ft. skizzo (piu edit.)|NORMAL": {
+    "title": "Underworld ft. Skizzo (PIU Edit.)",
+    "song_type": "NORMAL",
+    "path": "1863-2ff5a6a9d4.webp",
+    "source": "15.PHOENIX/1726 - Underworld ft. Skizzo (PIU Edit.)/1726_B.png"
+  },
+  "unique|NORMAL": {
+    "title": "Unique",
+    "song_type": "NORMAL",
+    "path": "1483-d7bd0fecac.webp",
+    "source": "10.FIESTA 2/(1) 1310 - Unique/1310.PNG"
+  },
+  "unique|SHORTCUT": {
+    "title": "Unique",
+    "song_type": "SHORTCUT",
+    "path": "1499-52257b7467.webp",
+    "source": "10.FIESTA 2/(1) 13E4 - [Short Cut] Unique/13E4_B.png"
+  },
+  "up & up (produced by awal)|NORMAL": {
+    "title": "Up & Up (Produced by AWAL)",
+    "song_type": "NORMAL",
+    "path": "1632-b8f2be23a6.webp",
+    "source": "12.PRIME 2/1538 - Up & Up (Produced by AWAL)/1538.png"
+  },
+  "uranium|NORMAL": {
+    "title": "Uranium",
+    "song_type": "NORMAL",
+    "path": "1716-04aa77c433.webp",
+    "source": "13.XX/1684 - Uranium/1684.png"
+  },
+  "utopia|NORMAL": {
+    "title": "Utopia",
+    "song_type": "NORMAL",
+    "path": "1470-fea44a5853.webp",
+    "source": "10.FIESTA 2/(2) 1235 - Utopia/1235.png"
+  },
+  "utsushiyo no kaze feat. kana|NORMAL": {
+    "title": "Utsushiyo No Kaze feat. Kana",
+    "song_type": "NORMAL",
+    "path": "1599-865b525f95.webp",
+    "source": "12.PRIME 2/1530 - Utsushiyo No Kaze feat. Kana/1530.png"
+  },
+  "v3|NORMAL": {
+    "title": "V3",
+    "song_type": "NORMAL",
+    "path": "1621-4f1cafe400.webp",
+    "source": "12.PRIME 2/1593 - V3/1593.png"
+  },
+  "vacuum cleaner|REMIX": {
+    "title": "Vacuum Cleaner",
+    "song_type": "REMIX",
+    "path": "1454-e7c94f814a.webp",
+    "source": "09.FIESTA EX/1131 - [Remix] Vacuum Cleaner/1131_B.png"
+  },
+  "vacuum|NORMAL": {
+    "title": "Vacuum",
+    "song_type": "NORMAL",
+    "path": "1403-09a9c73698.webp",
+    "source": "08.FIESTA/1017 - Vacuum/1017.png"
+  },
+  "vanish 2 - roar of the invisible dragon|NORMAL": {
+    "title": "Vanish 2 - Roar of the invisible dragon",
+    "song_type": "NORMAL",
+    "path": "1897-43bdd67d00.webp",
+    "source": "15.PHOENIX/18036.7 - Vanish 2 - Roar of the invisible dragon/Vanish 2 - Roar of the invisible dragon_B.png"
+  },
+  "vanish|NORMAL": {
+    "title": "VANISH",
+    "song_type": "NORMAL",
+    "path": "1666-125a1338d3.webp",
+    "source": "13.XX/1628 - VANISH/1628.png"
+  },
+  "vector|NORMAL": {
+    "title": "Vector",
+    "song_type": "NORMAL",
+    "path": "1779-4f8c07fe79.webp",
+    "source": "15.PHOENIX/18000 - VECTOR/VECTOR_B.png"
+  },
+  "versailles|NORMAL": {
+    "title": "Versailles",
+    "song_type": "NORMAL",
+    "path": "1780-2caf38201c.webp",
+    "source": "15.PHOENIX/18005 - Versailles/Versailles_B.png"
+  },
+  "video out c|NORMAL": {
+    "title": "video out C",
+    "song_type": "NORMAL",
+    "path": "1546-492b661c85.webp",
+    "source": "11.PRIME/1465 - Video Out C/1465.png"
+  },
+  "violet perfume|NORMAL": {
+    "title": "Violet Perfume",
+    "song_type": "NORMAL",
+    "path": "1520-6f451febfe.webp",
+    "source": "11.PRIME/1420 - Violet Perfume/1420.png"
+  },
+  "visual dream ii (in fiction)|NORMAL": {
+    "title": "Visual Dream II (In Fiction)",
+    "song_type": "NORMAL",
+    "path": "1646-18b0377eab.webp",
+    "source": "12.PRIME 2/15A5 - Visual Dream II (In Fiction)/15A5.png"
+  },
+  "viyella's nightmare|NORMAL": {
+    "title": "Viyella's Nightmare",
+    "song_type": "NORMAL",
+    "path": "1810-fafe2b8911.webp",
+    "source": "15.PHOENIX/18243 - Viyella's Nightmare/Viyella's Nightmare_B.png"
+  },
+  "vook|NORMAL": {
+    "title": "Vook",
+    "song_type": "NORMAL",
+    "path": "1326-58018e79e0.webp",
+    "source": "05.EXTRA~PREX 3/(2) 735 - Vook/735.PNG"
+  },
+  "vulcan|REMIX": {
+    "title": "Vulcan",
+    "song_type": "REMIX",
+    "path": "1588-dd46505a0b.webp",
+    "source": "12.PRIME 2/15D0 - [Remix] Vulcan/15D0_B.png"
+  },
+  "vvv|NORMAL": {
+    "title": "VVV",
+    "song_type": "NORMAL",
+    "path": "1474-9758628d32.webp",
+    "source": "10.FIESTA 2/(1) 1240 - VVV/1240.PNG"
+  },
+  "waltz of doge|NORMAL": {
+    "title": "Waltz of Doge",
+    "song_type": "NORMAL",
+    "path": "1640-36d81e8e77.webp",
+    "source": "12.PRIME 2/1543 - Waltz of Doge/1543.png"
+  },
+  "we got 2 know|NORMAL": {
+    "title": "We Got 2 Know",
+    "song_type": "NORMAL",
+    "path": "1444-a4bc8b41ed.webp",
+    "source": "09.FIESTA EX/1107 - We Got 2 Know/1107.png"
+  },
+  "we will meet again|NORMAL": {
+    "title": "We will meet again",
+    "song_type": "NORMAL",
+    "path": "1322-3de7a8a26e.webp",
+    "source": "05.EXTRA~PREX 3/(2) 715 - We Will Meet Again/715.png"
+  },
+  "wedding crashers - short cut -|SHORTCUT": {
+    "title": "Wedding Crashers - SHORT CUT -",
+    "song_type": "SHORTCUT",
+    "path": "1678-1de759051a.webp",
+    "source": "13.XX/16F1 - [Short Cut] Wedding Crashers/16F1.png"
+  },
+  "wedding crashers|NORMAL": {
+    "title": "Wedding Crashers",
+    "song_type": "NORMAL",
+    "path": "1657-603a5133aa.webp",
+    "source": "13.XX/1601 - Wedding Crashers/1601.png"
+  },
+  "what are you doin?|REMIX": {
+    "title": "What Are You Doin?",
+    "song_type": "REMIX",
+    "path": "1494-f83f2dd817.webp",
+    "source": "10.FIESTA 2/(1) 13A3 - [Remix] What Are You Doin/13A3_B.png"
+  },
+  "what happened|NORMAL": {
+    "title": "What Happened",
+    "song_type": "NORMAL",
+    "path": "1445-73d5406d42.webp",
+    "source": "09.FIESTA EX/1120 - What Happened/1120.PNG"
+  },
+  "whisper|NORMAL": {
+    "title": "WHISPER",
+    "song_type": "NORMAL",
+    "path": "1804-e415623bb0.webp",
+    "source": "15.PHOENIX/18129 - WHISPER/WHISPER_B.png"
+  },
+  "wi-ex-doc-va|REMIX": {
+    "title": "WI-EX-DOC-VA",
+    "song_type": "REMIX",
+    "path": "1366-8b66013a86.webp",
+    "source": "07.NX~NXA/(2) D34 - [Remix] Wi-Ex-Doc-Va/D34_B.png"
+  },
+  "wicked legend|NORMAL": {
+    "title": "Wicked Legend",
+    "song_type": "NORMAL",
+    "path": "1713-bc26d98d9e.webp",
+    "source": "13.XX/1634 - Wicked Legend/1634.png"
+  },
+  "will-o-the-wisp|NORMAL": {
+    "title": "Will-O-The-Wisp",
+    "song_type": "NORMAL",
+    "path": "1319-1ee6e59abd.webp",
+    "source": "05.EXTRA~PREX 3/(2) 712 - Will O The Wisp/712.PNG"
+  },
+  "windmill|NORMAL": {
+    "title": "Windmill",
+    "song_type": "NORMAL",
+    "path": "1489-ca0eeada35.webp",
+    "source": "10.FIESTA 2/(1) 1339 - Windmill/1339.png"
+  },
+  "winter|NORMAL": {
+    "title": "Winter",
+    "song_type": "NORMAL",
+    "path": "1318-a82bf9dc0d.webp",
+    "source": "05.EXTRA~PREX 3/(2) 711 - Winter/711.PNG"
+  },
+  "winter|SHORTCUT": {
+    "title": "Winter",
+    "song_type": "SHORTCUT",
+    "path": "1426-4aefdbfa5d.webp",
+    "source": "08.FIESTA/1055 - [Short Cut] Winter/1055_B.png"
+  },
+  "witch doctor #1|NORMAL": {
+    "title": "Witch Doctor #1",
+    "song_type": "NORMAL",
+    "path": "1356-cabe45ea65.webp",
+    "source": "07.NX~NXA/(2) D01 - Witch Doctor #1/D01.PNG"
+  },
+  "witch doctor|NORMAL": {
+    "title": "Witch Doctor",
+    "song_type": "NORMAL",
+    "path": "1350-b08fbd806f.webp",
+    "source": "06.EXCEED~ZERO/(1) C03 - Witch Doctor/C03.PNG"
+  },
+  "witch doctor|SHORTCUT": {
+    "title": "Witch Doctor",
+    "song_type": "SHORTCUT",
+    "path": "1429-2b2979403b.webp",
+    "source": "08.FIESTA/1058 - [Short Cut] Witch Doctor/1058_B.png"
+  },
+  "with my lover|NORMAL": {
+    "title": "With My Lover",
+    "song_type": "NORMAL",
+    "path": "1650-5bd21d8774.webp",
+    "source": "04.1ST~PERFECT/(1) 304 - With my Lover/304.png"
+  },
+  "wither garden|NORMAL": {
+    "title": "wither garden",
+    "song_type": "NORMAL",
+    "path": "1837-ab697993b9.webp",
+    "source": "15.PHOENIX/18A70 - wither garden/wither garden_B.png"
+  },
+  "x-rave|NORMAL": {
+    "title": "X-Rave",
+    "song_type": "NORMAL",
+    "path": "1450-86b75a8afc.webp",
+    "source": "09.FIESTA EX/1125 - X-Rave/1125.PNG"
+  },
+  "x-rave|SHORTCUT": {
+    "title": "X-Rave",
+    "song_type": "SHORTCUT",
+    "path": "1461-2887e105bc.webp",
+    "source": "09.FIESTA EX/1149 - [Short Cut] X-Rave/1149_B.png"
+  },
+  "x-tream|NORMAL": {
+    "title": "X-Tream",
+    "song_type": "NORMAL",
+    "path": "1338-b46f8b614b.webp",
+    "source": "06.EXCEED~ZERO/(3) A06 - X-tream/A06.PNG"
+  },
+  "xenesis|NORMAL": {
+    "title": "Xenesis",
+    "song_type": "NORMAL",
+    "path": "1405-fbf1ddacbd.webp",
+    "source": "08.FIESTA/1022 - Xenesis/1022.png"
+  },
+  "xeroize|NORMAL": {
+    "title": "Xeroize",
+    "song_type": "NORMAL",
+    "path": "1681-690e838cd1.webp",
+    "source": "13.XX/1685 - Xeroize/1685.png"
+  },
+  "xtree|NORMAL": {
+    "title": "XTREE",
+    "song_type": "NORMAL",
+    "path": "1398-f443adc772.webp",
+    "source": "08.FIESTA/1001 - X-Tree/1001.png"
+  },
+  "xuxa|NORMAL": {
+    "title": "Xuxa",
+    "song_type": "NORMAL",
+    "path": "1471-5840b93697.webp",
+    "source": "10.FIESTA 2/(2) 1236 - Xuxa/1236.png"
+  },
+  "xx opening|SHORTCUT": {
+    "title": "XX OPENING",
+    "song_type": "SHORTCUT",
+    "path": "1684-8701717cc2.webp",
+    "source": "13.XX/16F3 - [Short Cut] XX OPENING/16F3.png"
+  },
+  "yeo rae a|NORMAL": {
+    "title": "Yeo rae a",
+    "song_type": "NORMAL",
+    "path": "1491-5fef5cfa25.webp",
+    "source": "10.FIESTA 2/(1) 1341 - Yeo Rae A/1341.PNG"
+  },
+  "yo! say!! fairy!!!|NORMAL": {
+    "title": "Yo! Say!! Fairy!!!",
+    "song_type": "NORMAL",
+    "path": "1812-049f67ad52.webp",
+    "source": "15.PHOENIX/18044 - Yo! Say!! Fairy!!!/16B3_B.png"
+  },
+  "yog-sothoth|NORMAL": {
+    "title": "Yog-Sothoth",
+    "song_type": "NORMAL",
+    "path": "1505-d7bdcf6ce4.webp",
+    "source": "11.PRIME/1405 - Yog Sothoth/1405.png"
+  },
+  "yog-sothoth|SHORTCUT": {
+    "title": "Yog-Sothoth",
+    "song_type": "SHORTCUT",
+    "path": "1570-559303139c.webp",
+    "source": "11.PRIME/14E1 - [Short Cut] Yog Sothoth/14E1.PNG"
+  },
+  "yoropiku pikuyoro!|NORMAL": {
+    "title": "Yoropiku Pikuyoro!",
+    "song_type": "NORMAL",
+    "path": "1551-3d63acfc53.webp",
+    "source": "11.PRIME/1476 - Yoropiku Pikuyoro!/1476.png"
+  },
+  "you again my love|NORMAL": {
+    "title": "You again my love",
+    "song_type": "NORMAL",
+    "path": "1534-a2408cca39.webp",
+    "source": "11.PRIME/1435 - You Again My Love/1435.png"
+  },
+  "you and i|NORMAL": {
+    "title": "YOU AND I",
+    "song_type": "NORMAL",
+    "path": "1685-eecc37dab9.webp",
+    "source": "13.XX/1664 - YOU AND I/1664.png"
+  },
+  "your mind|NORMAL": {
+    "title": "Your Mind",
+    "song_type": "NORMAL",
+    "path": "1717-b3c1dda7f2.webp",
+    "source": "13.XX/1693 - Your Mind/1693.png"
   }
 }

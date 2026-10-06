@@ -22,7 +22,9 @@
 // .env.local. Uses sharp, which ships with Next.js.
 import { createHash } from "node:crypto";
 import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
-import { homedir } from "node:os";
+import { execFileSync } from "node:child_process";
+import { mkdtempSync, rmSync } from "node:fs";
+import { homedir, tmpdir } from "node:os";
 import { dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -132,6 +134,29 @@ async function chooseImage(folder) {
   return { file: images[0], how: "first of several" };
 }
 
+function encode(input) {
+  return sharp(input).resize({ width: WIDTH, withoutEnlargement: true }).webp({ quality: 80 }).toBuffer();
+}
+
+// Some PNGs in the dumps are slightly damaged: libpng gives up on them while
+// macOS ImageIO still reads them, so fall back to sips there.
+async function toWebp(file) {
+  try {
+    return await encode(file);
+  } catch (error) {
+    if (process.platform !== "darwin") throw error;
+    const dir = mkdtempSync(join(tmpdir(), "jacket-"));
+    try {
+      const png = join(dir, "image.png");
+      execFileSync("sips", ["-s", "format", "png", file, "--out", png], { stdio: "ignore" });
+      console.log(`decoded with sips: ${file}`);
+      return await encode(png);
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  }
+}
+
 async function upload(env, path, body) {
   const key = env.SUPABASE_SERVICE_ROLE_KEY;
   const response = await fetch(`${env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/${BUCKET}/${path}`, {
@@ -236,27 +261,34 @@ async function main() {
   }
 
   const manifest = existsSync(MANIFEST_PATH) ? JSON.parse(readFileSync(MANIFEST_PATH, "utf8")) : {};
-  if (args.upload) {
-    const targets = chosen.filter((c) => !only.size || only.has(c.song.title.toLowerCase()));
-    for (const target of targets) {
-      const body = await sharp(join(target.folder.path, target.file))
-        .resize({ width: WIDTH, withoutEnlargement: true })
-        .webp({ quality: 80 })
-        .toBuffer();
-      const hash = createHash("sha256").update(body).digest("hex").slice(0, 10);
-      const path = `${target.song.id}-${hash}.webp`;
-      await upload(env, path, body);
-      manifest[`${target.song.title.toLowerCase()}|${target.song.song_type}`] = {
-        title: target.song.title,
-        song_type: target.song.song_type,
-        path,
-        source: relative(args.dir, join(target.folder.path, target.file)),
-      };
-      console.log(`uploaded ${path} (${Math.round(body.length / 1024)} KB) <- ${target.song.title}`);
-    }
+  const failed = [];
+  const saveManifest = () => {
     const sorted = Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b)));
     writeFileSync(MANIFEST_PATH, JSON.stringify(sorted, null, 2) + "\n");
     writeFileSync(SEED_PATH, buildSeed(sorted));
+  };
+  if (args.upload) {
+    const targets = chosen.filter((c) => !only.size || only.has(c.song.title.toLowerCase()));
+    for (const target of targets) {
+      const source = relative(args.dir, join(target.folder.path, target.file));
+      const entryKey = `${target.song.title.toLowerCase()}|${target.song.song_type}`;
+      if (manifest[entryKey]?.source === source) continue;
+      let body;
+      try {
+        body = await toWebp(join(target.folder.path, target.file));
+      } catch (error) {
+        failed.push({ target, reason: error.message });
+        console.log(`skipped ${source}: ${error.message}`);
+        continue;
+      }
+      const hash = createHash("sha256").update(body).digest("hex").slice(0, 10);
+      const path = `${target.song.id}-${hash}.webp`;
+      await upload(env, path, body);
+      manifest[entryKey] = { title: target.song.title, song_type: target.song.song_type, path, source };
+      saveManifest();
+      console.log(`uploaded ${path} (${Math.round(body.length / 1024)} KB) <- ${target.song.title}`);
+    }
+    saveManifest();
   }
 
   const withImage = new Set(chosen.map((c) => c.song.id));
@@ -279,6 +311,9 @@ async function main() {
       .filter((c) => c.how !== "only image" || c.others > 0)
       .map((c) => `| ${mdCell(c.song.title)} | ${c.song.song_type} | ${mdCell(`${c.folder.series}/${c.folder.name}`)} | ${mdCell(c.file)} | ${c.how}${c.others ? `, newest of ${c.others + 1} folders` : ""} |`),
     "",
+    ...(failed.length
+      ? [`## Images that could not be read (${failed.length})`, "", ...failed.map((f) => `- ${mdCell(f.target.song.title)}: ${mdCell(`${f.target.folder.series}/${f.target.folder.name}/${f.target.file}`)} (${mdCell(f.reason)})`), ""]
+      : []),
     `## Folders matching no catalog song (${unmatched.length})`,
     "",
     ...unmatched.map((u) => `- ${mdCell(`${u.folder.series}/${u.folder.name}`)} (${u.folder.songType}; ${u.reason})`),

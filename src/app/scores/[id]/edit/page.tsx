@@ -36,8 +36,8 @@ export default async function EditScorePage({
   const chart = Array.isArray(row.stepchart) ? row.stepchart[0] : row.stepchart;
   if (!chart) notFound();
   const [{ data: song }, { data: charts }, screenshotResult] = await Promise.all([
-    supabase.from("songs").select("id, title, composer").eq("id", chart.song_id).maybeSingle(),
-    supabase.from("stepcharts").select("id, step_type, level").eq("song_id", chart.song_id),
+    supabase.from("songs").select("id, title, composer, is_available").eq("id", chart.song_id).maybeSingle(),
+    supabase.from("stepcharts").select("id, step_type, level, is_available").eq("song_id", chart.song_id),
     row.screenshot_path
       ? supabase.storage.from("score-screenshots").createSignedUrl(row.screenshot_path, 3600)
       : Promise.resolve({ data: null, error: null }),

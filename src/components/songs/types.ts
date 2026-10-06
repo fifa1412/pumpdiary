@@ -8,6 +8,7 @@ export type SongChart = {
   id: number;
   step_type: StepType;
   level: number;
+  is_available: boolean;
 };
 
 export type SongWithCharts = {

@@ -4,6 +4,7 @@ export type SongOption = {
   id: number;
   title: string;
   composer: string;
+  is_available: boolean;
   stepcharts: SongChart[];
 };
 

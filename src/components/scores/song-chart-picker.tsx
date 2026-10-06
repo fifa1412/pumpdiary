@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { playableCharts } from "@/lib/songs/charts";
 import { matchSongTitle, songTitleSearchTerms } from "@/lib/songs/fuzzy-match";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
 import { createClient } from "@/lib/supabase/client";
@@ -56,7 +57,7 @@ export function SongChartPicker({
     async function matchTitle() {
       const { data, error: requestError } = await createClient()
         .from("songs")
-        .select("id, title, composer, stepcharts(id, step_type, level)")
+        .select("id, title, composer, is_available, stepcharts(id, step_type, level, is_available)")
         .or(searchTerms.map((term) => `title.ilike.%${term}%`).join(","))
         .order("title", { ascending: true })
         .limit(100);
@@ -66,7 +67,7 @@ export function SongChartPicker({
       if (!match) return;
       setSong(match);
       setOcrMatchedSong(true);
-      const chartMatches = match.stepcharts.filter((chart) =>
+      const chartMatches = playableCharts(match.stepcharts, match.is_available).filter((chart) =>
         chart.step_type === ocrStepType && chart.level === ocrLevel,
       );
       if (chartMatches.length === 1) {
@@ -92,7 +93,7 @@ export function SongChartPicker({
     const supabase = createClient();
     const { data, error: requestError } = await supabase
       .from("songs")
-      .select("id, title, composer, stepcharts(id, step_type, level)")
+      .select("id, title, composer, is_available, stepcharts(id, step_type, level, is_available)")
       .or(`title.ilike.%${sanitized}%,composer.ilike.%${sanitized}%`)
       .order("title", { ascending: true })
       .limit(10);
@@ -130,7 +131,9 @@ export function SongChartPicker({
     onChartChange(chartId);
   }
 
-  const charts = [...(song?.stepcharts ?? [])].sort((a, b) => {
+  const charts = [
+    ...playableCharts(song?.stepcharts ?? [], song?.is_available ?? true, selectedChartId),
+  ].sort((a, b) => {
     const order = { SINGLE: 0, DOUBLE: 1, HALFDOUBLE: 2 };
     return order[a.step_type] - order[b.step_type] || a.level - b.level;
   });

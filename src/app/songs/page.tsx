@@ -11,7 +11,7 @@ import { createClient } from "@/lib/supabase/server";
 const PAGE_SIZE = 48;
 
 const SONG_SELECT =
-  "id, title, composer, song_type, bpm_min, bpm_max, is_available, game_series(name), stepcharts(id, step_type, level)";
+  "id, title, composer, song_type, bpm_min, bpm_max, is_available, game_series(name), stepcharts(id, step_type, level, is_available)";
 
 function parsePage(raw: string | string[] | undefined): number {
   const value = Array.isArray(raw) ? raw[0] : raw;

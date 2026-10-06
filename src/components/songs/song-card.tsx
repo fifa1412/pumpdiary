@@ -1,11 +1,13 @@
 import { getTranslations } from "next-intl/server";
 
 import { Badge } from "@/components/ui/badge";
+import { playableCharts } from "@/lib/songs/charts";
 import { ChartBadges } from "./chart-badges";
 import type { SongWithCharts } from "./types";
 
 export async function SongCard({ song }: { song: SongWithCharts }) {
   const t = await getTranslations("songs");
+  const charts = playableCharts(song.stepcharts, song.is_available);
 
   const bpm =
     song.bpm_min === song.bpm_max
@@ -44,10 +46,10 @@ export async function SongCard({ song }: { song: SongWithCharts }) {
           </>
         )}
       </p>
-      {song.stepcharts.length > 0 && (
+      {charts.length > 0 && (
         <div className="mt-auto pt-3">
           <ChartBadges
-            charts={song.stepcharts}
+            charts={charts}
             label={t("chartsLabel")}
             leaderboardLabel={t("leaderboardLink")}
           />

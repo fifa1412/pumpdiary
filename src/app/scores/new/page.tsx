@@ -54,12 +54,12 @@ export default async function NewScorePage({
       const [{ data: song }, { data: charts }] = await Promise.all([
         supabase
           .from("songs")
-          .select("id, title, composer")
+          .select("id, title, composer, is_available")
           .eq("id", chart.song_id)
           .maybeSingle(),
         supabase
           .from("stepcharts")
-          .select("id, step_type, level")
+          .select("id, step_type, level, is_available")
           .eq("song_id", chart.song_id),
       ]);
 

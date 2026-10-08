@@ -139,5 +139,34 @@
     "empty": "No scores have been recorded for this chart yet.",
     "error": "Could not load the leaderboard. Please try again.",
     "unknownPlayer": "Unknown player"
+  },
+  "youtube": {
+    "title": "Upload a video to YouTube",
+    "help": "The video goes to your own YouTube channel. Sign in with Google when asked; the link fills in the YouTube URL field when the upload finishes.",
+    "file": "Video file",
+    "privacy": "Visibility",
+    "privacyOptions": {
+      "unlisted": "Unlisted",
+      "private": "Private",
+      "public": "Public"
+    },
+    "upload": "Upload to YouTube",
+    "signingIn": "Waiting for Google sign-in…",
+    "uploading": "Uploading… {percent}%",
+    "progressLabel": "Upload progress",
+    "cancel": "Cancel upload",
+    "done": "Uploaded. The link was added to the YouTube URL field. YouTube may take a few minutes to process the video.",
+    "lockedPrivate": "YouTube set this video to Private. You can change its visibility in YouTube Studio.",
+    "errors": {
+      "chooseFile": "Choose a video file first.",
+      "fileType": "Choose a video file.",
+      "signIn": "Google sign-in was cancelled or did not grant upload access.",
+      "unavailable": "Could not load Google sign-in. Check your connection and reload the page.",
+      "auth": "Google did not accept the upload. Sign in again and retry.",
+      "noChannel": "This Google account has no YouTube channel yet. Create one on YouTube, then try again.",
+      "quota": "YouTube's daily upload limit was reached. Try again tomorrow.",
+      "network": "The upload was interrupted. Check your connection and try again.",
+      "generic": "Could not upload the video. Please try again."
+    }
   }
 }

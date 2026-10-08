@@ -21,6 +21,7 @@ import type { CabinetOption } from "@/components/cabinets/types";
 import { ScreenshotLightbox } from "./screenshot-lightbox";
 import { SongChartPicker } from "./song-chart-picker";
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
+import { YouTubeUploader } from "./youtube-uploader";
 
 export type EditableScore = {
   id: number;
@@ -161,6 +162,8 @@ function ScoreEntryFormContent({
   const [ocrLevel, setOcrLevel] = useState<number>();
   const [songPickerKey, setSongPickerKey] = useState(0);
   const [cabinetId, setCabinetId] = useState(initialCabinetId);
+  const [chartLabel, setChartLabel] = useState("");
+  const [isVideoUploading, setIsVideoUploading] = useState(false);
   const screenshotInput = useRef<HTMLInputElement>(null);
   const ocrDialog = useRef<HTMLDialogElement>(null);
   const previewTrigger = useRef<HTMLButtonElement>(null);
@@ -280,6 +283,9 @@ function ScoreEntryFormContent({
 
   const stagePass = useWatch({ control: form.control, name: "stagePass" });
   const selectedChartId = useWatch({ control: form.control, name: "stepchartId" });
+  const scoreValue = useWatch({ control: form.control, name: "score" });
+  const videoTitle = [chartLabel, Number.isInteger(scoreValue) ? scoreValue.toLocaleString("en-US") : ""]
+    .filter(Boolean).join(" ") || "PumpDiary";
   const errors = form.formState.errors;
 
   function fieldError(name: keyof typeof errors): string | undefined {
@@ -594,6 +600,7 @@ function ScoreEntryFormContent({
             ocrTitle={ocrTitle}
             ocrStepType={ocrStepType}
             ocrLevel={ocrLevel}
+            onLabelChange={setChartLabel}
             error={fieldError("stepchartId")}
           />
 
@@ -673,6 +680,13 @@ function ScoreEntryFormContent({
               <FieldError id="video-url-error" message={fieldError("videoUrl")} />
             </div>
           </div>
+
+          <YouTubeUploader
+            title={videoTitle}
+            disabled={isSubmitting}
+            onBusyChange={setIsVideoUploading}
+            onUploaded={(url) => form.setValue("videoUrl", url, { shouldDirty: true, shouldValidate: true })}
+          />
 
           <div className="space-y-3 rounded-lg border p-4">
             <div className="flex items-center gap-3">
@@ -780,7 +794,7 @@ function ScoreEntryFormContent({
           </div>
 
           {formError ? <p role="alert" className="text-sm text-destructive">{formError}</p> : null}
-          <Button type="submit" className="w-full" disabled={isSubmitting || isResizing}>
+          <Button type="submit" className="w-full" disabled={isSubmitting || isResizing || isVideoUploading}>
             {isSubmitting ? <><Loader2 aria-hidden="true" className="animate-spin" />{t("submit.saving")}</> : t("submit.label")}
           </Button>
         </form>

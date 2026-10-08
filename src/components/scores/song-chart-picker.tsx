@@ -13,6 +13,10 @@ import { createClient } from "@/lib/supabase/client";
 
 import type { SongOption } from "./types";
 
+function chartPrefix(stepType: SongOption["stepcharts"][number]["step_type"]): string {
+  return stepType === "SINGLE" ? "S" : stepType === "DOUBLE" ? "D" : "HD";
+}
+
 export function SongChartPicker({
   initialSong,
   selectedChartId,
@@ -21,6 +25,7 @@ export function SongChartPicker({
   ocrTitle,
   ocrStepType,
   ocrLevel,
+  onLabelChange,
 }: {
   initialSong: SongOption | null;
   selectedChartId: number;
@@ -29,6 +34,7 @@ export function SongChartPicker({
   ocrTitle?: string;
   ocrStepType?: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
   ocrLevel?: number;
+  onLabelChange?: (label: string) => void;
 }) {
   const t = useTranslations("scores");
   const [song, setSong] = useState<SongOption | null>(initialSong);
@@ -131,6 +137,15 @@ export function SongChartPicker({
     onChartChange(chartId);
   }
 
+  const selectedChart = song?.stepcharts.find((chart) => chart.id === selectedChartId);
+  const selectionLabel = song
+    ? [song.title, selectedChart ? `${chartPrefix(selectedChart.step_type)}${selectedChart.level}` : ""].filter(Boolean).join(" ")
+    : "";
+
+  useEffect(() => {
+    onLabelChange?.(selectionLabel);
+  }, [onLabelChange, selectionLabel]);
+
   const charts = [
     ...playableCharts(song?.stepcharts ?? [], song?.is_available ?? true, selectedChartId),
   ].sort((a, b) => {
@@ -211,11 +226,7 @@ export function SongChartPicker({
               <p className="text-sm font-medium">{t("picker.chooseChart")}</p>
               <div className="flex flex-wrap gap-2">
                 {charts.map((chart) => {
-                  const prefix = chart.step_type === "SINGLE"
-                    ? "S"
-                    : chart.step_type === "DOUBLE"
-                      ? "D"
-                      : "HD";
+                  const prefix = chartPrefix(chart.step_type);
                   return (
                     <Button
                       key={chart.id}

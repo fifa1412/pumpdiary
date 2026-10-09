@@ -8,8 +8,6 @@
 // The text is always English so every upload reads the same on YouTube.
 
 const TITLE_PREFIX = "[PIU Phoenix 2]";
-// Fixed until players can set their own display name for videos.
-const PLAYER_NAME = "FIFAZ";
 
 // Added to every upload. The Thai tag is escaped because src/ holds no Thai text.
 const GAME_TAGS = [
@@ -30,6 +28,8 @@ export type VideoTextInput = {
   judgments: { perfect?: number; great?: number; good?: number; bad?: number; miss?: number; maxCombo?: number };
   recordDate?: string;
   cabinet?: { name: string; country: string } | null;
+  /** In-game player name read from the screenshot; the Player line is left out without it. */
+  player?: string;
 };
 
 function count(value: number): string {
@@ -74,7 +74,7 @@ export function videoTags({ song }: VideoTextInput): string[] {
   return [...chartTags, ...GAME_TAGS];
 }
 
-export function videoDescription({ chart, score, grade, judgments, recordDate, cabinet }: VideoTextInput): string {
+export function videoDescription({ chart, score, grade, judgments, recordDate, cabinet, player }: VideoTextInput): string {
   const hasScore = isCount(score);
   const result = hasScore
     ? [isCount(judgments.miss) ? missText(judgments.miss) : "", `Score ${count(score)}${grade ? ` (${grade})` : ""}`]
@@ -95,6 +95,6 @@ export function videoDescription({ chart, score, grade, judgments, recordDate, c
     [chart, result].filter(Boolean).join(" : "),
     counts,
     record,
-    `Player : ${PLAYER_NAME}`,
+    player ? `Player : ${player}` : "",
   ].filter(Boolean).join("\n");
 }

@@ -169,6 +169,7 @@ function ScoreEntryFormContent({
   // Set when the cabinet came from the screenshot, so a new screenshot can undo it.
   const [detectedCabinetId, setDetectedCabinetId] = useState<number | null>(null);
   const [screenMachineName, setScreenMachineName] = useState("");
+  const [screenPlayerName, setScreenPlayerName] = useState("");
   const cabinetChosenByPlayer = useRef(initialCabinetId !== null);
   const [chartSelection, setChartSelection] = useState<ChartSelection | null>(null);
   const [isVideoUploading, setIsVideoUploading] = useState(false);
@@ -307,6 +308,7 @@ function ScoreEntryFormContent({
     judgments: { perfect, great, good, bad, miss, maxCombo },
     recordDate: validCalendarDate(playedAt) ? playedAt : undefined,
     cabinet: selectedCabinet ?? null,
+    player: screenPlayerName || undefined,
   };
   const errors = form.formState.errors;
 
@@ -354,6 +356,7 @@ function ScoreEntryFormContent({
     if (detectedCabinetId !== null && !cabinetChosenByPlayer.current) setCabinetId(null);
     setDetectedCabinetId(null);
     setScreenMachineName("");
+    setScreenPlayerName("");
     setOcrTitle(undefined);
     setOcrStepType(undefined);
     setOcrLevel(undefined);
@@ -387,6 +390,7 @@ function ScoreEntryFormContent({
       detected.add("plate");
     }
     setDetectedFields(detected);
+    setScreenPlayerName(fields.playerName ?? "");
     if (fields.machineName && !cabinetChosenByPlayer.current) {
       const match = matchSongTitle(fields.machineName, cabinets.map((cabinet) => ({ id: cabinet.id, title: cabinet.name })));
       if (match) {

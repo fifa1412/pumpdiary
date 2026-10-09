@@ -26,6 +26,7 @@ Report what the screen shows:
 - grade: the large grade logo (for example SSS+, AA, A+, F).
 - plate: the words under the grade, such as MARVELOUS GAME.
 - perfect, great, good, bad, miss, maxCombo: the numbers beside PERFECT, GREAT, GOOD, BAD, MISS, and MAX COMBO. Ignore KCAL.
+- playerName: the player name in the profile bar at the top of the screen, without the "#" and number after it. Not the rank title above it.
 - machineName: the machine name the arcade set, usually an arcade or shop name, shown small at the bottom right of the screen. Copy it exactly.
 - stagePass: true when the grade logo is in colour and a plate is shown; false when the grade logo is grey, silver, or black (often cracked) and there is no plate, which is how the game shows a failed stage. Null only when you cannot tell.
 
@@ -37,7 +38,7 @@ const count = nullable({ type: "integer" });
 const OUTPUT_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  required: ["title", "stepType", "level", "score", "grade", "plate", "perfect", "great", "good", "bad", "miss", "maxCombo", "stagePass", "machineName", "titleLatin"],
+  required: ["title", "stepType", "level", "score", "grade", "plate", "perfect", "great", "good", "bad", "miss", "maxCombo", "stagePass", "machineName", "titleLatin", "playerName"],
   properties: {
     title: nullable({ type: "string" }),
     stepType: nullable({ type: "string", enum: ["SINGLE", "DOUBLE", "HALFDOUBLE"] }),
@@ -54,6 +55,7 @@ const OUTPUT_SCHEMA = {
     stagePass: nullable({ type: "boolean" }),
     machineName: nullable({ type: "string" }),
     titleLatin: nullable({ type: "string" }),
+    playerName: nullable({ type: "string" }),
   },
 };
 
@@ -74,6 +76,7 @@ const resultSchema = z.object({
   stagePass: z.boolean().nullable(),
   machineName: z.string().trim().max(200).nullable(),
   titleLatin: z.string().trim().max(200).nullable(),
+  playerName: z.string().trim().max(60).nullable(),
 });
 
 export class AiReadError extends Error {
@@ -143,5 +146,6 @@ export async function readScoreScreenshot(
   }
   if (parsed.stagePass !== null) fields.stagePass = parsed.stagePass;
   if (parsed.machineName) fields.machineName = parsed.machineName;
+  if (parsed.playerName) fields.playerName = parsed.playerName.replace(/\s*#\s*\d+$/, "");
   return { fields, usage };
 }

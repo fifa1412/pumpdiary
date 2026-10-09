@@ -85,7 +85,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
   ] as const;
 
   return (
-    <div className="mx-auto w-full max-w-6xl flex-1 space-y-6 px-4 py-8 sm:py-12">
+    <div className="mx-auto w-full max-w-6xl flex-1 space-y-4 px-4 py-4 sm:py-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Button variant="ghost" asChild>
           <Link href="/dashboard"><ArrowLeft aria-hidden="true" />{t("detail.backToDashboard")}</Link>
@@ -99,58 +99,58 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
         </div>
       </div>
 
-      <Card>
-        <CardContent className="grid gap-8 lg:grid-cols-2">
-          <div className="space-y-6">
-            <div className="flex items-center gap-4">
-              {song.jacket_path ? (
-                <div className="relative aspect-[4/3] w-24 shrink-0 overflow-hidden rounded-sm border border-border bg-muted">
-                  <Image src={jacketUrl(song.jacket_path)} alt="" fill unoptimized sizes="96px" className="object-cover" />
-                </div>
-              ) : null}
-              <div className="min-w-0 flex-1">
-                <h1 className="font-display text-2xl font-bold leading-tight">{song.title}</h1>
-                <p className="truncate text-sm text-muted-foreground">{song.composer}</p>
+      <Card className="py-4">
+        <CardContent className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:items-center">
+          <div className="flex items-center gap-4">
+            {song.jacket_path ? (
+              <div className="relative aspect-[4/3] w-20 shrink-0 overflow-hidden rounded-sm border border-border bg-muted">
+                <Image src={jacketUrl(song.jacket_path)} alt="" fill unoptimized sizes="80px" className="object-cover" />
               </div>
-              <LevelRingBadge stepType={chart.step_type} level={chart.level} label={stepLabel} size={56} />
-            </div>
-            <div className="flex items-baseline justify-between gap-3">
-              <span className="font-display text-4xl font-bold text-accent">{row.grade}</span>
-              <span className="font-numeric text-3xl font-semibold tabular-nums">{row.score.toLocaleString(locale)}</span>
-            </div>
-            {row.plate || !row.stage_pass ? (
-              <p className="text-sm font-medium text-muted-foreground">{row.plate ?? t("detail.stageFailed")}</p>
             ) : null}
+            <div className="min-w-0 flex-1">
+              <h1 className="truncate font-display text-xl font-bold leading-tight">{song.title}</h1>
+              <p className="truncate text-xs text-muted-foreground">{song.composer}</p>
+              <div className="mt-1 flex flex-wrap items-baseline gap-x-4">
+                <span className="font-display text-3xl font-bold text-accent">{row.grade}</span>
+                <span className="font-numeric text-2xl font-semibold tabular-nums">{row.score.toLocaleString(locale)}</span>
+                {row.plate || !row.stage_pass ? (
+                  <span className="text-xs font-medium text-muted-foreground">{row.plate ?? t("detail.stageFailed")}</span>
+                ) : null}
+              </div>
+            </div>
+            <LevelRingBadge stepType={chart.step_type} level={chart.level} label={stepLabel} size={52} />
           </div>
 
-          <div className="space-y-6">
-            <section aria-labelledby="judgments-heading" className="space-y-3">
-              <h2 id="judgments-heading" className="text-sm font-medium">{t("fields.judgments")}</h2>
-              <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="space-y-2">
+            <section aria-labelledby="judgments-heading">
+              <h2 id="judgments-heading" className="sr-only">{t("fields.judgments")}</h2>
+              <dl className="grid grid-cols-3 gap-2 sm:grid-cols-6">
                 {judgments.map(([key, value]) => (
-                  <div key={key} className="rounded-md border bg-surface-deep px-3 py-2">
-                    <dt className="text-xs text-muted-foreground">{t(key)}</dt>
-                    <dd className="font-numeric text-lg font-semibold tabular-nums">{value.toLocaleString(locale)}</dd>
+                  <div key={key} className="rounded-md border bg-surface-deep px-2 py-1.5">
+                    <dt className="truncate text-xs text-muted-foreground">{t(key)}</dt>
+                    <dd className="font-numeric text-base font-semibold tabular-nums">{value.toLocaleString(locale)}</dd>
                   </div>
                 ))}
               </dl>
             </section>
-
-            <dl className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <dt className="text-xs text-muted-foreground">{t("detail.playedAt")}</dt>
+            <dl className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+              <div className="flex gap-2">
+                <dt className="text-muted-foreground">{t("detail.playedAt")}</dt>
                 <dd>{playedDate}</dd>
               </div>
               {row.cabinet ? (
-                <div>
-                  <dt className="text-xs text-muted-foreground">{t("detail.cabinet")}</dt>
-                  <dd>{[row.cabinet.name, row.cabinet.model].filter(Boolean).join(" · ")}<span className="block text-sm text-muted-foreground">{row.cabinet.location}</span></dd>
+                <div className="flex min-w-0 gap-2">
+                  <dt className="shrink-0 text-muted-foreground">{t("detail.cabinet")}</dt>
+                  <dd className="min-w-0">
+                    {[row.cabinet.name, row.cabinet.model].filter(Boolean).join(" · ")}
+                    <span className="text-muted-foreground"> ({row.cabinet.location})</span>
+                  </dd>
                 </div>
               ) : null}
               {row.note ? (
-                <div className="sm:col-span-2">
-                  <dt className="text-xs text-muted-foreground">{t("detail.note")}</dt>
-                  <dd className="whitespace-pre-wrap break-words">{row.note}</dd>
+                <div className="flex w-full min-w-0 gap-2">
+                  <dt className="shrink-0 text-muted-foreground">{t("detail.note")}</dt>
+                  <dd className="min-w-0 whitespace-pre-wrap break-words">{row.note}</dd>
                 </div>
               ) : null}
             </dl>
@@ -163,7 +163,9 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
           {screenshot?.signedUrl ? (
             <section aria-labelledby="screenshot-heading" className="space-y-2">
               <h2 id="screenshot-heading" className="text-sm font-medium">{t("detail.screenshot")}</h2>
-              <ScreenshotZoom src={screenshot.signedUrl} alt={t("fields.screenshotPreview")} closeLabel={t("fields.closePreview")} />
+              {/* Same 16:9 frame as the video so the two sit at the same size. */}
+              <ScreenshotZoom src={screenshot.signedUrl} alt={t("fields.screenshotPreview")} closeLabel={t("fields.closePreview")}
+                imageClassName="aspect-video w-full rounded-md border bg-black object-contain" />
             </section>
           ) : null}
           {videoId ? (

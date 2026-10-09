@@ -20,13 +20,14 @@ const SYSTEM_PROMPT = `You read photos of the Pump It Up Phoenix 2 arcade result
 
 Report what the screen shows:
 - title: the song title in the bar near the top centre, above the judgment list. Copy it exactly, including punctuation and capitalisation. It is not the large stylised song logo near the bottom, not the player name, and not the player rank such as "[S] EXPERT LV.3".
+- titleLatin: when the title is written in Korean, Japanese, or another non-Latin script, the song's romanized or English title as Pump It Up lists it; otherwise null.
 - stepType and level: the round chart badge next to the score, labelled SINGLE, DOUBLE, or HALF-DOUBLE above the level number.
 - score: the large score, up to 1,000,000 (leading zeros removed). Not the smaller "+N" number under it.
 - grade: the large grade logo (for example SSS+, AA, A+, F).
 - plate: the words under the grade, such as MARVELOUS GAME.
 - perfect, great, good, bad, miss, maxCombo: the numbers beside PERFECT, GREAT, GOOD, BAD, MISS, and MAX COMBO. Ignore KCAL.
 - machineName: the machine name the arcade set, usually an arcade or shop name, shown small at the bottom right of the screen. Copy it exactly.
-- stagePass: false only when the screen clearly says the stage was failed; true when it shows a plate or otherwise shows the stage was cleared.
+- stagePass: true when the grade logo is in colour and a plate is shown; false when the grade logo is grey, silver, or black (often cracked) and there is no plate, which is how the game shows a failed stage. Null only when you cannot tell.
 
 Use null for anything you cannot read with confidence. Never guess a number.`;
 
@@ -36,7 +37,7 @@ const count = nullable({ type: "integer" });
 const OUTPUT_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  required: ["title", "stepType", "level", "score", "grade", "plate", "perfect", "great", "good", "bad", "miss", "maxCombo", "stagePass", "machineName"],
+  required: ["title", "stepType", "level", "score", "grade", "plate", "perfect", "great", "good", "bad", "miss", "maxCombo", "stagePass", "machineName", "titleLatin"],
   properties: {
     title: nullable({ type: "string" }),
     stepType: nullable({ type: "string", enum: ["SINGLE", "DOUBLE", "HALFDOUBLE"] }),
@@ -52,6 +53,7 @@ const OUTPUT_SCHEMA = {
     maxCombo: count,
     stagePass: nullable({ type: "boolean" }),
     machineName: nullable({ type: "string" }),
+    titleLatin: nullable({ type: "string" }),
   },
 };
 
@@ -71,6 +73,7 @@ const resultSchema = z.object({
   maxCombo: judgment,
   stagePass: z.boolean().nullable(),
   machineName: z.string().trim().max(200).nullable(),
+  titleLatin: z.string().trim().max(200).nullable(),
 });
 
 export class AiReadError extends Error {
@@ -124,9 +127,10 @@ export async function readScoreScreenshot(
   }
 
   const fields: OcrScoreFields = {};
-  if (parsed.title) {
-    fields.title = parsed.title;
-    fields.titleCandidates = [parsed.title];
+  const titles = [...new Set([parsed.title, parsed.titleLatin].filter((title): title is string => Boolean(title)))];
+  if (titles.length > 0) {
+    fields.title = titles[0];
+    fields.titleCandidates = titles;
   }
   if (parsed.stepType) fields.stepType = parsed.stepType;
   if (parsed.level !== null) fields.level = parsed.level;

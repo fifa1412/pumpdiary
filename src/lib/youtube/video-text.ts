@@ -16,7 +16,7 @@ const GAME_TAGS = [
   "Pump It Up", "PIU", "pumpitup",
   "Pump It Up Phoenix 2", "PIU Phoenix 2", "Phoenix 2",
   "\uD38C\uD504\uC787\uC5C5",
-  "rhythm game", "dance game", "arcade", "\u0E40\u0E01\u0E21\u0E40\u0E15\u0E49\u0E19",
+  "gameplay", "rhythm game", "dance game", "arcade", "\u0E40\u0E01\u0E21\u0E40\u0E15\u0E49\u0E19",
 ];
 
 const STEP_TYPE_NAMES = { SINGLE: "Single", DOUBLE: "Double", HALFDOUBLE: "Half-Double" } as const;

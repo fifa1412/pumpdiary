@@ -48,6 +48,12 @@ export function SiteHeader({
           >
             {t("nav.songs")}
           </Link>
+          <Link
+            href="/leaderboard"
+            className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+          >
+            {t("nav.leaderboard")}
+          </Link>
           {user ? (
             <>
               <Link

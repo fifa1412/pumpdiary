@@ -28,9 +28,12 @@ const STEP_CLASS: Record<StepType, string> = {
 export function ChartBadges({
   charts,
   label,
+  linkTo = "newScore",
 }: {
   charts: SongChart[];
   label: string;
+  /** Where a badge goes: log a play on the chart, or the chart's leaderboard. */
+  linkTo?: "newScore" | "leaderboard";
 }) {
   const sorted = [...charts].sort(
     (a, b) =>
@@ -51,7 +54,7 @@ export function ChartBadges({
             return (
               <li key={chart.id} className={badgeUrl ? "min-w-0 max-w-11 flex-1" : "shrink-0 self-center"}>
                 <Link
-                  href={`/scores/new?chart=${chart.id}`}
+                  href={linkTo === "leaderboard" ? `/charts/${chart.id}/leaderboard` : `/scores/new?chart=${chart.id}`}
                   aria-label={name}
                   title={name}
                   className="block rounded-[3px] outline-none transition-transform hover:scale-105 focus-visible:ring-[3px] focus-visible:ring-ring/50"

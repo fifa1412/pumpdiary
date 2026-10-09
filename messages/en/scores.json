@@ -144,7 +144,15 @@
     "date": "Date",
     "empty": "No scores have been recorded for this chart yet.",
     "error": "Could not load the leaderboard. Please try again.",
-    "unknownPlayer": "Unknown player"
+    "unknownPlayer": "Unknown player",
+    "index": {
+      "title": "Leaderboard",
+      "description": "Search for a song and pick a chart to see each player's best score.",
+      "played": "Charts with scores",
+      "noPlayed": "No scores have been logged yet.",
+      "players": "{count, plural, one {# player} other {# players}}",
+      "top": "Top {score}"
+    }
   },
   "youtube": {
     "title": "Upload a video to YouTube",

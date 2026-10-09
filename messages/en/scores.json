@@ -172,5 +172,16 @@
       "network": "The upload was interrupted. Check your connection and try again.",
       "generic": "Could not upload the video. Please try again."
     }
+  },
+  "detail": {
+    "title": "Score details",
+    "edit": "Edit",
+    "stageFailed": "Stage failed",
+    "playedAt": "Played on",
+    "cabinet": "Cabinet",
+    "note": "Note",
+    "video": "Video",
+    "videoHint": "If the video does not play here, it may be private.",
+    "openOnYouTube": "Open on YouTube"
   }
 }

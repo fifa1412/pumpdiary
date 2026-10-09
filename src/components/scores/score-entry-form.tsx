@@ -588,7 +588,7 @@ function ScoreEntryFormContent({
       }
 
       toast.success(t("toasts.saved"));
-      router.replace("/dashboard");
+      router.replace(initialScore ? `/scores/${initialScore.id}` : "/dashboard");
     } catch {
       if (screenshotPath) {
         const cleaned = await cleanupUploadedScreenshot(screenshotPath);

@@ -10,5 +10,14 @@
     "previous": "ก่อนหน้า",
     "next": "ถัดไป",
     "page": "หน้า {page} จาก {total}"
+  },
+  "filters": {
+    "searchLabel": "ค้นหาจากชื่อเพลง",
+    "searchPlaceholder": "ชื่อเพลง",
+    "level": "เลเวล",
+    "allLevels": "ทุกเลเวล",
+    "submit": "ค้นหา",
+    "clear": "ล้าง",
+    "noMatches": "ไม่พบคะแนนที่ตรงกับเงื่อนไข"
   }
 }

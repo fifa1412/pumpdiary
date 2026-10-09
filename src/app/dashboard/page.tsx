@@ -5,6 +5,8 @@ import { getTranslations } from "next-intl/server";
 import { DashboardView, type DashboardScore } from "@/components/dashboard/dashboard-view";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { createClient } from "@/lib/supabase/server";
+import { levelKey, levelOptions, parseLevelFilter } from "@/lib/scores/level-filter";
+import { sanitizeSongSearchQuery } from "@/lib/songs/search";
 
 const MY_SCORES_LIMIT = 20;
 
@@ -16,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string | string[] }>;
+  searchParams: Promise<{ page?: string | string[]; q?: string | string[]; level?: string | string[] }>;
 }) {
   const [user, params] = await Promise.all([getCurrentUser(), searchParams]);
   if (!user) redirect("/login");
@@ -24,16 +26,37 @@ export default async function DashboardPage({
   const supabase = await createClient();
   const rawPage = Array.isArray(params.page) ? params.page[0] : params.page;
   const parsedPage = typeof rawPage === "string" && /^\d+$/.test(rawPage) ? Number(rawPage) : 1;
-  const { count, error: countError } = await supabase
+  const query = sanitizeSongSearchQuery(params.q);
+  const level = parseLevelFilter(Array.isArray(params.level) ? params.level[0] : params.level);
+
+  // Inner joins let the song title and chart level filter the scores themselves.
+  let countRequest = supabase
     .from("scores")
-    .select("id", { count: "exact", head: true })
+    .select("id, stepchart:stepcharts!scores_stepchart_id_fkey!inner(step_type, level, song:songs!stepcharts_song_id_fkey!inner(title))", { count: "exact", head: true })
     .eq("user_id", user.id);
+  let listRequest = supabase
+    .from("scores")
+    .select("id, score, grade, plate, played_at, screenshot_path, video_url, youtube_video_id, stepchart:stepcharts!scores_stepchart_id_fkey!inner(step_type, level, song:songs!stepcharts_song_id_fkey!inner(title, jacket_path))")
+    .eq("user_id", user.id);
+  if (level) {
+    countRequest = countRequest.eq("stepchart.step_type", level.stepType).eq("stepchart.level", level.level);
+    listRequest = listRequest.eq("stepchart.step_type", level.stepType).eq("stepchart.level", level.level);
+  }
+  if (query) {
+    countRequest = countRequest.ilike("stepchart.song.title", `%${query}%`);
+    listRequest = listRequest.ilike("stepchart.song.title", `%${query}%`);
+  }
+
+  const [{ count, error: countError }, { data: levelRows }] = await Promise.all([
+    countRequest,
+    supabase
+      .from("scores")
+      .select("stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level)")
+      .eq("user_id", user.id),
+  ]);
   const totalPages = Math.max(1, Math.ceil((count ?? 0) / MY_SCORES_LIMIT));
   const page = Math.min(Math.max(1, parsedPage), totalPages);
-  const { data, error } = await supabase
-    .from("scores")
-    .select("id, score, grade, plate, played_at, screenshot_path, video_url, youtube_video_id, stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, jacket_path))")
-    .eq("user_id", user.id)
+  const { data, error } = await listRequest
     .order("created_at", { ascending: false })
     .range((page - 1) * MY_SCORES_LIMIT, page * MY_SCORES_LIMIT - 1);
 
@@ -54,5 +77,8 @@ export default async function DashboardPage({
     scoresFailed={Boolean(countError || error)}
     historyPage={page}
     historyPages={totalPages}
+    query={query}
+    level={level ? levelKey(level) : ""}
+    levelOptions={levelOptions(levelRows ?? [])}
   />;
 }

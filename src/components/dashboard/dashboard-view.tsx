@@ -10,6 +10,8 @@ import { useLocale } from "next-intl";
 import { useRef, useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -21,6 +23,7 @@ import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { DeleteScoreButton } from "@/components/scores/delete-score-button";
 import { ScreenshotLightbox } from "@/components/scores/screenshot-lightbox";
 import { scoreLabel } from "@/lib/scores/label";
+import { levelKey, type LevelFilter } from "@/lib/scores/level-filter";
 import { jacketUrl } from "@/lib/songs/jackets";
 
 export type DashboardScore = {
@@ -40,12 +43,18 @@ export type DashboardScore = {
   } | null;
 };
 
-export function DashboardView({ user, scores, scoresFailed = false, historyPage, historyPages }: {
+export function DashboardView({
+  user, scores, scoresFailed = false, historyPage, historyPages, query = "", level = "", levelOptions = [],
+}: {
   user: CurrentUser;
   scores: DashboardScore[];
   scoresFailed?: boolean;
   historyPage: number;
   historyPages: number;
+  query?: string;
+  /** Active level filter such as "S20"; empty for all levels. */
+  level?: string;
+  levelOptions?: LevelFilter[];
 }) {
   const router = useRouter();
   const t = useTranslations("dashboard");
@@ -56,6 +65,18 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
   const zoomTrigger = useRef<HTMLButtonElement>(null);
   const myScoresLabel = t.has("myScores") ? t("myScores") : t("title");
   const noScoresLabel = t.has("noScores") ? t("noScores") : t("emptyTitle");
+  const filtered = Boolean(query || level);
+  const stepLabel = (stepType: LevelFilter["stepType"]) =>
+    tc(stepType === "SINGLE" ? "stepTypes.single" : stepType === "DOUBLE" ? "stepTypes.double" : "stepTypes.halfDouble");
+
+  function pageHref(page: number) {
+    const params = new URLSearchParams();
+    if (query) params.set("q", query);
+    if (level) params.set("level", level);
+    if (page > 1) params.set("page", String(page));
+    const search = params.toString();
+    return search ? `/dashboard?${search}` : "/dashboard";
+  }
 
   async function handleLogout() {
     try {
@@ -76,8 +97,35 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
           <h2 id="my-scores-heading" className="font-display text-2xl font-bold">{myScoresLabel}</h2>
           <Button asChild><Link href="/scores/new">{t("addScore")}</Link></Button>
         </div>
+        <form role="search" action="/dashboard" className="flex flex-col gap-2 sm:flex-row sm:items-center">
+          <Label htmlFor="dashboard-search" className="sr-only">{t("filters.searchLabel")}</Label>
+          <Input id="dashboard-search" type="search" name="q" defaultValue={query} placeholder={t("filters.searchPlaceholder")}
+            autoComplete="off" className="sm:max-w-xs" />
+          <Label htmlFor="dashboard-level" className="sr-only">{t("filters.level")}</Label>
+          <select id="dashboard-level" name="level" defaultValue={level}
+            onChange={(event) => event.currentTarget.form?.requestSubmit()}
+            className="h-9 rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 sm:w-48">
+            <option value="">{t("filters.allLevels")}</option>
+            {(["SINGLE", "DOUBLE", "HALFDOUBLE"] as const).map((stepType) => {
+              const options = levelOptions.filter((option) => option.stepType === stepType);
+              return options.length ? (
+                <optgroup key={stepType} label={stepLabel(stepType)}>
+                  {options.map((option) => (
+                    <option key={levelKey(option)} value={levelKey(option)}>{`${stepLabel(stepType)} ${option.level}`}</option>
+                  ))}
+                </optgroup>
+              ) : null;
+            })}
+          </select>
+          <div className="flex gap-2">
+            <Button type="submit" size="sm" variant="outline">{t("filters.submit")}</Button>
+            {filtered ? <Button size="sm" variant="ghost" asChild><Link href="/dashboard">{t("filters.clear")}</Link></Button> : null}
+          </div>
+        </form>
         {scoresFailed ? (
           <p role="alert" className="text-sm text-destructive">{tc("errors.generic")}</p>
+        ) : scores.length === 0 && filtered ? (
+          <p className="text-muted-foreground">{t("filters.noMatches")}</p>
         ) : scores.length === 0 ? (
           <Card>
             <CardHeader><CardTitle className="font-display text-xl">{t("emptyTitle")}</CardTitle></CardHeader>
@@ -202,13 +250,13 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
         {!scoresFailed && historyPages > 1 ? (
           <nav aria-label={t("pagination.label")} className="flex items-center justify-center gap-2">
             {historyPage > 1 ? (
-              <Button variant="outline" size="sm" asChild><Link href={`/dashboard?page=${historyPage - 1}`}>{t("pagination.previous")}</Link></Button>
+              <Button variant="outline" size="sm" asChild><Link href={pageHref(historyPage - 1)}>{t("pagination.previous")}</Link></Button>
             ) : <Button variant="outline" size="sm" disabled>{t("pagination.previous")}</Button>}
             <span className="font-numeric text-sm text-muted-foreground">
               {t("pagination.page", { page: historyPage, total: historyPages })}
             </span>
             {historyPage < historyPages ? (
-              <Button variant="outline" size="sm" asChild><Link href={`/dashboard?page=${historyPage + 1}`}>{t("pagination.next")}</Link></Button>
+              <Button variant="outline" size="sm" asChild><Link href={pageHref(historyPage + 1)}>{t("pagination.next")}</Link></Button>
             ) : <Button variant="outline" size="sm" disabled>{t("pagination.next")}</Button>}
           </nav>
         ) : null}

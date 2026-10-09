@@ -10,5 +10,14 @@
     "previous": "Previous",
     "next": "Next",
     "page": "Page {page} of {total}"
+  },
+  "filters": {
+    "searchLabel": "Search by song title",
+    "searchPlaceholder": "Song title",
+    "level": "Level",
+    "allLevels": "All levels",
+    "submit": "Search",
+    "clear": "Clear",
+    "noMatches": "No scores match these filters."
   }
 }

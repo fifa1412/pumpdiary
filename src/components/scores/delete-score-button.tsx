@@ -30,6 +30,7 @@ export function DeleteScoreButton({
   scoreId,
   screenshotPath,
   youtubeVideoId,
+  label,
   compact = false,
   className,
 }: {
@@ -37,6 +38,8 @@ export function DeleteScoreButton({
   screenshotPath: string | null;
   /** Set only for a video PumpDiary uploaded; other links are never deleted. */
   youtubeVideoId: string | null;
+  /** Which play is being deleted, e.g. "Odin S20 - Score 995,416". */
+  label: string;
   /** Icon-only trigger for tight spots such as dashboard cards. */
   compact?: boolean;
   className?: string;
@@ -174,6 +177,7 @@ export function DeleteScoreButton({
       >
         <div className="space-y-4">
           <h2 id="delete-score-title" className="text-lg font-semibold">{t("deleteTitle")}</h2>
+          <p className="rounded-md border bg-surface-deep px-3 py-2 font-medium">{label}</p>
           <p className="text-sm text-muted-foreground">{t("deleteBody")}</p>
           {canDeleteVideo ? (
             <div className="space-y-1 rounded-md border p-3">

@@ -10,6 +10,7 @@ import { ScreenshotZoom } from "@/components/scores/screenshot-zoom";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { scoreLabel } from "@/lib/scores/label";
 import { jacketUrl } from "@/lib/songs/jackets";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
 import { youtubeVideoId } from "@/lib/youtube/video-id";
@@ -90,7 +91,8 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
           <Link href="/dashboard"><ArrowLeft aria-hidden="true" />{t("personalBests.backToDashboard")}</Link>
         </Button>
         <div className="flex flex-wrap gap-2">
-          <DeleteScoreButton scoreId={row.id} screenshotPath={row.screenshot_path} youtubeVideoId={row.youtube_video_id} />
+          <DeleteScoreButton scoreId={row.id} screenshotPath={row.screenshot_path} youtubeVideoId={row.youtube_video_id}
+            label={scoreLabel(song.title, chart, row.score)} />
           <Button asChild>
             <Link href={`/scores/${row.id}/edit`}><Wrench aria-hidden="true" />{t("detail.edit")}</Link>
           </Button>

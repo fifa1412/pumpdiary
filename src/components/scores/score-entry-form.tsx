@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { readScreenshotWithAi } from "@/lib/scores/ai-read-client";
+import { scoreLabel } from "@/lib/scores/label";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { matchSongTitle } from "@/lib/songs/fuzzy-match";
 import { youtubeVideoId } from "@/lib/youtube/video-id";
@@ -877,6 +878,11 @@ function ScoreEntryFormContent({
                 scoreId={initialScore.id}
                 screenshotPath={initialScore.screenshotPath}
                 youtubeVideoId={initialScore.youtubeVideoId}
+                label={scoreLabel(
+                  initialSong?.title ?? "",
+                  initialSong?.stepcharts.find((chart) => chart.id === initialScore.stepchartId),
+                  initialScore.score,
+                )}
               />
             </div>
           ) : null}

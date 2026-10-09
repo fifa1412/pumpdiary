@@ -20,6 +20,7 @@ import { logoutUser, type CurrentUser } from "@/lib/auth";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { DeleteScoreButton } from "@/components/scores/delete-score-button";
 import { ScreenshotLightbox } from "@/components/scores/screenshot-lightbox";
+import { scoreLabel } from "@/lib/scores/label";
 import { jacketUrl } from "@/lib/songs/jackets";
 
 export type DashboardScore = {
@@ -175,6 +176,7 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                                 scoreId={score.id}
                                 screenshotPath={score.screenshot_path}
                                 youtubeVideoId={score.youtube_video_id}
+                                label={scoreLabel(chart.song.title, chart, score.score)}
                                 className="pointer-events-auto relative z-30 size-7"
                               />
                             </div>

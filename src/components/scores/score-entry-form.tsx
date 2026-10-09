@@ -20,6 +20,7 @@ import { videoDescription, videoTitle, type VideoTextInput } from "@/lib/youtube
 
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
 import type { CabinetOption } from "@/components/cabinets/types";
+import { AiBudgetBar } from "./ai-budget-bar";
 import { ScreenshotLightbox } from "./screenshot-lightbox";
 import { chartPrefix, SongChartPicker, type ChartSelection } from "./song-chart-picker";
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
@@ -166,6 +167,7 @@ function ScoreEntryFormContent({
   const [cabinetId, setCabinetId] = useState(initialCabinetId);
   const [chartSelection, setChartSelection] = useState<ChartSelection | null>(null);
   const [isVideoUploading, setIsVideoUploading] = useState(false);
+  const [aiBudgetRefresh, setAiBudgetRefresh] = useState(0);
   const screenshotInput = useRef<HTMLInputElement>(null);
   const ocrDialog = useRef<HTMLDialogElement>(null);
   const previewTrigger = useRef<HTMLElement | null>(null);
@@ -401,6 +403,7 @@ function ScoreEntryFormContent({
         setIsReading(false);
         ocrAbortController.current = null;
       }
+      setAiBudgetRefresh((key) => key + 1);
     }
   }
 
@@ -622,6 +625,7 @@ function ScoreEntryFormContent({
                 aria-describedby={screenshotError ? "screenshot-error" : "screenshot-help"}
                 aria-invalid={!!screenshotError} />
               <p id="screenshot-help" className="text-sm text-muted-foreground">{t("fields.screenshotHelp")}</p>
+              <AiBudgetBar refreshKey={aiBudgetRefresh} />
               {initialScore?.screenshotUrl && !screenshot ? (
                 <div className="space-y-2 lg:hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -201,5 +201,10 @@
     "video": "Video",
     "videoHint": "If the video does not play here, it may be private.",
     "openOnYouTube": "Open on YouTube"
+  },
+  "aiBudget": {
+    "label": "AI screenshot reading",
+    "remaining": "About {count} reads left ({remaining} of {budget})",
+    "exhausted": "The AI budget is used up. Screenshots are read with the built-in reader instead."
   }
 }

@@ -10,6 +10,8 @@ import type { OcrScoreFields } from "@/lib/scores/ocr";
 // same fields as the in-browser OCR so the form can fill itself either way.
 
 const MODEL = "claude-haiku-5-5";
+// Claude Haiku 5.5 list prices in USD per token for prompts up to 100K tokens.
+const PRICE = { input: 0.10 / 1e6, output: 0.50 / 1e6, cacheWrite: 0.125 / 1e6, cacheRead: 0.01 / 1e6 };
 
 export const AI_IMAGE_TYPES = ["image/webp", "image/jpeg", "image/png"] as const;
 export type AiImageType = (typeof AI_IMAGE_TYPES)[number];
@@ -69,7 +71,8 @@ const resultSchema = z.object({
 });
 
 export class AiReadError extends Error {
-  constructor(readonly code: "unavailable" | "refused" | "unreadable") {
+  // Set when the model ran (and was billed) but gave nothing usable.
+  constructor(readonly code: "unavailable" | "refused" | "unreadable", readonly usage?: AiReadUsage) {
     super(code);
   }
 }
@@ -78,7 +81,12 @@ export function aiReadAvailable(): boolean {
   return Boolean(process.env.ANTHROPIC_API_KEY);
 }
 
-export async function readScoreScreenshot(image: Buffer, mediaType: AiImageType): Promise<OcrScoreFields> {
+export type AiReadUsage = { model: string; inputTokens: number; outputTokens: number; costUsd: number };
+
+export async function readScoreScreenshot(
+  image: Buffer,
+  mediaType: AiImageType,
+): Promise<{ fields: OcrScoreFields; usage: AiReadUsage }> {
   if (!aiReadAvailable()) throw new AiReadError("unavailable");
   const client = new Anthropic();
   const response = await client.messages.create({
@@ -94,14 +102,22 @@ export async function readScoreScreenshot(image: Buffer, mediaType: AiImageType)
       ],
     }],
   });
-  if (response.stop_reason === "refusal") throw new AiReadError("refused");
+  const { input_tokens, output_tokens, cache_creation_input_tokens, cache_read_input_tokens } = response.usage;
+  const usage: AiReadUsage = {
+    model: MODEL,
+    inputTokens: input_tokens + (cache_creation_input_tokens ?? 0) + (cache_read_input_tokens ?? 0),
+    outputTokens: output_tokens,
+    costUsd: input_tokens * PRICE.input + output_tokens * PRICE.output
+      + (cache_creation_input_tokens ?? 0) * PRICE.cacheWrite + (cache_read_input_tokens ?? 0) * PRICE.cacheRead,
+  };
+  if (response.stop_reason === "refusal") throw new AiReadError("refused", usage);
 
   const text = response.content.flatMap((block) => (block.type === "text" ? [block.text] : [])).join("");
   let parsed: z.infer<typeof resultSchema>;
   try {
     parsed = resultSchema.parse(JSON.parse(text));
   } catch {
-    throw new AiReadError("unreadable");
+    throw new AiReadError("unreadable", usage);
   }
 
   const fields: OcrScoreFields = {};
@@ -119,5 +135,5 @@ export async function readScoreScreenshot(image: Buffer, mediaType: AiImageType)
     if (value !== null) fields[key] = value;
   }
   if (parsed.stagePass !== null) fields.stagePass = parsed.stagePass;
-  return fields;
+  return { fields, usage };
 }

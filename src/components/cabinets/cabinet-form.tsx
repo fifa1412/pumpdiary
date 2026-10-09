@@ -20,8 +20,10 @@ const COLUMNS = {
 } as const;
 
 // Adds a cabinet, or edits one when `cabinet` is given.
-export function CabinetForm({ cabinet, returnTo = null, chartId = null }: {
+export function CabinetForm({ cabinet, returnTo = null, chartId = null, initialName = "" }: {
   cabinet?: CabinetOption;
+  /** Prefills the name when adding, e.g. the machine name read from a screenshot. */
+  initialName?: string;
   returnTo?: string | null;
   chartId?: number | null;
 }) {
@@ -102,7 +104,7 @@ export function CabinetForm({ cabinet, returnTo = null, chartId = null }: {
         <div key={name} className="space-y-2">
           <Label htmlFor={`cabinet-${name}`}>{t(labelKey)}</Label>
           <Input id={`cabinet-${name}`} name={name} required maxLength={160} autoComplete="off"
-            defaultValue={cabinet ? cabinet[COLUMNS[name]] : undefined} />
+            defaultValue={cabinet ? cabinet[COLUMNS[name]] : name === "name" && initialName ? initialName : undefined} />
         </div>
       ))}
       <div className="space-y-2">

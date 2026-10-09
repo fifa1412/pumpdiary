@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { readScreenshotWithAi } from "@/lib/scores/ai-read-client";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
+import { matchSongTitle } from "@/lib/songs/fuzzy-match";
 import { videoDescription, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
 
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
@@ -165,6 +166,10 @@ function ScoreEntryFormContent({
   const [ocrLevel, setOcrLevel] = useState<number>();
   const [songPickerKey, setSongPickerKey] = useState(0);
   const [cabinetId, setCabinetId] = useState(initialCabinetId);
+  // Set when the cabinet came from the screenshot, so a new screenshot can undo it.
+  const [detectedCabinetId, setDetectedCabinetId] = useState<number | null>(null);
+  const [screenMachineName, setScreenMachineName] = useState("");
+  const cabinetChosenByPlayer = useRef(initialCabinetId !== null);
   const [chartSelection, setChartSelection] = useState<ChartSelection | null>(null);
   const [isVideoUploading, setIsVideoUploading] = useState(false);
   const [aiBudgetRefresh, setAiBudgetRefresh] = useState(0);
@@ -343,6 +348,9 @@ function ScoreEntryFormContent({
       }
     }
     setDetectedFields(new Set());
+    if (detectedCabinetId !== null && !cabinetChosenByPlayer.current) setCabinetId(null);
+    setDetectedCabinetId(null);
+    setScreenMachineName("");
     setOcrTitle(undefined);
     setOcrStepType(undefined);
     setOcrLevel(undefined);
@@ -376,6 +384,15 @@ function ScoreEntryFormContent({
       detected.add("plate");
     }
     setDetectedFields(detected);
+    if (fields.machineName && !cabinetChosenByPlayer.current) {
+      const match = matchSongTitle(fields.machineName, cabinets.map((cabinet) => ({ id: cabinet.id, title: cabinet.name })));
+      if (match) {
+        setCabinetId(match.id);
+        setDetectedCabinetId(match.id);
+      } else {
+        setScreenMachineName(fields.machineName);
+      }
+    }
     setOcrTitle(fields.titleCandidates?.join("\n") || fields.title);
     setOcrStepType(fields.stepType);
     setOcrLevel(fields.level);
@@ -703,7 +720,13 @@ function ScoreEntryFormContent({
                 cabinets={cabinets}
                 initialCabinetId={cabinetId}
                 chartId={selectedChartId}
-                onChange={setCabinetId}
+                onChange={(id) => {
+                  cabinetChosenByPlayer.current = true;
+                  setDetectedCabinetId(null);
+                  setCabinetId(id);
+                }}
+                detected={detectedCabinetId !== null && detectedCabinetId === cabinetId}
+                screenMachineName={screenMachineName}
               />
             ) : null}
 

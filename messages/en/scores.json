@@ -94,6 +94,8 @@
     "noResults": "No cabinets found.",
     "none": "No cabinet",
     "addLink": "Can't find it? Add a cabinet",
+    "detected": "Cabinet matched from the screenshot — check this selection",
+    "screenName": "Cabinet name on screen: {name} — not in the list yet",
     "newTitle": "Add a cabinet",
     "newDescription": "Add a cabinet to the shared catalog.",
     "fields": {

@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function NewCabinetPage({
   searchParams,
 }: {
-  searchParams: Promise<{ returnTo?: string | string[]; chart?: string | string[] }>;
+  searchParams: Promise<{ returnTo?: string | string[]; chart?: string | string[]; name?: string | string[] }>;
 }) {
   const [user, params, t] = await Promise.all([
     getCurrentUser(), searchParams, getTranslations("scores.cabinet"),
@@ -24,6 +24,8 @@ export default async function NewCabinetPage({
   const returnTo = rawReturnTo === "/scores/new" ? rawReturnTo : null;
   const rawChart = Array.isArray(params.chart) ? params.chart[0] : params.chart;
   const chartId = rawChart && /^\d+$/.test(rawChart) ? Number(rawChart) : null;
+  const rawName = Array.isArray(params.name) ? params.name[0] : params.name;
+  const initialName = rawName?.trim().slice(0, 160) ?? "";
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-4 py-8 sm:py-12">
@@ -33,7 +35,7 @@ export default async function NewCabinetPage({
           <p className="text-sm text-muted-foreground">{t("newDescription")}</p>
         </CardHeader>
         <CardContent>
-          <CabinetForm returnTo={returnTo} chartId={chartId} />
+          <CabinetForm returnTo={returnTo} chartId={chartId} initialName={initialName} />
         </CardContent>
       </Card>
     </div>

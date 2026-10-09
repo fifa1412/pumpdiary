@@ -14,11 +14,17 @@ export function CabinetPicker({
   initialCabinetId,
   chartId,
   onChange,
+  detected = false,
+  screenMachineName = "",
 }: {
   cabinets: CabinetOption[];
   initialCabinetId: number | null;
   chartId: number;
   onChange: (id: number | null) => void;
+  /** The selection was matched from the screenshot. */
+  detected?: boolean;
+  /** Machine name read from the screenshot that matched no cabinet. */
+  screenMachineName?: string;
 }) {
   const t = useTranslations("scores.cabinet");
   const [query, setQuery] = useState("");
@@ -55,8 +61,10 @@ export function CabinetPicker({
         ))}
       </select>
       {query && filtered.length === 0 ? <p className="text-sm text-muted-foreground">{t("noResults")}</p> : null}
+      {detected ? <p className="text-xs text-muted-foreground">{t("detected")}</p> : null}
+      {screenMachineName ? <p className="text-xs text-muted-foreground">{t("screenName", { name: screenMachineName })}</p> : null}
       <Link
-        href={`/cabinets/new?returnTo=%2Fscores%2Fnew${chartId ? `&chart=${chartId}` : ""}`}
+        href={`/cabinets/new?returnTo=%2Fscores%2Fnew${chartId ? `&chart=${chartId}` : ""}${screenMachineName ? `&name=${encodeURIComponent(screenMachineName)}` : ""}`}
         className="text-sm text-primary underline-offset-4 hover:underline"
       >
         {t("addLink")}

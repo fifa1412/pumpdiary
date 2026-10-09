@@ -29,6 +29,8 @@ export type OcrScoreFields = {
   maxCombo?: number;
   plate?: (typeof SCORE_PLATES)[number];
   stagePass?: boolean;
+  /** Arcade-set machine name from the bottom right of the screen. */
+  machineName?: string;
 };
 
 type OcrWord = { text: string; confidence: number; bbox: { x0: number; y0: number; x1: number; y1: number } };

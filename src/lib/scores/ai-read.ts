@@ -25,6 +25,7 @@ Report what the screen shows:
 - grade: the large grade logo (for example SSS+, AA, A+, F).
 - plate: the words under the grade, such as MARVELOUS GAME.
 - perfect, great, good, bad, miss, maxCombo: the numbers beside PERFECT, GREAT, GOOD, BAD, MISS, and MAX COMBO. Ignore KCAL.
+- machineName: the machine name the arcade set, usually an arcade or shop name, shown small at the bottom right of the screen. Copy it exactly.
 - stagePass: false only when the screen clearly says the stage was failed; true when it shows a plate or otherwise shows the stage was cleared.
 
 Use null for anything you cannot read with confidence. Never guess a number.`;
@@ -35,7 +36,7 @@ const count = nullable({ type: "integer" });
 const OUTPUT_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  required: ["title", "stepType", "level", "score", "grade", "plate", "perfect", "great", "good", "bad", "miss", "maxCombo", "stagePass"],
+  required: ["title", "stepType", "level", "score", "grade", "plate", "perfect", "great", "good", "bad", "miss", "maxCombo", "stagePass", "machineName"],
   properties: {
     title: nullable({ type: "string" }),
     stepType: nullable({ type: "string", enum: ["SINGLE", "DOUBLE", "HALFDOUBLE"] }),
@@ -50,6 +51,7 @@ const OUTPUT_SCHEMA = {
     miss: count,
     maxCombo: count,
     stagePass: nullable({ type: "boolean" }),
+    machineName: nullable({ type: "string" }),
   },
 };
 
@@ -68,6 +70,7 @@ const resultSchema = z.object({
   miss: judgment,
   maxCombo: judgment,
   stagePass: z.boolean().nullable(),
+  machineName: z.string().trim().max(200).nullable(),
 });
 
 export class AiReadError extends Error {
@@ -135,5 +138,6 @@ export async function readScoreScreenshot(
     if (value !== null) fields[key] = value;
   }
   if (parsed.stagePass !== null) fields.stagePass = parsed.stagePass;
+  if (parsed.machineName) fields.machineName = parsed.machineName;
   return { fields, usage };
 }

@@ -209,6 +209,7 @@
     "deleteBody": "The score and its screenshot are removed from PumpDiary. This cannot be undone.",
     "deleteVideo": "Also delete the video on YouTube",
     "deleteVideoHelp": "The video is deleted from your channel for good, with its views and comments. Sign in with the Google account that uploaded it.",
+    "deleteLinkedVideoHelp": "This link was not uploaded through PumpDiary. It can be deleted only if the video is on your own channel, and it is deleted for good.",
     "cancel": "Cancel",
     "confirmDelete": "Delete score",
     "deleting": "Deleting…",

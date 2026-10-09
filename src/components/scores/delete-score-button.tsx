@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
+import { youtubeVideoId as linkedVideoId } from "@/lib/youtube/video-id";
 import { cn } from "@/lib/utils";
 import {
   createTokenClient,
@@ -29,15 +30,18 @@ type Phase = "idle" | "signingIn" | "deletingVideo" | "deletingScore" | "videoFa
 export function DeleteScoreButton({
   scoreId,
   screenshotPath,
-  youtubeVideoId,
+  youtubeVideoId: uploadedVideoId,
+  videoUrl,
   label,
   compact = false,
   className,
 }: {
   scoreId: number;
   screenshotPath: string | null;
-  /** Set only for a video PumpDiary uploaded; other links are never deleted. */
+  /** Set for a video PumpDiary uploaded. */
   youtubeVideoId: string | null;
+  /** The score's video link; a pasted link can be deleted too if the player owns it. */
+  videoUrl: string | null;
   /** Which play is being deleted, e.g. "Odin S20 - Score 995,416". */
   label: string;
   /** Icon-only trigger for tight spots such as dashboard cards. */
@@ -54,6 +58,7 @@ export function DeleteScoreButton({
   const [alsoDeleteVideo, setAlsoDeleteVideo] = useState(false);
   const [phase, setPhase] = useState<Phase>("idle");
   const [error, setError] = useState("");
+  const youtubeVideoId = uploadedVideoId ?? (videoUrl ? linkedVideoId(videoUrl) : null);
   const canDeleteVideo = Boolean(youtubeVideoId && GOOGLE_CLIENT_ID);
   const busy = phase === "signingIn" || phase === "deletingVideo" || phase === "deletingScore";
 
@@ -186,7 +191,7 @@ export function DeleteScoreButton({
                   disabled={busy} onChange={(event) => setAlsoDeleteVideo(event.target.checked)} />
                 <Label htmlFor="delete-video">{t("deleteVideo")}</Label>
               </div>
-              <p className="text-xs text-muted-foreground">{t("deleteVideoHelp")}</p>
+              <p className="text-xs text-muted-foreground">{t(uploadedVideoId ? "deleteVideoHelp" : "deleteLinkedVideoHelp")}</p>
             </div>
           ) : null}
           {phase === "signingIn" ? <p role="status" className="text-sm text-muted-foreground">{ty("signingIn")}</p> : null}

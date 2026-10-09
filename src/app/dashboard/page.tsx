@@ -32,7 +32,7 @@ export default async function DashboardPage({
   const page = Math.min(Math.max(1, parsedPage), totalPages);
   const { data, error } = await supabase
     .from("scores")
-    .select("id, score, grade, plate, played_at, screenshot_path, youtube_video_id, stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, jacket_path))")
+    .select("id, score, grade, plate, played_at, screenshot_path, video_url, youtube_video_id, stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, jacket_path))")
     .eq("user_id", user.id)
     .order("created_at", { ascending: false })
     .range((page - 1) * MY_SCORES_LIMIT, page * MY_SCORES_LIMIT - 1);

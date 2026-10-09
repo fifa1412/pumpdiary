@@ -878,6 +878,7 @@ function ScoreEntryFormContent({
                 scoreId={initialScore.id}
                 screenshotPath={initialScore.screenshotPath}
                 youtubeVideoId={initialScore.youtubeVideoId}
+                videoUrl={initialScore.videoUrl || null}
                 label={scoreLabel(
                   initialSong?.title ?? "",
                   initialSong?.stepcharts.find((chart) => chart.id === initialScore.stepchartId),

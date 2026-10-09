@@ -31,6 +31,7 @@ export type DashboardScore = {
   played_at: string;
   screenshot_path: string | null;
   youtube_video_id: string | null;
+  video_url: string | null;
   screenshotUrl: string | null;
   stepchart: {
     step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
@@ -173,6 +174,7 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                                 scoreId={score.id}
                                 screenshotPath={score.screenshot_path}
                                 youtubeVideoId={score.youtube_video_id}
+                                videoUrl={score.video_url}
                                 label={scoreLabel(chart.song.title, chart, score.score)}
                                 className="pointer-events-auto relative z-30 size-7"
                               />

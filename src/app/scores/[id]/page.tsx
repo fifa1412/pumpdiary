@@ -91,7 +91,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
           <Link href="/dashboard"><ArrowLeft aria-hidden="true" />{t("detail.backToDashboard")}</Link>
         </Button>
         <div className="flex flex-wrap gap-2">
-          <DeleteScoreButton scoreId={row.id} screenshotPath={row.screenshot_path} youtubeVideoId={row.youtube_video_id}
+          <DeleteScoreButton scoreId={row.id} screenshotPath={row.screenshot_path} youtubeVideoId={row.youtube_video_id} videoUrl={row.video_url}
             label={scoreLabel(song.title, chart, row.score)} />
           <Button asChild>
             <Link href={`/scores/${row.id}/edit`}><Wrench aria-hidden="true" />{t("detail.edit")}</Link>

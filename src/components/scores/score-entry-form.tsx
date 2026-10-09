@@ -17,7 +17,7 @@ import { createClient } from "@/lib/supabase/client";
 import { readScreenshotWithAi } from "@/lib/scores/ai-read-client";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { matchSongTitle } from "@/lib/songs/fuzzy-match";
-import { videoDescription, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
+import { videoDescription, videoTags, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
 
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
 import type { CabinetOption } from "@/components/cabinets/types";
@@ -299,6 +299,9 @@ function ScoreEntryFormContent({
   const selectedCabinet = cabinets.find((cabinet) => cabinet.id === cabinetId);
   const videoText: VideoTextInput = {
     chart: chartSelection ? `${chartSelection.songTitle} ${chartPrefix(chartSelection.stepType)}${chartSelection.level}` : "",
+    song: chartSelection
+      ? { title: chartSelection.songTitle, stepType: chartSelection.stepType, level: chartSelection.level }
+      : undefined,
     score,
     grade,
     judgments: { perfect, great, good, bad, miss, maxCombo },
@@ -801,6 +804,7 @@ function ScoreEntryFormContent({
             <YouTubeUploader
               suggestedTitle={videoTitle(videoText)}
               suggestedDescription={videoDescription(videoText)}
+              suggestedTags={videoTags(videoText)}
               disabled={isSubmitting}
               onBusyChange={setIsVideoUploading}
               onUploaded={(url) => form.setValue("videoUrl", url, { shouldDirty: true, shouldValidate: true })}

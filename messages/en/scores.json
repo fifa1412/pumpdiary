@@ -172,6 +172,8 @@
     },
     "videoTitle": "Video title",
     "videoDescription": "Video description",
+    "videoTags": "Tags",
+    "tagsHelp": "Separate tags with commas.",
     "textHelp": "Filled in from the score details above. You can edit them before uploading.",
     "resetText": "Use the suggested text",
     "upload": "Upload to YouTube",

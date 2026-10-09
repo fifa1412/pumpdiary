@@ -30,12 +30,14 @@ type Status =
 export function YouTubeUploader({
   suggestedTitle,
   suggestedDescription,
+  suggestedTags,
   disabled,
   onUploaded,
   onBusyChange,
 }: {
   suggestedTitle: string;
   suggestedDescription: string;
+  suggestedTags: string[];
   disabled?: boolean;
   onUploaded: (url: string) => void;
   onBusyChange: (busy: boolean) => void;
@@ -50,6 +52,8 @@ export function YouTubeUploader({
   const [descriptionOverride, setDescriptionOverride] = useState<string | null>(null);
   const title = titleOverride ?? suggestedTitle;
   const description = descriptionOverride ?? suggestedDescription;
+  const [tagsOverride, setTagsOverride] = useState<string | null>(null);
+  const tagsText = tagsOverride ?? suggestedTags.join(", ");
   const tokenClient = useRef<{ requestAccessToken: () => void } | null>(null);
   const token = useRef<AccessToken | null>(null);
   const abortController = useRef<AbortController | null>(null);
@@ -102,6 +106,7 @@ export function YouTubeUploader({
         file,
         title,
         description,
+        tags: tagsText.split(","),
         privacyStatus: privacy,
         signal: controller.signal,
         onProgress: (fraction) => setStatus({ kind: "uploading", percent: Math.floor(fraction * 100) }),
@@ -111,6 +116,7 @@ export function YouTubeUploader({
       setFile(null);
       setTitleOverride(null);
       setDescriptionOverride(null);
+      setTagsOverride(null);
       if (fileInput.current) fileInput.current.value = "";
     } catch (error) {
       const code = error instanceof YouTubeUploadError ? error.code : "generic";
@@ -188,13 +194,21 @@ export function YouTubeUploader({
               onChange={(event) => setDescriptionOverride(event.target.value)} aria-describedby="youtube-text-help"
               className="w-full min-w-0 rounded-md border border-input bg-surface-deep px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
           </div>
+          <div className="space-y-2">
+            <Label htmlFor="youtube-tags">{t("videoTags")}</Label>
+            <textarea id="youtube-tags" value={tagsText} rows={2} disabled={disabled || busy}
+              onChange={(event) => setTagsOverride(event.target.value)} aria-describedby="youtube-tags-help youtube-text-help"
+              className="w-full min-w-0 rounded-md border border-input bg-surface-deep px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
+            <p id="youtube-tags-help" className="text-xs text-muted-foreground">{t("tagsHelp")}</p>
+          </div>
           <div className="flex flex-wrap items-center gap-3">
             <p id="youtube-text-help" className="text-sm text-muted-foreground">{t("textHelp")}</p>
-            {titleOverride !== null || descriptionOverride !== null ? (
+            {titleOverride !== null || descriptionOverride !== null || tagsOverride !== null ? (
               <Button type="button" variant="ghost" size="sm" disabled={disabled || busy}
                 onClick={() => {
                   setTitleOverride(null);
                   setDescriptionOverride(null);
+                  setTagsOverride(null);
                 }}>
                 {t("resetText")}
               </Button>

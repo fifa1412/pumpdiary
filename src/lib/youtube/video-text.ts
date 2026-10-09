@@ -11,8 +11,20 @@ const TITLE_PREFIX = "[PIU Phoenix 2]";
 // Fixed until players can set their own display name for videos.
 const PLAYER_NAME = "FIFAZ";
 
+// Added to every upload. The Thai tag is escaped because src/ holds no Thai text.
+const GAME_TAGS = [
+  "Pump It Up", "PIU", "pumpitup",
+  "Pump It Up Phoenix 2", "PIU Phoenix 2", "Phoenix 2",
+  "\uD38C\uD504\uC787\uC5C5",
+  "rhythm game", "dance game", "arcade", "\u0E40\u0E01\u0E21\u0E40\u0E15\u0E49\u0E19",
+];
+
+const STEP_TYPE_NAMES = { SINGLE: "Single", DOUBLE: "Double", HALFDOUBLE: "Half-Double" } as const;
+const STEP_TYPE_CODES = { SINGLE: "S", DOUBLE: "D", HALFDOUBLE: "HD" } as const;
+
 export type VideoTextInput = {
   chart: string;
+  song?: { title: string; stepType: keyof typeof STEP_TYPE_NAMES; level: number };
   score?: number;
   grade?: string;
   judgments: { perfect?: number; great?: number; good?: number; bad?: number; miss?: number; maxCombo?: number };
@@ -42,6 +54,19 @@ export function videoTitle({ chart, score, judgments }: VideoTextInput): string 
     ? ` - ${missText(judgments.miss)} (${scorePercent(score)})`
     : "";
   return `${[TITLE_PREFIX, chart].filter(Boolean).join(" ")}${result}`;
+}
+
+/** Song title, chart level tags, then the game tags. */
+export function videoTags({ song }: VideoTextInput): string[] {
+  const chartTags = song
+    ? [
+      song.title,
+      `${STEP_TYPE_CODES[song.stepType]}${song.level}`,
+      `${STEP_TYPE_NAMES[song.stepType]} ${song.level}`,
+      `PIU ${STEP_TYPE_CODES[song.stepType]}${song.level}`,
+    ]
+    : [];
+  return [...chartTags, ...GAME_TAGS];
 }
 
 export function videoDescription({ chart, score, grade, judgments, recordDate, cabinet }: VideoTextInput): string {

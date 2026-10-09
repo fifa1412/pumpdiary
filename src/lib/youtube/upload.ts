@@ -11,6 +11,7 @@ const UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos?uploadTy
 const GAMING_CATEGORY_ID = "20";
 const MAX_TITLE_LENGTH = 100;
 const MAX_DESCRIPTION_BYTES = 5000;
+const MAX_TAGS_LENGTH = 500;
 const MAX_RETRIES = 5;
 
 export const YOUTUBE_PRIVACY_STATUSES = ["public", "unlisted", "private"] as const;
@@ -131,6 +132,25 @@ export function youtubeDescription(description: string): string {
   return result;
 }
 
+export function youtubeTags(tags: string[]): string[] {
+  // YouTube caps tags at 500 characters in total, counting a comma between
+  // tags and quotes around any tag that contains a space.
+  const result: string[] = [];
+  const seen = new Set<string>();
+  let length = 0;
+  for (const raw of tags) {
+    const tag = raw.replace(/[<>,]/g, "").replace(/\s+/g, " ").trim();
+    const key = tag.toLocaleLowerCase();
+    if (!tag || seen.has(key)) continue;
+    const cost = Array.from(tag).length + (tag.includes(" ") ? 2 : 0) + (result.length ? 1 : 0);
+    if (length + cost > MAX_TAGS_LENGTH) break;
+    seen.add(key);
+    result.push(tag);
+    length += cost;
+  }
+  return result;
+}
+
 async function errorCode(status: number, body: string): Promise<YouTubeUploadErrorCode> {
   let reason = "";
   try {
@@ -207,6 +227,7 @@ export async function uploadToYouTube({
   file,
   title,
   description,
+  tags,
   privacyStatus,
   signal,
   onProgress,
@@ -215,6 +236,7 @@ export async function uploadToYouTube({
   file: File;
   title: string;
   description: string;
+  tags: string[];
   privacyStatus: YouTubePrivacyStatus;
   signal: AbortSignal;
   onProgress: (fraction: number) => void;
@@ -234,6 +256,7 @@ export async function uploadToYouTube({
         snippet: {
           title: youtubeTitle(title),
           description: youtubeDescription(description),
+          tags: youtubeTags(tags),
           categoryId: GAMING_CATEGORY_ID,
         },
         status: { privacyStatus, selfDeclaredMadeForKids: false },

@@ -11,7 +11,7 @@ const UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos?uploadTy
 const GAMING_CATEGORY_ID = "20";
 const MAX_TITLE_LENGTH = 100;
 const MAX_DESCRIPTION_BYTES = 5000;
-const MAX_TAGS_LENGTH = 500;
+export const MAX_TAGS_LENGTH = 500;
 const MAX_RETRIES = 5;
 
 export const YOUTUBE_PRIVACY_STATUSES = ["public", "unlisted", "private"] as const;
@@ -132,17 +132,33 @@ export function youtubeDescription(description: string): string {
   return result;
 }
 
+/** A tag as YouTube accepts it: no angle brackets or commas, single spaces. */
+export function cleanTag(raw: string): string {
+  return raw.replace(/[<>,]/g, "").replace(/\s+/g, " ").trim();
+}
+
+function tagCost(tag: string, index: number): number {
+  return Array.from(tag).length + (tag.includes(" ") ? 2 : 0) + (index > 0 ? 1 : 0);
+}
+
+/**
+ * Length YouTube counts against its 500-character tag limit: a comma between
+ * tags and quotes around any tag that contains a space.
+ */
+export function tagsLength(tags: string[]): number {
+  return tags.reduce((sum, tag, index) => sum + tagCost(tag, index), 0);
+}
+
+/** Cleaned, de-duplicated tags cut to YouTube's total length limit. */
 export function youtubeTags(tags: string[]): string[] {
-  // YouTube caps tags at 500 characters in total, counting a comma between
-  // tags and quotes around any tag that contains a space.
   const result: string[] = [];
   const seen = new Set<string>();
   let length = 0;
   for (const raw of tags) {
-    const tag = raw.replace(/[<>,]/g, "").replace(/\s+/g, " ").trim();
+    const tag = cleanTag(raw);
     const key = tag.toLocaleLowerCase();
     if (!tag || seen.has(key)) continue;
-    const cost = Array.from(tag).length + (tag.includes(" ") ? 2 : 0) + (result.length ? 1 : 0);
+    const cost = tagCost(tag, result.length);
     if (length + cost > MAX_TAGS_LENGTH) break;
     seen.add(key);
     result.push(tag);

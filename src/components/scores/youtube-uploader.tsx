@@ -11,12 +11,15 @@ import {
   createTokenClient,
   loadGoogleOAuth,
   uploadToYouTube,
+  youtubeTags,
   youtubeVideoUrl,
   YouTubeUploadError,
   YOUTUBE_PRIVACY_STATUSES,
   type AccessToken,
   type YouTubePrivacyStatus,
 } from "@/lib/youtube/upload";
+
+import { TagInput } from "./tag-input";
 
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
 
@@ -52,8 +55,8 @@ export function YouTubeUploader({
   const [descriptionOverride, setDescriptionOverride] = useState<string | null>(null);
   const title = titleOverride ?? suggestedTitle;
   const description = descriptionOverride ?? suggestedDescription;
-  const [tagsOverride, setTagsOverride] = useState<string | null>(null);
-  const tagsText = tagsOverride ?? suggestedTags.join(", ");
+  const [tagsOverride, setTagsOverride] = useState<string[] | null>(null);
+  const tags = tagsOverride ?? youtubeTags(suggestedTags);
   const tokenClient = useRef<{ requestAccessToken: () => void } | null>(null);
   const token = useRef<AccessToken | null>(null);
   const abortController = useRef<AbortController | null>(null);
@@ -106,7 +109,7 @@ export function YouTubeUploader({
         file,
         title,
         description,
-        tags: tagsText.split(","),
+        tags,
         privacyStatus: privacy,
         signal: controller.signal,
         onProgress: (fraction) => setStatus({ kind: "uploading", percent: Math.floor(fraction * 100) }),
@@ -196,9 +199,9 @@ export function YouTubeUploader({
           </div>
           <div className="space-y-2">
             <Label htmlFor="youtube-tags">{t("videoTags")}</Label>
-            <textarea id="youtube-tags" value={tagsText} rows={2} disabled={disabled || busy}
-              onChange={(event) => setTagsOverride(event.target.value)} aria-describedby="youtube-tags-help youtube-text-help"
-              className="w-full min-w-0 rounded-md border border-input bg-surface-deep px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
+            <TagInput id="youtube-tags" tags={tags} onChange={setTagsOverride} disabled={disabled || busy}
+              placeholder={t("addTag")} removeLabel={(tag) => t("removeTag", { tag })}
+              describedBy="youtube-tags-help" />
             <p id="youtube-tags-help" className="text-xs text-muted-foreground">{t("tagsHelp")}</p>
           </div>
           <div className="flex flex-wrap items-center gap-3">

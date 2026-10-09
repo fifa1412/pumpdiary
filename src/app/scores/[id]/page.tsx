@@ -110,13 +110,13 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
             <div className="min-w-0 flex-1">
               <h1 className="truncate font-display text-xl font-bold leading-tight">{song.title}</h1>
               <p className="truncate text-xs text-muted-foreground">{song.composer}</p>
-              <div className="mt-1 flex flex-wrap items-baseline gap-x-4">
-                <span className="font-display text-3xl font-bold text-accent">{row.grade}</span>
-                <span className="font-numeric text-2xl font-semibold tabular-nums">{row.score.toLocaleString(locale)}</span>
-                {row.plate || !row.stage_pass ? (
-                  <span className="text-xs font-medium text-muted-foreground">{row.plate ?? t("detail.stageFailed")}</span>
-                ) : null}
-              </div>
+              <p className="mt-1 font-numeric text-2xl font-semibold tabular-nums">{row.score.toLocaleString(locale)}</p>
+            </div>
+            <div className="shrink-0 text-center">
+              <p className="font-display text-3xl font-bold leading-none text-accent">{row.grade}</p>
+              {row.plate || !row.stage_pass ? (
+                <p className="mt-1 text-xs font-medium text-muted-foreground">{row.plate ?? t("detail.stageFailed")}</p>
+              ) : null}
             </div>
             <LevelRingBadge stepType={chart.step_type} level={chart.level} label={stepLabel} size={52} />
           </div>

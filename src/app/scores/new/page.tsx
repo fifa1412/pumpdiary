@@ -75,7 +75,7 @@ export default async function NewScorePage({
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-4 py-8 sm:py-12">
-      <div className="mb-6 w-full max-w-2xl">
+      <div className="mb-6 w-full max-w-2xl lg:max-w-none">
         <h1 className="font-display text-3xl font-bold">{t("pageTitle")}</h1>
       </div>
       <ScoreEntryForm

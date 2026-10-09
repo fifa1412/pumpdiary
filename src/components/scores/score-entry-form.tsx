@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, X } from "lucide-react";
+import { ImageIcon, Loader2, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type MouseEvent } from "react";
@@ -610,7 +610,7 @@ function ScoreEntryFormContent({
   }
 
   return (
-    <div className="relative w-full max-w-2xl">
+    <div className="w-full max-w-2xl lg:grid lg:max-w-none lg:grid-cols-2 lg:items-start lg:gap-6">
       <Card className="w-full">
         <CardHeader>
           <CardTitle className="font-display text-xl">
@@ -630,7 +630,7 @@ function ScoreEntryFormContent({
                 aria-invalid={!!screenshotError} />
               <p id="screenshot-help" className="text-sm text-muted-foreground">{t("fields.screenshotHelp")}</p>
               {initialScore?.screenshotUrl && !screenshot ? (
-                <div className="space-y-2 xl:hidden">
+                <div className="space-y-2 lg:hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={initialScore.screenshotUrl} alt={t("fields.screenshotPreview")} className="max-h-48 max-w-full rounded-md border object-contain" />
                 </div>
@@ -661,7 +661,7 @@ function ScoreEntryFormContent({
                     aria-label={t("fields.screenshotPreview")}
                     aria-haspopup="dialog"
                     onClick={openPreview}
-                    className="cursor-zoom-in rounded-md text-left focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 xl:hidden"
+                    className="cursor-zoom-in rounded-md text-left focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 lg:hidden"
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={previewUrl} alt={t("fields.screenshotPreview")}
@@ -829,22 +829,28 @@ function ScoreEntryFormContent({
           </form>
         </CardContent>
       </Card>
-      {/* On wide screens the screenshot sits large beside the form so the values can be read off it while typing. */}
-      {shownScreenshot ? (
-        <aside className="absolute top-0 bottom-0 left-[calc(100%+1.5rem)] hidden w-[min(36rem,calc((100vw-42rem)/2-3rem))] xl:block">
+      {/* On wide screens the right half holds the screenshot, pinned while the form scrolls, so values can be read off it while typing. */}
+      <aside className="hidden lg:sticky lg:top-20 lg:block">
+        {shownScreenshot ? (
           <button
             type="button"
             aria-label={t("fields.screenshotPreview")}
             aria-haspopup="dialog"
             onClick={openPreview}
-            className="sticky top-20 block w-full cursor-zoom-in rounded-md focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+            className="block w-full cursor-zoom-in rounded-md focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={shownScreenshot.src} alt={t("fields.screenshotPreview")}
               className={`max-h-[calc(100vh-7rem)] w-full rounded-md border object-contain ${shownScreenshot.flipped ? "scale-x-[-1]" : ""}`} />
           </button>
-        </aside>
-      ) : null}
+        ) : (
+          <label htmlFor="screenshot"
+            className="flex aspect-[4/3] w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-md border border-dashed text-sm text-muted-foreground hover:bg-accent/40">
+            <ImageIcon aria-hidden="true" className="size-8" />
+            {t("fields.screenshot")}
+          </label>
+        )}
+      </aside>
     </div>
   );
 }

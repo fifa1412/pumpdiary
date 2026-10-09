@@ -5,7 +5,6 @@
   "addScore": "Add score",
   "myScores": "My scores",
   "noScores": "You have not added any scores yet.",
-  "personalBests": "Personal bests",
   "pagination": {
     "label": "Score history pages",
     "previous": "Previous",

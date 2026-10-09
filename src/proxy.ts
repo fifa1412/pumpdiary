@@ -37,11 +37,10 @@ export async function proxy(request: NextRequest) {
   const isDashboard =
     pathname === "/dashboard" || pathname.startsWith("/dashboard/");
   const isNewScore = pathname === "/scores/new";
-  const isPersonalBests = pathname === "/scores/bests";
   const isNewCabinet = pathname === "/cabinets/new";
   const isEditScore = /^\/scores\/\d+\/edit$/.test(pathname);
   const isAuthPage = pathname === "/login" || pathname === "/register";
-  const redirectPath = !user && (isDashboard || isNewScore || isPersonalBests || isEditScore || isNewCabinet)
+  const redirectPath = !user && (isDashboard || isNewScore || isEditScore || isNewCabinet)
     ? "/login"
     : user && isAuthPage
       ? "/dashboard"

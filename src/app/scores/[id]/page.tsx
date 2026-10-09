@@ -88,7 +88,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
     <div className="mx-auto w-full max-w-6xl flex-1 space-y-6 px-4 py-8 sm:py-12">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Button variant="ghost" asChild>
-          <Link href="/dashboard"><ArrowLeft aria-hidden="true" />{t("personalBests.backToDashboard")}</Link>
+          <Link href="/dashboard"><ArrowLeft aria-hidden="true" />{t("detail.backToDashboard")}</Link>
         </Button>
         <div className="flex flex-wrap gap-2">
           <DeleteScoreButton scoreId={row.id} screenshotPath={row.screenshot_path} youtubeVideoId={row.youtube_video_id}

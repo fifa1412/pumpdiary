@@ -73,10 +73,7 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
       <section aria-labelledby="my-scores-heading" className="space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <h2 id="my-scores-heading" className="font-display text-2xl font-bold">{myScoresLabel}</h2>
-          <div className="flex flex-wrap gap-2">
-            <Button variant="outline" asChild><Link href="/scores/bests">{t("personalBests")}</Link></Button>
-            <Button asChild><Link href="/scores/new">{t("addScore")}</Link></Button>
-          </div>
+          <Button asChild><Link href="/scores/new">{t("addScore")}</Link></Button>
         </div>
         {scoresFailed ? (
           <p role="alert" className="text-sm text-destructive">{tc("errors.generic")}</p>

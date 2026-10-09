@@ -150,6 +150,10 @@
       "private": "Private",
       "public": "Public"
     },
+    "videoTitle": "Video title",
+    "videoDescription": "Video description",
+    "textHelp": "Filled in from the score details above. You can edit them before uploading.",
+    "resetText": "Use the suggested text",
     "upload": "Upload to YouTube",
     "signingIn": "Waiting for Google sign-in…",
     "uploading": "Uploading… {percent}%",

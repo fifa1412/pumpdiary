@@ -19,7 +19,7 @@ import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
 import type { CabinetOption } from "@/components/cabinets/types";
 import { ScreenshotLightbox } from "./screenshot-lightbox";
-import { SongChartPicker } from "./song-chart-picker";
+import { chartPrefix, SongChartPicker, type ChartSelection } from "./song-chart-picker";
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
 import { YouTubeUploader } from "./youtube-uploader";
 
@@ -162,7 +162,7 @@ function ScoreEntryFormContent({
   const [ocrLevel, setOcrLevel] = useState<number>();
   const [songPickerKey, setSongPickerKey] = useState(0);
   const [cabinetId, setCabinetId] = useState(initialCabinetId);
-  const [chartLabel, setChartLabel] = useState("");
+  const [chartSelection, setChartSelection] = useState<ChartSelection | null>(null);
   const [isVideoUploading, setIsVideoUploading] = useState(false);
   const screenshotInput = useRef<HTMLInputElement>(null);
   const ocrDialog = useRef<HTMLDialogElement>(null);
@@ -283,9 +283,29 @@ function ScoreEntryFormContent({
 
   const stagePass = useWatch({ control: form.control, name: "stagePass" });
   const selectedChartId = useWatch({ control: form.control, name: "stepchartId" });
-  const scoreValue = useWatch({ control: form.control, name: "score" });
-  const videoTitle = [chartLabel, Number.isInteger(scoreValue) ? scoreValue.toLocaleString("en-US") : ""]
-    .filter(Boolean).join(" ") || "PumpDiary";
+  const [score, grade, perfect, great, good, bad, miss, maxCombo, playedAt, plate] = useWatch({
+    control: form.control,
+    name: ["score", "grade", "perfect", "great", "good", "bad", "miss", "maxCombo", "playedAt", "plate"],
+  });
+  const hasScore = Number.isInteger(score);
+  const formatCount = (value: number) => value.toLocaleString("en-US");
+  const videoTitle = [
+    chartSelection ? `${chartSelection.songTitle} ${chartPrefix(chartSelection.stepType)}${chartSelection.level}` : "",
+    hasScore ? formatCount(score) : "",
+  ].filter(Boolean).join(" ") || "PumpDiary";
+  const videoDescription = [
+    chartSelection
+      ? `${chartSelection.songTitle} — ${tc(chartSelection.stepType === "SINGLE" ? "stepTypes.single" : chartSelection.stepType === "DOUBLE" ? "stepTypes.double" : "stepTypes.halfDouble")} ${chartSelection.level}`
+      : "",
+    hasScore ? `${t("fields.score")}: ${formatCount(score)} (${grade})${stagePass && plate ? ` · ${plate}` : ""}` : "",
+    hasScore
+      ? ([["perfect", perfect], ["great", great], ["good", good], ["bad", bad], ["miss", miss], ["maxCombo", maxCombo]] as const)
+        .filter(([, value]) => Number.isInteger(value))
+        .map(([name, value]) => `${t(`fields.${name}`)} ${formatCount(value)}`)
+        .join(" · ")
+      : "",
+    validCalendarDate(playedAt) ? `${t("fields.playedAt")}: ${playedAt}` : "",
+  ].filter(Boolean).join("\n");
   const errors = form.formState.errors;
 
   function fieldError(name: keyof typeof errors): string | undefined {
@@ -600,7 +620,7 @@ function ScoreEntryFormContent({
             ocrTitle={ocrTitle}
             ocrStepType={ocrStepType}
             ocrLevel={ocrLevel}
-            onLabelChange={setChartLabel}
+            onSelectionChange={setChartSelection}
             error={fieldError("stepchartId")}
           />
 
@@ -682,7 +702,8 @@ function ScoreEntryFormContent({
           </div>
 
           <YouTubeUploader
-            title={videoTitle}
+            suggestedTitle={videoTitle}
+            suggestedDescription={videoDescription}
             disabled={isSubmitting}
             onBusyChange={setIsVideoUploading}
             onUploaded={(url) => form.setValue("videoUrl", url, { shouldDirty: true, shouldValidate: true })}

@@ -13,7 +13,13 @@ import { createClient } from "@/lib/supabase/client";
 
 import type { SongOption } from "./types";
 
-function chartPrefix(stepType: SongOption["stepcharts"][number]["step_type"]): string {
+export type ChartSelection = {
+  songTitle: string;
+  stepType: SongOption["stepcharts"][number]["step_type"];
+  level: number;
+};
+
+export function chartPrefix(stepType: SongOption["stepcharts"][number]["step_type"]): string {
   return stepType === "SINGLE" ? "S" : stepType === "DOUBLE" ? "D" : "HD";
 }
 
@@ -25,7 +31,7 @@ export function SongChartPicker({
   ocrTitle,
   ocrStepType,
   ocrLevel,
-  onLabelChange,
+  onSelectionChange,
 }: {
   initialSong: SongOption | null;
   selectedChartId: number;
@@ -34,7 +40,7 @@ export function SongChartPicker({
   ocrTitle?: string;
   ocrStepType?: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
   ocrLevel?: number;
-  onLabelChange?: (label: string) => void;
+  onSelectionChange?: (selection: ChartSelection | null) => void;
 }) {
   const t = useTranslations("scores");
   const [song, setSong] = useState<SongOption | null>(initialSong);
@@ -138,13 +144,13 @@ export function SongChartPicker({
   }
 
   const selectedChart = song?.stepcharts.find((chart) => chart.id === selectedChartId);
-  const selectionLabel = song
-    ? [song.title, selectedChart ? `${chartPrefix(selectedChart.step_type)}${selectedChart.level}` : ""].filter(Boolean).join(" ")
-    : "";
+  const songTitle = song?.title;
+  const stepType = selectedChart?.step_type;
+  const level = selectedChart?.level;
 
   useEffect(() => {
-    onLabelChange?.(selectionLabel);
-  }, [onLabelChange, selectionLabel]);
+    onSelectionChange?.(songTitle && stepType && level !== undefined ? { songTitle, stepType, level } : null);
+  }, [onSelectionChange, songTitle, stepType, level]);
 
   const charts = [
     ...playableCharts(song?.stepcharts ?? [], song?.is_available ?? true, selectedChartId),

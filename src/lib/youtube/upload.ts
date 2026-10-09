@@ -10,6 +10,7 @@ const GIS_SCRIPT_URL = "https://accounts.google.com/gsi/client";
 const UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status";
 const GAMING_CATEGORY_ID = "20";
 const MAX_TITLE_LENGTH = 100;
+const MAX_DESCRIPTION_BYTES = 5000;
 const MAX_RETRIES = 5;
 
 export const YOUTUBE_PRIVACY_STATUSES = ["unlisted", "private", "public"] as const;
@@ -117,6 +118,19 @@ export function youtubeTitle(title: string): string {
   return Array.from(cleaned).slice(0, MAX_TITLE_LENGTH).join("") || "PumpDiary";
 }
 
+export function youtubeDescription(description: string): string {
+  // Angle brackets are rejected here too, and the limit is 5000 UTF-8 bytes.
+  const encoder = new TextEncoder();
+  let bytes = 0;
+  let result = "";
+  for (const char of description.replace(/[<>]/g, "").trim()) {
+    bytes += encoder.encode(char).length;
+    if (bytes > MAX_DESCRIPTION_BYTES) break;
+    result += char;
+  }
+  return result;
+}
+
 async function errorCode(status: number, body: string): Promise<YouTubeUploadErrorCode> {
   let reason = "";
   try {
@@ -192,6 +206,7 @@ export async function uploadToYouTube({
   token,
   file,
   title,
+  description,
   privacyStatus,
   signal,
   onProgress,
@@ -199,6 +214,7 @@ export async function uploadToYouTube({
   token: string;
   file: File;
   title: string;
+  description: string;
   privacyStatus: YouTubePrivacyStatus;
   signal: AbortSignal;
   onProgress: (fraction: number) => void;
@@ -215,7 +231,11 @@ export async function uploadToYouTube({
         "X-Upload-Content-Type": file.type || "application/octet-stream",
       },
       body: JSON.stringify({
-        snippet: { title: youtubeTitle(title), categoryId: GAMING_CATEGORY_ID },
+        snippet: {
+          title: youtubeTitle(title),
+          description: youtubeDescription(description),
+          categoryId: GAMING_CATEGORY_ID,
+        },
         status: { privacyStatus, selfDeclaredMadeForKids: false },
       }),
     });

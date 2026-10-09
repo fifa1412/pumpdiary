@@ -28,12 +28,14 @@ type Status =
   | { kind: "error"; key: string };
 
 export function YouTubeUploader({
-  title,
+  suggestedTitle,
+  suggestedDescription,
   disabled,
   onUploaded,
   onBusyChange,
 }: {
-  title: string;
+  suggestedTitle: string;
+  suggestedDescription: string;
   disabled?: boolean;
   onUploaded: (url: string) => void;
   onBusyChange: (busy: boolean) => void;
@@ -43,6 +45,11 @@ export function YouTubeUploader({
   const [privacy, setPrivacy] = useState<YouTubePrivacyStatus>("unlisted");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [isReady, setIsReady] = useState(false);
+  // The title and description follow the score form until the player edits them.
+  const [titleOverride, setTitleOverride] = useState<string | null>(null);
+  const [descriptionOverride, setDescriptionOverride] = useState<string | null>(null);
+  const title = titleOverride ?? suggestedTitle;
+  const description = descriptionOverride ?? suggestedDescription;
   const tokenClient = useRef<{ requestAccessToken: () => void } | null>(null);
   const token = useRef<AccessToken | null>(null);
   const abortController = useRef<AbortController | null>(null);
@@ -94,6 +101,7 @@ export function YouTubeUploader({
         token: accessToken,
         file,
         title,
+        description,
         privacyStatus: privacy,
         signal: controller.signal,
         onProgress: (fraction) => setStatus({ kind: "uploading", percent: Math.floor(fraction * 100) }),
@@ -101,6 +109,8 @@ export function YouTubeUploader({
       onUploaded(youtubeVideoUrl(result.id));
       setStatus({ kind: "done", lockedPrivate: result.privacyStatus === "private" && privacy !== "private" });
       setFile(null);
+      setTitleOverride(null);
+      setDescriptionOverride(null);
       if (fileInput.current) fileInput.current.value = "";
     } catch (error) {
       const code = error instanceof YouTubeUploadError ? error.code : "generic";
@@ -165,6 +175,33 @@ export function YouTubeUploader({
           </select>
         </div>
       </div>
+      {file ? (
+        <div className="space-y-3">
+          <div className="space-y-2">
+            <Label htmlFor="youtube-title">{t("videoTitle")}</Label>
+            <Input id="youtube-title" value={title} maxLength={100} disabled={disabled || busy}
+              onChange={(event) => setTitleOverride(event.target.value)} aria-describedby="youtube-text-help" />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="youtube-description">{t("videoDescription")}</Label>
+            <textarea id="youtube-description" value={description} rows={5} maxLength={5000} disabled={disabled || busy}
+              onChange={(event) => setDescriptionOverride(event.target.value)} aria-describedby="youtube-text-help"
+              className="w-full min-w-0 rounded-md border border-input bg-surface-deep px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm" />
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <p id="youtube-text-help" className="text-sm text-muted-foreground">{t("textHelp")}</p>
+            {titleOverride !== null || descriptionOverride !== null ? (
+              <Button type="button" variant="ghost" size="sm" disabled={disabled || busy}
+                onClick={() => {
+                  setTitleOverride(null);
+                  setDescriptionOverride(null);
+                }}>
+                {t("resetText")}
+              </Button>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
       <div className="flex flex-wrap items-center gap-3">
         <Button type="button" variant="outline" onClick={onUploadClick} disabled={disabled || busy || !isReady || !file}>
           {busy ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Upload aria-hidden="true" />}

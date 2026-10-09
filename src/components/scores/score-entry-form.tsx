@@ -14,6 +14,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
+import { readScreenshotWithAi } from "@/lib/scores/ai-read-client";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { videoDescription, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
 
@@ -390,7 +391,8 @@ function ScoreEntryFormContent({
     const request = ++ocrRequest.current;
     setIsReading(true);
     try {
-      const fields = await recognizeScoreImage(image, flipped, controller.signal);
+      const fields = await readScreenshotWithAi(image, flipped, controller.signal)
+        ?? await recognizeScoreImage(image, flipped, controller.signal);
       if (request === ocrRequest.current) applyOcrFields(fields);
     } catch {
       // OCR is optional; the player can still fill the form manually.

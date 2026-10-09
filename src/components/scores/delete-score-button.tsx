@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
+import { cn } from "@/lib/utils";
 import {
   createTokenClient,
   deleteYouTubeVideo,
@@ -21,6 +22,7 @@ import {
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
 // youtube.force-ssl, the manage-account scope, is what videos.delete accepts.
 const DELETE_SCOPE = YOUTUBE_PLAYLIST_SCOPE;
+const TRIGGER_CLASS = "border-destructive/60 text-destructive hover:bg-destructive/10 hover:text-destructive";
 
 type Phase = "idle" | "signingIn" | "deletingVideo" | "deletingScore" | "videoFailed";
 
@@ -152,11 +154,11 @@ export function DeleteScoreButton({
     <>
       {compact ? (
         <Button type="button" variant="outline" size="icon" onClick={() => setOpen(true)}
-          aria-label={t("delete")} title={t("delete")} className={className}>
+          aria-label={t("delete")} title={t("delete")} className={cn(TRIGGER_CLASS, className)}>
           <Trash2 aria-hidden="true" />
         </Button>
       ) : (
-        <Button type="button" variant="outline" onClick={() => setOpen(true)} className={className}>
+        <Button type="button" variant="outline" onClick={() => setOpen(true)} className={cn(TRIGGER_CLASS, className)}>
           <Trash2 aria-hidden="true" />
           {t("delete")}
         </Button>

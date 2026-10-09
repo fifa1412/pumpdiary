@@ -28,9 +28,6 @@ export async function Hero() {
             <Button size="lg" asChild>
               <Link href="/register">{t("hero.ctaPrimary")}</Link>
             </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="#features">{t("hero.ctaSecondary")}</Link>
-            </Button>
           </div>
         </div>
         <div className="mx-auto w-full max-w-md lg:mx-0 lg:ml-auto">

@@ -110,6 +110,22 @@
     },
     "toasts": {
       "created": "Cabinet added."
+    },
+    "manage": {
+      "title": "Cabinets",
+      "description": "All cabinets in the shared catalog. You can edit or delete the ones you added.",
+      "count": "{count, plural, one {# cabinet} other {# cabinets}}",
+      "empty": "No cabinets yet.",
+      "addedByYou": "Added by you",
+      "edit": "Edit",
+      "save": "Save changes",
+      "editTitle": "Edit cabinet",
+      "updated": "Cabinet updated.",
+      "saveError": "Could not save the cabinet. Please try again.",
+      "delete": "Delete",
+      "deleteConfirm": "Delete {name}? Scores logged on this cabinet stay, but no longer show the cabinet.",
+      "deleted": "Cabinet deleted.",
+      "deleteError": "Could not delete the cabinet. Please try again."
     }
   },
   "editTitle": "Edit score",

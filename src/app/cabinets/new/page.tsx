@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { CabinetCreateForm } from "@/components/cabinets/cabinet-create-form";
+import { CabinetForm } from "@/components/cabinets/cabinet-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCurrentUser } from "@/lib/supabase/server";
 
@@ -33,7 +33,7 @@ export default async function NewCabinetPage({
           <p className="text-sm text-muted-foreground">{t("newDescription")}</p>
         </CardHeader>
         <CardContent>
-          <CabinetCreateForm returnTo={returnTo} chartId={chartId} />
+          <CabinetForm returnTo={returnTo} chartId={chartId} />
         </CardContent>
       </Card>
     </div>

@@ -34,39 +34,35 @@ export function SiteHeader({
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         <Logo compact />
         <nav className="flex min-w-0 items-center gap-1 sm:gap-3">
+          {user ? (
+            <Link
+              href="/dashboard"
+              className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+            >
+              {t("nav.myScores")}
+            </Link>
+          ) : null}
           <Link
             href="/songs"
             className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
           >
             {t("nav.songs")}
           </Link>
-          <Link
-            href="/#features"
-            className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:block"
-          >
-            {t("nav.features")}
-          </Link>
-          <Link
-            href="/#how-it-works"
-            className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground md:block"
-          >
-            {t("nav.howItWorks")}
-          </Link>
           {user ? (
-            <div className="flex items-center gap-1">
+            <>
+              <Link
+                href="/cabinets"
+                className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+              >
+                {t("nav.cabinets")}
+              </Link>
               <span className="hidden max-w-28 truncate text-sm font-medium md:inline">
                 {user.name}
               </span>
-              <Link
-                href="/dashboard"
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {t("nav.dashboard")}
-              </Link>
               <Button className="px-2 sm:px-3" variant="ghost" size="sm" onClick={handleLogout}>
                 {t("nav.logout")}
               </Button>
-            </div>
+            </>
           ) : (
             <div className="flex items-center gap-2">
               <Button className="px-2" variant="ghost" size="sm" asChild>

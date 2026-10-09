@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type MouseEvent } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -166,7 +166,7 @@ function ScoreEntryFormContent({
   const [isVideoUploading, setIsVideoUploading] = useState(false);
   const screenshotInput = useRef<HTMLInputElement>(null);
   const ocrDialog = useRef<HTMLDialogElement>(null);
-  const previewTrigger = useRef<HTMLButtonElement>(null);
+  const previewTrigger = useRef<HTMLElement | null>(null);
   const decodedImage = useRef<Blob | null>(null);
   const ocrRequest = useRef(0);
   const ocrAbortController = useRef<AbortController | null>(null);
@@ -600,227 +600,252 @@ function ScoreEntryFormContent({
     }
   }
 
+  const shownScreenshot = screenshot && previewUrl
+    ? { src: previewUrl, flipped: isFlipped }
+    : initialScore?.screenshotUrl ? { src: initialScore.screenshotUrl, flipped: false } : null;
+
+  function openPreview(event: MouseEvent<HTMLButtonElement>) {
+    previewTrigger.current = event.currentTarget;
+    setIsPreviewOpen(true);
+  }
+
   return (
-    <Card className="w-full max-w-2xl">
-      <CardHeader>
-        <CardTitle className="font-display text-xl">
-          {initialScore
-            ? t.has("editTitle") ? t("editTitle") : t("pageTitle")
-            : t("title")}
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-6">
-          <input type="hidden" {...form.register("stepchartId", { valueAsNumber: true })} />
-          <SongChartPicker
-            key={songPickerKey}
-            initialSong={initialSong}
-            selectedChartId={selectedChartId}
-            onChartChange={onChartChange}
-            ocrTitle={ocrTitle}
-            ocrStepType={ocrStepType}
-            ocrLevel={ocrLevel}
-            onSelectionChange={setChartSelection}
-            error={fieldError("stepchartId")}
-          />
-
-          {!initialScore ? (
-            <CabinetPicker
-              cabinets={cabinets}
-              initialCabinetId={cabinetId}
-              chartId={selectedChartId}
-              onChange={setCabinetId}
-            />
-          ) : null}
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="score">{t("fields.score")}</Label>
-              <Input id="score" type="number" min="0" max="1000000" step="1" inputMode="numeric"
-                aria-invalid={!!errors.score} aria-describedby={errors.score ? "score-error" : undefined}
-                {...form.register("score", { valueAsNumber: true })} />
-              {detectedNote("score")}
-              <FieldError id="score-error" message={fieldError("score")} />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="grade">{t("fields.grade")}</Label>
-              <select id="grade" className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
-                aria-invalid={!!errors.grade} aria-describedby={errors.grade ? "grade-error" : undefined}
-                {...form.register("grade")}>
-                {SCORE_GRADES.map((grade) => <option key={grade} value={grade}>{t(`grades.${grade}`)}</option>)}
-              </select>
-              {detectedNote("grade")}
-              <FieldError id="grade-error" message={fieldError("grade")} />
-            </div>
-          </div>
-
-          <fieldset className="space-y-3">
-            <legend className="text-sm font-medium">{t("fields.judgments")}</legend>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {([
-                ["perfect", "fields.perfect"], ["great", "fields.great"],
-                ["good", "fields.good"], ["bad", "fields.bad"],
-                ["miss", "fields.miss"], ["maxCombo", "fields.maxCombo"],
-              ] as const).map(([name, labelKey]) => {
-                const id = `score-${name}`;
-                const error = fieldError(name);
-                return (
-                  <div key={name} className="space-y-2">
-                    <Label htmlFor={id}>{t(labelKey)}</Label>
-                    <Input id={id} type="number" min="0" step="1" inputMode="numeric"
-                      aria-invalid={!!error} aria-describedby={error ? `${id}-error` : undefined}
-                      {...form.register(name, { valueAsNumber: true })} />
-                    {detectedNote(name)}
-                    <FieldError id={`${id}-error`} message={error} />
-                  </div>
-                );
-              })}
-            </div>
-          </fieldset>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="played-at">{t("fields.playedAt")}</Label>
-              <Input id="played-at" type="date" max={today || undefined}
-                aria-invalid={!!errors.playedAt} aria-describedby={errors.playedAt ? "played-at-error" : undefined}
-                {...form.register("playedAt")} onInput={(event) => {
-                  form.setValue("playedAt", event.currentTarget.value, { shouldDirty: true, shouldValidate: true });
-                  captureDateEdited.current = true;
-                  captureDatePrefilled.current = false;
-                  setIsCaptureDateDetected(false);
-                }} />
-              <FieldError id="played-at-error" message={fieldError("playedAt")} />
-              {detectedNote("playedAt")}
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="video-url">{t("fields.videoUrl")}</Label>
-              <Input id="video-url" type="url" placeholder="https://youtu.be/…"
-                aria-invalid={!!errors.videoUrl} aria-describedby={errors.videoUrl ? "video-url-error" : undefined}
-                {...form.register("videoUrl")} />
-              <FieldError id="video-url-error" message={fieldError("videoUrl")} />
-            </div>
-          </div>
-
-          <YouTubeUploader
-            suggestedTitle={videoTitle}
-            suggestedDescription={videoDescription}
-            disabled={isSubmitting}
-            onBusyChange={setIsVideoUploading}
-            onUploaded={(url) => form.setValue("videoUrl", url, { shouldDirty: true, shouldValidate: true })}
-          />
-
-          <div className="space-y-3 rounded-lg border p-4">
-            <div className="flex items-center gap-3">
-              <Input id="stage-pass" type="checkbox" className="size-4 accent-primary"
-                {...form.register("stagePass", {
-                  onChange: (event) => {
-                    if (!event.target.checked) {
-                      form.setValue("plate", "", { shouldValidate: true });
-                    }
-                  },
-                })} />
-              <Label htmlFor="stage-pass">{t("fields.stagePass")}</Label>
-            </div>
-            {detectedNote("stagePass")}
-            <div className="space-y-2">
-              <Label htmlFor="plate">{t("fields.plate")}</Label>
-              <select id="plate" disabled={!stagePass}
-                className="h-9 w-full rounded-md border border-input bg-surface-deep px-3 text-sm disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
-                aria-invalid={!!errors.plate} aria-describedby={errors.plate ? "plate-error" : undefined}
-                {...form.register("plate")}>
-                <option value="">{t("fields.plateNone")}</option>
-                {SCORE_PLATES.map((plate) => <option key={plate} value={plate}>{t(`plates.${plate}`)}</option>)}
-              </select>
-              {detectedNote("plate")}
-              <FieldError id="plate-error" message={fieldError("plate")} />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="note">{t("fields.note")}</Label>
-            <textarea id="note" maxLength={500} rows={4}
-              className="w-full min-w-0 rounded-md border border-input bg-surface-deep px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive md:text-sm"
-              aria-invalid={!!errors.note} aria-describedby={errors.note ? "note-error" : undefined}
-              {...form.register("note")} />
-            <FieldError id="note-error" message={fieldError("note")} />
-          </div>
-
-          <div className="space-y-3">
-            <Label htmlFor="screenshot">{t("fields.screenshot")}</Label>
-            <Input ref={screenshotInput} id="screenshot" type="file" accept="image/webp,image/jpeg,image/png,image/heic,image/heif,.heic,.heif"
-              disabled={isResizing || isSubmitting} onChange={onScreenshotChange}
-              aria-describedby={screenshotError ? "screenshot-error" : "screenshot-help"}
-              aria-invalid={!!screenshotError} />
-            <p id="screenshot-help" className="text-sm text-muted-foreground">{t("fields.screenshotHelp")}</p>
-            {initialScore?.screenshotUrl && !screenshot ? (
-              <div className="space-y-2">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={initialScore.screenshotUrl} alt={t("fields.screenshotPreview")} className="max-h-48 max-w-full rounded-md border object-contain" />
-              </div>
-            ) : null}
-            {isResizing ? <p role="status" className="text-sm text-muted-foreground">{t("fields.resizing")}</p> : null}
-            {isReading ? (
-              <dialog
-                ref={ocrDialog}
-                aria-labelledby="ocr-dialog-title"
-                onCancel={(event) => {
-                  event.preventDefault();
-                  cancelOcr();
-                }}
-                className="fixed inset-0 m-auto w-[min(24rem,calc(100%-2rem))] rounded-lg border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50"
-              >
-                <div className="space-y-5">
-                  <h2 id="ocr-dialog-title" className="text-lg font-semibold">{t("fields.reading")}</h2>
-                  <Button type="button" variant="outline" onClick={cancelOcr}>{t("fields.cancelReading")}</Button>
-                </div>
-              </dialog>
-            ) : null}
-            {screenshotError ? <p id="screenshot-error" role="alert" className="text-sm text-destructive">{screenshotError}</p> : null}
-            {screenshot && previewUrl ? (
-              <div className="flex flex-wrap items-start gap-3">
-                {/* This local preview is an object URL and is revoked when it changes or unmounts. */}
-                <button
-                  ref={previewTrigger}
-                  type="button"
-                  aria-label={t("fields.screenshotPreview")}
-                  aria-haspopup="dialog"
-                  onClick={() => setIsPreviewOpen(true)}
-                  className="cursor-zoom-in rounded-md text-left focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
-                >
+    <div className="relative w-full max-w-2xl">
+      <Card className="w-full">
+        <CardHeader>
+          <CardTitle className="font-display text-xl">
+            {initialScore
+              ? t.has("editTitle") ? t("editTitle") : t("pageTitle")
+              : t("title")}
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-6">
+            <input type="hidden" {...form.register("stepchartId", { valueAsNumber: true })} />
+            <div className="space-y-3">
+              <Label htmlFor="screenshot">{t("fields.screenshot")}</Label>
+              <Input ref={screenshotInput} id="screenshot" type="file" accept="image/webp,image/jpeg,image/png,image/heic,image/heif,.heic,.heif"
+                disabled={isResizing || isSubmitting} onChange={onScreenshotChange}
+                aria-describedby={screenshotError ? "screenshot-error" : "screenshot-help"}
+                aria-invalid={!!screenshotError} />
+              <p id="screenshot-help" className="text-sm text-muted-foreground">{t("fields.screenshotHelp")}</p>
+              {initialScore?.screenshotUrl && !screenshot ? (
+                <div className="space-y-2 xl:hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={previewUrl} alt={t("fields.screenshotPreview")}
-                    className={`max-h-48 max-w-full rounded-md border object-contain ${isFlipped ? "scale-x-[-1]" : ""}`} />
-                </button>
-                <Button type="button" variant="outline" size="sm" onClick={toggleScreenshotFlip} disabled={isReading || isResizing || isSubmitting}
-                  aria-pressed={isFlipped}>
-                  {t("fields.flipScreenshot")}
-                </Button>
-                <Button type="button" variant="outline" size="sm" onClick={removeScreenshot} aria-label={t("fields.removeScreenshot")}>
-                  <X aria-hidden="true" />
-                  {t("fields.removeScreenshot")}
-                </Button>
-              </div>
-            ) : null}
-            {screenshot && previewUrl ? (
-              <ScreenshotLightbox
-                open={isPreviewOpen}
-                src={previewUrl}
-                alt={t("fields.screenshotPreview")}
-                closeLabel={t("fields.closePreview")}
-                onClose={() => setIsPreviewOpen(false)}
-                triggerRef={previewTrigger}
-                flipped={isFlipped}
+                  <img src={initialScore.screenshotUrl} alt={t("fields.screenshotPreview")} className="max-h-48 max-w-full rounded-md border object-contain" />
+                </div>
+              ) : null}
+              {isResizing ? <p role="status" className="text-sm text-muted-foreground">{t("fields.resizing")}</p> : null}
+              {isReading ? (
+                <dialog
+                  ref={ocrDialog}
+                  aria-labelledby="ocr-dialog-title"
+                  onCancel={(event) => {
+                    event.preventDefault();
+                    cancelOcr();
+                  }}
+                  className="fixed inset-0 m-auto w-[min(24rem,calc(100%-2rem))] rounded-lg border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/50"
+                >
+                  <div className="space-y-5">
+                    <h2 id="ocr-dialog-title" className="text-lg font-semibold">{t("fields.reading")}</h2>
+                    <Button type="button" variant="outline" onClick={cancelOcr}>{t("fields.cancelReading")}</Button>
+                  </div>
+                </dialog>
+              ) : null}
+              {screenshotError ? <p id="screenshot-error" role="alert" className="text-sm text-destructive">{screenshotError}</p> : null}
+              {screenshot && previewUrl ? (
+                <div className="flex flex-wrap items-start gap-3">
+                  {/* This local preview is an object URL and is revoked when it changes or unmounts. */}
+                  <button
+                    type="button"
+                    aria-label={t("fields.screenshotPreview")}
+                    aria-haspopup="dialog"
+                    onClick={openPreview}
+                    className="cursor-zoom-in rounded-md text-left focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 xl:hidden"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={previewUrl} alt={t("fields.screenshotPreview")}
+                      className={`max-h-48 max-w-full rounded-md border object-contain ${isFlipped ? "scale-x-[-1]" : ""}`} />
+                  </button>
+                  <Button type="button" variant="outline" size="sm" onClick={toggleScreenshotFlip} disabled={isReading || isResizing || isSubmitting}
+                    aria-pressed={isFlipped}>
+                    {t("fields.flipScreenshot")}
+                  </Button>
+                  <Button type="button" variant="outline" size="sm" onClick={removeScreenshot} aria-label={t("fields.removeScreenshot")}>
+                    <X aria-hidden="true" />
+                    {t("fields.removeScreenshot")}
+                  </Button>
+                </div>
+              ) : null}
+              {shownScreenshot ? (
+                <ScreenshotLightbox
+                  open={isPreviewOpen}
+                  src={shownScreenshot.src}
+                  alt={t("fields.screenshotPreview")}
+                  closeLabel={t("fields.closePreview")}
+                  onClose={() => setIsPreviewOpen(false)}
+                  triggerRef={previewTrigger}
+                  flipped={shownScreenshot.flipped}
+                />
+              ) : null}
+            </div>
+            <SongChartPicker
+              key={songPickerKey}
+              initialSong={initialSong}
+              selectedChartId={selectedChartId}
+              onChartChange={onChartChange}
+              ocrTitle={ocrTitle}
+              ocrStepType={ocrStepType}
+              ocrLevel={ocrLevel}
+              onSelectionChange={setChartSelection}
+              error={fieldError("stepchartId")}
+            />
+
+            {!initialScore ? (
+              <CabinetPicker
+                cabinets={cabinets}
+                initialCabinetId={cabinetId}
+                chartId={selectedChartId}
+                onChange={setCabinetId}
               />
             ) : null}
-          </div>
 
-          {formError ? <p role="alert" className="text-sm text-destructive">{formError}</p> : null}
-          <Button type="submit" className="w-full" disabled={isSubmitting || isResizing || isVideoUploading}>
-            {isSubmitting ? <><Loader2 aria-hidden="true" className="animate-spin" />{t("submit.saving")}</> : t("submit.label")}
-          </Button>
-        </form>
-      </CardContent>
-    </Card>
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="score">{t("fields.score")}</Label>
+                <Input id="score" type="number" min="0" max="1000000" step="1" inputMode="numeric"
+                  aria-invalid={!!errors.score} aria-describedby={errors.score ? "score-error" : undefined}
+                  {...form.register("score", { valueAsNumber: true })} />
+                {detectedNote("score")}
+                <FieldError id="score-error" message={fieldError("score")} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="grade">{t("fields.grade")}</Label>
+                <select id="grade" className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                  aria-invalid={!!errors.grade} aria-describedby={errors.grade ? "grade-error" : undefined}
+                  {...form.register("grade")}>
+                  {SCORE_GRADES.map((grade) => <option key={grade} value={grade}>{t(`grades.${grade}`)}</option>)}
+                </select>
+                {detectedNote("grade")}
+                <FieldError id="grade-error" message={fieldError("grade")} />
+              </div>
+            </div>
+
+            <fieldset className="space-y-3">
+              <legend className="text-sm font-medium">{t("fields.judgments")}</legend>
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {([
+                  ["perfect", "fields.perfect"], ["great", "fields.great"],
+                  ["good", "fields.good"], ["bad", "fields.bad"],
+                  ["miss", "fields.miss"], ["maxCombo", "fields.maxCombo"],
+                ] as const).map(([name, labelKey]) => {
+                  const id = `score-${name}`;
+                  const error = fieldError(name);
+                  return (
+                    <div key={name} className="space-y-2">
+                      <Label htmlFor={id}>{t(labelKey)}</Label>
+                      <Input id={id} type="number" min="0" step="1" inputMode="numeric"
+                        aria-invalid={!!error} aria-describedby={error ? `${id}-error` : undefined}
+                        {...form.register(name, { valueAsNumber: true })} />
+                      {detectedNote(name)}
+                      <FieldError id={`${id}-error`} message={error} />
+                    </div>
+                  );
+                })}
+              </div>
+            </fieldset>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="played-at">{t("fields.playedAt")}</Label>
+                <Input id="played-at" type="date" max={today || undefined}
+                  aria-invalid={!!errors.playedAt} aria-describedby={errors.playedAt ? "played-at-error" : undefined}
+                  {...form.register("playedAt")} onInput={(event) => {
+                    form.setValue("playedAt", event.currentTarget.value, { shouldDirty: true, shouldValidate: true });
+                    captureDateEdited.current = true;
+                    captureDatePrefilled.current = false;
+                    setIsCaptureDateDetected(false);
+                  }} />
+                <FieldError id="played-at-error" message={fieldError("playedAt")} />
+                {detectedNote("playedAt")}
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="video-url">{t("fields.videoUrl")}</Label>
+                <Input id="video-url" type="url" placeholder="https://youtu.be/…"
+                  aria-invalid={!!errors.videoUrl} aria-describedby={errors.videoUrl ? "video-url-error" : undefined}
+                  {...form.register("videoUrl")} />
+                <FieldError id="video-url-error" message={fieldError("videoUrl")} />
+              </div>
+            </div>
+
+            <YouTubeUploader
+              suggestedTitle={videoTitle}
+              suggestedDescription={videoDescription}
+              disabled={isSubmitting}
+              onBusyChange={setIsVideoUploading}
+              onUploaded={(url) => form.setValue("videoUrl", url, { shouldDirty: true, shouldValidate: true })}
+            />
+
+            <div className="space-y-3 rounded-lg border p-4">
+              <div className="flex items-center gap-3">
+                <Input id="stage-pass" type="checkbox" className="size-4 accent-primary"
+                  {...form.register("stagePass", {
+                    onChange: (event) => {
+                      if (!event.target.checked) {
+                        form.setValue("plate", "", { shouldValidate: true });
+                      }
+                    },
+                  })} />
+                <Label htmlFor="stage-pass">{t("fields.stagePass")}</Label>
+              </div>
+              {detectedNote("stagePass")}
+              <div className="space-y-2">
+                <Label htmlFor="plate">{t("fields.plate")}</Label>
+                <select id="plate" disabled={!stagePass}
+                  className="h-9 w-full rounded-md border border-input bg-surface-deep px-3 text-sm disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                  aria-invalid={!!errors.plate} aria-describedby={errors.plate ? "plate-error" : undefined}
+                  {...form.register("plate")}>
+                  <option value="">{t("fields.plateNone")}</option>
+                  {SCORE_PLATES.map((plate) => <option key={plate} value={plate}>{t(`plates.${plate}`)}</option>)}
+                </select>
+                {detectedNote("plate")}
+                <FieldError id="plate-error" message={fieldError("plate")} />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="note">{t("fields.note")}</Label>
+              <textarea id="note" maxLength={500} rows={4}
+                className="w-full min-w-0 rounded-md border border-input bg-surface-deep px-3 py-2 text-base outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive md:text-sm"
+                aria-invalid={!!errors.note} aria-describedby={errors.note ? "note-error" : undefined}
+                {...form.register("note")} />
+              <FieldError id="note-error" message={fieldError("note")} />
+            </div>
+
+            {formError ? <p role="alert" className="text-sm text-destructive">{formError}</p> : null}
+            <Button type="submit" className="w-full" disabled={isSubmitting || isResizing || isVideoUploading}>
+              {isSubmitting ? <><Loader2 aria-hidden="true" className="animate-spin" />{t("submit.saving")}</> : t("submit.label")}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+      {/* On wide screens the screenshot sits large beside the form so the values can be read off it while typing. */}
+      {shownScreenshot ? (
+        <aside className="absolute top-0 bottom-0 left-[calc(100%+1.5rem)] hidden w-[min(36rem,calc((100vw-42rem)/2-3rem))] xl:block">
+          <button
+            type="button"
+            aria-label={t("fields.screenshotPreview")}
+            aria-haspopup="dialog"
+            onClick={openPreview}
+            className="sticky top-20 block w-full cursor-zoom-in rounded-md focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={shownScreenshot.src} alt={t("fields.screenshotPreview")}
+              className={`max-h-[calc(100vh-7rem)] w-full rounded-md border object-contain ${shownScreenshot.flipped ? "scale-x-[-1]" : ""}`} />
+          </button>
+        </aside>
+      ) : null}
+    </div>
   );
 }
 

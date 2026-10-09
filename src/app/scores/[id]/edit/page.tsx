@@ -28,7 +28,7 @@ export default async function EditScorePage({
   const supabase = await createClient();
   const { data: row, error } = await supabase
     .from("scores")
-    .select("id, user_id, stepchart_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, note, plate, stage_pass, screenshot_path, cabinet_id, cabinet:cabinets(id, serial_number, name, location, country, model), stepchart:stepcharts!scores_stepchart_id_fkey(id, song_id)")
+    .select("id, user_id, stepchart_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet_id, cabinet:cabinets(id, serial_number, name, location, country, model), stepchart:stepcharts!scores_stepchart_id_fkey(id, song_id)")
     .eq("id", Number(rawId))
     .eq("user_id", user.id)
     .maybeSingle();
@@ -63,6 +63,7 @@ export default async function EditScorePage({
     maxCombo: row.max_combo,
     playedAt: row.played_at.slice(0, 10),
     videoUrl: row.video_url ?? "",
+    youtubeVideoId: row.youtube_video_id ?? null,
     note: row.note ?? "",
     plate: (row.plate ?? "") as EditableScore["plate"],
     stagePass: row.stage_pass,

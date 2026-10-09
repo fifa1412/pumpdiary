@@ -17,6 +17,7 @@ import { createClient } from "@/lib/supabase/client";
 import { readScreenshotWithAi } from "@/lib/scores/ai-read-client";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { matchSongTitle } from "@/lib/songs/fuzzy-match";
+import { youtubeVideoId } from "@/lib/youtube/video-id";
 import { playlistTitle, videoDescription, videoTags, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
 
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
@@ -40,6 +41,8 @@ export type EditableScore = {
   maxCombo: number;
   playedAt: string;
   videoUrl: string;
+  /** Set when the video was uploaded through PumpDiary. */
+  youtubeVideoId: string | null;
   note: string;
   plate: (typeof SCORE_PLATES)[number] | "";
   stagePass: boolean;
@@ -173,6 +176,7 @@ function ScoreEntryFormContent({
   const cabinetChosenByPlayer = useRef(initialCabinetId !== null);
   const [chartSelection, setChartSelection] = useState<ChartSelection | null>(null);
   const [isVideoUploading, setIsVideoUploading] = useState(false);
+  const [uploadedVideoId, setUploadedVideoId] = useState<string | null>(null);
   const [aiBudgetRefresh, setAiBudgetRefresh] = useState(0);
   const screenshotInput = useRef<HTMLInputElement>(null);
   const ocrDialog = useRef<HTMLDialogElement>(null);
@@ -519,6 +523,12 @@ function ScoreEntryFormContent({
     }
   }
 
+  // Only a video this app uploaded is remembered, and only while the link still points at it.
+  function ownedVideoId(videoUrl: string): string | null {
+    const linked = youtubeVideoId(videoUrl.trim());
+    return linked && (linked === uploadedVideoId || linked === initialScore?.youtubeVideoId) ? linked : null;
+  }
+
   async function onSubmit(values: z.infer<typeof schema>) {
     setFormError("");
     setScreenshotError("");
@@ -560,6 +570,7 @@ function ScoreEntryFormContent({
         miss: values.miss,
         max_combo: values.maxCombo,
         video_url: values.videoUrl.trim() || null,
+        youtube_video_id: ownedVideoId(values.videoUrl),
         played_at: playedAt,
         note: values.note.trim() || null,
         plate: values.stagePass && values.plate ? values.plate : null,
@@ -812,7 +823,10 @@ function ScoreEntryFormContent({
               suggestedPlaylist={playlistTitle(videoText)}
               disabled={isSubmitting}
               onBusyChange={setIsVideoUploading}
-              onUploaded={(url) => form.setValue("videoUrl", url, { shouldDirty: true, shouldValidate: true })}
+              onUploaded={(url) => {
+                setUploadedVideoId(youtubeVideoId(url));
+                form.setValue("videoUrl", url, { shouldDirty: true, shouldValidate: true });
+              }}
             />
 
             <div className="space-y-3 rounded-lg border p-4">

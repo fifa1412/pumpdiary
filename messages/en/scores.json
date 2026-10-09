@@ -216,7 +216,20 @@
     "note": "Note",
     "video": "Video",
     "videoHint": "If the video does not play here, it may be private.",
-    "openOnYouTube": "Open on YouTube"
+    "openOnYouTube": "Open on YouTube",
+    "delete": "Delete",
+    "deleteTitle": "Delete this score?",
+    "deleteBody": "The score and its screenshot are removed from PumpDiary. This cannot be undone.",
+    "deleteVideo": "Also delete the video on YouTube",
+    "deleteVideoHelp": "The video is deleted from your channel for good, with its views and comments. Sign in with the Google account that uploaded it.",
+    "cancel": "Cancel",
+    "confirmDelete": "Delete score",
+    "deleting": "Deleting…",
+    "videoDeleteFailed": "Could not delete the YouTube video. Delete the score anyway?",
+    "deleteScoreOnly": "Delete score only",
+    "deleted": "Score deleted.",
+    "deletedWithVideo": "Score and YouTube video deleted.",
+    "deleteError": "Could not delete the score. Please try again."
   },
   "aiBudget": {
     "label": "AI screenshot reading",

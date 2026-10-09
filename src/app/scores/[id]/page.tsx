@@ -5,6 +5,7 @@ import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 
+import { DeleteScoreButton } from "@/components/scores/delete-score-button";
 import { ScreenshotZoom } from "@/components/scores/screenshot-zoom";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ type ScoreDetail = {
   max_combo: number;
   played_at: string;
   video_url: string | null;
+  youtube_video_id: string | null;
   note: string | null;
   plate: string | null;
   stage_pass: boolean;
@@ -57,7 +59,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("scores")
-    .select("id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location, model), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, composer, jacket_path))")
+    .select("id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location, model), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, composer, jacket_path))")
     .eq("id", Number(rawId))
     .eq("user_id", user.id)
     .maybeSingle();
@@ -87,9 +89,12 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
         <Button variant="ghost" asChild>
           <Link href="/dashboard"><ArrowLeft aria-hidden="true" />{t("personalBests.backToDashboard")}</Link>
         </Button>
-        <Button asChild>
-          <Link href={`/scores/${row.id}/edit`}><Wrench aria-hidden="true" />{t("detail.edit")}</Link>
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <DeleteScoreButton scoreId={row.id} screenshotPath={row.screenshot_path} youtubeVideoId={row.youtube_video_id} />
+          <Button asChild>
+            <Link href={`/scores/${row.id}/edit`}><Wrench aria-hidden="true" />{t("detail.edit")}</Link>
+          </Button>
+        </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2 lg:items-start">

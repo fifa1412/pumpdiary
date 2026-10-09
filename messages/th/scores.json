@@ -216,7 +216,20 @@
     "note": "บันทึกเพิ่มเติม",
     "video": "วิดีโอ",
     "videoHint": "ถ้าวิดีโอไม่เล่นในหน้านี้ อาจเป็นเพราะวิดีโอถูกตั้งเป็นส่วนตัว",
-    "openOnYouTube": "เปิดใน YouTube"
+    "openOnYouTube": "เปิดใน YouTube",
+    "delete": "ลบ",
+    "deleteTitle": "ลบคะแนนนี้ใช่ไหม",
+    "deleteBody": "คะแนนและภาพหน้าจอจะถูกลบออกจาก PumpDiary และกู้คืนไม่ได้",
+    "deleteVideo": "ลบคลิปบน YouTube ด้วย",
+    "deleteVideoHelp": "คลิปจะถูกลบออกจากช่องของคุณถาวร รวมถึงยอดวิวและความคิดเห็น ต้องลงชื่อเข้าใช้ด้วยบัญชี Google ที่ใช้อัปโหลดคลิปนี้",
+    "cancel": "ยกเลิก",
+    "confirmDelete": "ลบคะแนน",
+    "deleting": "กำลังลบ…",
+    "videoDeleteFailed": "ลบคลิปบน YouTube ไม่สำเร็จ จะลบคะแนนต่อเลยไหม",
+    "deleteScoreOnly": "ลบเฉพาะคะแนน",
+    "deleted": "ลบคะแนนแล้ว",
+    "deletedWithVideo": "ลบคะแนนและคลิปบน YouTube แล้ว",
+    "deleteError": "ลบคะแนนไม่สำเร็จ โปรดลองอีกครั้ง"
   },
   "aiBudget": {
     "label": "อ่านภาพด้วย AI",

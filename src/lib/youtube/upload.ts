@@ -97,13 +97,14 @@ export function createTokenClient(
   clientId: string,
   onToken: (token: AccessToken) => void,
   onError: () => void,
+  requiredScope: string = YOUTUBE_UPLOAD_SCOPE,
 ): TokenClient {
   return oauth2.initTokenClient({
     client_id: clientId,
-    scope: YOUTUBE_UPLOAD_SCOPE,
+    scope: requiredScope,
     callback: (response) => {
       if (response.error || !response.access_token
-        || !oauth2.hasGrantedAllScopes(response, YOUTUBE_UPLOAD_SCOPE)) {
+        || !oauth2.hasGrantedAllScopes(response, requiredScope)) {
         onError();
         return;
       }
@@ -386,4 +387,19 @@ export async function addToPlaylist({
     body: { snippet: { playlistId, resourceId: { kind: "youtube#video", videoId } } },
   });
   return { created };
+}
+
+/** Deletes a video from the signed-in channel. A video that is already gone counts as deleted. */
+export async function deleteYouTubeVideo(token: string, videoId: string): Promise<void> {
+  let response: Response;
+  try {
+    response = await fetch(`${API_URL}/videos?id=${encodeURIComponent(videoId)}`, {
+      method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch {
+    throw new YouTubeUploadError("network");
+  }
+  if (response.ok || response.status === 404) return;
+  throw new YouTubeUploadError(await errorCode(response.status, await response.text()));
 }

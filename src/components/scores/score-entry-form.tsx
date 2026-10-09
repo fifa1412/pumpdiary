@@ -829,8 +829,8 @@ function ScoreEntryFormContent({
           </form>
         </CardContent>
       </Card>
-      {/* On wide screens the right half holds the screenshot, pinned while the form scrolls, so values can be read off it while typing. */}
-      <aside className="hidden lg:sticky lg:top-20 lg:block">
+      {/* On wide screens the right half holds the screenshot, pinned and vertically centred in the viewport while the form scrolls, so values can be read off it while typing. */}
+      <aside className="hidden lg:sticky lg:top-20 lg:flex lg:h-[calc(100vh-6rem)] lg:items-center">
         {shownScreenshot ? (
           <button
             type="button"

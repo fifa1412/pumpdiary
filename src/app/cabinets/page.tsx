@@ -32,7 +32,7 @@ export default async function CabinetsPage({
   const supabase = await createClient();
   let request = supabase
     .from("cabinets")
-    .select("id, serial_number, name, location, country, created_by", { count: "exact" })
+    .select("id, serial_number, name, location, country, model, created_by", { count: "exact" })
     .order("name", { ascending: true })
     .limit(CABINET_LIMIT);
   if (query) {
@@ -78,6 +78,8 @@ export default async function CabinetsPage({
                       </CardHeader>
                       <CardContent className="flex h-full flex-col gap-3">
                         <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
+                          <dt className="text-muted-foreground">{t("fields.model")}</dt>
+                          <dd>{cabinet.model ?? "—"}</dd>
                           <dt className="text-muted-foreground">{t("fields.location")}</dt>
                           <dd className="break-words">{cabinet.location}</dd>
                           <dt className="text-muted-foreground">{t("fields.country")}</dt>

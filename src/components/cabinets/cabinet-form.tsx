@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 
-import type { CabinetOption } from "./types";
+import { CABINET_MODELS, type CabinetOption } from "./types";
 
 const COLUMNS = {
   serialNumber: "serial_number",
@@ -39,8 +39,9 @@ export function CabinetForm({ cabinet, returnTo = null, chartId = null }: {
       name: String(form.get("name") ?? "").trim(),
       location: String(form.get("location") ?? "").trim(),
       country: String(form.get("country") ?? "").trim(),
+      model: String(form.get("model") ?? ""),
     };
-    if (Object.values(values).some((value) => !value)) {
+    if (Object.values(values).some((value) => !value) || !(CABINET_MODELS as readonly string[]).includes(values.model)) {
       setError(t("errors.required"));
       return;
     }
@@ -104,6 +105,14 @@ export function CabinetForm({ cabinet, returnTo = null, chartId = null }: {
             defaultValue={cabinet ? cabinet[COLUMNS[name]] : undefined} />
         </div>
       ))}
+      <div className="space-y-2">
+        <Label htmlFor="cabinet-model">{t("fields.model")}</Label>
+        <select id="cabinet-model" name="model" required defaultValue={cabinet?.model ?? ""}
+          className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
+          <option value="" disabled>{t("fields.modelPlaceholder")}</option>
+          {CABINET_MODELS.map((model) => <option key={model} value={model}>{model}</option>)}
+        </select>
+      </div>
       {error ? <p role="alert" className="text-sm text-destructive">{error}</p> : null}
       <Button type="submit" className="w-full" disabled={isSaving}>
         {isSaving ? t("saving") : cabinet ? t("manage.save") : t("submit")}

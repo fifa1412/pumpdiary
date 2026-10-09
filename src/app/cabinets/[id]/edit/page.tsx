@@ -21,7 +21,7 @@ export default async function EditCabinetPage({ params }: { params: Promise<{ id
   const supabase = await createClient();
   const { data: cabinet } = await supabase
     .from("cabinets")
-    .select("id, serial_number, name, location, country")
+    .select("id, serial_number, name, location, country, model")
     .eq("id", Number(rawId))
     .eq("created_by", user.id)
     .maybeSingle();

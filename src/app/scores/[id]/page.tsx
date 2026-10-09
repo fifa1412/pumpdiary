@@ -30,7 +30,7 @@ type ScoreDetail = {
   plate: string | null;
   stage_pass: boolean;
   screenshot_path: string | null;
-  cabinet: { name: string; location: string } | null;
+  cabinet: { name: string; location: string; model: string | null } | null;
   stepchart: {
     step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
     level: number;
@@ -57,7 +57,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("scores")
-    .select("id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, composer, jacket_path))")
+    .select("id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location, model), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, composer, jacket_path))")
     .eq("id", Number(rawId))
     .eq("user_id", user.id)
     .maybeSingle();
@@ -135,7 +135,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
               {row.cabinet ? (
                 <div>
                   <dt className="text-xs text-muted-foreground">{t("detail.cabinet")}</dt>
-                  <dd>{row.cabinet.name}<span className="block text-sm text-muted-foreground">{row.cabinet.location}</span></dd>
+                  <dd>{[row.cabinet.name, row.cabinet.model].filter(Boolean).join(" · ")}<span className="block text-sm text-muted-foreground">{row.cabinet.location}</span></dd>
                 </div>
               ) : null}
               {row.note ? (

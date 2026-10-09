@@ -100,7 +100,9 @@
       "serialNumber": "หมายเลขเครื่อง",
       "name": "ชื่อตู้",
       "location": "สถานที่",
-      "country": "ประเทศ"
+      "country": "ประเทศ",
+        "model": "รุ่นตู้",
+        "modelPlaceholder": "เลือกรุ่นตู้"
     },
     "submit": "เพิ่มตู้",
     "saving": "กำลังบันทึก…",

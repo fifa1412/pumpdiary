@@ -100,7 +100,9 @@
       "serialNumber": "Serial number",
       "name": "Cabinet name",
       "location": "Location",
-      "country": "Country"
+      "country": "Country",
+        "model": "Model",
+        "modelPlaceholder": "Choose a model"
     },
     "submit": "Add cabinet",
     "saving": "Saving…",

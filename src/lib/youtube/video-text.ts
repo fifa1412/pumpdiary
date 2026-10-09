@@ -1,0 +1,70 @@
+// Title and description suggested for a play video uploaded to YouTube, e.g.
+//   [PIU Phoenix 2] Odin S20 - 1 Miss (99.54)
+//
+//   Odin S20 : 1 Miss - Score 995,416 (SSS)
+//   Perfect 1,227 / Great 5 / Good 1 / Bad 0 / Miss 1 / Max Combo 859
+//   Record Date : 2026-10-03 @ Let's Play MBK Center (Thailand)
+//   Player : FIFAZ
+// The text is always English so every upload reads the same on YouTube.
+
+const TITLE_PREFIX = "[PIU Phoenix 2]";
+// Fixed until players can set their own display name for videos.
+const PLAYER_NAME = "FIFAZ";
+
+export type VideoTextInput = {
+  chart: string;
+  score?: number;
+  grade?: string;
+  judgments: { perfect?: number; great?: number; good?: number; bad?: number; miss?: number; maxCombo?: number };
+  recordDate?: string;
+  cabinet?: { name: string; country: string } | null;
+};
+
+function count(value: number): string {
+  return value.toLocaleString("en-US");
+}
+
+function isCount(value: number | undefined): value is number {
+  return Number.isInteger(value);
+}
+
+/** 995416 -> "99.54"; truncated so a near-perfect score never shows as 100.00. */
+export function scorePercent(score: number): string {
+  return (Math.floor(score / 100) / 100).toFixed(2);
+}
+
+function missText(miss: number): string {
+  return miss === 0 ? "ALL COMBO" : `${count(miss)} Miss`;
+}
+
+export function videoTitle({ chart, score, judgments }: VideoTextInput): string {
+  const result = isCount(score) && isCount(judgments.miss)
+    ? ` - ${missText(judgments.miss)} (${scorePercent(score)})`
+    : "";
+  return `${[TITLE_PREFIX, chart].filter(Boolean).join(" ")}${result}`;
+}
+
+export function videoDescription({ chart, score, grade, judgments, recordDate, cabinet }: VideoTextInput): string {
+  const hasScore = isCount(score);
+  const result = hasScore
+    ? [isCount(judgments.miss) ? missText(judgments.miss) : "", `Score ${count(score)}${grade ? ` (${grade})` : ""}`]
+      .filter(Boolean).join(" - ")
+    : "";
+  const counts = hasScore
+    ? ([
+      ["Perfect", judgments.perfect], ["Great", judgments.great], ["Good", judgments.good],
+      ["Bad", judgments.bad], ["Miss", judgments.miss], ["Max Combo", judgments.maxCombo],
+    ] satisfies [string, number | undefined][])
+      .flatMap(([label, value]) => (isCount(value) ? [`${label} ${count(value)}`] : []))
+      .join(" / ")
+    : "";
+  const record = recordDate
+    ? `Record Date : ${recordDate}${cabinet ? ` @ ${cabinet.name} (${cabinet.country})` : ""}`
+    : "";
+  return [
+    [chart, result].filter(Boolean).join(" : "),
+    counts,
+    record,
+    `Player : ${PLAYER_NAME}`,
+  ].filter(Boolean).join("\n");
+}

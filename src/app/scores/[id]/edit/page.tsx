@@ -3,6 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import { ScoreEntryForm, type EditableScore } from "@/components/scores/score-entry-form";
+import type { CabinetOption } from "@/components/cabinets/types";
 import type { SongOption } from "@/components/scores/types";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
 
@@ -27,13 +28,14 @@ export default async function EditScorePage({
   const supabase = await createClient();
   const { data: row, error } = await supabase
     .from("scores")
-    .select("id, user_id, stepchart_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, note, plate, stage_pass, screenshot_path, stepchart:stepcharts!scores_stepchart_id_fkey(id, song_id)")
+    .select("id, user_id, stepchart_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, note, plate, stage_pass, screenshot_path, cabinet_id, cabinet:cabinets(id, serial_number, name, location, country, model), stepchart:stepcharts!scores_stepchart_id_fkey(id, song_id)")
     .eq("id", Number(rawId))
     .eq("user_id", user.id)
     .maybeSingle();
   if (error || !row || row.user_id !== user.id) notFound();
 
   const chart = Array.isArray(row.stepchart) ? row.stepchart[0] : row.stepchart;
+  const cabinet = (Array.isArray(row.cabinet) ? row.cabinet[0] : row.cabinet) as CabinetOption | null | undefined;
   if (!chart) notFound();
   const [{ data: song }, { data: charts }, screenshotResult] = await Promise.all([
     supabase.from("songs").select("id, title, composer, is_available").eq("id", chart.song_id).maybeSingle(),
@@ -73,7 +75,13 @@ export default async function EditScorePage({
       <div className="mb-6 w-full max-w-2xl lg:max-w-none">
         <h1 className="font-display text-3xl font-bold">{t.has("editTitle") ? t("editTitle") : t("pageTitle")}</h1>
       </div>
-      <ScoreEntryForm initialSong={initialSong} initialChartId={row.stepchart_id} initialScore={initialScore} />
+      <ScoreEntryForm
+        initialSong={initialSong}
+        initialChartId={row.stepchart_id}
+        initialScore={initialScore}
+        cabinets={cabinet ? [cabinet] : []}
+        initialCabinetId={cabinet ? row.cabinet_id : null}
+      />
     </div>
   );
 }

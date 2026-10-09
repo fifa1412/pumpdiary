@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
+import { videoDescription, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
 
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
 import type { CabinetOption } from "@/components/cabinets/types";
@@ -283,29 +284,19 @@ function ScoreEntryFormContent({
 
   const stagePass = useWatch({ control: form.control, name: "stagePass" });
   const selectedChartId = useWatch({ control: form.control, name: "stepchartId" });
-  const [score, grade, perfect, great, good, bad, miss, maxCombo, playedAt, plate] = useWatch({
+  const [score, grade, perfect, great, good, bad, miss, maxCombo, playedAt] = useWatch({
     control: form.control,
-    name: ["score", "grade", "perfect", "great", "good", "bad", "miss", "maxCombo", "playedAt", "plate"],
+    name: ["score", "grade", "perfect", "great", "good", "bad", "miss", "maxCombo", "playedAt"],
   });
-  const hasScore = Number.isInteger(score);
-  const formatCount = (value: number) => value.toLocaleString("en-US");
-  const videoTitle = [
-    chartSelection ? `${chartSelection.songTitle} ${chartPrefix(chartSelection.stepType)}${chartSelection.level}` : "",
-    hasScore ? formatCount(score) : "",
-  ].filter(Boolean).join(" ") || "PumpDiary";
-  const videoDescription = [
-    chartSelection
-      ? `${chartSelection.songTitle} — ${tc(chartSelection.stepType === "SINGLE" ? "stepTypes.single" : chartSelection.stepType === "DOUBLE" ? "stepTypes.double" : "stepTypes.halfDouble")} ${chartSelection.level}`
-      : "",
-    hasScore ? `${t("fields.score")}: ${formatCount(score)} (${grade})${stagePass && plate ? ` · ${plate}` : ""}` : "",
-    hasScore
-      ? ([["perfect", perfect], ["great", great], ["good", good], ["bad", bad], ["miss", miss], ["maxCombo", maxCombo]] as const)
-        .filter(([, value]) => Number.isInteger(value))
-        .map(([name, value]) => `${t(`fields.${name}`)} ${formatCount(value)}`)
-        .join(" · ")
-      : "",
-    validCalendarDate(playedAt) ? `${t("fields.playedAt")}: ${playedAt}` : "",
-  ].filter(Boolean).join("\n");
+  const selectedCabinet = cabinets.find((cabinet) => cabinet.id === cabinetId);
+  const videoText: VideoTextInput = {
+    chart: chartSelection ? `${chartSelection.songTitle} ${chartPrefix(chartSelection.stepType)}${chartSelection.level}` : "",
+    score,
+    grade,
+    judgments: { perfect, great, good, bad, miss, maxCombo },
+    recordDate: validCalendarDate(playedAt) ? playedAt : undefined,
+    cabinet: selectedCabinet ?? null,
+  };
   const errors = form.formState.errors;
 
   function fieldError(name: keyof typeof errors): string | undefined {
@@ -779,8 +770,8 @@ function ScoreEntryFormContent({
             </div>
 
             <YouTubeUploader
-              suggestedTitle={videoTitle}
-              suggestedDescription={videoDescription}
+              suggestedTitle={videoTitle(videoText)}
+              suggestedDescription={videoDescription(videoText)}
               disabled={isSubmitting}
               onBusyChange={setIsVideoUploading}
               onUploaded={(url) => form.setValue("videoUrl", url, { shouldDirty: true, shouldValidate: true })}

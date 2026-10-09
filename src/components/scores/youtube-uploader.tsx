@@ -42,7 +42,7 @@ export function YouTubeUploader({
 }) {
   const t = useTranslations("scores.youtube");
   const [file, setFile] = useState<File | null>(null);
-  const [privacy, setPrivacy] = useState<YouTubePrivacyStatus>("unlisted");
+  const [privacy, setPrivacy] = useState<YouTubePrivacyStatus>("public");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [isReady, setIsReady] = useState(false);
   // The title and description follow the score form until the player edits them.

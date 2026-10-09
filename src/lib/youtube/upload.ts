@@ -13,7 +13,7 @@ const MAX_TITLE_LENGTH = 100;
 const MAX_DESCRIPTION_BYTES = 5000;
 const MAX_RETRIES = 5;
 
-export const YOUTUBE_PRIVACY_STATUSES = ["unlisted", "private", "public"] as const;
+export const YOUTUBE_PRIVACY_STATUSES = ["public", "unlisted", "private"] as const;
 export type YouTubePrivacyStatus = (typeof YOUTUBE_PRIVACY_STATUSES)[number];
 
 export type YouTubeUploadErrorCode = "auth" | "noChannel" | "quota" | "network" | "aborted" | "generic";

@@ -9,7 +9,7 @@ import { DeleteScoreButton } from "@/components/scores/delete-score-button";
 import { ScreenshotZoom } from "@/components/scores/screenshot-zoom";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { scoreLabel } from "@/lib/scores/label";
 import { jacketUrl } from "@/lib/songs/jackets";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
@@ -99,21 +99,21 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
         </div>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-        <Card>
-          <CardHeader className="flex flex-row items-center gap-4">
-            {song.jacket_path ? (
-              <div className="relative aspect-[4/3] w-24 shrink-0 overflow-hidden rounded-sm border border-border bg-muted">
-                <Image src={jacketUrl(song.jacket_path)} alt="" fill unoptimized sizes="96px" className="object-cover" />
+      <Card>
+        <CardContent className="grid gap-8 lg:grid-cols-2">
+          <div className="space-y-6">
+            <div className="flex items-center gap-4">
+              {song.jacket_path ? (
+                <div className="relative aspect-[4/3] w-24 shrink-0 overflow-hidden rounded-sm border border-border bg-muted">
+                  <Image src={jacketUrl(song.jacket_path)} alt="" fill unoptimized sizes="96px" className="object-cover" />
+                </div>
+              ) : null}
+              <div className="min-w-0 flex-1">
+                <h1 className="font-display text-2xl font-bold leading-tight">{song.title}</h1>
+                <p className="truncate text-sm text-muted-foreground">{song.composer}</p>
               </div>
-            ) : null}
-            <div className="min-w-0 flex-1">
-              <h1 className="font-display text-2xl font-bold leading-tight">{song.title}</h1>
-              <p className="truncate text-sm text-muted-foreground">{song.composer}</p>
+              <LevelRingBadge stepType={chart.step_type} level={chart.level} label={stepLabel} size={56} />
             </div>
-            <LevelRingBadge stepType={chart.step_type} level={chart.level} label={stepLabel} size={56} />
-          </CardHeader>
-          <CardContent className="space-y-6">
             <div className="flex items-baseline justify-between gap-3">
               <span className="font-display text-4xl font-bold text-accent">{row.grade}</span>
               <span className="font-numeric text-3xl font-semibold tabular-nums">{row.score.toLocaleString(locale)}</span>
@@ -121,7 +121,9 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
             {row.plate || !row.stage_pass ? (
               <p className="text-sm font-medium text-muted-foreground">{row.plate ?? t("detail.stageFailed")}</p>
             ) : null}
+          </div>
 
+          <div className="space-y-6">
             <section aria-labelledby="judgments-heading" className="space-y-3">
               <h2 id="judgments-heading" className="text-sm font-medium">{t("fields.judgments")}</h2>
               <dl className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -152,39 +154,42 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
                 </div>
               ) : null}
             </dl>
-          </CardContent>
-        </Card>
-
-        {videoId || screenshot?.signedUrl ? (
-          <div className="space-y-6 lg:sticky lg:top-20">
-            {videoId ? (
-              <section aria-labelledby="video-heading" className="space-y-2">
-                <h2 id="video-heading" className="text-sm font-medium">{t("detail.video")}</h2>
-                <div className="relative aspect-video overflow-hidden rounded-md border bg-black">
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-                    title={`${song.title} ${stepLabel} ${chart.level}`}
-                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    allowFullScreen
-                    className="absolute inset-0 h-full w-full"
-                  />
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  {t("detail.videoHint")}{" "}
-                  <a href={row.video_url ?? undefined} target="_blank" rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-primary underline-offset-4 hover:underline">
-                    {t("detail.openOnYouTube")}<ExternalLink aria-hidden="true" className="size-3.5" />
-                  </a>
-                </p>
-              </section>
-            ) : null}
-            {screenshot?.signedUrl ? (
-              <ScreenshotZoom src={screenshot.signedUrl} alt={t("fields.screenshotPreview")} closeLabel={t("fields.closePreview")} />
-            ) : null}
           </div>
-        ) : null}
-      </div>
+        </CardContent>
+      </Card>
+
+      {videoId || screenshot?.signedUrl ? (
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
+          {screenshot?.signedUrl ? (
+            <section aria-labelledby="screenshot-heading" className="space-y-2">
+              <h2 id="screenshot-heading" className="text-sm font-medium">{t("detail.screenshot")}</h2>
+              <ScreenshotZoom src={screenshot.signedUrl} alt={t("fields.screenshotPreview")} closeLabel={t("fields.closePreview")} />
+            </section>
+          ) : null}
+          {videoId ? (
+            <section aria-labelledby="video-heading" className="space-y-2">
+              <h2 id="video-heading" className="text-sm font-medium">{t("detail.video")}</h2>
+              <div className="relative aspect-video overflow-hidden rounded-md border bg-black">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+                  title={`${song.title} ${stepLabel} ${chart.level}`}
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                  className="absolute inset-0 h-full w-full"
+                />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {t("detail.videoHint")}{" "}
+                <a href={row.video_url ?? undefined} target="_blank" rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-primary underline-offset-4 hover:underline">
+                  {t("detail.openOnYouTube")}<ExternalLink aria-hidden="true" className="size-3.5" />
+                </a>
+              </p>
+            </section>
+          ) : null}
+        </div>
+      ) : null}
     </div>
   );
 }

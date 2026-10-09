@@ -209,6 +209,7 @@
     "cabinet": "Cabinet",
     "note": "Note",
     "video": "Video",
+    "screenshot": "Screenshot",
     "videoHint": "If the video does not play here, it may be private.",
     "openOnYouTube": "Open on YouTube",
     "backToDashboard": "Back to dashboard",

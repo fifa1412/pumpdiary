@@ -28,11 +28,16 @@ export function DeleteScoreButton({
   scoreId,
   screenshotPath,
   youtubeVideoId,
+  compact = false,
+  className,
 }: {
   scoreId: number;
   screenshotPath: string | null;
   /** Set only for a video PumpDiary uploaded; other links are never deleted. */
   youtubeVideoId: string | null;
+  /** Icon-only trigger for tight spots such as dashboard cards. */
+  compact?: boolean;
+  className?: string;
 }) {
   const t = useTranslations("scores.detail");
   const ty = useTranslations("scores.youtube");
@@ -145,10 +150,17 @@ export function DeleteScoreButton({
 
   return (
     <>
-      <Button type="button" variant="outline" onClick={() => setOpen(true)}>
-        <Trash2 aria-hidden="true" />
-        {t("delete")}
-      </Button>
+      {compact ? (
+        <Button type="button" variant="outline" size="icon" onClick={() => setOpen(true)}
+          aria-label={t("delete")} title={t("delete")} className={className}>
+          <Trash2 aria-hidden="true" />
+        </Button>
+      ) : (
+        <Button type="button" variant="outline" onClick={() => setOpen(true)} className={className}>
+          <Trash2 aria-hidden="true" />
+          {t("delete")}
+        </Button>
+      )}
       <dialog
         ref={dialog}
         aria-labelledby="delete-score-title"
@@ -156,7 +168,7 @@ export function DeleteScoreButton({
           event.preventDefault();
           close();
         }}
-        className="fixed inset-0 m-auto w-[min(28rem,calc(100%-2rem))] rounded-lg border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/60"
+        className="pointer-events-auto fixed inset-0 m-auto w-[min(28rem,calc(100%-2rem))] rounded-lg border bg-background p-6 text-foreground shadow-lg backdrop:bg-black/60"
       >
         <div className="space-y-4">
           <h2 id="delete-score-title" className="text-lg font-semibold">{t("deleteTitle")}</h2>

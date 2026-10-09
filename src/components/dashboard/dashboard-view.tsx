@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/card";
 import { logoutUser, type CurrentUser } from "@/lib/auth";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
+import { DeleteScoreButton } from "@/components/scores/delete-score-button";
 import { ScreenshotLightbox } from "@/components/scores/screenshot-lightbox";
 import { jacketUrl } from "@/lib/songs/jackets";
 
@@ -27,6 +28,8 @@ export type DashboardScore = {
   grade: string;
   plate: string | null;
   played_at: string;
+  screenshot_path: string | null;
+  youtube_video_id: string | null;
   screenshotUrl: string | null;
   stepchart: {
     step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
@@ -161,11 +164,20 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                                 />
                               </div>
                             ) : null}
-                            <Button variant="outline" size="icon" asChild className="pointer-events-auto relative z-30 size-8">
-                              <Link href={`/scores/${score.id}/edit`} aria-label={ts("editTitle")} title={ts("editTitle")}>
-                                <Wrench aria-hidden="true" />
-                              </Link>
-                            </Button>
+                            <div className="flex flex-col gap-1">
+                              <Button variant="outline" size="icon" asChild className="pointer-events-auto relative z-30 size-7">
+                                <Link href={`/scores/${score.id}/edit`} aria-label={ts("editTitle")} title={ts("editTitle")}>
+                                  <Wrench aria-hidden="true" />
+                                </Link>
+                              </Button>
+                              <DeleteScoreButton
+                                compact
+                                scoreId={score.id}
+                                screenshotPath={score.screenshot_path}
+                                youtubeVideoId={score.youtube_video_id}
+                                className="pointer-events-auto relative z-30 size-7"
+                              />
+                            </div>
                           </div>
                         </div>
                       </CardContent>

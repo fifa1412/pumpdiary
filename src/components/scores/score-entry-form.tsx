@@ -23,6 +23,7 @@ import { playlistTitle, videoDescription, videoTags, videoTitle, type VideoTextI
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
 import type { CabinetOption } from "@/components/cabinets/types";
 import { AiBudgetBar } from "./ai-budget-bar";
+import { DeleteScoreButton } from "./delete-score-button";
 import { ScreenshotLightbox } from "./screenshot-lightbox";
 import { chartPrefix, SongChartPicker, type ChartSelection } from "./song-chart-picker";
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
@@ -870,6 +871,15 @@ function ScoreEntryFormContent({
               {isSubmitting ? <><Loader2 aria-hidden="true" className="animate-spin" />{t("submit.saving")}</> : t("submit.label")}
             </Button>
           </form>
+          {initialScore ? (
+            <div className="mt-6 flex justify-end border-t pt-6">
+              <DeleteScoreButton
+                scoreId={initialScore.id}
+                screenshotPath={initialScore.screenshotPath}
+                youtubeVideoId={initialScore.youtubeVideoId}
+              />
+            </div>
+          ) : null}
         </CardContent>
       </Card>
       {/* On wide screens the right half holds the screenshot, pinned and vertically centred in the viewport while the form scrolls, so values can be read off it while typing. */}

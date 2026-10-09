@@ -25,7 +25,7 @@ Report what the screen shows:
 - grade: the large grade logo (for example SSS+, AA, A+, F).
 - plate: the words under the grade, such as MARVELOUS GAME.
 - perfect, great, good, bad, miss, maxCombo: the numbers beside PERFECT, GREAT, GOOD, BAD, MISS, and MAX COMBO. Ignore KCAL.
-- stagePass: false only when the screen clearly says the stage was failed; true when it was cleared.
+- stagePass: false only when the screen clearly says the stage was failed; true when it shows a plate or otherwise shows the stage was cleared.
 
 Use null for anything you cannot read with confidence. Never guess a number.`;
 

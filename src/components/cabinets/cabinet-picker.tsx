@@ -25,7 +25,7 @@ export function CabinetPicker({
   const filtered = useMemo(() => {
     const search = query.trim().toLocaleLowerCase();
     return cabinets.filter((cabinet) =>
-      [cabinet.serial_number, cabinet.name, cabinet.location, cabinet.country]
+      [cabinet.serial_number, cabinet.name, cabinet.location, cabinet.country, cabinet.model ?? ""]
         .some((value) => value.toLocaleLowerCase().includes(search)),
     );
   }, [cabinets, query]);
@@ -50,7 +50,7 @@ export function CabinetPicker({
         <option value="">{t("none")}</option>
         {filtered.map((cabinet) => (
           <option key={cabinet.id} value={cabinet.id}>
-            {cabinet.name} · {cabinet.location} · {cabinet.serial_number}
+            {[cabinet.name, cabinet.model, cabinet.location, cabinet.serial_number].filter(Boolean).join(" · ")}
           </option>
         ))}
       </select>

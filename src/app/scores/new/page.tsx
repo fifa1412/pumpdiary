@@ -3,16 +3,10 @@ import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
 import { ScoreEntryForm } from "@/components/scores/score-entry-form";
+import type { CabinetOption } from "@/components/cabinets/types";
 import type { SongOption } from "@/components/scores/types";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
 
-type CabinetOption = {
-  id: number;
-  serial_number: string;
-  name: string;
-  location: string;
-  country: string;
-};
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("scores");
@@ -34,7 +28,7 @@ export default async function NewScorePage({
   const supabase = await createClient();
   const { data: cabinets } = await supabase
     .from("cabinets")
-    .select("id, serial_number, name, location, country")
+    .select("id, serial_number, name, location, country, model")
     .order("name")
     .limit(250);
 
@@ -75,7 +69,7 @@ export default async function NewScorePage({
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col items-center px-4 py-8 sm:py-12">
-      <div className="mb-6 w-full max-w-2xl">
+      <div className="mb-6 w-full max-w-2xl lg:max-w-none">
         <h1 className="font-display text-3xl font-bold">{t("pageTitle")}</h1>
       </div>
       <ScoreEntryForm

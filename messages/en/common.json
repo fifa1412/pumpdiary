@@ -4,13 +4,12 @@
     "description": "PumpDiary is your personal Pump It Up diary. Keep your scores, grades, and play videos in one place, and watch yourself improve on every chart."
   },
   "nav": {
-    "features": "Features",
-    "howItWorks": "How it works",
-    "dashboard": "Dashboard",
+    "myScores": "My scores",
+    "songs": "Songs",
+    "cabinets": "Cabinets",
     "login": "Log in",
     "register": "Sign up",
-    "logout": "Log out",
-    "songs": "Songs"
+    "logout": "Log out"
   },
   "language": {
     "switchLabel": "Switch language"

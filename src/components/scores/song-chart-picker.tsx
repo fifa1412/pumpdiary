@@ -13,6 +13,16 @@ import { createClient } from "@/lib/supabase/client";
 
 import type { SongOption } from "./types";
 
+export type ChartSelection = {
+  songTitle: string;
+  stepType: SongOption["stepcharts"][number]["step_type"];
+  level: number;
+};
+
+export function chartPrefix(stepType: SongOption["stepcharts"][number]["step_type"]): string {
+  return stepType === "SINGLE" ? "S" : stepType === "DOUBLE" ? "D" : "HD";
+}
+
 export function SongChartPicker({
   initialSong,
   selectedChartId,
@@ -21,6 +31,7 @@ export function SongChartPicker({
   ocrTitle,
   ocrStepType,
   ocrLevel,
+  onSelectionChange,
 }: {
   initialSong: SongOption | null;
   selectedChartId: number;
@@ -29,6 +40,7 @@ export function SongChartPicker({
   ocrTitle?: string;
   ocrStepType?: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
   ocrLevel?: number;
+  onSelectionChange?: (selection: ChartSelection | null) => void;
 }) {
   const t = useTranslations("scores");
   const [song, setSong] = useState<SongOption | null>(initialSong);
@@ -131,6 +143,15 @@ export function SongChartPicker({
     onChartChange(chartId);
   }
 
+  const selectedChart = song?.stepcharts.find((chart) => chart.id === selectedChartId);
+  const songTitle = song?.title;
+  const stepType = selectedChart?.step_type;
+  const level = selectedChart?.level;
+
+  useEffect(() => {
+    onSelectionChange?.(songTitle && stepType && level !== undefined ? { songTitle, stepType, level } : null);
+  }, [onSelectionChange, songTitle, stepType, level]);
+
   const charts = [
     ...playableCharts(song?.stepcharts ?? [], song?.is_available ?? true, selectedChartId),
   ].sort((a, b) => {
@@ -211,11 +232,7 @@ export function SongChartPicker({
               <p className="text-sm font-medium">{t("picker.chooseChart")}</p>
               <div className="flex flex-wrap gap-2">
                 {charts.map((chart) => {
-                  const prefix = chart.step_type === "SINGLE"
-                    ? "S"
-                    : chart.step_type === "DOUBLE"
-                      ? "D"
-                      : "HD";
+                  const prefix = chartPrefix(chart.step_type);
                   return (
                     <Button
                       key={chart.id}

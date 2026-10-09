@@ -100,7 +100,9 @@
       "serialNumber": "Serial number",
       "name": "Cabinet name",
       "location": "Location",
-      "country": "Country"
+      "country": "Country",
+        "model": "Model",
+        "modelPlaceholder": "Choose a model"
     },
     "submit": "Add cabinet",
     "saving": "Saving…",
@@ -110,6 +112,22 @@
     },
     "toasts": {
       "created": "Cabinet added."
+    },
+    "manage": {
+      "title": "Cabinets",
+      "description": "All cabinets in the shared catalog. You can edit or delete the ones you added.",
+      "count": "{count, plural, one {# cabinet} other {# cabinets}}",
+      "empty": "No cabinets yet.",
+      "addedByYou": "Added by you",
+      "edit": "Edit",
+      "save": "Save changes",
+      "editTitle": "Edit cabinet",
+      "updated": "Cabinet updated.",
+      "saveError": "Could not save the cabinet. Please try again.",
+      "delete": "Delete",
+      "deleteConfirm": "Delete {name}? Scores logged on this cabinet stay, but no longer show the cabinet.",
+      "deleted": "Cabinet deleted.",
+      "deleteError": "Could not delete the cabinet. Please try again."
     }
   },
   "editTitle": "Edit score",
@@ -139,5 +157,49 @@
     "empty": "No scores have been recorded for this chart yet.",
     "error": "Could not load the leaderboard. Please try again.",
     "unknownPlayer": "Unknown player"
+  },
+  "youtube": {
+    "title": "Upload a video to YouTube",
+    "help": "The video goes to your own YouTube channel. Sign in with Google when asked; the link fills in the YouTube URL field when the upload finishes.",
+    "file": "Video file",
+    "privacy": "Visibility",
+    "privacyOptions": {
+      "unlisted": "Unlisted",
+      "private": "Private",
+      "public": "Public"
+    },
+    "videoTitle": "Video title",
+    "videoDescription": "Video description",
+    "textHelp": "Filled in from the score details above. You can edit them before uploading.",
+    "resetText": "Use the suggested text",
+    "upload": "Upload to YouTube",
+    "signingIn": "Waiting for Google sign-in…",
+    "uploading": "Uploading… {percent}%",
+    "progressLabel": "Upload progress",
+    "cancel": "Cancel upload",
+    "done": "Uploaded. The link was added to the YouTube URL field. YouTube may take a few minutes to process the video.",
+    "lockedPrivate": "YouTube set this video to Private. You can change its visibility in YouTube Studio.",
+    "errors": {
+      "chooseFile": "Choose a video file first.",
+      "fileType": "Choose a video file.",
+      "signIn": "Google sign-in was cancelled or did not grant upload access.",
+      "unavailable": "Could not load Google sign-in. Check your connection and reload the page.",
+      "auth": "Google did not accept the upload. Sign in again and retry.",
+      "noChannel": "This Google account has no YouTube channel yet. Create one on YouTube, then try again.",
+      "quota": "YouTube's daily upload limit was reached. Try again tomorrow.",
+      "network": "The upload was interrupted. Check your connection and try again.",
+      "generic": "Could not upload the video. Please try again."
+    }
+  },
+  "detail": {
+    "title": "Score details",
+    "edit": "Edit",
+    "stageFailed": "Stage failed",
+    "playedAt": "Played on",
+    "cabinet": "Cabinet",
+    "note": "Note",
+    "video": "Video",
+    "videoHint": "If the video does not play here, it may be private.",
+    "openOnYouTube": "Open on YouTube"
   }
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { Wrench } from "lucide-react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
@@ -96,7 +97,7 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                 <li key={score.id} className="h-full">
                   <Card className="group relative flex h-full min-h-0 flex-col gap-0 overflow-hidden p-0 transition-colors hover:border-primary/50">
                     <Link
-                      href={`/scores/${score.id}/edit`}
+                      href={`/scores/${score.id}`}
                       aria-label={chart.song.title}
                       className="absolute inset-0 z-0 rounded-[3px] focus-visible:z-20 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
                     >
@@ -147,18 +148,25 @@ export function DashboardView({ user, scores, scoresFailed = false, historyPage,
                             {score.plate ? <p className="truncate text-xs font-medium text-muted-foreground">{score.plate}</p> : null}
                             <p className="text-sm text-muted-foreground">{playedDate}</p>
                           </div>
-                          {chart.song.jacket_path ? (
-                            <div className="relative aspect-[4/3] w-16 shrink-0 overflow-hidden rounded-sm border border-border bg-muted">
-                              <Image
-                                src={jacketUrl(chart.song.jacket_path)}
-                                alt=""
-                                fill
-                                unoptimized
-                                sizes="64px"
-                                className="object-cover"
-                              />
-                            </div>
-                          ) : null}
+                          <div className="flex shrink-0 items-end gap-1.5">
+                            {chart.song.jacket_path ? (
+                              <div className="relative aspect-[4/3] w-14 shrink-0 overflow-hidden rounded-sm border border-border bg-muted">
+                                <Image
+                                  src={jacketUrl(chart.song.jacket_path)}
+                                  alt=""
+                                  fill
+                                  unoptimized
+                                  sizes="56px"
+                                  className="object-cover"
+                                />
+                              </div>
+                            ) : null}
+                            <Button variant="outline" size="icon" asChild className="pointer-events-auto relative z-30 size-8">
+                              <Link href={`/scores/${score.id}/edit`} aria-label={ts("editTitle")} title={ts("editTitle")}>
+                                <Wrench aria-hidden="true" />
+                              </Link>
+                            </Button>
+                          </div>
                         </div>
                       </CardContent>
                     </div>

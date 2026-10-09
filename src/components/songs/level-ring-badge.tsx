@@ -1,3 +1,6 @@
+import Image from "next/image";
+
+import { levelBadgeUrl } from "@/lib/songs/level-badges";
 import { cn } from "@/lib/utils";
 
 type StepType = "SINGLE" | "DOUBLE" | "HALFDOUBLE";
@@ -22,6 +25,21 @@ export function LevelRingBadge({
   className?: string;
 }) {
   const colors = STEP_COLORS[stepType];
+  const badgeUrl = levelBadgeUrl(stepType, level);
+
+  // Use the uploaded badge image when there is one; the drawn ring covers the rest.
+  if (badgeUrl) {
+    return (
+      <span
+        role="img"
+        aria-label={`${label} ${level}`}
+        className={cn("relative inline-flex shrink-0", className)}
+        style={{ width: size, height: size }}
+      >
+        <Image src={badgeUrl} alt="" fill unoptimized sizes={`${size}px`} className="object-contain" />
+      </span>
+    );
+  }
 
   return (
     <span

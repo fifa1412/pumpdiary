@@ -5,9 +5,14 @@
 // picks up where it stopped instead of starting over.
 
 export const YOUTUBE_UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload";
+// Finding, creating, and filling playlists needs the broader manage-account
+// scope; it is only requested when the player asks for a playlist.
+export const YOUTUBE_PLAYLIST_SCOPE = "https://www.googleapis.com/auth/youtube.force-ssl";
 
 const GIS_SCRIPT_URL = "https://accounts.google.com/gsi/client";
 const UPLOAD_URL = "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status";
+const API_URL = "https://www.googleapis.com/youtube/v3";
+const MAX_PLAYLIST_TITLE_LENGTH = 150;
 const GAMING_CATEGORY_ID = "20";
 const MAX_TITLE_LENGTH = 100;
 const MAX_DESCRIPTION_BYTES = 5000;
@@ -33,11 +38,12 @@ export type YouTubeUploadResult = {
 type TokenResponse = {
   access_token?: string;
   expires_in?: number;
+  scope?: string;
   error?: string;
 };
 
 type TokenClient = {
-  requestAccessToken: (overrides?: { prompt?: string }) => void;
+  requestAccessToken: (overrides?: { prompt?: string; scope?: string }) => void;
 };
 
 type GoogleOAuth = {
@@ -82,7 +88,7 @@ export function loadGoogleOAuth(): Promise<GoogleOAuth> {
   return gisScript;
 }
 
-export type AccessToken = { value: string; expiresAt: number };
+export type AccessToken = { value: string; expiresAt: number; scopes: string[] };
 
 // The callback runs once per requestAccessToken() call. requestAccessToken()
 // opens a popup, so it has to run straight from a click handler.
@@ -103,7 +109,7 @@ export function createTokenClient(
       }
       // Treat the token as expired a minute early so an upload never starts on a dying token.
       const lifetime = Math.max(0, (response.expires_in ?? 0) - 60) * 1000;
-      onToken({ value: response.access_token, expiresAt: Date.now() + lifetime });
+      onToken({ value: response.access_token, expiresAt: Date.now() + lifetime, scopes: response.scope?.split(" ") ?? [] });
     },
     error_callback: onError,
   });
@@ -312,4 +318,72 @@ export async function uploadToYouTube({
       throw new YouTubeUploadError("generic");
     }
   }
+}
+
+export function youtubePlaylistTitle(title: string): string {
+  const cleaned = title.replace(/[<>]/g, "").replace(/\s+/g, " ").trim();
+  return Array.from(cleaned).slice(0, MAX_PLAYLIST_TITLE_LENGTH).join("");
+}
+
+async function youtubeApi<T>(token: string, path: string, init?: { method: "POST"; body: unknown }): Promise<T> {
+  let response: Response;
+  try {
+    response = await fetch(`${API_URL}${path}`, {
+      method: init?.method ?? "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        ...(init ? { "Content-Type": "application/json; charset=UTF-8" } : {}),
+      },
+      body: init ? JSON.stringify(init.body) : undefined,
+    });
+  } catch {
+    throw new YouTubeUploadError("network");
+  }
+  if (!response.ok) throw new YouTubeUploadError(await errorCode(response.status, await response.text()));
+  return response.json() as Promise<T>;
+}
+
+type PlaylistPage = { items?: { id: string; snippet?: { title?: string } }[]; nextPageToken?: string };
+
+async function findPlaylist(token: string, title: string): Promise<string | null> {
+  const wanted = title.toLocaleLowerCase();
+  let pageToken = "";
+  // Ten pages of 50 is far more playlists than one channel is likely to have.
+  for (let page = 0; page < 10; page += 1) {
+    const result = await youtubeApi<PlaylistPage>(token, `/playlists?part=snippet&mine=true&maxResults=50${pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ""}`);
+    const match = result.items?.find((item) => item.snippet?.title?.trim().toLocaleLowerCase() === wanted);
+    if (match) return match.id;
+    if (!result.nextPageToken) return null;
+    pageToken = result.nextPageToken;
+  }
+  return null;
+}
+
+/** Adds the video to the channel's playlist with this title, creating the playlist first if needed. */
+export async function addToPlaylist({
+  token,
+  videoId,
+  playlistTitle,
+  privacyStatus,
+}: {
+  token: string;
+  videoId: string;
+  playlistTitle: string;
+  privacyStatus: YouTubePrivacyStatus;
+}): Promise<{ created: boolean }> {
+  const title = youtubePlaylistTitle(playlistTitle);
+  let playlistId = await findPlaylist(token, title);
+  const created = playlistId === null;
+  if (!playlistId) {
+    const playlist = await youtubeApi<{ id: string }>(token, "/playlists?part=snippet,status", {
+      method: "POST",
+      body: { snippet: { title }, status: { privacyStatus } },
+    });
+    playlistId = playlist.id;
+  }
+  await youtubeApi(token, "/playlistItems?part=snippet", {
+    method: "POST",
+    body: { snippet: { playlistId, resourceId: { kind: "youtube#video", videoId } } },
+  });
+  return { created };
 }

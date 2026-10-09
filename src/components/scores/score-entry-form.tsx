@@ -17,7 +17,7 @@ import { createClient } from "@/lib/supabase/client";
 import { readScreenshotWithAi } from "@/lib/scores/ai-read-client";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { matchSongTitle } from "@/lib/songs/fuzzy-match";
-import { videoDescription, videoTags, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
+import { playlistTitle, videoDescription, videoTags, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
 
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
 import type { CabinetOption } from "@/components/cabinets/types";
@@ -805,6 +805,7 @@ function ScoreEntryFormContent({
               suggestedTitle={videoTitle(videoText)}
               suggestedDescription={videoDescription(videoText)}
               suggestedTags={videoTags(videoText)}
+              suggestedPlaylist={playlistTitle(videoText)}
               disabled={isSubmitting}
               onBusyChange={setIsVideoUploading}
               onUploaded={(url) => form.setValue("videoUrl", url, { shouldDirty: true, shouldValidate: true })}

@@ -56,6 +56,11 @@ export function videoTitle({ chart, score, judgments }: VideoTextInput): string 
   return `${[TITLE_PREFIX, chart].filter(Boolean).join(" ")}${result}`;
 }
 
+/** One playlist per chart level, e.g. "PIU Phoenix 2 - Single Lv. 20". */
+export function playlistTitle({ song }: VideoTextInput): string {
+  return song ? `PIU Phoenix 2 - ${STEP_TYPE_NAMES[song.stepType]} Lv. ${song.level}` : "PIU Phoenix 2";
+}
+
 /** Song title, chart level tags, then the game tags. */
 export function videoTags({ song }: VideoTextInput): string[] {
   const chartTags = song

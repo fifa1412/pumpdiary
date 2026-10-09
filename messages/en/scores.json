@@ -176,6 +176,16 @@
     "tagsHelp": "Press Enter or type a comma after each tag. Click × to remove one.",
     "addTag": "Add a tag",
     "removeTag": "Remove tag {tag}",
+    "addToPlaylist": "Add to playlist",
+    "playlistName": "Playlist name",
+    "playlistHelp": "The video goes into your playlist with this name. If you don't have one yet, it is created.",
+    "addingToPlaylist": "Adding to playlist…",
+    "playlist": {
+      "added": "Added to the playlist “{title}”.",
+      "created": "Created the playlist “{title}” and added the video.",
+      "failed": "The video was uploaded, but it could not be added to the playlist.",
+      "notAllowed": "The video was uploaded, but playlist access was not allowed, so it was not added to a playlist."
+    },
     "textHelp": "Filled in from the score details above. You can edit them before uploading.",
     "resetText": "Use the suggested text",
     "upload": "Upload to YouTube",

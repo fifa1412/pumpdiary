@@ -8,13 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
+  addToPlaylist,
   createTokenClient,
   loadGoogleOAuth,
   uploadToYouTube,
   youtubeTags,
   youtubeVideoUrl,
   YouTubeUploadError,
+  YOUTUBE_PLAYLIST_SCOPE,
   YOUTUBE_PRIVACY_STATUSES,
+  YOUTUBE_UPLOAD_SCOPE,
   type AccessToken,
   type YouTubePrivacyStatus,
 } from "@/lib/youtube/upload";
@@ -27,13 +30,15 @@ type Status =
   | { kind: "idle" }
   | { kind: "signingIn" }
   | { kind: "uploading"; percent: number }
-  | { kind: "done"; lockedPrivate: boolean }
+  | { kind: "addingToPlaylist" }
+  | { kind: "done"; lockedPrivate: boolean; playlist?: { outcome: "added" | "created" | "failed" | "notAllowed"; title: string } }
   | { kind: "error"; key: string };
 
 export function YouTubeUploader({
   suggestedTitle,
   suggestedDescription,
   suggestedTags,
+  suggestedPlaylist,
   disabled,
   onUploaded,
   onBusyChange,
@@ -41,6 +46,7 @@ export function YouTubeUploader({
   suggestedTitle: string;
   suggestedDescription: string;
   suggestedTags: string[];
+  suggestedPlaylist: string;
   disabled?: boolean;
   onUploaded: (url: string) => void;
   onBusyChange: (busy: boolean) => void;
@@ -57,13 +63,16 @@ export function YouTubeUploader({
   const description = descriptionOverride ?? suggestedDescription;
   const [tagsOverride, setTagsOverride] = useState<string[] | null>(null);
   const tags = tagsOverride ?? youtubeTags(suggestedTags);
-  const tokenClient = useRef<{ requestAccessToken: () => void } | null>(null);
+  const [usePlaylist, setUsePlaylist] = useState(true);
+  const [playlistOverride, setPlaylistOverride] = useState<string | null>(null);
+  const playlist = playlistOverride ?? suggestedPlaylist;
+  const tokenClient = useRef<{ requestAccessToken: (overrides?: { scope?: string }) => void } | null>(null);
   const token = useRef<AccessToken | null>(null);
   const abortController = useRef<AbortController | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
-  const startUpload = useRef<(accessToken: string) => void>(() => {});
+  const startUpload = useRef<(accessToken: AccessToken) => void>(() => {});
 
-  const busy = status.kind === "signingIn" || status.kind === "uploading";
+  const busy = status.kind === "signingIn" || status.kind === "uploading" || status.kind === "addingToPlaylist";
 
   useEffect(() => {
     onBusyChange(busy);
@@ -84,7 +93,7 @@ export function YouTubeUploader({
           GOOGLE_CLIENT_ID,
           (accessToken) => {
             token.current = accessToken;
-            startUpload.current(accessToken.value);
+            startUpload.current(accessToken);
           },
           () => setStatus({ kind: "error", key: "errors.signIn" }),
         );
@@ -98,14 +107,14 @@ export function YouTubeUploader({
     };
   }, []);
 
-  async function runUpload(accessToken: string) {
+  async function runUpload(accessToken: AccessToken) {
     if (!file) return;
     const controller = new AbortController();
     abortController.current = controller;
     setStatus({ kind: "uploading", percent: 0 });
     try {
       const result = await uploadToYouTube({
-        token: accessToken,
+        token: accessToken.value,
         file,
         title,
         description,
@@ -115,11 +124,30 @@ export function YouTubeUploader({
         onProgress: (fraction) => setStatus({ kind: "uploading", percent: Math.floor(fraction * 100) }),
       });
       onUploaded(youtubeVideoUrl(result.id));
-      setStatus({ kind: "done", lockedPrivate: result.privacyStatus === "private" && privacy !== "private" });
+      const lockedPrivate = result.privacyStatus === "private" && privacy !== "private";
+      let playlistResult: Extract<Status, { kind: "done" }>["playlist"];
+      const playlistTitle = playlist.trim();
+      if (usePlaylist && playlistTitle) {
+        if (accessToken.scopes.includes(YOUTUBE_PLAYLIST_SCOPE)) {
+          setStatus({ kind: "addingToPlaylist" });
+          try {
+            const { created } = await addToPlaylist({
+              token: accessToken.value, videoId: result.id, playlistTitle, privacyStatus: privacy,
+            });
+            playlistResult = { outcome: created ? "created" : "added", title: playlistTitle };
+          } catch {
+            playlistResult = { outcome: "failed", title: playlistTitle };
+          }
+        } else {
+          playlistResult = { outcome: "notAllowed", title: playlistTitle };
+        }
+      }
+      setStatus({ kind: "done", lockedPrivate, playlist: playlistResult });
       setFile(null);
       setTitleOverride(null);
       setDescriptionOverride(null);
       setTagsOverride(null);
+      setPlaylistOverride(null);
       if (fileInput.current) fileInput.current.value = "";
     } catch (error) {
       const code = error instanceof YouTubeUploadError ? error.code : "generic";
@@ -153,12 +181,14 @@ export function YouTubeUploader({
       setStatus({ kind: "error", key: "errors.chooseFile" });
       return;
     }
-    if (token.current && token.current.expiresAt > Date.now()) {
-      void runUpload(token.current.value);
+    const scopes = usePlaylist && playlist.trim() ? [YOUTUBE_UPLOAD_SCOPE, YOUTUBE_PLAYLIST_SCOPE] : [YOUTUBE_UPLOAD_SCOPE];
+    const current = token.current;
+    if (current && current.expiresAt > Date.now() && scopes.every((scope) => current.scopes.includes(scope))) {
+      void runUpload(current);
       return;
     }
     setStatus({ kind: "signingIn" });
-    tokenClient.current?.requestAccessToken();
+    tokenClient.current?.requestAccessToken({ scope: scopes.join(" ") });
   }
 
   return (
@@ -204,14 +234,30 @@ export function YouTubeUploader({
               describedBy="youtube-tags-help" />
             <p id="youtube-tags-help" className="text-xs text-muted-foreground">{t("tagsHelp")}</p>
           </div>
+          <div className="space-y-2">
+            <div className="flex items-center gap-3">
+              <Input id="youtube-use-playlist" type="checkbox" className="size-4 accent-primary" checked={usePlaylist}
+                disabled={disabled || busy} onChange={(event) => setUsePlaylist(event.target.checked)} />
+              <Label htmlFor="youtube-use-playlist">{t("addToPlaylist")}</Label>
+            </div>
+            {usePlaylist ? (
+              <div className="space-y-2">
+                <Label htmlFor="youtube-playlist" className="sr-only">{t("playlistName")}</Label>
+                <Input id="youtube-playlist" value={playlist} maxLength={150} disabled={disabled || busy}
+                  onChange={(event) => setPlaylistOverride(event.target.value)} aria-describedby="youtube-playlist-help" />
+                <p id="youtube-playlist-help" className="text-xs text-muted-foreground">{t("playlistHelp")}</p>
+              </div>
+            ) : null}
+          </div>
           <div className="flex flex-wrap items-center gap-3">
             <p id="youtube-text-help" className="text-sm text-muted-foreground">{t("textHelp")}</p>
-            {titleOverride !== null || descriptionOverride !== null || tagsOverride !== null ? (
+            {titleOverride !== null || descriptionOverride !== null || tagsOverride !== null || playlistOverride !== null ? (
               <Button type="button" variant="ghost" size="sm" disabled={disabled || busy}
                 onClick={() => {
                   setTitleOverride(null);
                   setDescriptionOverride(null);
                   setTagsOverride(null);
+                  setPlaylistOverride(null);
                 }}>
                 {t("resetText")}
               </Button>
@@ -241,10 +287,16 @@ export function YouTubeUploader({
         </div>
       ) : null}
       {status.kind === "signingIn" ? <p role="status" className="text-sm text-muted-foreground">{t("signingIn")}</p> : null}
+      {status.kind === "addingToPlaylist" ? <p role="status" className="text-sm text-muted-foreground">{t("addingToPlaylist")}</p> : null}
       {status.kind === "done" ? (
         <div role="status" className="space-y-1 text-sm text-muted-foreground">
           <p>{t("done")}</p>
           {status.lockedPrivate ? <p>{t("lockedPrivate")}</p> : null}
+          {status.playlist ? (
+            <p className={status.playlist.outcome === "failed" || status.playlist.outcome === "notAllowed" ? "text-destructive" : undefined}>
+              {t(`playlist.${status.playlist.outcome}`, { title: status.playlist.title })}
+            </p>
+          ) : null}
         </div>
       ) : null}
       {status.kind === "error" ? <p role="alert" className="text-sm text-destructive">{t(status.key)}</p> : null}

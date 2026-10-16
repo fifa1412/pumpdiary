@@ -170,6 +170,10 @@
     "tagsHelp": "Press Enter or type a comma after each tag. Click × to remove one.",
     "addTag": "Add a tag",
     "removeTag": "Remove tag {tag}",
+    "thumbnail": "Thumbnail (optional)",
+    "thumbnailHelp": "A JPG or PNG cover image; 1280×720 works best. Leave it empty to let YouTube pick a frame from the video.",
+    "thumbnailPreview": "Thumbnail preview",
+    "removeThumbnail": "Remove thumbnail",
     "addToPlaylist": "Add to playlist",
     "playlistName": "Playlist name",
     "playlistHelp": "The video goes into your playlist with this name. If you don't have one yet, it is created.",
@@ -179,6 +183,12 @@
       "created": "Created the playlist “{title}” and added the video.",
       "failed": "The video was uploaded, but it could not be added to the playlist.",
       "notAllowed": "The video was uploaded, but playlist access was not allowed, so it was not added to a playlist."
+    },
+    "settingThumbnail": "Setting the thumbnail…",
+    "thumbnailOutcome": {
+      "set": "The thumbnail was set.",
+      "failed": "The video was uploaded, but the thumbnail could not be set. You can add it in YouTube Studio.",
+      "notAllowed": "The video was uploaded, but YouTube did not allow a custom thumbnail. Verify your channel at youtube.com/verify, then add it in YouTube Studio."
     },
     "textHelp": "Filled in from the score details above. You can edit them before uploading.",
     "resetText": "Use the suggested text",
@@ -198,7 +208,8 @@
       "noChannel": "This Google account has no YouTube channel yet. Create one on YouTube, then try again.",
       "quota": "YouTube's daily upload limit was reached. Try again tomorrow.",
       "network": "The upload was interrupted. Check your connection and try again.",
-      "generic": "Could not upload the video. Please try again."
+      "generic": "Could not upload the video. Please try again.",
+      "thumbnailType": "Choose an image file (JPG or PNG) for the thumbnail."
     }
   },
   "detail": {

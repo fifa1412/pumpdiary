@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Upload, X } from "lucide-react";
+import { Loader2, Trash2, Upload, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useRef, useState, type ChangeEvent } from "react";
 
@@ -11,6 +11,8 @@ import {
   addToPlaylist,
   createTokenClient,
   loadGoogleOAuth,
+  prepareThumbnail,
+  setYouTubeThumbnail,
   uploadToYouTube,
   youtubeTags,
   youtubeVideoUrl,
@@ -30,8 +32,14 @@ type Status =
   | { kind: "idle" }
   | { kind: "signingIn" }
   | { kind: "uploading"; percent: number }
+  | { kind: "settingThumbnail" }
   | { kind: "addingToPlaylist" }
-  | { kind: "done"; lockedPrivate: boolean; playlist?: { outcome: "added" | "created" | "failed" | "notAllowed"; title: string } }
+  | {
+    kind: "done";
+    lockedPrivate: boolean;
+    thumbnail?: "set" | "failed" | "notAllowed";
+    playlist?: { outcome: "added" | "created" | "failed" | "notAllowed"; title: string };
+  }
   | { kind: "error"; key: string };
 
 export function YouTubeUploader({
@@ -53,6 +61,8 @@ export function YouTubeUploader({
 }) {
   const t = useTranslations("scores.youtube");
   const [file, setFile] = useState<File | null>(null);
+  // The prepared image plus an object URL for its preview.
+  const [thumbnail, setThumbnail] = useState<{ file: File; url: string } | null>(null);
   const [privacy, setPrivacy] = useState<YouTubePrivacyStatus>("public");
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [isReady, setIsReady] = useState(false);
@@ -70,15 +80,22 @@ export function YouTubeUploader({
   const token = useRef<AccessToken | null>(null);
   const abortController = useRef<AbortController | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+  const thumbnailInput = useRef<HTMLInputElement>(null);
   const startUpload = useRef<(accessToken: AccessToken) => void>(() => {});
 
-  const busy = status.kind === "signingIn" || status.kind === "uploading" || status.kind === "addingToPlaylist";
+  const busy = status.kind === "signingIn" || status.kind === "uploading"
+    || status.kind === "settingThumbnail" || status.kind === "addingToPlaylist";
 
   useEffect(() => {
     onBusyChange(busy);
   }, [busy, onBusyChange]);
 
   useEffect(() => () => abortController.current?.abort(), []);
+
+  useEffect(() => {
+    if (!thumbnail) return;
+    return () => URL.revokeObjectURL(thumbnail.url);
+  }, [thumbnail]);
 
   // Load Google's script up front: the sign-in popup must open directly from
   // the click, with no network wait in between.
@@ -125,6 +142,18 @@ export function YouTubeUploader({
       });
       onUploaded(youtubeVideoUrl(result.id));
       const lockedPrivate = result.privacyStatus === "private" && privacy !== "private";
+      // The video is already up, so a thumbnail or playlist failure is reported, not thrown.
+      let thumbnailResult: Extract<Status, { kind: "done" }>["thumbnail"];
+      if (thumbnail) {
+        setStatus({ kind: "settingThumbnail" });
+        try {
+          await setYouTubeThumbnail(accessToken.value, result.id, thumbnail.file);
+          thumbnailResult = "set";
+        } catch (error) {
+          // YouTube answers 403 when the channel is not verified for custom thumbnails.
+          thumbnailResult = error instanceof YouTubeUploadError && error.code === "auth" ? "notAllowed" : "failed";
+        }
+      }
       let playlistResult: Extract<Status, { kind: "done" }>["playlist"];
       const playlistTitle = playlist.trim();
       if (usePlaylist && playlistTitle) {
@@ -142,8 +171,9 @@ export function YouTubeUploader({
           playlistResult = { outcome: "notAllowed", title: playlistTitle };
         }
       }
-      setStatus({ kind: "done", lockedPrivate, playlist: playlistResult });
+      setStatus({ kind: "done", lockedPrivate, thumbnail: thumbnailResult, playlist: playlistResult });
       setFile(null);
+      clearThumbnail();
       setTitleOverride(null);
       setDescriptionOverride(null);
       setTagsOverride(null);
@@ -174,6 +204,28 @@ export function YouTubeUploader({
     }
     setFile(chosen);
     setStatus({ kind: "idle" });
+  }
+
+  function clearThumbnail() {
+    setThumbnail(null);
+    if (thumbnailInput.current) thumbnailInput.current.value = "";
+  }
+
+  async function onThumbnailChange(event: ChangeEvent<HTMLInputElement>) {
+    const chosen = event.target.files?.[0] ?? null;
+    if (!chosen) {
+      setThumbnail(null);
+      return;
+    }
+    try {
+      if (!chosen.type.startsWith("image/")) throw new Error("not-an-image");
+      const prepared = await prepareThumbnail(chosen);
+      setThumbnail({ file: prepared, url: URL.createObjectURL(prepared) });
+      setStatus({ kind: "idle" });
+    } catch {
+      clearThumbnail();
+      setStatus({ kind: "error", key: "errors.thumbnailType" });
+    }
   }
 
   function onUploadClick() {
@@ -235,6 +287,24 @@ export function YouTubeUploader({
             <p id="youtube-tags-help" className="text-xs text-muted-foreground">{t("tagsHelp")}</p>
           </div>
           <div className="space-y-2">
+            <Label htmlFor="youtube-thumbnail">{t("thumbnail")}</Label>
+            <Input ref={thumbnailInput} id="youtube-thumbnail" type="file" accept="image/jpeg,image/png,image/webp"
+              disabled={disabled || busy} onChange={(event) => void onThumbnailChange(event)}
+              aria-describedby="youtube-thumbnail-help" />
+            <p id="youtube-thumbnail-help" className="text-xs text-muted-foreground">{t("thumbnailHelp")}</p>
+            {thumbnail ? (
+              <div className="flex items-end gap-3">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={thumbnail.url} alt={t("thumbnailPreview")}
+                  className="aspect-video w-48 rounded-md border bg-surface-deep object-cover" />
+                <Button type="button" variant="ghost" size="sm" disabled={disabled || busy} onClick={clearThumbnail}>
+                  <Trash2 aria-hidden="true" />
+                  {t("removeThumbnail")}
+                </Button>
+              </div>
+            ) : null}
+          </div>
+          <div className="space-y-2">
             <div className="flex items-center gap-3">
               <Input id="youtube-use-playlist" type="checkbox" className="size-4 accent-primary" checked={usePlaylist}
                 disabled={disabled || busy} onChange={(event) => setUsePlaylist(event.target.checked)} />
@@ -287,11 +357,17 @@ export function YouTubeUploader({
         </div>
       ) : null}
       {status.kind === "signingIn" ? <p role="status" className="text-sm text-muted-foreground">{t("signingIn")}</p> : null}
+      {status.kind === "settingThumbnail" ? <p role="status" className="text-sm text-muted-foreground">{t("settingThumbnail")}</p> : null}
       {status.kind === "addingToPlaylist" ? <p role="status" className="text-sm text-muted-foreground">{t("addingToPlaylist")}</p> : null}
       {status.kind === "done" ? (
         <div role="status" className="space-y-1 text-sm text-muted-foreground">
           <p>{t("done")}</p>
           {status.lockedPrivate ? <p>{t("lockedPrivate")}</p> : null}
+          {status.thumbnail ? (
+            <p className={status.thumbnail === "set" ? undefined : "text-destructive"}>
+              {t(`thumbnailOutcome.${status.thumbnail}`)}
+            </p>
+          ) : null}
           {status.playlist ? (
             <p className={status.playlist.outcome === "failed" || status.playlist.outcome === "notAllowed" ? "text-destructive" : undefined}>
               {t(`playlist.${status.playlist.outcome}`, { title: status.playlist.title })}

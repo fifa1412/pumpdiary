@@ -321,6 +321,61 @@ export async function uploadToYouTube({
   }
 }
 
+const THUMBNAIL_URL = "https://www.googleapis.com/upload/youtube/v3/thumbnails/set";
+// YouTube takes JPEG or PNG thumbnails up to 2 MB; 1280x720 is its recommended size.
+const MAX_THUMBNAIL_BYTES = 2 * 1024 * 1024;
+const THUMBNAIL_WIDTH = 1280;
+const THUMBNAIL_HEIGHT = 720;
+
+function jpegBlob(canvas: HTMLCanvasElement, quality: number): Promise<Blob | null> {
+  return new Promise((resolve) => canvas.toBlob(resolve, "image/jpeg", quality));
+}
+
+/**
+ * The image as YouTube accepts it. A JPEG or PNG under 2 MB is sent as is;
+ * anything else is scaled to fit 1280x720 and re-encoded as JPEG.
+ */
+export async function prepareThumbnail(file: File): Promise<File> {
+  if ((file.type === "image/jpeg" || file.type === "image/png") && file.size <= MAX_THUMBNAIL_BYTES) return file;
+  const bitmap = await createImageBitmap(file);
+  try {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context) throw new Error("canvas-unavailable");
+    const scale = Math.min(1, THUMBNAIL_WIDTH / bitmap.width, THUMBNAIL_HEIGHT / bitmap.height);
+    canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+    canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+    context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+    for (const quality of [0.9, 0.8, 0.7, 0.6]) {
+      const blob = await jpegBlob(canvas, quality);
+      if (blob?.type === "image/jpeg" && blob.size <= MAX_THUMBNAIL_BYTES) {
+        return new File([blob], `${file.name.replace(/\.[^.]+$/, "") || "thumbnail"}.jpg`, {
+          type: "image/jpeg",
+          lastModified: Date.now(),
+        });
+      }
+    }
+    throw new Error("thumbnail-too-large");
+  } finally {
+    bitmap.close();
+  }
+}
+
+/** Sets a custom thumbnail on a video. The channel must be verified to use custom thumbnails. */
+export async function setYouTubeThumbnail(token: string, videoId: string, image: File): Promise<void> {
+  let response: Response;
+  try {
+    response = await fetch(`${THUMBNAIL_URL}?videoId=${encodeURIComponent(videoId)}&uploadType=media`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${token}`, "Content-Type": image.type },
+      body: image,
+    });
+  } catch {
+    throw new YouTubeUploadError("network");
+  }
+  if (!response.ok) throw new YouTubeUploadError(await errorCode(response.status, await response.text()));
+}
+
 export function youtubePlaylistTitle(title: string): string {
   const cleaned = title.replace(/[<>]/g, "").replace(/\s+/g, " ").trim();
   return Array.from(cleaned).slice(0, MAX_PLAYLIST_TITLE_LENGTH).join("");

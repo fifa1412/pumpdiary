@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { readScreenshotWithAi } from "@/lib/scores/ai-read-client";
+import { DEFAULT_GAME_VERSION, gameVersionLabel, gameVersionTone, gradesFor, MAX_SCORE, type GameVersion } from "@/lib/scores/game-versions";
 import { scoreLabel } from "@/lib/scores/label";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { matchSongTitle } from "@/lib/songs/fuzzy-match";
@@ -33,6 +34,7 @@ import { YouTubeUploader } from "./youtube-uploader";
 export type EditableScore = {
   id: number;
   stepchartId: number;
+  seriesId: number;
   score: number;
   grade: (typeof SCORE_GRADES)[number];
   perfect: number;
@@ -130,6 +132,14 @@ async function decodeHeic(file: File): Promise<Blob> {
   return heicTo({ blob: file, type: "image/jpeg", quality: 0.92 });
 }
 
+type ScoreGrade = (typeof SCORE_GRADES)[number];
+
+/** The nearest grade on a classic version: SSS+ -> SSS, AAA -> A. */
+function classicGrade(grade: ScoreGrade): ScoreGrade {
+  const base = grade.replace("+", "") as ScoreGrade;
+  return base === "AAA" || base === "AA" ? "A" : base;
+}
+
 function FieldError({ id, message }: { id: string; message?: string }) {
   return message ? (
     <p id={id} className="text-sm text-destructive">
@@ -144,15 +154,18 @@ function ScoreEntryFormContent({
   initialScore,
   cabinets,
   initialCabinetId,
+  versions,
 }: {
   initialSong: SongOption | null;
   initialChartId: number;
   initialScore?: EditableScore;
   cabinets: CabinetOption[];
   initialCabinetId: number | null;
+  versions: GameVersion[];
 }) {
   const t = useTranslations("scores");
   const tc = useTranslations("common");
+  const locale = useLocale();
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState("");
@@ -204,6 +217,9 @@ function ScoreEntryFormContent({
 
   useEffect(() => () => ocrAbortController.current?.abort(), []);
 
+  const defaultSeriesId = (versions.find((version) => version.name === DEFAULT_GAME_VERSION) ?? versions[0])?.id ?? 0;
+  const versionById = useMemo(() => new Map(versions.map((version) => [version.id, version])), [versions]);
+
   const schema = useMemo(() => {
     const count = z.number({ invalid_type_error: t("validation.numberRequired") })
       .int(t("validation.integer"))
@@ -218,9 +234,9 @@ function ScoreEntryFormContent({
         .positive(t("validation.chooseChart")),
       score: z.number({ invalid_type_error: t("validation.numberRequired") })
         .int(t("validation.integer"))
-        .min(0, t("validation.scoreRange"))
-        .max(1_000_000, t("validation.scoreRange")),
+        .min(0, t("validation.nonnegative")),
       grade,
+      seriesId: z.number().int().refine((id) => versionById.has(id), t("validation.versionRequired")),
       perfect: count,
       great: count,
       good: count,
@@ -239,6 +255,21 @@ function ScoreEntryFormContent({
       plate: z.union([z.enum(SCORE_PLATES), z.literal("")]),
       stagePass: z.boolean(),
     }).superRefine((values, context) => {
+      const rules = versionById.get(values.seriesId)?.rules ?? "phoenix";
+      if (values.score > MAX_SCORE[rules]) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["score"],
+          message: t("validation.scoreRange", { max: MAX_SCORE[rules].toLocaleString(locale) }),
+        });
+      }
+      if (!gradesFor(rules).includes(values.grade)) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["grade"],
+          message: t("validation.gradeRequired"),
+        });
+      }
       if (!values.stagePass && values.plate) {
         context.addIssue({
           code: z.ZodIssueCode.custom,
@@ -247,12 +278,13 @@ function ScoreEntryFormContent({
         });
       }
     });
-  }, [t]);
+  }, [t, locale, versionById]);
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
       stepchartId: initialScore?.stepchartId ?? initialChartId,
+      seriesId: initialScore?.seriesId ?? defaultSeriesId,
       score: initialScore?.score,
       grade: initialScore?.grade ?? "F",
       perfect: initialScore?.perfect ?? 0,
@@ -277,6 +309,7 @@ function ScoreEntryFormContent({
       if (initialScore) {
         reset({
           stepchartId: initialScore.stepchartId,
+          seriesId: initialScore.seriesId,
           score: initialScore.score,
           grade: initialScore.grade,
           perfect: initialScore.perfect,
@@ -299,15 +332,21 @@ function ScoreEntryFormContent({
 
   const stagePass = useWatch({ control: form.control, name: "stagePass" });
   const selectedChartId = useWatch({ control: form.control, name: "stepchartId" });
+  const seriesId = useWatch({ control: form.control, name: "seriesId" });
+  const selectedVersion = versionById.get(seriesId);
+  const rules = selectedVersion?.rules ?? "phoenix";
   const [score, grade, perfect, great, good, bad, miss, maxCombo, playedAt] = useWatch({
     control: form.control,
     name: ["score", "grade", "perfect", "great", "good", "bad", "miss", "maxCombo", "playedAt"],
   });
   const selectedCabinet = cabinets.find((cabinet) => cabinet.id === cabinetId);
+  const videoVersion = selectedVersion?.name ?? DEFAULT_GAME_VERSION;
   const videoText: VideoTextInput = {
+    version: videoVersion,
+    uncappedScore: rules === "classic",
     chart: chartSelection ? `${chartSelection.songTitle} ${chartPrefix(chartSelection.stepType)}${chartSelection.level}` : "",
     song: chartSelection
-      ? { title: chartSelection.songTitle, stepType: chartSelection.stepType, level: chartSelection.level }
+      ? { title: chartSelection.songTitle, songType: chartSelection.songType, stepType: chartSelection.stepType, level: chartSelection.level }
       : undefined,
     score,
     grade,
@@ -383,7 +422,8 @@ function ScoreEntryFormContent({
     fillNumber("bad", fields.bad);
     fillNumber("miss", fields.miss);
     fillNumber("maxCombo", fields.maxCombo);
-    if (fields.grade && !form.getFieldState("grade").isDirty) {
+    const ocrRules = versionById.get(form.getValues("seriesId"))?.rules ?? "phoenix";
+    if (fields.grade && gradesFor(ocrRules).includes(fields.grade) && !form.getFieldState("grade").isDirty) {
       form.setValue("grade", fields.grade, { shouldDirty: false });
       detected.add("grade");
     }
@@ -391,7 +431,7 @@ function ScoreEntryFormContent({
       form.setValue("stagePass", fields.stagePass, { shouldDirty: false });
       detected.add("stagePass");
     }
-    if (fields.plate && fields.stagePass !== false && !form.getFieldState("plate").isDirty) {
+    if (fields.plate && ocrRules === "phoenix" && fields.stagePass !== false && !form.getFieldState("plate").isDirty) {
       form.setValue("plate", fields.plate, { shouldDirty: false });
       detected.add("plate");
     }
@@ -409,6 +449,15 @@ function ScoreEntryFormContent({
     setOcrTitle(fields.titleCandidates?.join("\n") || fields.title);
     setOcrStepType(fields.stepType);
     setOcrLevel(fields.level);
+  }
+
+  function onVersionChange(event: ChangeEvent<HTMLSelectElement>) {
+    const next = versionById.get(Number(event.target.value));
+    if (next?.rules !== "classic") return;
+    // XX and Prime have no plates and no plus or AA/AAA grades.
+    form.setValue("plate", "", { shouldValidate: true });
+    const current = form.getValues("grade");
+    if (!gradesFor("classic").includes(current)) form.setValue("grade", classicGrade(current), { shouldValidate: true });
   }
 
   const onChartChange = useCallback((chartId: number, source?: "ocr") => {
@@ -563,6 +612,7 @@ function ScoreEntryFormContent({
       const playedAt = new Date(`${values.playedAt}T00:00:00.000Z`).toISOString();
       const scoreValues = {
         stepchart_id: values.stepchartId,
+        series_id: values.seriesId,
         score: values.score,
         grade: values.grade,
         perfect: values.perfect,
@@ -575,7 +625,7 @@ function ScoreEntryFormContent({
         youtube_video_id: ownedVideoId(values.videoUrl),
         played_at: playedAt,
         note: values.note.trim() || null,
-        plate: values.stagePass && values.plate ? values.plate : null,
+        plate: values.stagePass && values.plate && rules === "phoenix" ? values.plate : null,
         stage_pass: values.stagePass,
         screenshot_path: screenshotPath ?? initialScore?.screenshotPath ?? null,
         ...(cabinetId ? { cabinet_id: cabinetId } : {}),
@@ -655,6 +705,17 @@ function ScoreEntryFormContent({
         <CardContent>
           <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-6">
             <input type="hidden" {...form.register("stepchartId", { valueAsNumber: true })} />
+            <div className="space-y-2">
+              <Label htmlFor="game-version">{t("fields.gameVersion")}</Label>
+              <select id="game-version"
+                className={`h-9 w-full rounded-md border border-l-4 border-input bg-background px-3 text-sm font-medium focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 ${selectedVersion ? `${gameVersionTone(selectedVersion.name).text} ${gameVersionTone(selectedVersion.name).border}` : ""}`}
+                aria-invalid={!!errors.seriesId} aria-describedby={errors.seriesId ? "game-version-error" : undefined}
+                {...form.register("seriesId", { valueAsNumber: true, onChange: onVersionChange })}>
+                {/* Options keep the normal text colour; only the closed select shows the version colour. */}
+                {versions.map((version) => <option key={version.id} value={version.id} className="text-foreground">{gameVersionLabel(version.name)}</option>)}
+              </select>
+              <FieldError id="game-version-error" message={fieldError("seriesId")} />
+            </div>
             <div className="space-y-3">
               <Label htmlFor="screenshot">{t("fields.screenshot")}</Label>
               <Input ref={screenshotInput} id="screenshot" type="file" accept="image/webp,image/jpeg,image/png,image/heic,image/heif,.heic,.heif"
@@ -753,7 +814,7 @@ function ScoreEntryFormContent({
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="score">{t("fields.score")}</Label>
-                <Input id="score" type="number" min="0" max="1000000" step="1" inputMode="numeric"
+                <Input id="score" type="number" min="0" max={MAX_SCORE[rules]} step="1" inputMode="numeric"
                   aria-invalid={!!errors.score} aria-describedby={errors.score ? "score-error" : undefined}
                   {...form.register("score", { valueAsNumber: true })} />
                 {detectedNote("score")}
@@ -764,7 +825,7 @@ function ScoreEntryFormContent({
                 <select id="grade" className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
                   aria-invalid={!!errors.grade} aria-describedby={errors.grade ? "grade-error" : undefined}
                   {...form.register("grade")}>
-                  {SCORE_GRADES.map((grade) => <option key={grade} value={grade}>{t(`grades.${grade}`)}</option>)}
+                  {gradesFor(rules).map((grade) => <option key={grade} value={grade}>{t(`grades.${grade}`)}</option>)}
                 </select>
                 {detectedNote("grade")}
                 <FieldError id="grade-error" message={fieldError("grade")} />
@@ -819,6 +880,7 @@ function ScoreEntryFormContent({
             </div>
 
             <YouTubeUploader
+              version={videoVersion}
               suggestedTitle={videoTitle(videoText)}
               suggestedDescription={videoDescription(videoText)}
               suggestedTags={videoTags(videoText)}
@@ -844,18 +906,20 @@ function ScoreEntryFormContent({
                 <Label htmlFor="stage-pass">{t("fields.stagePass")}</Label>
               </div>
               {detectedNote("stagePass")}
-              <div className="space-y-2">
-                <Label htmlFor="plate">{t("fields.plate")}</Label>
-                <select id="plate" disabled={!stagePass}
-                  className="h-9 w-full rounded-md border border-input bg-surface-deep px-3 text-sm disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
-                  aria-invalid={!!errors.plate} aria-describedby={errors.plate ? "plate-error" : undefined}
-                  {...form.register("plate")}>
-                  <option value="">{t("fields.plateNone")}</option>
-                  {SCORE_PLATES.map((plate) => <option key={plate} value={plate}>{t(`plates.${plate}`)}</option>)}
-                </select>
-                {detectedNote("plate")}
-                <FieldError id="plate-error" message={fieldError("plate")} />
-              </div>
+              {rules === "phoenix" ? (
+                <div className="space-y-2">
+                  <Label htmlFor="plate">{t("fields.plate")}</Label>
+                  <select id="plate" disabled={!stagePass}
+                    className="h-9 w-full rounded-md border border-input bg-surface-deep px-3 text-sm disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                    aria-invalid={!!errors.plate} aria-describedby={errors.plate ? "plate-error" : undefined}
+                    {...form.register("plate")}>
+                    <option value="">{t("fields.plateNone")}</option>
+                    {SCORE_PLATES.map((plate) => <option key={plate} value={plate}>{t(`plates.${plate}`)}</option>)}
+                  </select>
+                  {detectedNote("plate")}
+                  <FieldError id="plate-error" message={fieldError("plate")} />
+                </div>
+              ) : null}
             </div>
 
             <div className="space-y-2">
@@ -921,6 +985,7 @@ export function ScoreEntryForm(props: {
   initialScore?: EditableScore;
   cabinets?: CabinetOption[];
   initialCabinetId?: number | null;
+  versions: GameVersion[];
 }) {
   const locale = useLocale();
   return (

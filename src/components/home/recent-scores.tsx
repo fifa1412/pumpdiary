@@ -9,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { DEFAULT_GAME_VERSION, gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
 import { createClient } from "@/lib/supabase/server";
 
 const RECENT_SCORE_LIMIT = 6;
@@ -20,6 +21,7 @@ type RecentScore = {
   grade: string;
   plate: string | null;
   profile: { player_name: string } | null;
+  series: { name: string } | null;
   stepchart: {
     step_type: StepType;
     level: number;
@@ -42,7 +44,7 @@ export async function RecentScores() {
 
   const { data, error } = await supabase
     .from("scores")
-    .select("id, score, grade, plate, profile:profiles!scores_user_id_fkey(player_name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title))")
+    .select("id, score, grade, plate, profile:profiles!scores_user_id_fkey(player_name), series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title))")
     .order("created_at", { ascending: false })
     .limit(RECENT_SCORE_LIMIT);
 
@@ -74,7 +76,15 @@ export async function RecentScores() {
                       <CardTitle className="font-display text-xl leading-tight">
                         {title}
                       </CardTitle>
-                      <CardDescription>{score.profile?.player_name ?? ""}</CardDescription>
+                      <CardDescription>
+                        {score.profile?.player_name ?? ""}
+                        {score.series && score.series.name !== DEFAULT_GAME_VERSION ? (
+                          <>
+                            {score.profile?.player_name ? " · " : null}
+                            <span className={`font-medium ${gameVersionTone(score.series.name).text}`}>{gameVersionLabel(score.series.name)}</span>
+                          </>
+                        ) : null}
+                      </CardDescription>
                       <CardAction>
                         <Badge variant="outline" className="font-display">
                         {chartLabel(chart.step_type, chart.level)}

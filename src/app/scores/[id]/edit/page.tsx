@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { ScoreEntryForm, type EditableScore } from "@/components/scores/score-entry-form";
 import type { CabinetOption } from "@/components/cabinets/types";
 import type { SongOption } from "@/components/scores/types";
+import { fetchGameVersions } from "@/lib/scores/game-versions";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -28,7 +29,7 @@ export default async function EditScorePage({
   const supabase = await createClient();
   const { data: row, error } = await supabase
     .from("scores")
-    .select("id, user_id, stepchart_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet_id, cabinet:cabinets(id, serial_number, name, location, country, model), stepchart:stepcharts!scores_stepchart_id_fkey(id, song_id)")
+    .select("id, user_id, stepchart_id, series_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet_id, cabinet:cabinets(id, serial_number, name, location, country, model), stepchart:stepcharts!scores_stepchart_id_fkey(id, song_id)")
     .eq("id", Number(rawId))
     .eq("user_id", user.id)
     .maybeSingle();
@@ -37,12 +38,13 @@ export default async function EditScorePage({
   const chart = Array.isArray(row.stepchart) ? row.stepchart[0] : row.stepchart;
   const cabinet = (Array.isArray(row.cabinet) ? row.cabinet[0] : row.cabinet) as CabinetOption | null | undefined;
   if (!chart) notFound();
-  const [{ data: song }, { data: charts }, screenshotResult] = await Promise.all([
-    supabase.from("songs").select("id, title, composer, is_available").eq("id", chart.song_id).maybeSingle(),
+  const [{ data: song }, { data: charts }, screenshotResult, versions] = await Promise.all([
+    supabase.from("songs").select("id, title, composer, song_type, is_available").eq("id", chart.song_id).maybeSingle(),
     supabase.from("stepcharts").select("id, step_type, level, is_available").eq("song_id", chart.song_id),
     row.screenshot_path
       ? supabase.storage.from("score-screenshots").createSignedUrl(row.screenshot_path, 3600)
       : Promise.resolve({ data: null, error: null }),
+    fetchGameVersions(supabase),
   ]);
   if (!song) notFound();
 
@@ -53,6 +55,7 @@ export default async function EditScorePage({
   const initialScore: EditableScore = {
     id: row.id,
     stepchartId: row.stepchart_id,
+    seriesId: row.series_id,
     score: row.score,
     grade: row.grade as EditableScore["grade"],
     perfect: row.perfect,
@@ -82,6 +85,7 @@ export default async function EditScorePage({
         initialScore={initialScore}
         cabinets={cabinet ? [cabinet] : []}
         initialCabinetId={cabinet ? row.cabinet_id : null}
+        versions={versions}
       />
     </div>
   );

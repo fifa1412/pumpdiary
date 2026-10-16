@@ -15,6 +15,7 @@ import type { SongOption } from "./types";
 
 export type ChartSelection = {
   songTitle: string;
+  songType: SongOption["song_type"];
   stepType: SongOption["stepcharts"][number]["step_type"];
   level: number;
 };
@@ -69,7 +70,7 @@ export function SongChartPicker({
     async function matchTitle() {
       const { data, error: requestError } = await createClient()
         .from("songs")
-        .select("id, title, composer, is_available, stepcharts(id, step_type, level, is_available)")
+        .select("id, title, composer, song_type, is_available, stepcharts(id, step_type, level, is_available)")
         .or(searchTerms.map((term) => `title.ilike.%${term}%`).join(","))
         .order("title", { ascending: true })
         .limit(100);
@@ -105,7 +106,7 @@ export function SongChartPicker({
     const supabase = createClient();
     const { data, error: requestError } = await supabase
       .from("songs")
-      .select("id, title, composer, is_available, stepcharts(id, step_type, level, is_available)")
+      .select("id, title, composer, song_type, is_available, stepcharts(id, step_type, level, is_available)")
       .or(`title.ilike.%${sanitized}%,composer.ilike.%${sanitized}%`)
       .order("title", { ascending: true })
       .limit(10);
@@ -145,12 +146,15 @@ export function SongChartPicker({
 
   const selectedChart = song?.stepcharts.find((chart) => chart.id === selectedChartId);
   const songTitle = song?.title;
+  const songType = song?.song_type;
   const stepType = selectedChart?.step_type;
   const level = selectedChart?.level;
 
   useEffect(() => {
-    onSelectionChange?.(songTitle && stepType && level !== undefined ? { songTitle, stepType, level } : null);
-  }, [onSelectionChange, songTitle, stepType, level]);
+    onSelectionChange?.(songTitle && songType && stepType && level !== undefined
+      ? { songTitle, songType, stepType, level }
+      : null);
+  }, [onSelectionChange, songTitle, songType, stepType, level]);
 
   const charts = [
     ...playableCharts(song?.stepcharts ?? [], song?.is_available ?? true, selectedChartId),

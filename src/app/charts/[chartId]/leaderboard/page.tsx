@@ -3,7 +3,9 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { VersionTabs } from "@/components/scores/version-tabs";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
+import { fetchGameVersions, pickGameVersion } from "@/lib/scores/game-versions";
 import { createClient } from "@/lib/supabase/server";
 
 type BestScoreRow = {
@@ -24,20 +26,26 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function ChartLeaderboardPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ chartId: string }>;
+  searchParams: Promise<{ version?: string | string[] }>;
 }) {
-  const [{ chartId: rawChartId }, t, locale, common] = await Promise.all([
-    params, getTranslations("scores.leaderboard"), getLocale(), getTranslations("common"),
+  const [{ chartId: rawChartId }, search, t, locale, common] = await Promise.all([
+    params, searchParams, getTranslations("scores.leaderboard"), getLocale(), getTranslations("common"),
   ]);
   if (!/^\d+$/.test(rawChartId) || !Number.isSafeInteger(Number(rawChartId)) || Number(rawChartId) < 1) notFound();
   const chartId = Number(rawChartId);
   const supabase = await createClient();
+  const versions = await fetchGameVersions(supabase);
+  const version = pickGameVersion(versions, search.version);
+  if (!version) notFound();
   const [{ data: chart, error: chartError }, { data: rows, error: scoreError }] = await Promise.all([
     supabase.from("stepcharts").select("id, step_type, level, song_id").eq("id", chartId).maybeSingle(),
     supabase.from("best_scores")
       .select("id, user_id, score, grade, plate, played_at")
       .eq("stepchart_id", chartId)
+      .eq("series_id", version.id)
       .order("score", { ascending: false })
       .order("played_at", { ascending: true })
       .limit(50),
@@ -58,6 +66,8 @@ export default async function ChartLeaderboardPage({
     : { data: [], error: null };
   const playerById = new Map(((players ?? []) as PlayerProfile[]).map((player) => [player.id, player.player_name]));
   const failed = Boolean(scoreError || playerError);
+  // XX and Prime have no plates.
+  const showPlate = version.rules === "phoenix";
 
   return (
     <div className="mx-auto w-full max-w-6xl flex-1 px-4 py-10 sm:py-14">
@@ -75,6 +85,10 @@ export default async function ChartLeaderboardPage({
         />
       </div>
 
+      <div className="mb-6">
+        <VersionTabs versions={versions} current={version} path={`/charts/${chartId}/leaderboard`} label={t("version")} />
+      </div>
+
       {failed ? (
         <p role="alert" className="text-sm text-destructive">{t("error")}</p>
       ) : scores.length === 0 ? (
@@ -88,7 +102,7 @@ export default async function ChartLeaderboardPage({
                 <th scope="col" className="px-4 py-3">{t("player")}</th>
                 <th scope="col" className="px-4 py-3">{t("score")}</th>
                 <th scope="col" className="px-4 py-3">{t("grade")}</th>
-                <th scope="col" className="px-4 py-3">{t("plate")}</th>
+                {showPlate ? <th scope="col" className="px-4 py-3">{t("plate")}</th> : null}
                 <th scope="col" className="px-4 py-3">{t("date")}</th>
               </tr>
             </thead>
@@ -99,7 +113,7 @@ export default async function ChartLeaderboardPage({
                   <td className="px-4 py-3 font-medium">{playerById.get(score.user_id) || t("unknownPlayer")}</td>
                   <td className="px-4 py-3 font-numeric font-semibold tabular-nums">{score.score.toLocaleString(locale)}</td>
                   <td className="px-4 py-3">{score.grade}</td>
-                  <td className="px-4 py-3">{score.plate}</td>
+                  {showPlate ? <td className="px-4 py-3">{score.plate}</td> : null}
                   <td className="px-4 py-3 text-muted-foreground">
                     {new Date(score.played_at).toLocaleDateString(locale, {
                       timeZone: "UTC", year: "numeric", month: "short", day: "numeric",

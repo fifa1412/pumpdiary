@@ -12,6 +12,7 @@
     "noCharts": "This song has no charts to select."
   },
   "fields": {
+    "gameVersion": "Game version",
     "score": "Score",
     "grade": "Grade",
     "judgments": "Judgments and combo",
@@ -59,7 +60,8 @@
     "numberRequired": "Enter a number.",
     "integer": "Enter a whole number.",
     "nonnegative": "Enter zero or a positive number.",
-    "scoreRange": "Score must be between 0 and 1,000,000.",
+    "scoreRange": "Score must be between 0 and {max}.",
+    "versionRequired": "Choose a game version.",
     "chooseChart": "Choose a chart first.",
     "gradeRequired": "Choose a grade.",
     "dateRequired": "Choose the played date.",
@@ -144,6 +146,7 @@
     "date": "Date",
     "empty": "No scores have been recorded for this chart yet.",
     "error": "Could not load the leaderboard. Please try again.",
+    "version": "Game version",
     "unknownPlayer": "Unknown player",
     "index": {
       "title": "Leaderboard",
@@ -216,6 +219,7 @@
     "title": "Score details",
     "edit": "Edit",
     "stageFailed": "Stage failed",
+    "gameVersion": "Version",
     "playedAt": "Played on",
     "cabinet": "Cabinet",
     "note": "Note",

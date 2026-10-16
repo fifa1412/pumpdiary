@@ -10,6 +10,7 @@ import { ScreenshotZoom } from "@/components/scores/screenshot-zoom";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { DEFAULT_GAME_VERSION, gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
 import { scoreLabel } from "@/lib/scores/label";
 import { jacketUrl } from "@/lib/songs/jackets";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
@@ -34,6 +35,7 @@ type ScoreDetail = {
   stage_pass: boolean;
   screenshot_path: string | null;
   cabinet: { name: string; location: string; model: string | null } | null;
+  series: { name: string } | null;
   stepchart: {
     step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
     level: number;
@@ -60,7 +62,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("scores")
-    .select("id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location, model), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, composer, jacket_path))")
+    .select("id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location, model), series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, composer, jacket_path))")
     .eq("id", Number(rawId))
     .eq("user_id", user.id)
     .maybeSingle();
@@ -134,6 +136,12 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
               </dl>
             </section>
             <dl className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+              <div className="flex gap-2">
+                <dt className="text-muted-foreground">{t("detail.gameVersion")}</dt>
+                <dd className={`font-medium ${gameVersionTone(row.series?.name ?? DEFAULT_GAME_VERSION).text}`}>
+                  {gameVersionLabel(row.series?.name ?? DEFAULT_GAME_VERSION)}
+                </dd>
+              </div>
               <div className="flex gap-2">
                 <dt className="text-muted-foreground">{t("detail.playedAt")}</dt>
                 <dd>{playedDate}</dd>

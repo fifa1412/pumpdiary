@@ -4,6 +4,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 
 import { SCORE_GRADES, SCORE_PLATES } from "@/components/scores/types";
+import { MAX_SCORE } from "@/lib/scores/game-versions";
 import type { OcrScoreFields } from "@/lib/scores/ocr";
 
 // Reads a Phoenix 2 result screen photo with Claude Haiku 5.5. Returns the
@@ -64,7 +65,8 @@ const resultSchema = z.object({
   title: z.string().trim().max(200).nullable(),
   stepType: z.enum(["SINGLE", "DOUBLE", "HALFDOUBLE"]).nullable(),
   level: z.number().int().min(1).max(29).nullable(),
-  score: z.number().int().min(0).max(1_000_000).nullable(),
+  // XX and Prime scores pass 1,000,000; the form checks the cap for the picked version.
+  score: z.number().int().min(0).max(MAX_SCORE.classic).nullable(),
   grade: z.enum(SCORE_GRADES).nullable(),
   plate: z.enum(SCORE_PLATES).nullable(),
   perfect: judgment,

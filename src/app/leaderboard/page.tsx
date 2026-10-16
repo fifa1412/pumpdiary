@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getLocale, getTranslations } from "next-intl/server";
 
+import { VersionTabs, versionHref } from "@/components/scores/version-tabs";
 import { ChartBadges } from "@/components/songs/chart-badges";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import type { SongChart } from "@/components/songs/types";
@@ -10,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { fetchGameVersions, pickGameVersion } from "@/lib/scores/game-versions";
 import { jacketUrl } from "@/lib/songs/jackets";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
 import { createClient } from "@/lib/supabase/server";
@@ -41,10 +43,11 @@ function Jacket({ path }: { path: string | null }) {
 export default async function LeaderboardIndexPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string | string[] }>;
+  searchParams: Promise<{ q?: string | string[]; version?: string | string[] }>;
 }) {
-  const [params, t, ts, tc, locale] = await Promise.all([
-    searchParams, getTranslations("scores.leaderboard.index"), getTranslations("songs"), getTranslations("common"), getLocale(),
+  const [params, t, tl, ts, tc, locale] = await Promise.all([
+    searchParams, getTranslations("scores.leaderboard.index"), getTranslations("scores.leaderboard"),
+    getTranslations("songs"), getTranslations("common"), getLocale(),
   ]);
   const query = sanitizeSongSearchQuery(params.q);
   const supabase = await createClient();
@@ -54,6 +57,8 @@ export default async function LeaderboardIndexPage({
   let songs: SearchSong[] = [];
   let played: { chart: PlayedChart; players: number; top: number }[] = [];
   let failed = false;
+  const versions = query ? [] : await fetchGameVersions(supabase);
+  const version = pickGameVersion(versions, params.version);
 
   if (query) {
     const { data, error } = await supabase
@@ -65,8 +70,10 @@ export default async function LeaderboardIndexPage({
     failed = Boolean(error);
     songs = (data ?? []) as unknown as SearchSong[];
   } else {
-    // Charts that have scores, busiest first.
-    const { data: bests, error } = await supabase.from("best_scores").select("stepchart_id, score");
+    // Charts that have scores on this version, busiest first.
+    const { data: bests, error } = version
+      ? await supabase.from("best_scores").select("stepchart_id, score").eq("series_id", version.id)
+      : { data: [], error: null };
     const byChart = new Map<number, { players: number; top: number }>();
     for (const row of bests ?? []) {
       const entry = byChart.get(row.stepchart_id) ?? { players: 0, top: 0 };
@@ -133,13 +140,14 @@ export default async function LeaderboardIndexPage({
       ) : (
         <section aria-labelledby="played-charts" className="mt-8 space-y-4">
           <h2 id="played-charts" className="font-display text-xl font-semibold">{t("played")}</h2>
+          {version ? <VersionTabs versions={versions} current={version} path="/leaderboard" label={tl("version")} /> : null}
           {played.length === 0 ? (
             <p className="text-muted-foreground">{t("noPlayed")}</p>
           ) : (
             <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {played.map(({ chart, players, top }) => (
                 <li key={chart.id}>
-                  <Link href={`/charts/${chart.id}/leaderboard`}
+                  <Link href={version ? versionHref(`/charts/${chart.id}/leaderboard`, version) : `/charts/${chart.id}/leaderboard`}
                     className="flex items-center gap-3 rounded-[3px] border bg-card p-3 transition-colors hover:border-primary/50 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
                     <Jacket path={chart.song?.jacket_path ?? null} />
                     <div className="min-w-0 flex-1">

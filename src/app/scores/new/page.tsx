@@ -5,6 +5,7 @@ import { getTranslations } from "next-intl/server";
 import { ScoreEntryForm } from "@/components/scores/score-entry-form";
 import type { CabinetOption } from "@/components/cabinets/types";
 import type { SongOption } from "@/components/scores/types";
+import { fetchGameVersions } from "@/lib/scores/game-versions";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
 
 
@@ -26,11 +27,14 @@ export default async function NewScorePage({
   if (!user) redirect("/login");
 
   const supabase = await createClient();
-  const { data: cabinets } = await supabase
-    .from("cabinets")
-    .select("id, serial_number, name, location, country, model")
-    .order("name")
-    .limit(250);
+  const [{ data: cabinets }, versions] = await Promise.all([
+    supabase
+      .from("cabinets")
+      .select("id, serial_number, name, location, country, model")
+      .order("name")
+      .limit(250),
+    fetchGameVersions(supabase),
+  ]);
 
   const rawChart = Array.isArray(params.chart) ? params.chart[0] : params.chart;
   const chartId = rawChart && /^\d+$/.test(rawChart) ? Number(rawChart) : 0;
@@ -48,7 +52,7 @@ export default async function NewScorePage({
       const [{ data: song }, { data: charts }] = await Promise.all([
         supabase
           .from("songs")
-          .select("id, title, composer, is_available")
+          .select("id, title, composer, song_type, is_available")
           .eq("id", chart.song_id)
           .maybeSingle(),
         supabase
@@ -77,6 +81,7 @@ export default async function NewScorePage({
         initialChartId={initialChartId}
         cabinets={(cabinets ?? []) as CabinetOption[]}
         initialCabinetId={Number(Array.isArray(params.cabinet) ? params.cabinet[0] : params.cabinet) || null}
+        versions={versions}
       />
     </div>
   );

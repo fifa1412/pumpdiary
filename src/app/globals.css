@@ -46,6 +46,11 @@
   --color-single-foreground: var(--single-foreground);
   --color-double-bg: var(--double-bg);
   --color-double-foreground: var(--double-foreground);
+  --color-version-phoenix-2: var(--version-phoenix-2);
+  --color-version-phoenix: var(--version-phoenix);
+  --color-version-xx: var(--version-xx);
+  --color-version-prime: var(--version-prime);
+  --color-version-foreground: var(--version-foreground);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -79,6 +84,12 @@
   --single-foreground: #fb6d60;
   --double-bg: #196639;
   --double-foreground: #68f3a2;
+  /* Game version colours: Phoenix 2 green, Phoenix red, XX pink, Prime sky blue. */
+  --version-phoenix-2: #2fb86b;
+  --version-phoenix: #f0584a;
+  --version-xx: #f06bb5;
+  --version-prime: #4cb6f0;
+  --version-foreground: #14171a;
   --chart-1: #2fb86b;
   --chart-2: #f2c230;
   --chart-3: #9aa2a5;
@@ -119,6 +130,12 @@
   --single-foreground: #fb6d60;
   --double-bg: #196639;
   --double-foreground: #68f3a2;
+  /* Game version colours: Phoenix 2 green, Phoenix red, XX pink, Prime sky blue. */
+  --version-phoenix-2: #2fb86b;
+  --version-phoenix: #f0584a;
+  --version-xx: #f06bb5;
+  --version-prime: #4cb6f0;
+  --version-foreground: #14171a;
   --chart-1: #2fb86b;
   --chart-2: #f2c230;
   --chart-3: #9aa2a5;

@@ -36,7 +36,7 @@ export default async function DashboardPage({
     .eq("user_id", user.id);
   let listRequest = supabase
     .from("scores")
-    .select("id, score, grade, plate, played_at, screenshot_path, video_url, youtube_video_id, stepchart:stepcharts!scores_stepchart_id_fkey!inner(step_type, level, song:songs!stepcharts_song_id_fkey!inner(title, jacket_path))")
+    .select("id, score, grade, plate, played_at, screenshot_path, video_url, youtube_video_id, series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey!inner(step_type, level, song:songs!stepcharts_song_id_fkey!inner(title, jacket_path))")
     .eq("user_id", user.id);
   if (level) {
     countRequest = countRequest.eq("stepchart.step_type", level.stepType).eq("stepchart.level", level.level);

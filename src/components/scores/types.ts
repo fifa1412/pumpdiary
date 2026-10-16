@@ -4,6 +4,7 @@ export type SongOption = {
   id: number;
   title: string;
   composer: string;
+  song_type: "NORMAL" | "REMIX" | "FULLSONG" | "SHORTCUT";
   is_available: boolean;
   stepcharts: SongChart[];
 };

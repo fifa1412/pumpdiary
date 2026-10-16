@@ -2,7 +2,8 @@
 -- Source: Andamiro's official PIU history (arcade releases up to Prime 2) and
 -- Andamiro announcements for XX, Phoenix and Phoenix 2. PC/console ports and
 -- spin-offs are intentionally left out.
--- Idempotent: re-running updates sort_order by name.
+-- score_rules marks the versions players can log scores for (see migration 0013).
+-- Idempotent: re-running updates sort_order and score_rules by name.
 
 insert into public.game_series (name, sort_order) values
   ('The 1st Dance Floor',          1),  -- 1999.08
@@ -34,3 +35,8 @@ insert into public.game_series (name, sort_order) values
   ('Phoenix',                     27),
   ('Phoenix 2',                   28)
 on conflict (name) do update set sort_order = excluded.sort_order;
+
+update public.game_series set score_rules = case
+  when name in ('Phoenix 2', 'Phoenix') then 'phoenix'
+  when name in ('XX', 'Prime') then 'classic'
+end;

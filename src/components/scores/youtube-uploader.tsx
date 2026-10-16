@@ -23,6 +23,7 @@ import {
   type AccessToken,
   type YouTubePrivacyStatus,
 } from "@/lib/youtube/upload";
+import { switchPlaylistVersion, switchTitleVersion, switchVersionTags } from "@/lib/youtube/video-text";
 
 import { TagInput } from "./tag-input";
 
@@ -42,7 +43,10 @@ type Status =
   }
   | { kind: "error"; key: string };
 
+type VersionedEdit<T> = { value: T; version: string };
+
 export function YouTubeUploader({
+  version,
   suggestedTitle,
   suggestedDescription,
   suggestedTags,
@@ -51,6 +55,8 @@ export function YouTubeUploader({
   onUploaded,
   onBusyChange,
 }: {
+  /** game_series name of the version the suggestions were written for, e.g. "Phoenix". */
+  version: string;
   suggestedTitle: string;
   suggestedDescription: string;
   suggestedTags: string[];
@@ -67,15 +73,21 @@ export function YouTubeUploader({
   const [status, setStatus] = useState<Status>({ kind: "idle" });
   const [isReady, setIsReady] = useState(false);
   // The title and description follow the score form until the player edits them.
-  const [titleOverride, setTitleOverride] = useState<string | null>(null);
+  // Edits to the title, tags, and playlist remember the game version they were
+  // made on, so picking another version afterwards still moves them over to it.
+  const [titleOverride, setTitleOverride] = useState<VersionedEdit<string> | null>(null);
   const [descriptionOverride, setDescriptionOverride] = useState<string | null>(null);
-  const title = titleOverride ?? suggestedTitle;
+  const title = titleOverride ? switchTitleVersion(titleOverride.value, titleOverride.version, version) : suggestedTitle;
   const description = descriptionOverride ?? suggestedDescription;
-  const [tagsOverride, setTagsOverride] = useState<string[] | null>(null);
-  const tags = tagsOverride ?? youtubeTags(suggestedTags);
+  const [tagsOverride, setTagsOverride] = useState<VersionedEdit<string[]> | null>(null);
+  const tags = tagsOverride
+    ? youtubeTags(switchVersionTags(tagsOverride.value, tagsOverride.version, version))
+    : youtubeTags(suggestedTags);
   const [usePlaylist, setUsePlaylist] = useState(true);
-  const [playlistOverride, setPlaylistOverride] = useState<string | null>(null);
-  const playlist = playlistOverride ?? suggestedPlaylist;
+  const [playlistOverride, setPlaylistOverride] = useState<VersionedEdit<string> | null>(null);
+  const playlist = playlistOverride
+    ? switchPlaylistVersion(playlistOverride.value, playlistOverride.version, version)
+    : suggestedPlaylist;
   const tokenClient = useRef<{ requestAccessToken: (overrides?: { scope?: string }) => void } | null>(null);
   const token = useRef<AccessToken | null>(null);
   const abortController = useRef<AbortController | null>(null);
@@ -271,7 +283,7 @@ export function YouTubeUploader({
           <div className="space-y-2">
             <Label htmlFor="youtube-title">{t("videoTitle")}</Label>
             <Input id="youtube-title" value={title} maxLength={100} disabled={disabled || busy}
-              onChange={(event) => setTitleOverride(event.target.value)} aria-describedby="youtube-text-help" />
+              onChange={(event) => setTitleOverride({ value: event.target.value, version })} aria-describedby="youtube-text-help" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="youtube-description">{t("videoDescription")}</Label>
@@ -281,7 +293,7 @@ export function YouTubeUploader({
           </div>
           <div className="space-y-2">
             <Label htmlFor="youtube-tags">{t("videoTags")}</Label>
-            <TagInput id="youtube-tags" tags={tags} onChange={setTagsOverride} disabled={disabled || busy}
+            <TagInput id="youtube-tags" tags={tags} onChange={(next) => setTagsOverride({ value: next, version })} disabled={disabled || busy}
               placeholder={t("addTag")} removeLabel={(tag) => t("removeTag", { tag })}
               describedBy="youtube-tags-help" />
             <p id="youtube-tags-help" className="text-xs text-muted-foreground">{t("tagsHelp")}</p>
@@ -314,7 +326,7 @@ export function YouTubeUploader({
               <div className="space-y-2">
                 <Label htmlFor="youtube-playlist" className="sr-only">{t("playlistName")}</Label>
                 <Input id="youtube-playlist" value={playlist} maxLength={150} disabled={disabled || busy}
-                  onChange={(event) => setPlaylistOverride(event.target.value)} aria-describedby="youtube-playlist-help" />
+                  onChange={(event) => setPlaylistOverride({ value: event.target.value, version })} aria-describedby="youtube-playlist-help" />
                 <p id="youtube-playlist-help" className="text-xs text-muted-foreground">{t("playlistHelp")}</p>
               </div>
             ) : null}

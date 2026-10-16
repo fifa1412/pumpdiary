@@ -348,7 +348,8 @@ export function YouTubeUploader({
         </div>
       ) : null}
       <div className="flex flex-wrap items-center gap-3">
-        <Button type="button" variant="outline" onClick={onUploadClick} disabled={disabled || busy || !isReady || !file}>
+        <Button type="button" onClick={onUploadClick} disabled={disabled || busy || !isReady || !file}
+          className="bg-upload text-upload-foreground hover:bg-upload/90 disabled:opacity-60">
           {busy ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Upload aria-hidden="true" />}
           {t("upload")}
         </Button>

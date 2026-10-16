@@ -51,6 +51,8 @@
   --color-version-xx: var(--version-xx);
   --color-version-prime: var(--version-prime);
   --color-version-foreground: var(--version-foreground);
+  --color-upload: var(--upload);
+  --color-upload-foreground: var(--upload-foreground);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -90,6 +92,9 @@
   --version-xx: #f06bb5;
   --version-prime: #4cb6f0;
   --version-foreground: #14171a;
+  /* The YouTube upload button stands out from the green primary actions. */
+  --upload: #1677c9;
+  --upload-foreground: #ffffff;
   --chart-1: #2fb86b;
   --chart-2: #f2c230;
   --chart-3: #9aa2a5;
@@ -136,6 +141,9 @@
   --version-xx: #f06bb5;
   --version-prime: #4cb6f0;
   --version-foreground: #14171a;
+  /* The YouTube upload button stands out from the green primary actions. */
+  --upload: #1677c9;
+  --upload-foreground: #ffffff;
   --chart-1: #2fb86b;
   --chart-2: #f2c230;
   --chart-3: #9aa2a5;

@@ -574,6 +574,7 @@ from (values
   ('SWEET WONDERLAND', 'NORMAL', '3259-ac1a5564d6.webp'),
   ('Switronic', 'NORMAL', '1718-15f45b8bad.webp'),
   ('Switronic - SHORT CUT -', 'SHORTCUT', '1722-7d178cf94e.webp'),
+  ('Sylaphz', 'NORMAL', '5283-d6777d9946.webp'),
   ('T.B.H', 'NORMAL', '3244-98e437140e.webp'),
   ('Take Out', 'NORMAL', '1441-bae6edb4d7.webp'),
   ('Take Out', 'SHORTCUT', '1459-61fc92c75d.webp'),

@@ -36,14 +36,15 @@ export function CabinetForm({ cabinet, returnTo = null, chartId = null, initialN
     event.preventDefault();
     setError("");
     const form = new FormData(event.currentTarget);
-    const values = {
-      serial_number: String(form.get("serialNumber") ?? "").trim(),
+    const required = {
       name: String(form.get("name") ?? "").trim(),
       location: String(form.get("location") ?? "").trim(),
       country: String(form.get("country") ?? "").trim(),
       model: String(form.get("model") ?? ""),
     };
-    if (Object.values(values).some((value) => !value) || !(CABINET_MODELS as readonly string[]).includes(values.model)) {
+    // The serial number is often unknown, so it may be left blank.
+    const values = { ...required, serial_number: String(form.get("serialNumber") ?? "").trim() || null };
+    if (Object.values(required).some((value) => !value) || !(CABINET_MODELS as readonly string[]).includes(required.model)) {
       setError(t("errors.required"));
       return;
     }
@@ -103,8 +104,8 @@ export function CabinetForm({ cabinet, returnTo = null, chartId = null, initialN
       ] as const).map(([name, labelKey]) => (
         <div key={name} className="space-y-2">
           <Label htmlFor={`cabinet-${name}`}>{t(labelKey)}</Label>
-          <Input id={`cabinet-${name}`} name={name} required maxLength={160} autoComplete="off"
-            defaultValue={cabinet ? cabinet[COLUMNS[name]] : name === "name" && initialName ? initialName : undefined} />
+          <Input id={`cabinet-${name}`} name={name} required={name !== "serialNumber"} maxLength={160} autoComplete="off"
+            defaultValue={cabinet ? cabinet[COLUMNS[name]] ?? undefined : name === "name" && initialName ? initialName : undefined} />
         </div>
       ))}
       <div className="space-y-2">

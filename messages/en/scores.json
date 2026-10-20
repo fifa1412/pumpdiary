@@ -103,7 +103,7 @@
     "newTitle": "Add a cabinet",
     "newDescription": "Add a cabinet to the shared catalog.",
     "fields": {
-      "serialNumber": "Serial number",
+      "serialNumber": "Serial number (optional)",
       "name": "Cabinet name",
       "location": "Location",
       "country": "Country",

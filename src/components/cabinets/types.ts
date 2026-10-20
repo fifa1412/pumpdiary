@@ -3,7 +3,7 @@ export type CabinetModel = (typeof CABINET_MODELS)[number];
 
 export type CabinetOption = {
   id: number;
-  serial_number: string;
+  serial_number: string | null;
   name: string;
   location: string;
   country: string;

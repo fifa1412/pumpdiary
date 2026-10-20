@@ -74,7 +74,7 @@ export default async function CabinetsPage({
                     <Card className="h-full gap-3">
                       <CardHeader>
                         <CardTitle className="font-display text-lg leading-tight">{cabinet.name}</CardTitle>
-                        <p className="font-numeric text-sm text-muted-foreground">{cabinet.serial_number}</p>
+                        {cabinet.serial_number ? <p className="font-numeric text-sm text-muted-foreground">{cabinet.serial_number}</p> : null}
                       </CardHeader>
                       <CardContent className="flex h-full flex-col gap-3">
                         <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">

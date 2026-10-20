@@ -31,7 +31,7 @@ export function CabinetPicker({
   const filtered = useMemo(() => {
     const search = query.trim().toLocaleLowerCase();
     return cabinets.filter((cabinet) =>
-      [cabinet.serial_number, cabinet.name, cabinet.location, cabinet.country, cabinet.model ?? ""]
+      [cabinet.serial_number ?? "", cabinet.name, cabinet.location, cabinet.country, cabinet.model ?? ""]
         .some((value) => value.toLocaleLowerCase().includes(search)),
     );
   }, [cabinets, query]);

@@ -30,6 +30,7 @@ import { ScreenshotLightbox } from "./screenshot-lightbox";
 import { chartPrefix, SongChartPicker, type ChartSelection } from "./song-chart-picker";
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
 import { YouTubeUploader } from "./youtube-uploader";
+import { YouTubeVideoPanel } from "./youtube-video-panel";
 
 export type EditableScore = {
   id: number;
@@ -192,6 +193,8 @@ function ScoreEntryFormContent({
   const [chartSelection, setChartSelection] = useState<ChartSelection | null>(null);
   const [isVideoUploading, setIsVideoUploading] = useState(false);
   const [uploadedVideoId, setUploadedVideoId] = useState<string | null>(null);
+  // Bumped when the video is deleted, so the uploader starts over without the last upload's messages.
+  const [uploaderKey, setUploaderKey] = useState(0);
   const [aiBudgetRefresh, setAiBudgetRefresh] = useState(0);
   const screenshotInput = useRef<HTMLInputElement>(null);
   const ocrDialog = useRef<HTMLDialogElement>(null);
@@ -335,10 +338,12 @@ function ScoreEntryFormContent({
   const seriesId = useWatch({ control: form.control, name: "seriesId" });
   const selectedVersion = versionById.get(seriesId);
   const rules = selectedVersion?.rules ?? "phoenix";
-  const [score, grade, perfect, great, good, bad, miss, maxCombo, playedAt] = useWatch({
+  const [score, grade, perfect, great, good, bad, miss, maxCombo, playedAt, videoUrl] = useWatch({
     control: form.control,
-    name: ["score", "grade", "perfect", "great", "good", "bad", "miss", "maxCombo", "playedAt"],
+    name: ["score", "grade", "perfect", "great", "good", "bad", "miss", "maxCombo", "playedAt", "videoUrl"],
   });
+  // A score holds one video: while the link field has one, it is shown in place of the uploader.
+  const currentVideoId = youtubeVideoId((videoUrl ?? "").trim());
   const selectedCabinet = cabinets.find((cabinet) => cabinet.id === cabinetId);
   const videoVersion = selectedVersion?.name ?? DEFAULT_GAME_VERSION;
   const videoText: VideoTextInput = {
@@ -879,7 +884,24 @@ function ScoreEntryFormContent({
               </div>
             </div>
 
+            {currentVideoId ? (
+              <YouTubeVideoPanel
+                key={currentVideoId}
+                videoId={currentVideoId}
+                uploaded={currentVideoId === uploadedVideoId || currentVideoId === initialScore?.youtubeVideoId}
+                scoreId={initialScore?.id}
+                disabled={isSubmitting || isVideoUploading}
+                onDeleted={() => {
+                  setUploadedVideoId(null);
+                  setUploaderKey((key) => key + 1);
+                  form.setValue("videoUrl", "", { shouldDirty: true, shouldValidate: true });
+                }}
+              />
+            ) : null}
+
             <YouTubeUploader
+              key={uploaderKey}
+              hasVideo={Boolean(currentVideoId)}
               version={videoVersion}
               suggestedTitle={videoTitle(videoText)}
               suggestedDescription={videoDescription(videoText)}

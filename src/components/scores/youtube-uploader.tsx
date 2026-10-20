@@ -51,6 +51,7 @@ export function YouTubeUploader({
   suggestedDescription,
   suggestedTags,
   suggestedPlaylist,
+  hasVideo = false,
   disabled,
   onUploaded,
   onBusyChange,
@@ -61,6 +62,8 @@ export function YouTubeUploader({
   suggestedDescription: string;
   suggestedTags: string[];
   suggestedPlaylist: string;
+  /** The score already has a video: the upload controls are hidden, only the last upload's messages stay. */
+  hasVideo?: boolean;
   disabled?: boolean;
   onUploaded: (url: string) => void;
   onBusyChange: (busy: boolean) => void;
@@ -255,6 +258,44 @@ export function YouTubeUploader({
     tokenClient.current?.requestAccessToken({ scope: scopes.join(" ") });
   }
 
+  const messages = (
+    <>
+      {status.kind === "uploading" ? (
+        <div className="space-y-1">
+          <div role="progressbar" aria-label={t("progressLabel")} aria-valuemin={0} aria-valuemax={100} aria-valuenow={status.percent}
+            className="h-2 overflow-hidden rounded-full bg-secondary">
+            <div className="h-full bg-primary transition-[width]" style={{ width: `${status.percent}%` }} />
+          </div>
+          <p role="status" className="text-sm text-muted-foreground">{t("uploading", { percent: status.percent })}</p>
+        </div>
+      ) : null}
+      {status.kind === "signingIn" ? <p role="status" className="text-sm text-muted-foreground">{t("signingIn")}</p> : null}
+      {status.kind === "settingThumbnail" ? <p role="status" className="text-sm text-muted-foreground">{t("settingThumbnail")}</p> : null}
+      {status.kind === "addingToPlaylist" ? <p role="status" className="text-sm text-muted-foreground">{t("addingToPlaylist")}</p> : null}
+      {status.kind === "done" ? (
+        <div role="status" className="space-y-1 text-sm">
+          <p className="text-success">{t("done")}</p>
+          {status.lockedPrivate ? <p className="text-muted-foreground">{t("lockedPrivate")}</p> : null}
+          {status.thumbnail ? (
+            <p className={status.thumbnail === "set" ? "text-success" : "text-destructive"}>
+              {t(`thumbnailOutcome.${status.thumbnail}`)}
+            </p>
+          ) : null}
+          {status.playlist ? (
+            <p className={status.playlist.outcome === "failed" || status.playlist.outcome === "notAllowed" ? "text-destructive" : "text-success"}>
+              {t(`playlist.${status.playlist.outcome}`, { title: status.playlist.title })}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+      {status.kind === "error" ? <p role="alert" className="text-sm text-destructive">{t(status.key)}</p> : null}
+    </>
+  );
+
+  // A finished upload hands its link to the form, which then shows the video
+  // instead; the thumbnail and playlist steps still report here.
+  if (hasVideo) return status.kind === "idle" ? null : <div className="space-y-3">{messages}</div>;
+
   return (
     <div className="space-y-3 rounded-lg border p-4">
       <div className="space-y-1">
@@ -360,35 +401,7 @@ export function YouTubeUploader({
           </Button>
         ) : null}
       </div>
-      {status.kind === "uploading" ? (
-        <div className="space-y-1">
-          <div role="progressbar" aria-label={t("progressLabel")} aria-valuemin={0} aria-valuemax={100} aria-valuenow={status.percent}
-            className="h-2 overflow-hidden rounded-full bg-secondary">
-            <div className="h-full bg-primary transition-[width]" style={{ width: `${status.percent}%` }} />
-          </div>
-          <p role="status" className="text-sm text-muted-foreground">{t("uploading", { percent: status.percent })}</p>
-        </div>
-      ) : null}
-      {status.kind === "signingIn" ? <p role="status" className="text-sm text-muted-foreground">{t("signingIn")}</p> : null}
-      {status.kind === "settingThumbnail" ? <p role="status" className="text-sm text-muted-foreground">{t("settingThumbnail")}</p> : null}
-      {status.kind === "addingToPlaylist" ? <p role="status" className="text-sm text-muted-foreground">{t("addingToPlaylist")}</p> : null}
-      {status.kind === "done" ? (
-        <div role="status" className="space-y-1 text-sm">
-          <p className="text-success">{t("done")}</p>
-          {status.lockedPrivate ? <p className="text-muted-foreground">{t("lockedPrivate")}</p> : null}
-          {status.thumbnail ? (
-            <p className={status.thumbnail === "set" ? "text-success" : "text-destructive"}>
-              {t(`thumbnailOutcome.${status.thumbnail}`)}
-            </p>
-          ) : null}
-          {status.playlist ? (
-            <p className={status.playlist.outcome === "failed" || status.playlist.outcome === "notAllowed" ? "text-destructive" : "text-success"}>
-              {t(`playlist.${status.playlist.outcome}`, { title: status.playlist.title })}
-            </p>
-          ) : null}
-        </div>
-      ) : null}
-      {status.kind === "error" ? <p role="alert" className="text-sm text-destructive">{t(status.key)}</p> : null}
+      {messages}
     </div>
   );
 }

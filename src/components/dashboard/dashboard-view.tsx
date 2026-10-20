@@ -21,6 +21,7 @@ import {
 import { logoutUser, type CurrentUser } from "@/lib/auth";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { DeleteScoreButton } from "@/components/scores/delete-score-button";
+import { GradeBadge } from "@/components/scores/grade-badge";
 import { ScreenshotLightbox } from "@/components/scores/screenshot-lightbox";
 import { gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
 import { scoreLabel } from "@/lib/scores/label";
@@ -192,8 +193,9 @@ export function DashboardView({
                         </CardTitle>
                       </div>
                       <CardContent className="mt-auto space-y-2 px-3 pb-3 pt-3">
-                        <div className="flex items-baseline justify-between gap-2">
-                          <span className="font-display text-2xl font-bold text-accent">{score.grade}</span>
+                        <div className="flex h-8 items-center justify-between gap-2">
+                          <GradeBadge grade={score.grade} version={score.series?.name} imageClassName="h-8"
+                            className="font-display text-2xl font-bold text-accent" />
                           <span className="font-numeric text-lg font-semibold tabular-nums">{score.score.toLocaleString(locale)}</span>
                         </div>
                         <div className="flex items-end justify-between gap-2">

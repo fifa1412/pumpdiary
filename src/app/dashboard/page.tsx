@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 
-import { DashboardView, type DashboardScore } from "@/components/dashboard/dashboard-view";
+import { DashboardView, type DashboardScore, type MediaFilter } from "@/components/dashboard/dashboard-view";
 import { getCurrentUser } from "@/lib/supabase/server";
 import { createClient } from "@/lib/supabase/server";
 import { levelKey, levelOptions, parseLevelFilter } from "@/lib/scores/level-filter";
@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function DashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string | string[]; q?: string | string[]; level?: string | string[] }>;
+  searchParams: Promise<{ page?: string | string[]; q?: string | string[]; level?: string | string[]; media?: string | string[] }>;
 }) {
   const [user, params] = await Promise.all([getCurrentUser(), searchParams]);
   if (!user) redirect("/login");
@@ -28,6 +28,8 @@ export default async function DashboardPage({
   const parsedPage = typeof rawPage === "string" && /^\d+$/.test(rawPage) ? Number(rawPage) : 1;
   const query = sanitizeSongSearchQuery(params.q);
   const level = parseLevelFilter(Array.isArray(params.level) ? params.level[0] : params.level);
+  const rawMedia = Array.isArray(params.media) ? params.media[0] : params.media;
+  const media: MediaFilter = rawMedia === "video" || rawMedia === "screenshot" ? rawMedia : "";
 
   // Inner joins let the song title and chart level filter the scores themselves.
   let countRequest = supabase
@@ -45,6 +47,18 @@ export default async function DashboardPage({
   if (query) {
     countRequest = countRequest.ilike("stepchart.song.title", `%${query}%`);
     listRequest = listRequest.ilike("stepchart.song.title", `%${query}%`);
+  }
+  // "video": a clip and a screenshot; "screenshot": a screenshot and no clip.
+  if (media) {
+    countRequest = countRequest.not("screenshot_path", "is", null);
+    listRequest = listRequest.not("screenshot_path", "is", null);
+  }
+  if (media === "video") {
+    countRequest = countRequest.not("video_url", "is", null).neq("video_url", "");
+    listRequest = listRequest.not("video_url", "is", null).neq("video_url", "");
+  } else if (media === "screenshot") {
+    countRequest = countRequest.or("video_url.is.null,video_url.eq.");
+    listRequest = listRequest.or("video_url.is.null,video_url.eq.");
   }
 
   const [{ count, error: countError }, { data: levelRows }] = await Promise.all([
@@ -78,6 +92,7 @@ export default async function DashboardPage({
     historyPages={totalPages}
     query={query}
     level={level ? levelKey(level) : ""}
+    media={media}
     levelOptions={levelOptions(levelRows ?? [])}
   />;
 }

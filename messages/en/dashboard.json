@@ -15,6 +15,10 @@
     "searchPlaceholder": "Song title",
     "level": "Level",
     "allLevels": "All levels",
+    "media": "Media",
+    "mediaAll": "Show all",
+    "mediaVideo": "With clip and screenshot",
+    "mediaScreenshot": "Screenshot only",
     "submit": "Search",
     "clear": "Clear",
     "noMatches": "No scores match these filters."

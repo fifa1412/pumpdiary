@@ -29,6 +29,9 @@ import { versionBannerUrl } from "@/lib/scores/version-banners";
 import { levelKey, type LevelFilter } from "@/lib/scores/level-filter";
 import { jacketUrl } from "@/lib/songs/jackets";
 
+/** Which scores to list by what they have: all, a clip and a screenshot, or a screenshot only. */
+export type MediaFilter = "" | "video" | "screenshot";
+
 export type DashboardScore = {
   id: number;
   score: number;
@@ -48,7 +51,7 @@ export type DashboardScore = {
 };
 
 export function DashboardView({
-  scores, scoresFailed = false, historyPage, historyPages, query = "", level = "", levelOptions = [],
+  scores, scoresFailed = false, historyPage, historyPages, query = "", level = "", levelOptions = [], media = "",
 }: {
   scores: DashboardScore[];
   scoresFailed?: boolean;
@@ -58,6 +61,7 @@ export function DashboardView({
   /** Active level filter such as "S20"; empty for all levels. */
   level?: string;
   levelOptions?: LevelFilter[];
+  media?: MediaFilter;
 }) {
   const router = useRouter();
   const t = useTranslations("dashboard");
@@ -68,7 +72,7 @@ export function DashboardView({
   const zoomTrigger = useRef<HTMLButtonElement>(null);
   const myScoresLabel = t.has("myScores") ? t("myScores") : t("title");
   const noScoresLabel = t.has("noScores") ? t("noScores") : t("emptyTitle");
-  const filtered = Boolean(query || level);
+  const filtered = Boolean(query || level || media);
   const stepLabel = (stepType: LevelFilter["stepType"]) =>
     tc(stepType === "SINGLE" ? "stepTypes.single" : stepType === "DOUBLE" ? "stepTypes.double" : "stepTypes.halfDouble");
 
@@ -76,6 +80,7 @@ export function DashboardView({
     const params = new URLSearchParams();
     if (query) params.set("q", query);
     if (level) params.set("level", level);
+    if (media) params.set("media", media);
     if (page > 1) params.set("page", String(page));
     const search = params.toString();
     return search ? `/dashboard?${search}` : "/dashboard";
@@ -117,7 +122,15 @@ export function DashboardView({
               ) : null;
             })}
           </select>
-          <div className="flex gap-2">
+          <Label htmlFor="dashboard-media" className="sr-only">{t("filters.media")}</Label>
+          <select id="dashboard-media" name="media" defaultValue={media}
+            onChange={(event) => event.currentTarget.form?.requestSubmit()}
+            className="h-9 rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 sm:w-48">
+            <option value="">{t("filters.mediaAll")}</option>
+            <option value="video">{t("filters.mediaVideo")}</option>
+            <option value="screenshot">{t("filters.mediaScreenshot")}</option>
+          </select>
+          <div className="flex gap-2 sm:ml-auto">
             <Button type="submit" size="sm" variant="outline">{t("filters.submit")}</Button>
             {filtered ? <Button size="sm" variant="ghost" asChild><Link href="/dashboard">{t("filters.clear")}</Link></Button> : null}
           </div>

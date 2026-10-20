@@ -15,6 +15,10 @@
     "searchPlaceholder": "ชื่อเพลง",
     "level": "เลเวล",
     "allLevels": "ทุกเลเวล",
+    "media": "สื่อ",
+    "mediaAll": "แสดงทั้งหมด",
+    "mediaVideo": "มีคลิปและภาพ",
+    "mediaScreenshot": "มีแค่ภาพ",
     "submit": "ค้นหา",
     "clear": "ล้าง",
     "noMatches": "ไม่พบคะแนนที่ตรงกับเงื่อนไข"

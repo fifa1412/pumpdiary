@@ -790,7 +790,7 @@ function ScoreEntryFormContent({
               ) : null}
             </div>
             <SongChartPicker
-              key={songPickerKey}
+              key={`song-picker-${songPickerKey}`}
               initialSong={initialSong}
               selectedChartId={selectedChartId}
               onChartChange={onChartChange}
@@ -900,7 +900,7 @@ function ScoreEntryFormContent({
             ) : null}
 
             <YouTubeUploader
-              key={uploaderKey}
+              key={`uploader-${uploaderKey}`}
               hasVideo={Boolean(currentVideoId)}
               version={videoVersion}
               suggestedTitle={videoTitle(videoText)}

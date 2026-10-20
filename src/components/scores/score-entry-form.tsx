@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createClient } from "@/lib/supabase/client";
 import { readScreenshotWithAi } from "@/lib/scores/ai-read-client";
-import { DEFAULT_GAME_VERSION, gameVersionLabel, gameVersionTone, gradesFor, MAX_SCORE, type GameVersion } from "@/lib/scores/game-versions";
+import { DEFAULT_GAME_VERSION, gameVersionLabel, gameVersionTone, gradeFromScore, gradesFor, gradesFromScore, MAX_SCORE, type GameVersion } from "@/lib/scores/game-versions";
 import { scoreLabel } from "@/lib/scores/label";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { matchSongTitle } from "@/lib/songs/fuzzy-match";
@@ -342,6 +342,13 @@ function ScoreEntryFormContent({
     control: form.control,
     name: ["score", "grade", "perfect", "great", "good", "bad", "miss", "maxCombo", "playedAt", "videoUrl"],
   });
+  // On Phoenix versions the grade follows from the score, so it is worked out
+  // here instead of read from the screenshot, which can be misread.
+  const gradedByScore = selectedVersion ? gradesFromScore(selectedVersion.name) : false;
+  const scoreGrade = selectedVersion ? gradeFromScore(score, selectedVersion.name) : null;
+  useEffect(() => {
+    if (scoreGrade && form.getValues("grade") !== scoreGrade) form.setValue("grade", scoreGrade, { shouldDirty: true, shouldValidate: true });
+  }, [form, scoreGrade]);
   // A score holds one video: while the link field has one, it is shown in place of the uploader.
   const currentVideoId = youtubeVideoId((videoUrl ?? "").trim());
   const selectedCabinet = cabinets.find((cabinet) => cabinet.id === cabinetId);
@@ -427,8 +434,10 @@ function ScoreEntryFormContent({
     fillNumber("bad", fields.bad);
     fillNumber("miss", fields.miss);
     fillNumber("maxCombo", fields.maxCombo);
-    const ocrRules = versionById.get(form.getValues("seriesId"))?.rules ?? "phoenix";
-    if (fields.grade && gradesFor(ocrRules).includes(fields.grade) && !form.getFieldState("grade").isDirty) {
+    const ocrVersion = versionById.get(form.getValues("seriesId"));
+    const ocrRules = ocrVersion?.rules ?? "phoenix";
+    const ocrGradedByScore = ocrVersion ? gradesFromScore(ocrVersion.name) : false;
+    if (fields.grade && !ocrGradedByScore && gradesFor(ocrRules).includes(fields.grade) && !form.getFieldState("grade").isDirty) {
       form.setValue("grade", fields.grade, { shouldDirty: false });
       detected.add("grade");
     }
@@ -827,11 +836,19 @@ function ScoreEntryFormContent({
               </div>
               <div className="space-y-2">
                 <Label htmlFor="grade">{t("fields.grade")}</Label>
-                <select id="grade" className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
-                  aria-invalid={!!errors.grade} aria-describedby={errors.grade ? "grade-error" : undefined}
-                  {...form.register("grade")}>
-                  {gradesFor(rules).map((grade) => <option key={grade} value={grade}>{t(`grades.${grade}`)}</option>)}
-                </select>
+                {gradedByScore ? (
+                  <>
+                    <Input id="grade" readOnly value={scoreGrade ? t(`grades.${scoreGrade}`) : ""} placeholder="—"
+                      aria-describedby="grade-hint" className="bg-muted/40" />
+                    <p id="grade-hint" className="text-xs text-muted-foreground">{t("fields.gradeFromScore")}</p>
+                  </>
+                ) : (
+                  <select id="grade" className="h-9 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+                    aria-invalid={!!errors.grade} aria-describedby={errors.grade ? "grade-error" : undefined}
+                    {...form.register("grade")}>
+                    {gradesFor(rules).map((grade) => <option key={grade} value={grade}>{t(`grades.${grade}`)}</option>)}
+                  </select>
+                )}
                 {detectedNote("grade")}
                 <FieldError id="grade-error" message={fieldError("grade")} />
               </div>

@@ -23,6 +23,40 @@ export function gradesFor(rules: ScoreRules): readonly (typeof SCORE_GRADES)[num
   return rules === "classic" ? CLASSIC_GRADES : SCORE_GRADES;
 }
 
+type ScoreGrade = (typeof SCORE_GRADES)[number];
+
+// Lowest score for each grade, best grade first. Phoenix 2 raised every cutoff
+// below AAA; its B, C and D cutoffs are community figures, not official ones.
+// XX and Prime grade on judgments, not on the score, so they have none.
+const PHOENIX_TOP: [number, ScoreGrade][] = [
+  [995_000, "SSS+"], [990_000, "SSS"], [985_000, "SS+"], [980_000, "SS"],
+  [975_000, "S+"], [970_000, "S"], [960_000, "AAA+"], [950_000, "AAA"],
+];
+const GRADE_CUTOFFS: Record<string, [number, ScoreGrade][]> = {
+  "Phoenix 2": [
+    ...PHOENIX_TOP,
+    [940_000, "AA+"], [920_000, "AA"], [900_000, "A+"], [800_000, "A"],
+    [700_000, "B"], [600_000, "C"], [500_000, "D"], [0, "F"],
+  ],
+  Phoenix: [
+    ...PHOENIX_TOP,
+    [925_000, "AA+"], [900_000, "AA"], [825_000, "A+"], [750_000, "A"],
+    [700_000, "B"], [600_000, "C"], [450_000, "D"], [0, "F"],
+  ],
+};
+
+/** Whether a version's grade follows from the score alone. */
+export function gradesFromScore(version: string): boolean {
+  return version in GRADE_CUTOFFS;
+}
+
+/** The grade a score earns on a version (game_series name), or null when the version or score gives none. */
+export function gradeFromScore(score: number, version: string): ScoreGrade | null {
+  const cutoffs = GRADE_CUTOFFS[version];
+  if (!cutoffs || !Number.isInteger(score) || score < 0 || score > MAX_SCORE.phoenix) return null;
+  return cutoffs.find(([cutoff]) => score >= cutoff)![1];
+}
+
 /** "Phoenix 2" -> "PIU Phoenix 2", "Prime" -> "PIU Prime". Game terms, so the same in every locale. */
 export function gameVersionLabel(name: string): string {
   return `PIU ${name}`;

@@ -1,4 +1,5 @@
 import type { SCORE_GRADES, SCORE_PLATES } from "@/components/scores/types";
+import { DEFAULT_GAME_VERSION, gradeFromScore } from "@/lib/scores/game-versions";
 
 export const OCR_FIELD_CONFIDENCE = {
   titleWord: 40,
@@ -39,17 +40,7 @@ type OcrWord = { text: string; confidence: number; bbox: { x0: number; y0: numbe
 type OcrLine = { text: string; confidence: number; words: OcrWord[]; bbox: { x0: number; y0: number; x1: number; y1: number } };
 
 const GRADES = ["SSS+", "SSS", "SS+", "SS", "S+", "S", "AAA+", "AAA", "AA+", "AA", "A+", "A", "B", "C", "D", "F"] as const;
-const GRADE_SCORE_THRESHOLDS: [number, (typeof GRADES)[number]][] = [
-  [995_000, "SSS+"], [990_000, "SSS"], [985_000, "SS+"], [980_000, "SS"],
-  [975_000, "S+"], [970_000, "S"], [960_000, "AAA+"], [950_000, "AAA"],
-  [940_000, "AA+"], [920_000, "AA"], [900_000, "A+"], [800_000, "A"],
-  [700_000, "B"], [600_000, "C"], [500_000, "D"], [0, "F"],
-];
 const PLATES = ["PERFECT GAME", "ULTIMATE GAME", "EXTREME GAME", "SUPERB GAME", "MARVELOUS GAME", "TALENTED GAME", "FAIR GAME", "ROUGH GAME"] as const;
-
-function gradeFromScore(score: number): (typeof GRADES)[number] {
-  return GRADE_SCORE_THRESHOLDS.find(([threshold]) => score >= threshold)![1];
-}
 
 function usefulWords(line: OcrLine): OcrWord[] {
   return line.words.filter((word) => /[\p{L}\p{N}]/u.test(word.text));
@@ -337,7 +328,7 @@ export function parseScoreOcr(lines: OcrLine[]): OcrScoreFields {
   fullScore.sort((a, b) => b.confidence - a.confidence);
   if (fullScore[0]) {
     fields.score = fullScore[0].score;
-    fields.grade ??= gradeFromScore(fullScore[0].score);
+    fields.grade ??= gradeFromScore(fullScore[0].score, DEFAULT_GAME_VERSION) ?? undefined;
   }
 
   const stats: ["perfect" | "great" | "good" | "bad" | "miss" | "maxCombo", string][] = [
@@ -594,7 +585,7 @@ export async function recognizeScoreImage(image: Blob, flipped = false, signal?:
         fields.score = readings[0];
       }
     }
-    if (fields.grade === undefined && fields.score !== undefined) fields.grade = gradeFromScore(fields.score);
+    if (fields.grade === undefined && fields.score !== undefined) fields.grade = gradeFromScore(fields.score, DEFAULT_GAME_VERSION) ?? undefined;
     if (fields.plate === undefined) {
       const plateLeft = Math.round(bitmap.width * (flipped ? 0.58 : 0.12));
       const plateTop = Math.round(bitmap.height * 0.62);

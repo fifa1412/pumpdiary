@@ -15,6 +15,7 @@
     "gameVersion": "เวอร์ชันเกม",
     "score": "คะแนน",
     "grade": "เกรด",
+    "gradeFromScore": "คำนวณจากคะแนน",
     "judgments": "ผลตัดสินและคอมโบ",
     "perfect": "Perfect",
     "great": "Great",

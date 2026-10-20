@@ -452,8 +452,8 @@
   "bemera|SHORTCUT": {
     "title": "Bemera",
     "song_type": "SHORTCUT",
-    "path": "1433-e56c26476d.webp",
-    "source": "08.FIESTA/1062 - [Short Cut] Beemera/1062.png"
+    "path": "1433-6688d17595.webp",
+    "source": "08.FIESTA/1062 - [Short Cut] Bemera/1062.png"
   },
   "betrayer -act.2-|NORMAL": {
     "title": "Betrayer -act.2-",
@@ -1472,8 +1472,8 @@
   "gargoyle|FULLSONG": {
     "title": "Gargoyle",
     "song_type": "FULLSONG",
-    "path": "1643-6fa3ac3bc8.webp",
-    "source": "12.PRIME 2/15E5 - [Full Song] Gargoyle/15E5.png"
+    "path": "1643-663e022843.webp",
+    "source": "12.PRIME 2/15E5 - [Full Song] Gargoyle/15E5-wide.png"
   },
   "gargoyle|NORMAL": {
     "title": "Gargoyle",
@@ -1754,8 +1754,8 @@
   "hymn of golden glory - short cut -|SHORTCUT": {
     "title": "Hymn of Golden Glory - SHORT CUT -",
     "song_type": "SHORTCUT",
-    "path": "1896-8f2287d0ee.webp",
-    "source": "15.PHOENIX/18F77 - [Short Cut] Hymn of Golden Glory/[Short Cut] Hymn of Golden Glory.png"
+    "path": "1896-156b5324da.webp",
+    "source": "21.PHOENIX/18F77 - [Short Cut] Hymn of Golden Glory/[Short Cut] Hymn of Golden Glory.png"
   },
   "hymn of golden glory|NORMAL": {
     "title": "Hymn of Golden Glory",
@@ -2267,6 +2267,12 @@
     "path": "1492-a22a05433d.webp",
     "source": "10.FIESTA 2/(1) 1390 - Mental Rider/1390.png"
   },
+  "mephitz|NORMAL": {
+    "title": "Mephitz",
+    "song_type": "NORMAL",
+    "path": "5306-b01898c9b0.webp",
+    "source": "22.PHOENIX 2/litmus - Mephitz/banner.png"
+  },
   "meteo5cience (gadget mix)|REMIX": {
     "title": "Meteo5cience (GADGET mix)",
     "song_type": "REMIX",
@@ -2734,6 +2740,12 @@
     "song_type": "SHORTCUT",
     "path": "1886-e674b63964.webp",
     "source": "15.PHOENIX/18F65 - [Short Cut] Phoenix Opening/[Short Cut] Phoenix Opening_B 2024.png"
+  },
+  "physalis|NORMAL": {
+    "title": "PHYSALIS",
+    "song_type": "NORMAL",
+    "path": "5287-de0a2ff124.webp",
+    "source": "22.PHOENIX 2/TAG - PHYSALIS/banner.png"
   },
   "pine nut|NORMAL": {
     "title": "Pine Nut",

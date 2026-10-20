@@ -58,6 +58,7 @@
     "ROUGH GAME": "ROUGH GAME"
   },
   "validation": {
+    "incomplete": "ยังบันทึกคะแนนไม่ได้ กรุณาตรวจสอบช่องต่อไปนี้",
     "numberRequired": "กรุณากรอกตัวเลข",
     "integer": "กรุณากรอกจำนวนเต็ม",
     "nonnegative": "กรุณากรอกศูนย์หรือจำนวนบวก",

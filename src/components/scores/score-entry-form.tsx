@@ -5,7 +5,7 @@ import { ImageIcon, Loader2, X } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState, type ChangeEvent, type MouseEvent } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm, useWatch, type FieldErrors } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -134,6 +134,21 @@ async function decodeHeic(file: File): Promise<Blob> {
 }
 
 type ScoreGrade = (typeof SCORE_GRADES)[number];
+
+// The element a field's error points at, when its id is not the field name.
+const FIELD_ELEMENT_IDS: Record<string, string> = {
+  stepchartId: "song-picker-heading",
+  seriesId: "game-version",
+  playedAt: "played-at",
+  videoUrl: "video-url",
+  stagePass: "stage-pass",
+  perfect: "score-perfect",
+  great: "score-great",
+  good: "score-good",
+  bad: "score-bad",
+  miss: "score-miss",
+  maxCombo: "score-maxCombo",
+};
 
 /** The nearest grade on a classic version: SSS+ -> SSS, AAA -> A. */
 function classicGrade(grade: ScoreGrade): ScoreGrade {
@@ -594,6 +609,24 @@ function ScoreEntryFormContent({
     return linked && (linked === uploadedVideoId || linked === initialScore?.youtubeVideoId) ? linked : null;
   }
 
+  // Some fields (the chart above all) show their error far from the save button,
+  // so a failed save says so and scrolls to the first field to fix.
+  function onInvalid(fieldErrors: FieldErrors<z.infer<typeof schema>>) {
+    const targets = Object.entries(fieldErrors).flatMap(([name, error]) => {
+      const element = document.getElementById(FIELD_ELEMENT_IDS[name] ?? name);
+      return element && error?.message ? [{ element, message: String(error.message) }] : [];
+    }).sort((a, b) => (a.element.compareDocumentPosition(b.element) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
+    const messages = [...new Set(targets.map((target) => target.message))];
+    toast.error(t("validation.incomplete"), {
+      description: messages.length ? <ul className="list-disc pl-4">{messages.map((message) => <li key={message}>{message}</li>)}</ul> : undefined,
+    });
+    const first = targets[0]?.element;
+    if (!first) return;
+    first.scrollIntoView({ behavior: "smooth", block: "center" });
+    const focusable = first.matches("input, select, textarea") ? first : first.parentElement?.querySelector<HTMLElement>("input, select, textarea");
+    focusable?.focus({ preventScroll: true });
+  }
+
   async function onSubmit(values: z.infer<typeof schema>) {
     setFormError("");
     setScreenshotError("");
@@ -717,7 +750,7 @@ function ScoreEntryFormContent({
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} noValidate className="space-y-6">
             <input type="hidden" {...form.register("stepchartId", { valueAsNumber: true })} />
             <div className="space-y-2">
               <Label htmlFor="game-version">{t("fields.gameVersion")}</Label>

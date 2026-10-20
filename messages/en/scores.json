@@ -58,6 +58,7 @@
     "ROUGH GAME": "ROUGH GAME"
   },
   "validation": {
+    "incomplete": "Some fields need attention before the score can be saved.",
     "numberRequired": "Enter a number.",
     "integer": "Enter a whole number.",
     "nonnegative": "Enter zero or a positive number.",

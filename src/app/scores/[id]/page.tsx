@@ -6,6 +6,7 @@ import { notFound, redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { DeleteScoreButton } from "@/components/scores/delete-score-button";
+import { GradeBadge } from "@/components/scores/grade-badge";
 import { ScreenshotZoom } from "@/components/scores/screenshot-zoom";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { Button } from "@/components/ui/button";
@@ -114,8 +115,9 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
               <p className="truncate text-xs text-muted-foreground">{song.composer}</p>
               <p className="mt-1 font-numeric text-2xl font-semibold tabular-nums">{row.score.toLocaleString(locale)}</p>
             </div>
-            <div className="shrink-0 text-center">
-              <p className="font-display text-3xl font-bold leading-none text-accent">{row.grade}</p>
+            <div className="flex shrink-0 flex-col items-center text-center">
+              <GradeBadge grade={row.grade} version={row.series?.name} imageClassName="h-12"
+                className="font-display text-3xl font-bold leading-none text-accent" />
               {row.plate || !row.stage_pass ? (
                 <p className="mt-1 text-xs font-medium text-muted-foreground">{row.plate ?? t("detail.stageFailed")}</p>
               ) : null}

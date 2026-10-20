@@ -156,7 +156,7 @@ export default async function LeaderboardIndexPage({
                         {t("players", { count: players })} · {t("top", { score: top.toLocaleString(locale) })}
                       </p>
                     </div>
-                    <LevelRingBadge stepType={chart.step_type} level={chart.level} label={stepLabel(chart.step_type)} size={44} />
+                    <LevelRingBadge stepType={chart.step_type} level={chart.level} label={stepLabel(chart.step_type)} version={version?.name} size={44} />
                   </Link>
                 </li>
               ))}

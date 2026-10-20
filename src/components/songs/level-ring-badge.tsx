@@ -15,17 +15,20 @@ export function LevelRingBadge({
   stepType,
   level,
   label,
+  version,
   size = 56,
   className,
 }: {
   stepType: StepType;
   level: number;
   label: string;
+  /** game_series name whose badge art to show; Phoenix 2 when left out. */
+  version?: string;
   size?: number;
   className?: string;
 }) {
   const colors = STEP_COLORS[stepType];
-  const badgeUrl = levelBadgeUrl(stepType, level);
+  const badgeUrl = levelBadgeUrl(stepType, level, version);
 
   // Use the uploaded badge image when there is one; the drawn ring covers the rest.
   if (badgeUrl) {

@@ -120,7 +120,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
                 <p className="mt-1 text-xs font-medium text-muted-foreground">{row.plate ?? t("detail.stageFailed")}</p>
               ) : null}
             </div>
-            <LevelRingBadge stepType={chart.step_type} level={chart.level} label={stepLabel} size={52} />
+            <LevelRingBadge stepType={chart.step_type} level={chart.level} label={stepLabel} version={row.series?.name} size={52} />
           </div>
 
           <div className="space-y-2">

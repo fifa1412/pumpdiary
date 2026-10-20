@@ -81,6 +81,7 @@ export default async function ChartLeaderboardPage({
           stepType={chart.step_type}
           level={chart.level}
           label={chart.step_type === "SINGLE" ? common("stepTypes.single") : chart.step_type === "DOUBLE" ? common("stepTypes.double") : common("stepTypes.halfDouble")}
+          version={version.name}
           size={72}
         />
       </div>

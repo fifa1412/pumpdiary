@@ -29,9 +29,12 @@ export function ChartBadges({
   charts,
   label,
   linkTo = "newScore",
+  version,
 }: {
   charts: SongChart[];
   label: string;
+  /** game_series name whose badge art to show; Phoenix 2 when left out. */
+  version?: string;
   /** Where a badge goes: log a play on the chart, or the chart's leaderboard. */
   linkTo?: "newScore" | "leaderboard";
 }) {
@@ -49,7 +52,7 @@ export function ChartBadges({
       {rows.map((row) => (
         <ul key={row[0].step_type} className="flex gap-0.5">
           {row.map((chart) => {
-            const badgeUrl = levelBadgeUrl(chart.step_type, chart.level);
+            const badgeUrl = levelBadgeUrl(chart.step_type, chart.level, version);
             const name = `${STEP_PREFIX[chart.step_type]}${chart.level}`;
             return (
               <li key={chart.id} className={badgeUrl ? "min-w-0 max-w-11 flex-1" : "shrink-0 self-center"}>

@@ -183,6 +183,7 @@ export function DashboardView({
                           stepType={chart.step_type}
                           level={chart.level}
                           label={chart.step_type === "SINGLE" ? tc("stepTypes.single") : chart.step_type === "DOUBLE" ? tc("stepTypes.double") : tc("stepTypes.halfDouble")}
+                          version={score.series?.name}
                           size={56}
                           className="pointer-events-none absolute right-1 top-1 z-30"
                         />

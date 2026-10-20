@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 /** `path` with ?version= for the version, left off for the default version. */
 export function versionHref(path: string, version: GameVersion): string {
-  return version.name === DEFAULT_GAME_VERSION ? path : `${path}?version=${version.id}`;
+  return version.name === DEFAULT_GAME_VERSION ? path : `${path}${path.includes("?") ? "&" : "?"}version=${version.id}`;
 }
 
 /** One link per game version; leaderboards show one version at a time. */

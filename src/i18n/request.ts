@@ -17,6 +17,7 @@ export default getRequestConfig(async () => {
       dashboard: (await import(`../../messages/${locale}/dashboard.json`)).default,
       songs: (await import(`../../messages/${locale}/songs.json`)).default,
       scores: (await import(`../../messages/${locale}/scores.json`)).default,
+      overview: (await import(`../../messages/${locale}/overview.json`)).default,
     },
   };
 });

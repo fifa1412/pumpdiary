@@ -1,0 +1,13 @@
+{
+  "title": "Score overview",
+  "description": "Every chart at a level, with your best score on each. Open a logged chart to see its score, or an unlogged one to log a score.",
+  "version": "Game version",
+  "level": "Level",
+  "show": "Show",
+  "previous": "Previous level",
+  "next": "Next level",
+  "progress": "{logged} of {total} charts logged",
+  "noCharts": "No charts at this level.",
+  "loggedLabel": "{title}: {grade}, {score}",
+  "notLoggedLabel": "{title}: not logged yet"
+}

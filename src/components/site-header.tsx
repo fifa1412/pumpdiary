@@ -42,6 +42,14 @@ export function SiteHeader({
               {t("nav.myScores")}
             </Link>
           ) : null}
+          {user ? (
+            <Link
+              href="/overview"
+              className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+            >
+              {t("nav.overview")}
+            </Link>
+          ) : null}
           <Link
             href="/songs"
             className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"

@@ -22,7 +22,7 @@ import { logoutUser, type CurrentUser } from "@/lib/auth";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { DeleteScoreButton } from "@/components/scores/delete-score-button";
 import { ScreenshotLightbox } from "@/components/scores/screenshot-lightbox";
-import { DEFAULT_GAME_VERSION, gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
+import { gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
 import { scoreLabel } from "@/lib/scores/label";
 import { levelKey, type LevelFilter } from "@/lib/scores/level-filter";
 import { jacketUrl } from "@/lib/songs/jackets";
@@ -198,8 +198,7 @@ export function DashboardView({
                         <div className="flex items-end justify-between gap-2">
                           <div className="min-w-0 space-y-2">
                             {score.plate ? <p className="truncate text-xs font-medium text-muted-foreground">{score.plate}</p> : null}
-                            {/* Phoenix 2 is the usual case, so only other versions are called out. */}
-                            {score.series && score.series.name !== DEFAULT_GAME_VERSION ? (
+                            {score.series ? (
                               <p className={`truncate text-xs font-medium ${gameVersionTone(score.series.name).text}`}>{gameVersionLabel(score.series.name)}</p>
                             ) : null}
                             <p className="text-sm text-muted-foreground">{playedDate}</p>

@@ -9,7 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DEFAULT_GAME_VERSION, gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
+import { gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
 import { createClient } from "@/lib/supabase/server";
 
 const RECENT_SCORE_LIMIT = 6;
@@ -78,7 +78,7 @@ export async function RecentScores() {
                       </CardTitle>
                       <CardDescription>
                         {score.profile?.player_name ?? ""}
-                        {score.series && score.series.name !== DEFAULT_GAME_VERSION ? (
+                        {score.series ? (
                           <>
                             {score.profile?.player_name ? " · " : null}
                             <span className={`font-medium ${gameVersionTone(score.series.name).text}`}>{gameVersionLabel(score.series.name)}</span>

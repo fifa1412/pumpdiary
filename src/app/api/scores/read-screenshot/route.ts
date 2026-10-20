@@ -1,4 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
+import { createClient as createTokenClient } from "@supabase/supabase-js";
 
 import { getAiBudget } from "@/lib/scores/ai-budget";
 import {
@@ -21,6 +22,22 @@ function failure(status: number, error: string) {
 
 type Supabase = Awaited<ReturnType<typeof createClient>>;
 
+// The website signs in with a cookie; the iPhone app sends its Supabase access
+// token instead. Either way the queries below run as that player.
+async function requestPlayer(request: Request): Promise<{ supabase: Supabase; userId: string } | null> {
+  const token = request.headers.get("authorization")?.match(/^Bearer\s+(\S+)$/i)?.[1];
+  if (!token) {
+    const user = await getCurrentUser();
+    return user ? { supabase: await createClient(), userId: user.id } : null;
+  }
+  const supabase = createTokenClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!, {
+    global: { headers: { Authorization: `Bearer ${token}` } },
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
+  const { data, error } = await supabase.auth.getUser(token);
+  return error || !data.user ? null : { supabase: supabase as unknown as Supabase, userId: data.user.id };
+}
+
 async function readsToday(supabase: Supabase, userId: string): Promise<number | null> {
   const startOfDay = `${new Date().toISOString().slice(0, 10)}T00:00:00.000Z`;
   const { count, error } = await supabase
@@ -42,16 +59,17 @@ async function logUsage(supabase: Supabase, userId: string, usage: AiReadUsage) 
 }
 
 /** Site-wide AI budget for the progress bar; `null` budget when AI reading is off. */
-export async function GET() {
-  const user = await getCurrentUser();
-  if (!user) return failure(401, "unauthenticated");
+export async function GET(request: Request) {
+  const player = await requestPlayer(request);
+  if (!player) return failure(401, "unauthenticated");
   if (!aiReadAvailable()) return Response.json({ budget: null });
-  return Response.json({ budget: await getAiBudget(await createClient()) });
+  return Response.json({ budget: await getAiBudget(player.supabase) });
 }
 
 export async function POST(request: Request) {
-  const user = await getCurrentUser();
-  if (!user) return failure(401, "unauthenticated");
+  const player = await requestPlayer(request);
+  if (!player) return failure(401, "unauthenticated");
+  const { supabase, userId } = player;
   if (!aiReadAvailable()) return failure(503, "unavailable");
 
   let image: unknown;
@@ -64,8 +82,7 @@ export async function POST(request: Request) {
     return failure(400, "invalid");
   }
 
-  const supabase = await createClient();
-  const [budget, todayCount] = await Promise.all([getAiBudget(supabase), readsToday(supabase, user.id)]);
+  const [budget, todayCount] = await Promise.all([getAiBudget(supabase), readsToday(supabase, userId)]);
   // No configured budget means no spending; the form falls back to OCR.
   if (!budget || budget.remainingReads < 1) return failure(503, "budget");
   if (todayCount === null) return failure(500, "error");
@@ -73,11 +90,11 @@ export async function POST(request: Request) {
 
   try {
     const { fields, usage } = await readScoreScreenshot(Buffer.from(await image.arrayBuffer()), image.type as AiImageType);
-    await logUsage(supabase, user.id, usage);
+    await logUsage(supabase, userId, usage);
     return Response.json({ fields });
   } catch (error) {
     if (error instanceof AiReadError) {
-      if (error.usage) await logUsage(supabase, user.id, error.usage);
+      if (error.usage) await logUsage(supabase, userId, error.usage);
       return failure(error.code === "unavailable" ? 503 : 422, error.code);
     }
     if (error instanceof Anthropic.RateLimitError) return failure(429, "busy");

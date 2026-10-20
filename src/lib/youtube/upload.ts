@@ -4,6 +4,8 @@
 // file goes over YouTube's resumable upload protocol so a dropped connection
 // picks up where it stopped instead of starting over.
 
+import { recordYouTubeCall } from "./quota";
+
 export const YOUTUBE_UPLOAD_SCOPE = "https://www.googleapis.com/auth/youtube.upload";
 // Finding, creating, and filling playlists needs the broader manage-account
 // scope; it is only requested when the player asks for a playlist.
@@ -265,6 +267,7 @@ export async function uploadToYouTube({
   onProgress: (fraction: number) => void;
 }): Promise<YouTubeUploadResult> {
   let session: Response;
+  recordYouTubeCall("videos.insert");
   try {
     session = await fetch(UPLOAD_URL, {
       method: "POST",
@@ -364,6 +367,7 @@ export async function prepareThumbnail(file: File): Promise<File> {
 /** Sets a custom thumbnail on a video. The channel must be verified to use custom thumbnails. */
 export async function setYouTubeThumbnail(token: string, videoId: string, image: File): Promise<void> {
   let response: Response;
+  recordYouTubeCall("thumbnails.set");
   try {
     response = await fetch(`${THUMBNAIL_URL}?videoId=${encodeURIComponent(videoId)}&uploadType=media`, {
       method: "POST",
@@ -406,6 +410,7 @@ async function findPlaylist(token: string, title: string): Promise<string | null
   let pageToken = "";
   // Ten pages of 50 is far more playlists than one channel is likely to have.
   for (let page = 0; page < 10; page += 1) {
+    recordYouTubeCall("playlists.list");
     const result = await youtubeApi<PlaylistPage>(token, `/playlists?part=snippet&mine=true&maxResults=50${pageToken ? `&pageToken=${encodeURIComponent(pageToken)}` : ""}`);
     const match = result.items?.find((item) => item.snippet?.title?.trim().toLocaleLowerCase() === wanted);
     if (match) return match.id;
@@ -431,12 +436,14 @@ export async function addToPlaylist({
   let playlistId = await findPlaylist(token, title);
   const created = playlistId === null;
   if (!playlistId) {
+    recordYouTubeCall("playlists.insert");
     const playlist = await youtubeApi<{ id: string }>(token, "/playlists?part=snippet,status", {
       method: "POST",
       body: { snippet: { title }, status: { privacyStatus } },
     });
     playlistId = playlist.id;
   }
+  recordYouTubeCall("playlistItems.insert");
   await youtubeApi(token, "/playlistItems?part=snippet", {
     method: "POST",
     body: { snippet: { playlistId, resourceId: { kind: "youtube#video", videoId } } },
@@ -447,6 +454,7 @@ export async function addToPlaylist({
 /** Deletes a video from the signed-in channel. A video that is already gone counts as deleted. */
 export async function deleteYouTubeVideo(token: string, videoId: string): Promise<void> {
   let response: Response;
+  recordYouTubeCall("videos.delete");
   try {
     response = await fetch(`${API_URL}/videos?id=${encodeURIComponent(videoId)}`, {
       method: "DELETE",

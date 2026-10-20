@@ -214,6 +214,18 @@
     "videoDeleteFailed": "Could not delete the video on YouTube. If it is not on your channel, clear the YouTube URL field instead.",
     "videoDeletedNotSaved": "The video was deleted, but the score still links to it. Save the score to remove the link.",
     "replaceHint": "To upload a different video, delete this one first or clear the YouTube URL field.",
+    "quota": {
+      "button": "Check quota",
+      "title": "Today's YouTube upload quota",
+      "loading": "Checking…",
+      "error": "Could not check the quota. Try again.",
+      "clipsLeft": "{count, plural, =0 {No uploads left today} one {About # more clip can be uploaded today} other {About # more clips can be uploaded today}}",
+      "uploads": "Uploads used: {used} of {limit}",
+      "units": "Other quota units used: {used} of {limit}",
+      "resets": "Resets at {time}",
+      "note": "An estimate counted from uploads made through PumpDiary. Everyone on the site shares this quota, and YouTube separately limits how many videos each channel can upload a day.",
+      "close": "Close"
+    },
     "errors": {
       "chooseFile": "Choose a video file first.",
       "fileType": "Choose a video file.",

@@ -26,6 +26,7 @@ import {
 import { switchPlaylistVersion, switchTitleVersion, switchVersionTags } from "@/lib/youtube/video-text";
 
 import { TagInput } from "./tag-input";
+import { YouTubeQuotaButton } from "./youtube-quota-button";
 
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? "";
 
@@ -400,6 +401,9 @@ export function YouTubeUploader({
             {t("cancel")}
           </Button>
         ) : null}
+        <div className="ml-auto">
+          <YouTubeQuotaButton disabled={disabled} />
+        </div>
       </div>
       {messages}
     </div>

@@ -10,6 +10,8 @@
 // The game version ("PIU Phoenix 2" above) follows the version picked for the score.
 
 import { DEFAULT_GAME_VERSION, gameVersionLabel } from "@/lib/scores/game-versions";
+import type { SongType } from "@/components/songs/types";
+import { SONG_TYPE_TAGS } from "@/lib/songs/song-title";
 
 function titleVersion(version: string): string {
   return `[${gameVersionLabel(version)}]`;
@@ -29,10 +31,7 @@ function gameTags(series: string): string[] {
 
 const STEP_TYPE_NAMES = { SINGLE: "Single", DOUBLE: "Double", HALFDOUBLE: "Half-Double" } as const;
 const STEP_TYPE_CODES = { SINGLE: "S", DOUBLE: "D", HALFDOUBLE: "HD" } as const;
-// Remix, Full Song, and Shortcut charts are marked in the title; normal songs are not.
-const SONG_TYPE_TAGS = { NORMAL: "", REMIX: "[Remix]", FULLSONG: "[Full Song]", SHORTCUT: "[Shortcut]" } as const;
-
-export type SongType = keyof typeof SONG_TYPE_TAGS;
+export type { SongType } from "@/components/songs/types";
 
 export type VideoTextInput = {
   /** game_series name such as "XX"; Phoenix 2 when left out. */

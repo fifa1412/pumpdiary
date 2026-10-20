@@ -19,6 +19,7 @@ import { DEFAULT_GAME_VERSION, gameVersionLabel, gameVersionTone, gradeFromScore
 import { scoreLabel } from "@/lib/scores/label";
 import { recognizeScoreImage, type OcrScoreFields } from "@/lib/scores/ocr";
 import { matchSongTitle } from "@/lib/songs/fuzzy-match";
+import { baseSongTitle } from "@/lib/songs/song-title";
 import { youtubeVideoId } from "@/lib/youtube/video-id";
 import { playlistTitle, videoDescription, videoTags, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
 
@@ -371,7 +372,7 @@ function ScoreEntryFormContent({
   const videoText: VideoTextInput = {
     version: videoVersion,
     uncappedScore: rules === "classic",
-    chart: chartSelection ? `${chartSelection.songTitle} ${chartPrefix(chartSelection.stepType)}${chartSelection.level}` : "",
+    chart: chartSelection ? `${baseSongTitle(chartSelection.songTitle, chartSelection.songType)} ${chartPrefix(chartSelection.stepType)}${chartSelection.level}` : "",
     song: chartSelection
       ? { title: chartSelection.songTitle, songType: chartSelection.songType, stepType: chartSelection.stepType, level: chartSelection.level }
       : undefined,

@@ -14,6 +14,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { DEFAULT_GAME_VERSION, gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
 import { scoreLabel } from "@/lib/scores/label";
 import { jacketUrl } from "@/lib/songs/jackets";
+import { songDisplayTitle } from "@/lib/songs/song-title";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
 import { youtubeVideoId } from "@/lib/youtube/video-id";
 
@@ -40,7 +41,7 @@ type ScoreDetail = {
   stepchart: {
     step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
     level: number;
-    song: { title: string; composer: string; jacket_path: string | null } | null;
+    song: { title: string; song_type: string; composer: string; jacket_path: string | null } | null;
   } | null;
 };
 
@@ -63,7 +64,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("scores")
-    .select("id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location, model), series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, composer, jacket_path))")
+    .select("id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location, model), series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, song_type, composer, jacket_path))")
     .eq("id", Number(rawId))
     .eq("user_id", user.id)
     .maybeSingle();
@@ -77,6 +78,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
     ? await supabase.storage.from("score-screenshots").createSignedUrl(row.screenshot_path, 3600)
     : { data: null };
   const videoId = row.video_url ? youtubeVideoId(row.video_url) : null;
+  const songTitle = songDisplayTitle(song.title, song.song_type);
   const stepLabel = chart.step_type === "SINGLE" ? tc("stepTypes.single") : chart.step_type === "DOUBLE" ? tc("stepTypes.double") : tc("stepTypes.halfDouble");
   const playedDate = new Date(row.played_at).toLocaleDateString(locale, {
     timeZone: "UTC",
@@ -95,7 +97,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
         </Button>
         <div className="flex flex-wrap gap-2">
           <DeleteScoreButton scoreId={row.id} screenshotPath={row.screenshot_path} youtubeVideoId={row.youtube_video_id} videoUrl={row.video_url}
-            label={scoreLabel(song.title, chart, row.score)} />
+            label={scoreLabel(songTitle, chart, row.score)} />
           <Button asChild>
             <Link href={`/scores/${row.id}/edit`}><Wrench aria-hidden="true" />{t("detail.edit")}</Link>
           </Button>
@@ -111,7 +113,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
               </div>
             ) : null}
             <div className="min-w-0 flex-1">
-              <h1 className="truncate font-display text-xl font-bold leading-tight">{song.title}</h1>
+              <h1 className="truncate font-display text-xl font-bold leading-tight">{songTitle}</h1>
               <p className="truncate text-xs text-muted-foreground">{song.composer}</p>
               <p className="mt-1 font-numeric text-2xl font-semibold tabular-nums">{row.score.toLocaleString(locale)}</p>
             </div>
@@ -184,7 +186,7 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
               <div className="relative aspect-video overflow-hidden rounded-md border bg-black">
                 <iframe
                   src={`https://www.youtube-nocookie.com/embed/${videoId}`}
-                  title={`${song.title} ${stepLabel} ${chart.level}`}
+                  title={`${songTitle} ${stepLabel} ${chart.level}`}
                   allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen

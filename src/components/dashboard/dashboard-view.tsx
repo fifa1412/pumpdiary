@@ -28,6 +28,7 @@ import { scoreLabel } from "@/lib/scores/label";
 import { versionBannerUrl } from "@/lib/scores/version-banners";
 import { levelKey, type LevelFilter } from "@/lib/scores/level-filter";
 import { jacketUrl } from "@/lib/songs/jackets";
+import { songDisplayTitle } from "@/lib/songs/song-title";
 
 /** Which scores to list by what they have: all, a clip and a screenshot, or a screenshot only. */
 export type MediaFilter = "" | "video" | "screenshot";
@@ -46,7 +47,7 @@ export type DashboardScore = {
   stepchart: {
     step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
     level: number;
-    song: { title: string; jacket_path: string | null } | null;
+    song: { title: string; song_type: string; jacket_path: string | null } | null;
   } | null;
 };
 
@@ -151,6 +152,7 @@ export function DashboardView({
             {scores.map((score) => {
               const chart = score.stepchart;
               if (!chart?.song) return null;
+              const songTitle = songDisplayTitle(chart.song.title, chart.song.song_type);
               const screenshotUrl = score.screenshotUrl;
               const playedDate = new Date(score.played_at).toLocaleDateString(locale, {
                 timeZone: "UTC",
@@ -161,10 +163,10 @@ export function DashboardView({
                   <Card className="group relative flex h-full min-h-0 flex-col gap-0 overflow-hidden p-0 transition-colors hover:border-primary/50">
                     <Link
                       href={`/scores/${score.id}`}
-                      aria-label={chart.song.title}
+                      aria-label={songTitle}
                       className="absolute inset-0 z-0 rounded-[3px] focus-visible:z-20 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
                     >
-                      <span className="sr-only">{chart.song.title}</span>
+                      <span className="sr-only">{songTitle}</span>
                     </Link>
                     <div className="pointer-events-none relative z-10 flex h-full flex-col">
                       <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-muted/60">
@@ -198,8 +200,8 @@ export function DashboardView({
                           size={56}
                           className="pointer-events-none absolute right-1 top-1 z-30"
                         />
-                        <CardTitle title={chart.song.title} className="absolute inset-x-0 bottom-0 z-30 truncate bg-background/90 px-3 py-2 text-sm font-semibold leading-tight">
-                          {chart.song.title}
+                        <CardTitle title={songTitle} className="absolute inset-x-0 bottom-0 z-30 truncate bg-background/90 px-3 py-2 text-sm font-semibold leading-tight">
+                          {songTitle}
                         </CardTitle>
                       </div>
                       <CardContent className="mt-auto space-y-2 px-3 pb-3 pt-3">
@@ -239,7 +241,7 @@ export function DashboardView({
                                 screenshotPath={score.screenshot_path}
                                 youtubeVideoId={score.youtube_video_id}
                                 videoUrl={score.video_url}
-                                label={scoreLabel(chart.song.title, chart, score.score)}
+                                label={scoreLabel(songTitle, chart, score.score)}
                                 className="pointer-events-auto relative z-30 size-7"
                               />
                             </div>

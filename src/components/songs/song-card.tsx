@@ -4,6 +4,7 @@ import { getTranslations } from "next-intl/server";
 import { Badge } from "@/components/ui/badge";
 import { playableCharts } from "@/lib/songs/charts";
 import { jacketUrl } from "@/lib/songs/jackets";
+import { songDisplayTitle } from "@/lib/songs/song-title";
 import { ChartBadges } from "./chart-badges";
 import type { SongWithCharts } from "./types";
 
@@ -20,10 +21,10 @@ export async function SongCard({ song }: { song: SongWithCharts }) {
     <li className="flex h-full min-h-56 flex-col rounded-[3px] border border-border border-t-[3px] border-t-primary bg-card p-4 transition-colors hover:border-primary/40">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         <h2
-          title={song.title}
+          title={songDisplayTitle(song.title, song.song_type)}
           className="line-clamp-2 font-display text-lg font-semibold leading-tight"
         >
-          {song.title}
+          {songDisplayTitle(song.title, song.song_type)}
         </h2>
         <Badge variant="outline" className="shrink-0">
           {t(`types.${song.song_type}`)}

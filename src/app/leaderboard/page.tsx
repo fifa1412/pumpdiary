@@ -14,17 +14,18 @@ import { Label } from "@/components/ui/label";
 import { fetchGameVersions, pickGameVersion } from "@/lib/scores/game-versions";
 import { jacketUrl } from "@/lib/songs/jackets";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
+import { songDisplayTitle } from "@/lib/songs/song-title";
 import { createClient } from "@/lib/supabase/server";
 
 const SEARCH_LIMIT = 30;
 const PLAYED_LIMIT = 30;
 
-type SearchSong = { id: number; title: string; composer: string; jacket_path: string | null; stepcharts: SongChart[] };
+type SearchSong = { id: number; title: string; song_type: string; composer: string; jacket_path: string | null; stepcharts: SongChart[] };
 type PlayedChart = {
   id: number;
   step_type: SongChart["step_type"];
   level: number;
-  song: { title: string; jacket_path: string | null } | null;
+  song: { title: string; song_type: string; jacket_path: string | null } | null;
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -63,7 +64,7 @@ export default async function LeaderboardIndexPage({
   if (query) {
     const { data, error } = await supabase
       .from("songs")
-      .select("id, title, composer, jacket_path, stepcharts(id, step_type, level, is_available)")
+      .select("id, title, song_type, composer, jacket_path, stepcharts(id, step_type, level, is_available)")
       .or(`title.ilike.%${query}%,composer.ilike.%${query}%`)
       .order("title", { ascending: true })
       .limit(SEARCH_LIMIT);
@@ -88,7 +89,7 @@ export default async function LeaderboardIndexPage({
     const { data: charts, error: chartError } = ids.length
       ? await supabase
         .from("stepcharts")
-        .select("id, step_type, level, song:songs!stepcharts_song_id_fkey(title, jacket_path)")
+        .select("id, step_type, level, song:songs!stepcharts_song_id_fkey(title, song_type, jacket_path)")
         .in("id", ids)
       : { data: [], error: null };
     failed = Boolean(error || chartError);
@@ -126,7 +127,7 @@ export default async function LeaderboardIndexPage({
                     <Jacket path={song.jacket_path} />
                     <div className="min-w-0 flex-1 space-y-2">
                       <div>
-                        <p className="truncate font-display font-semibold">{song.title}</p>
+                        <p className="truncate font-display font-semibold">{songDisplayTitle(song.title, song.song_type)}</p>
                         <p className="truncate text-sm text-muted-foreground">{song.composer}</p>
                       </div>
                       <ChartBadges charts={song.stepcharts} label={ts("chartsLabel")} linkTo="leaderboard" />
@@ -151,7 +152,7 @@ export default async function LeaderboardIndexPage({
                     className="flex items-center gap-3 rounded-[3px] border bg-card p-3 transition-colors hover:border-primary/50 focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
                     <Jacket path={chart.song?.jacket_path ?? null} />
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-display font-semibold">{chart.song?.title}</p>
+                      <p className="truncate font-display font-semibold">{chart.song ? songDisplayTitle(chart.song.title, chart.song.song_type) : null}</p>
                       <p className="text-sm text-muted-foreground">
                         {t("players", { count: players })} · {t("top", { score: top.toLocaleString(locale) })}
                       </p>

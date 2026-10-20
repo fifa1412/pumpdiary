@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
+import { songDisplayTitle } from "@/lib/songs/song-title";
 import { createClient } from "@/lib/supabase/server";
 
 const RECENT_SCORE_LIMIT = 6;
@@ -25,7 +26,7 @@ type RecentScore = {
   stepchart: {
     step_type: StepType;
     level: number;
-    song: { title: string } | null;
+    song: { title: string; song_type: string } | null;
   } | null;
 };
 
@@ -44,7 +45,7 @@ export async function RecentScores() {
 
   const { data, error } = await supabase
     .from("scores")
-    .select("id, score, grade, plate, profile:profiles!scores_user_id_fkey(player_name), series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title))")
+    .select("id, score, grade, plate, profile:profiles!scores_user_id_fkey(player_name), series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, song_type))")
     .order("created_at", { ascending: false })
     .limit(RECENT_SCORE_LIMIT);
 
@@ -66,7 +67,7 @@ export async function RecentScores() {
           <ul className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {scores.map((score) => {
               const chart = score.stepchart;
-              const title = chart?.song?.title;
+              const title = chart?.song ? songDisplayTitle(chart.song.title, chart.song.song_type) : null;
               if (!chart || !title) return null;
 
               return (

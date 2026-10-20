@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { playableCharts } from "@/lib/songs/charts";
 import { matchSongTitle, songTitleSearchTerms } from "@/lib/songs/fuzzy-match";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
+import { songDisplayTitle } from "@/lib/songs/song-title";
 import { createClient } from "@/lib/supabase/client";
 
 import type { SongOption } from "./types";
@@ -213,7 +214,7 @@ export function SongChartPicker({
                   className="w-full rounded-md px-3 py-2 text-left text-sm hover:bg-accent focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
                   onClick={() => chooseSong(result)}
                 >
-                  <span className="block font-medium">{result.title}</span>
+                  <span className="block font-medium">{songDisplayTitle(result.title, result.song_type)}</span>
                   <span className="text-muted-foreground">{result.composer}</span>
                 </button>
               </li>
@@ -227,7 +228,7 @@ export function SongChartPicker({
       {song ? (
         <div className="space-y-3 rounded-lg border bg-card p-3">
           <div>
-            <p className="font-medium">{song.title}</p>
+            <p className="font-medium">{songDisplayTitle(song.title, song.song_type)}</p>
             <p className="text-sm text-muted-foreground">{song.composer}</p>
             {ocrMatchedSong ? <p className="mt-1 text-xs text-muted-foreground">{t("fields.detectedSong")}</p> : null}
           </div>

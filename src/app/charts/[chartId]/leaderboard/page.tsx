@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { VersionTabs } from "@/components/scores/version-tabs";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { fetchGameVersions, pickGameVersion } from "@/lib/scores/game-versions";
+import { songDisplayTitle } from "@/lib/songs/song-title";
 import { createClient } from "@/lib/supabase/server";
 
 type BestScoreRow = {
@@ -54,7 +55,7 @@ export default async function ChartLeaderboardPage({
 
   const { data: song, error: songError } = await supabase
     .from("songs")
-    .select("title")
+    .select("title, song_type")
     .eq("id", chart.song_id)
     .maybeSingle();
   if (songError || !song) notFound();
@@ -74,7 +75,7 @@ export default async function ChartLeaderboardPage({
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-3xl font-bold">{t("title")}</h1>
-          <p className="mt-2 text-muted-foreground">{song.title}</p>
+          <p className="mt-2 text-muted-foreground">{songDisplayTitle(song.title, song.song_type)}</p>
           <p className="mt-1 text-sm text-muted-foreground">{t("description")}</p>
         </div>
         <LevelRingBadge

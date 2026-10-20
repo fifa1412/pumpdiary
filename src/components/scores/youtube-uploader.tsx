@@ -373,16 +373,16 @@ export function YouTubeUploader({
       {status.kind === "settingThumbnail" ? <p role="status" className="text-sm text-muted-foreground">{t("settingThumbnail")}</p> : null}
       {status.kind === "addingToPlaylist" ? <p role="status" className="text-sm text-muted-foreground">{t("addingToPlaylist")}</p> : null}
       {status.kind === "done" ? (
-        <div role="status" className="space-y-1 text-sm text-muted-foreground">
-          <p>{t("done")}</p>
-          {status.lockedPrivate ? <p>{t("lockedPrivate")}</p> : null}
+        <div role="status" className="space-y-1 text-sm">
+          <p className="text-success">{t("done")}</p>
+          {status.lockedPrivate ? <p className="text-muted-foreground">{t("lockedPrivate")}</p> : null}
           {status.thumbnail ? (
-            <p className={status.thumbnail === "set" ? undefined : "text-destructive"}>
+            <p className={status.thumbnail === "set" ? "text-success" : "text-destructive"}>
               {t(`thumbnailOutcome.${status.thumbnail}`)}
             </p>
           ) : null}
           {status.playlist ? (
-            <p className={status.playlist.outcome === "failed" || status.playlist.outcome === "notAllowed" ? "text-destructive" : undefined}>
+            <p className={status.playlist.outcome === "failed" || status.playlist.outcome === "notAllowed" ? "text-destructive" : "text-success"}>
               {t(`playlist.${status.playlist.outcome}`, { title: status.playlist.title })}
             </p>
           ) : null}

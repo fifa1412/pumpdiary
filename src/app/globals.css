@@ -53,6 +53,7 @@
   --color-version-foreground: var(--version-foreground);
   --color-upload: var(--upload);
   --color-upload-foreground: var(--upload-foreground);
+  --color-success: var(--success);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -95,6 +96,8 @@
   /* The YouTube upload button stands out from the green primary actions. */
   --upload: #1677c9;
   --upload-foreground: #ffffff;
+  /* Lime for things that went through, such as a finished upload. */
+  --success: #a3e635;
   --chart-1: #2fb86b;
   --chart-2: #f2c230;
   --chart-3: #9aa2a5;
@@ -144,6 +147,8 @@
   /* The YouTube upload button stands out from the green primary actions. */
   --upload: #1677c9;
   --upload-foreground: #ffffff;
+  /* Lime for things that went through, such as a finished upload. */
+  --success: #a3e635;
   --chart-1: #2fb86b;
   --chart-2: #f2c230;
   --chart-3: #9aa2a5;

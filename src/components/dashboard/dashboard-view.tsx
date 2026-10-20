@@ -25,6 +25,7 @@ import { GradeBadge } from "@/components/scores/grade-badge";
 import { ScreenshotLightbox } from "@/components/scores/screenshot-lightbox";
 import { gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
 import { scoreLabel } from "@/lib/scores/label";
+import { versionBannerUrl } from "@/lib/scores/version-banners";
 import { levelKey, type LevelFilter } from "@/lib/scores/level-filter";
 import { jacketUrl } from "@/lib/songs/jackets";
 
@@ -189,17 +190,15 @@ export function DashboardView({
                         </CardTitle>
                       </div>
                       <CardContent className="mt-auto space-y-2 px-3 pb-3 pt-3">
-                        <div className="flex h-8 items-center justify-between gap-2">
+                        <div className="flex h-10 items-center justify-between gap-2">
                           <GradeBadge grade={score.grade} version={score.series?.name} imageClassName="h-8"
                             className="font-display text-2xl font-bold text-accent" />
-                          <span className="font-numeric text-lg font-semibold tabular-nums">{score.score.toLocaleString(locale)}</span>
+                          {score.series ? <VersionBanner version={score.series.name} /> : null}
                         </div>
                         <div className="flex items-end justify-between gap-2">
                           <div className="min-w-0 space-y-2">
                             {score.plate ? <p className="truncate text-xs font-medium text-muted-foreground">{score.plate}</p> : null}
-                            {score.series ? (
-                              <p className={`truncate text-xs font-medium ${gameVersionTone(score.series.name).text}`}>{gameVersionLabel(score.series.name)}</p>
-                            ) : null}
+                            <p className="font-numeric text-lg font-semibold leading-none tabular-nums">{score.score.toLocaleString(locale)}</p>
                             <p className="text-sm text-muted-foreground">{playedDate}</p>
                           </div>
                           <div className="flex shrink-0 items-end gap-1.5">
@@ -270,4 +269,14 @@ export function DashboardView({
       </div>
     </div>
   );
+}
+
+// The version's title banner, or its name in the version colour when it has none.
+function VersionBanner({ version }: { version: string }) {
+  const url = versionBannerUrl(version);
+  const label = gameVersionLabel(version);
+  if (!url) return <span className={`truncate text-xs font-medium ${gameVersionTone(version).text}`}>{label}</span>;
+  // The banners differ in shape, so a plain img keeps each one's own aspect ratio.
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={url} alt={label} title={label} className="h-10 w-auto min-w-0 max-w-[60%] object-contain object-right" />;
 }

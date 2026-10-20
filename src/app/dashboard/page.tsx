@@ -72,7 +72,6 @@ export default async function DashboardPage({
   }));
 
   return <DashboardView
-    user={user}
     scores={scores as unknown as DashboardScore[]}
     scoresFailed={Boolean(countError || error)}
     historyPage={page}

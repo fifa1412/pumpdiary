@@ -18,7 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { logoutUser, type CurrentUser } from "@/lib/auth";
+import { logoutUser } from "@/lib/auth";
 import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { DeleteScoreButton } from "@/components/scores/delete-score-button";
 import { GradeBadge } from "@/components/scores/grade-badge";
@@ -47,9 +47,8 @@ export type DashboardScore = {
 };
 
 export function DashboardView({
-  user, scores, scoresFailed = false, historyPage, historyPages, query = "", level = "", levelOptions = [],
+  scores, scoresFailed = false, historyPage, historyPages, query = "", level = "", levelOptions = [],
 }: {
-  user: CurrentUser;
   scores: DashboardScore[];
   scoresFailed?: boolean;
   historyPage: number;
@@ -92,12 +91,9 @@ export function DashboardView({
 
   return (
     <div className="mx-auto flex w-full max-w-6xl flex-1 flex-col gap-8 px-4 py-10 sm:py-12">
-      <h1 className="text-center font-display text-3xl font-bold">
-        {t("greeting", { name: user.name })}
-      </h1>
       <section aria-labelledby="my-scores-heading" className="space-y-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 id="my-scores-heading" className="font-display text-2xl font-bold">{myScoresLabel}</h2>
+          <h1 id="my-scores-heading" className="font-display text-2xl font-bold">{myScoresLabel}</h1>
           <Button asChild><Link href="/scores/new">{t("addScore")}</Link></Button>
         </div>
         <form role="search" action="/dashboard" className="flex flex-col gap-2 sm:flex-row sm:items-center">

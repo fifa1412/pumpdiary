@@ -373,6 +373,7 @@ from (values
   ('Love is a Danger Zone pt.2', 'SHORTCUT', '1423-7b1f3a6709.webp'),
   ('Love is a Danger Zone pt.2 another', 'NORMAL', '1355-7a837055fd.webp'),
   ('Love Is A Danger Zone(Cranky Mix)', 'NORMAL', '1480-4b380c4c4e.webp'),
+  ('Love Witch', 'NORMAL', '5322-9aa0e75dfc.webp'),
   ('Lucid Dream', 'NORMAL', '1827-9142890a79.webp'),
   ('Lucid(PIU Edit)', 'NORMAL', '1487-5f277f4083.webp'),
   ('Lucky Star', 'NORMAL', '3266-631ab8e189.webp'),

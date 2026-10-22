@@ -8,7 +8,7 @@ import { createClient } from "@/lib/supabase/server";
 import { levelKey, levelOptions, parseLevelFilter } from "@/lib/scores/level-filter";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
 
-const MY_SCORES_LIMIT = 20;
+const MY_SCORES_LIMIT = 50;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("dashboard");
@@ -74,15 +74,15 @@ export default async function DashboardPage({
     .order("created_at", { ascending: false })
     .range((page - 1) * MY_SCORES_LIMIT, page * MY_SCORES_LIMIT - 1);
 
-  const scores = await Promise.all((data ?? []).map(async (score) => {
-    const { data: screenshot } = score.screenshot_path
-      ? await supabase.storage.from("score-screenshots").createSignedUrl(score.screenshot_path, 3600)
-      : { data: null };
-
-    return {
-      ...score,
-      screenshotUrl: screenshot?.signedUrl ?? null,
-    };
+  // One request signs every screenshot on the page.
+  const paths = (data ?? []).flatMap((score) => (score.screenshot_path ? [score.screenshot_path] : []));
+  const { data: signed } = paths.length
+    ? await supabase.storage.from("score-screenshots").createSignedUrls(paths, 3600)
+    : { data: [] };
+  const urlByPath = new Map((signed ?? []).flatMap((item) => (item.path && item.signedUrl ? [[item.path, item.signedUrl] as const] : [])));
+  const scores = (data ?? []).map((score) => ({
+    ...score,
+    screenshotUrl: score.screenshot_path ? urlByPath.get(score.screenshot_path) ?? null : null,
   }));
 
   return <DashboardView

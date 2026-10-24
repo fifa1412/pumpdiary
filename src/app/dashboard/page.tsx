@@ -65,9 +65,16 @@ export default async function DashboardPage({
     countRequest,
     supabase
       .from("scores")
-      .select("stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level)")
+      .select("screenshot_path, video_url, stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level)")
       .eq("user_id", user.id),
   ]);
+  // Totals over every saved score, counted the same way as the media filter.
+  const mediaCounts = { video: 0, screenshot: 0 };
+  for (const row of levelRows ?? []) {
+    if (!row.screenshot_path) continue;
+    if (row.video_url) mediaCounts.video += 1;
+    else mediaCounts.screenshot += 1;
+  }
   const totalPages = Math.max(1, Math.ceil((count ?? 0) / MY_SCORES_LIMIT));
   const page = Math.min(Math.max(1, parsedPage), totalPages);
   const { data, error } = await listRequest
@@ -93,6 +100,7 @@ export default async function DashboardPage({
     query={query}
     level={level ? levelKey(level) : ""}
     media={media}
+    mediaCounts={mediaCounts}
     levelOptions={levelOptions(levelRows ?? [])}
   />;
 }

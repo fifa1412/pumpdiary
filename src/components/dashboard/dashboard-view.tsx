@@ -52,7 +52,7 @@ export type DashboardScore = {
 };
 
 export function DashboardView({
-  scores, scoresFailed = false, historyPage, historyPages, query = "", level = "", levelOptions = [], media = "",
+  scores, scoresFailed = false, historyPage, historyPages, query = "", level = "", levelOptions = [], media = "", mediaCounts,
 }: {
   scores: DashboardScore[];
   scoresFailed?: boolean;
@@ -63,6 +63,8 @@ export function DashboardView({
   level?: string;
   levelOptions?: LevelFilter[];
   media?: MediaFilter;
+  /** How many saved scores have a clip and screenshot, or only a screenshot. */
+  mediaCounts?: { video: number; screenshot: number };
 }) {
   const router = useRouter();
   const t = useTranslations("dashboard");
@@ -131,7 +133,15 @@ export function DashboardView({
             <option value="video">{t("filters.mediaVideo")}</option>
             <option value="screenshot">{t("filters.mediaScreenshot")}</option>
           </select>
-          <div className="flex gap-2 sm:ml-auto">
+          {mediaCounts ? (
+            <dl className="grid grid-cols-[auto_auto] gap-x-2 text-xs text-muted-foreground sm:ml-auto">
+              <dt>{t("filters.mediaVideo")}</dt>
+              <dd className="text-right font-medium tabular-nums text-foreground">{mediaCounts.video.toLocaleString(locale)}</dd>
+              <dt>{t("filters.mediaScreenshot")}</dt>
+              <dd className="text-right font-medium tabular-nums text-foreground">{mediaCounts.screenshot.toLocaleString(locale)}</dd>
+            </dl>
+          ) : null}
+          <div className={mediaCounts ? "flex gap-2" : "flex gap-2 sm:ml-auto"}>
             <Button type="submit" size="sm" variant="outline">{t("filters.submit")}</Button>
             {filtered ? <Button size="sm" variant="ghost" asChild><Link href="/dashboard">{t("filters.clear")}</Link></Button> : null}
           </div>

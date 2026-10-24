@@ -133,6 +133,10 @@ export function DashboardView({
             <option value="video">{t("filters.mediaVideo")}</option>
             <option value="screenshot">{t("filters.mediaScreenshot")}</option>
           </select>
+          <div className="flex gap-2">
+            <Button type="submit" size="sm" variant="outline">{t("filters.submit")}</Button>
+            {filtered ? <Button size="sm" variant="ghost" asChild><Link href="/dashboard">{t("filters.clear")}</Link></Button> : null}
+          </div>
           {mediaCounts ? (
             <dl className="grid grid-cols-[auto_auto] gap-x-2 text-xs text-muted-foreground sm:ml-auto">
               <dt>{t("filters.mediaVideo")}</dt>
@@ -141,10 +145,6 @@ export function DashboardView({
               <dd className="text-right font-medium tabular-nums text-foreground">{mediaCounts.screenshot.toLocaleString(locale)}</dd>
             </dl>
           ) : null}
-          <div className={mediaCounts ? "flex gap-2" : "flex gap-2 sm:ml-auto"}>
-            <Button type="submit" size="sm" variant="outline">{t("filters.submit")}</Button>
-            {filtered ? <Button size="sm" variant="ghost" asChild><Link href="/dashboard">{t("filters.clear")}</Link></Button> : null}
-          </div>
         </form>
         {scoresFailed ? (
           <p role="alert" className="text-sm text-destructive">{tc("errors.generic")}</p>

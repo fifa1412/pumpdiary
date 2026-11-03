@@ -34,6 +34,8 @@ export type OcrScoreFields = {
   machineName?: string;
   /** In-game player name from the profile bar, without the #number. */
   playerName?: string;
+  /** game_series name the result screen belongs to; only the AI reader sets it. */
+  gameVersion?: string;
 };
 
 type OcrWord = { text: string; confidence: number; bbox: { x0: number; y0: number; x1: number; y1: number } };

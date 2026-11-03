@@ -4,11 +4,12 @@ import Anthropic from "@anthropic-ai/sdk";
 import { z } from "zod";
 
 import { SCORE_GRADES, SCORE_PLATES } from "@/components/scores/types";
-import { MAX_SCORE } from "@/lib/scores/game-versions";
+import { AI_GAME_VERSIONS, gradeFromScore, MAX_SCORE } from "@/lib/scores/game-versions";
 import type { OcrScoreFields } from "@/lib/scores/ocr";
 
-// Reads a Phoenix 2 result screen photo with Claude Haiku 5.5. Returns the
-// same fields as the in-browser OCR so the form can fill itself either way.
+// Reads a Phoenix or Phoenix 2 result screen photo with Claude Haiku 5.5.
+// Returns the same fields as the in-browser OCR, plus the game version, so the
+// form can fill itself either way.
 
 const MODEL = "claude-haiku-5-5";
 // Claude Haiku 5.5 list prices in USD per token for prompts up to 100K tokens.
@@ -17,7 +18,7 @@ const PRICE = { input: 0.10 / 1e6, output: 0.50 / 1e6, cacheWrite: 0.125 / 1e6, 
 export const AI_IMAGE_TYPES = ["image/webp", "image/jpeg", "image/png"] as const;
 export type AiImageType = (typeof AI_IMAGE_TYPES)[number];
 
-const SYSTEM_PROMPT = `You read photos of the Pump It Up Phoenix 2 arcade result screen, usually taken with a phone at an angle, with glare, moving light streaks, and the cabinet frame around the screen. The photo can also be mirrored left to right.
+const SYSTEM_PROMPT = `You read photos of the Pump It Up Phoenix or Phoenix 2 arcade result screen, usually taken with a phone at an angle, with glare, moving light streaks, and the cabinet frame around the screen. The photo can also be mirrored left to right.
 
 Report what the screen shows:
 - title: the song title in the bar near the top centre, above the judgment list. Copy it exactly, including punctuation and capitalisation. It is not the large stylised song logo near the bottom, not the player name, and not the player rank such as "[S] EXPERT LV.3".
@@ -29,6 +30,10 @@ Report what the screen shows:
 - perfect, great, good, bad, miss, maxCombo: the numbers beside PERFECT, GREAT, GOOD, BAD, MISS, and MAX COMBO. Ignore KCAL.
 - playerName: the player name in the profile bar at the top of the screen, without the "#" and number after it. Not the rank title above it.
 - machineName: the machine name the arcade set, usually an arcade or shop name, shown small at the bottom right of the screen. Copy it exactly.
+- gameVersion: which game the screen is from. The two share one layout; tell them apart by the frame, not by the song background or the rank bar colour, which change from play to play:
+  - "Phoenix 2": the stage number at the top sits in a square box with a bright green outline; left of the player avatar is a small box with a rating number such as "17961.36" over a shield icon; thin bright green neon lines run along the song title bar and every judgment row.
+  - "Phoenix": the stage number at the top sits in a blue badge shaped like a pair of wings; there is no rating box left of the avatar; the song title bar and the judgment rows are solid blue bands with no green lines.
+  "unknown" when the top of the screen is not visible clearly enough to tell.
 - stagePass: true when the grade logo is in colour and a plate is shown; false when the grade logo is grey, silver, or black (often cracked) and there is no plate, which is how the game shows a failed stage. Null only when you cannot tell.
 
 Use null for anything you cannot read with confidence. Never guess a number.`;
@@ -39,7 +44,7 @@ const count = nullable({ type: "integer" });
 const OUTPUT_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  required: ["title", "stepType", "level", "score", "grade", "plate", "perfect", "great", "good", "bad", "miss", "maxCombo", "stagePass", "machineName", "titleLatin", "playerName"],
+  required: ["title", "stepType", "level", "score", "grade", "plate", "perfect", "great", "good", "bad", "miss", "maxCombo", "stagePass", "machineName", "titleLatin", "playerName", "gameVersion"],
   properties: {
     title: nullable({ type: "string" }),
     stepType: nullable({ type: "string", enum: ["SINGLE", "DOUBLE", "HALFDOUBLE"] }),
@@ -57,6 +62,8 @@ const OUTPUT_SCHEMA = {
     machineName: nullable({ type: "string" }),
     titleLatin: nullable({ type: "string" }),
     playerName: nullable({ type: "string" }),
+    // Not nullable: the API allows at most 16 nullable properties, so "unknown" stands in for null.
+    gameVersion: { type: "string", enum: [...AI_GAME_VERSIONS, "unknown"] },
   },
 };
 
@@ -79,6 +86,7 @@ const resultSchema = z.object({
   machineName: z.string().trim().max(200).nullable(),
   titleLatin: z.string().trim().max(200).nullable(),
   playerName: z.string().trim().max(60).nullable(),
+  gameVersion: z.enum([...AI_GAME_VERSIONS, "unknown"]),
 });
 
 export class AiReadError extends Error {
@@ -148,6 +156,12 @@ export async function readScoreScreenshot(
   }
   if (parsed.stagePass !== null) fields.stagePass = parsed.stagePass;
   if (parsed.machineName) fields.machineName = parsed.machineName;
+  // Phoenix 2 raised the cutoffs below AAA, so a score and grade that fit only
+  // one version's cutoffs name it more surely than the screen's look does.
+  const { score, grade } = parsed;
+  const fitting = score !== null && grade ? AI_GAME_VERSIONS.filter((version) => gradeFromScore(score, version) === grade) : [];
+  if (fitting.length === 1) fields.gameVersion = fitting[0];
+  else if (parsed.gameVersion !== "unknown") fields.gameVersion = parsed.gameVersion;
   if (parsed.playerName) fields.playerName = parsed.playerName.replace(/\s*#\s*\d+$/, "");
   return { fields, usage };
 }

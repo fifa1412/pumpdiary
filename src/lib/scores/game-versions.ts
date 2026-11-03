@@ -14,6 +14,9 @@ export type GameVersion = { id: number; name: string; rules: ScoreRules };
 /** game_series name of the version new scores start on. */
 export const DEFAULT_GAME_VERSION = "Phoenix 2";
 
+/** game_series names the screenshot reader can tell apart from the result screen. */
+export const AI_GAME_VERSIONS = ["Phoenix", "Phoenix 2"] as const;
+
 /** Highest score each rule set accepts; the database checks the same limits. */
 export const MAX_SCORE: Record<ScoreRules, number> = { phoenix: 1_000_000, classic: 99_999_999 };
 

@@ -421,7 +421,7 @@ function ScoreEntryFormContent({
   function resetOcrPrefill() {
     const previous = detectedFields;
     for (const name of previous) {
-      if (name === "stepchartId" || name === "score" || name === "perfect" || name === "great" || name === "good" || name === "bad" || name === "miss" || name === "maxCombo" || name === "grade" || name === "plate" || name === "stagePass") {
+      if (name === "seriesId" || name === "stepchartId" || name === "score" || name === "perfect" || name === "great" || name === "good" || name === "bad" || name === "miss" || name === "maxCombo" || name === "grade" || name === "plate" || name === "stagePass") {
         if (!form.getFieldState(name).isDirty) form.resetField(name);
       }
     }
@@ -450,6 +450,12 @@ function ScoreEntryFormContent({
     fillNumber("bad", fields.bad);
     fillNumber("miss", fields.miss);
     fillNumber("maxCombo", fields.maxCombo);
+    // The screen's version decides the grade rules below, so it goes first.
+    const screenVersion = fields.gameVersion ? versions.find((version) => version.name === fields.gameVersion) : undefined;
+    if (screenVersion && !form.getFieldState("seriesId").isDirty) {
+      form.setValue("seriesId", screenVersion.id, { shouldDirty: false, shouldValidate: true });
+      detected.add("seriesId");
+    }
     const ocrVersion = versionById.get(form.getValues("seriesId"));
     const ocrRules = ocrVersion?.rules ?? "phoenix";
     const ocrGradedByScore = ocrVersion ? gradesFromScore(ocrVersion.name) : false;
@@ -763,6 +769,7 @@ function ScoreEntryFormContent({
                 {versions.map((version) => <option key={version.id} value={version.id} className="text-foreground">{gameVersionLabel(version.name)}</option>)}
               </select>
               <FieldError id="game-version-error" message={fieldError("seriesId")} />
+              {detectedNote("seriesId")}
             </div>
             <div className="space-y-3">
               <Label htmlFor="screenshot">{t("fields.screenshot")}</Label>

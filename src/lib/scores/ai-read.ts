@@ -30,10 +30,10 @@ Report what the screen shows:
 - perfect, great, good, bad, miss, maxCombo: the numbers beside PERFECT, GREAT, GOOD, BAD, MISS, and MAX COMBO. Ignore KCAL.
 - playerName: the player name in the profile bar at the top of the screen, without the "#" and number after it. Not the rank title above it.
 - machineName: the machine name the arcade set, usually an arcade or shop name, shown small at the bottom right of the screen. Copy it exactly.
-- gameVersion: which game the screen is from. The two share one layout; tell them apart by the frame, not by the song background or the rank bar colour, which change from play to play:
-  - "Phoenix 2": the stage number at the top sits in a square box with a bright green outline; left of the player avatar is a small box with a rating number such as "17961.36" over a shield icon; thin bright green neon lines run along the song title bar and every judgment row.
-  - "Phoenix": the stage number at the top sits in a blue badge shaped like a pair of wings; there is no rating box left of the avatar; the song title bar and the judgment rows are solid blue bands with no green lines.
-  "unknown" when the top of the screen is not visible clearly enough to tell.
+- gameVersion: which game the screen is from. Decide by the stage number at the top centre, right of the rank bar (a two-digit number such as 08 or 13):
+  - "Phoenix 2" when that number sits in a square box with a bright green outline. Phoenix 2 also shows a small box with a rating number such as "17961.36" over a shield icon left of the player avatar.
+  - "Phoenix" when that number sits in a blue badge shaped like a pair of wings. Phoenix shows no rating box left of the avatar.
+  Ignore the song background and the rank bar colour; they change from play to play. Answer "unknown" only when the top of the screen is cut off or too blurred to see the stage number's box.
 - stagePass: true when the grade logo is in colour and a plate is shown; false when the grade logo is grey, silver, or black (often cracked) and there is no plate, which is how the game shows a failed stage. Null only when you cannot tell.
 
 Use null for anything you cannot read with confidence. Never guess a number.`;

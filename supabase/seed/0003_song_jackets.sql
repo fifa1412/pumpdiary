@@ -53,7 +53,7 @@ from (values
   ('Asterios -ReEntry-', 'NORMAL', '1586-c101faccd7.webp'),
   ('Athena''s Shield', 'NORMAL', '1847-3cf88fcd43.webp'),
   ('Avalanche', 'NORMAL', '1508-1dc2bcfb1c.webp'),
-  ('Avalanquiem', 'REMIX', '1565-84da01851c.webp'),
+  ('Avalanquiem', 'REMIX', '1565-a0e342a07f.webp'),
   ('Awakening', 'NORMAL', '1637-9c4ce66162.webp'),
   ('B.P Classic Remix', 'REMIX', '1414-6d55cacc1c.webp'),
   ('B.P Classic Remix 2', 'REMIX', '1416-cb0fc4d901.webp'),

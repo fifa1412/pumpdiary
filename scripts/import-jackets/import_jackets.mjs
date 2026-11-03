@@ -57,6 +57,7 @@ const MANUAL_PICKS = {
   "Bad Apple!! feat. Nomico|NORMAL": "11.PRIME/1481 - Bad Apple!! (feat. Nomico)/1481.png",
   "Baroque Virus - FULL SONG -|FULLSONG": "13.XX/16F9 - [Full Song] Baroque Virus/16F9-wide.png",
   "Gargoyle|FULLSONG": "12.PRIME 2/15E5 - [Full Song] Gargoyle/15E5-wide.png",
+  "Avalanquiem|REMIX": "11.PRIME/14A1 - [Remix] Avalanquiem/14A1-wide.png",
   "Close Your Eye|NORMAL": "04.1ST~PERFECT/(1) 307 - Close Your Eyes/307.png",
   "Final Audition Ep.1|NORMAL": "05.EXTRA~PREX 3/(1) 922 - Final Audition Episode 1/922.PNG",
   "Final Audition 3|NORMAL": "06.EXCEED~ZERO/(3) A01 - Final Audition 3 U.F/A01.PNG",

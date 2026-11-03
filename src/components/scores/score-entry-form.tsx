@@ -759,18 +759,6 @@ function ScoreEntryFormContent({
         <CardContent>
           <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} noValidate className="space-y-6">
             <input type="hidden" {...form.register("stepchartId", { valueAsNumber: true })} />
-            <div className="space-y-2">
-              <Label htmlFor="game-version">{t("fields.gameVersion")}</Label>
-              <select id="game-version"
-                className={`h-9 w-full rounded-md border border-l-4 border-input bg-background px-3 text-sm font-medium focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 ${selectedVersion ? `${gameVersionTone(selectedVersion.name).text} ${gameVersionTone(selectedVersion.name).border}` : ""}`}
-                aria-invalid={!!errors.seriesId} aria-describedby={errors.seriesId ? "game-version-error" : undefined}
-                {...form.register("seriesId", { valueAsNumber: true, onChange: onVersionChange })}>
-                {/* Options keep the normal text colour; only the closed select shows the version colour. */}
-                {versions.map((version) => <option key={version.id} value={version.id} className="text-foreground">{gameVersionLabel(version.name)}</option>)}
-              </select>
-              <FieldError id="game-version-error" message={fieldError("seriesId")} />
-              {detectedNote("seriesId")}
-            </div>
             <div className="space-y-3">
               <Label htmlFor="screenshot">{t("fields.screenshot")}</Label>
               <Input ref={screenshotInput} id="screenshot" type="file" accept="image/webp,image/jpeg,image/png,image/heic,image/heif,.heic,.heif"
@@ -838,6 +826,18 @@ function ScoreEntryFormContent({
                   flipped={shownScreenshot.flipped}
                 />
               ) : null}
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="game-version">{t("fields.gameVersion")}</Label>
+              <select id="game-version"
+                className={`h-9 w-full rounded-md border border-l-4 border-input bg-background px-3 text-sm font-medium focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 ${selectedVersion ? `${gameVersionTone(selectedVersion.name).text} ${gameVersionTone(selectedVersion.name).border}` : ""}`}
+                aria-invalid={!!errors.seriesId} aria-describedby={errors.seriesId ? "game-version-error" : undefined}
+                {...form.register("seriesId", { valueAsNumber: true, onChange: onVersionChange })}>
+                {/* Options keep the normal text colour; only the closed select shows the version colour. */}
+                {versions.map((version) => <option key={version.id} value={version.id} className="text-foreground">{gameVersionLabel(version.name)}</option>)}
+              </select>
+              <FieldError id="game-version-error" message={fieldError("seriesId")} />
+              {detectedNote("seriesId")}
             </div>
             <SongChartPicker
               key={`song-picker-${songPickerKey}`}

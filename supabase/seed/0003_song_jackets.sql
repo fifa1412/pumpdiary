@@ -404,6 +404,7 @@ from (values
   ('Moonlight', 'NORMAL', '1349-f3ebf610d2.webp'),
   ('Moonlight', 'SHORTCUT', '1428-50e9aebef1.webp'),
   ('Mopemope', 'NORMAL', '1761-3a54cb9b7e.webp'),
+  ('Morrighan', 'NORMAL', '5307-39c5eedeea.webp'),
   ('Move That Body!', 'FULLSONG', '1567-7c04f03909.webp'),
   ('Move That Body!', 'NORMAL', '1528-a39df54d44.webp'),
   ('Move That Body!', 'SHORTCUT', '1574-909f82fe9a.webp'),

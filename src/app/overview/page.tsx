@@ -25,7 +25,13 @@ const FALLBACK_LEVEL: LevelFilter = { stepType: "SINGLE", level: 20 };
 type OverviewChart = {
   id: number;
   is_available: boolean;
-  song: { title: string; song_type: string; jacket_path: string | null; is_available: boolean } | null;
+  song: {
+    title: string;
+    song_type: string;
+    jacket_path: string | null;
+    is_available: boolean;
+    series: { sort_order: number } | null;
+  } | null;
 };
 type BestScore = { id: number; stepchart_id: number; score: number; grade: string };
 
@@ -70,10 +76,14 @@ export default async function OverviewPage({
 
   const { data: chartRows, error: chartError } = await supabase
     .from("stepcharts")
-    .select("id, is_available, song:songs!stepcharts_song_id_fkey(title, song_type, jacket_path, is_available)")
+    .select("id, is_available, song:songs!stepcharts_song_id_fkey(title, song_type, jacket_path, is_available, series:game_series(sort_order))")
     .eq("step_type", level.stepType)
     .eq("level", level.level);
-  const charts = ((chartRows ?? []) as unknown as OverviewChart[]).filter((chart) => chart.is_available && chart.song?.is_available);
+  // An older version can't have songs that came out after it. Every chart new
+  // in a version belongs to a song new in that version, so the song's debut
+  // decides.
+  const charts = ((chartRows ?? []) as unknown as OverviewChart[]).filter((chart) => chart.is_available && chart.song?.is_available
+    && (chart.song.series?.sort_order ?? Infinity) <= version.sortOrder);
   const { data: bestRows, error: bestError } = charts.length
     ? await supabase
       .from("best_scores")

@@ -9,7 +9,8 @@ import { SCORE_GRADES } from "@/components/scores/types";
 
 export type ScoreRules = "phoenix" | "classic";
 
-export type GameVersion = { id: number; name: string; rules: ScoreRules };
+/** sortOrder: game_series.sort_order, oldest version lowest. */
+export type GameVersion = { id: number; name: string; rules: ScoreRules; sortOrder: number };
 
 /** game_series name of the version new scores start on. */
 export const DEFAULT_GAME_VERSION = "Phoenix 2";
@@ -83,12 +84,12 @@ export function gameVersionTone(name: string): { text: string; fill: string; bor
 export async function fetchGameVersions(supabase: SupabaseClient): Promise<GameVersion[]> {
   const { data } = await supabase
     .from("game_series")
-    .select("id, name, score_rules")
+    .select("id, name, score_rules, sort_order")
     .not("score_rules", "is", null)
     .order("sort_order", { ascending: false });
-  const rows = (data ?? []) as { id: number; name: string; score_rules: string | null }[];
-  return rows.flatMap(({ id, name, score_rules: rules }) =>
-    rules === "phoenix" || rules === "classic" ? [{ id, name, rules }] : []);
+  const rows = (data ?? []) as { id: number; name: string; score_rules: string | null; sort_order: number }[];
+  return rows.flatMap(({ id, name, score_rules: rules, sort_order: sortOrder }) =>
+    rules === "phoenix" || rules === "classic" ? [{ id, name, rules, sortOrder }] : []);
 }
 
 /** The version a ?version= search param names, falling back to the default version. */

@@ -12,7 +12,11 @@
     "cabinets": "จัดการตู้",
     "login": "เข้าสู่ระบบ",
     "register": "สมัครสมาชิก",
-    "logout": "ออกจากระบบ"
+    "logout": "ออกจากระบบ",
+    "addScore": "เพิ่มคะแนน",
+    "menu": "เมนู",
+    "account": "เมนูบัญชี",
+    "signedInAs": "เข้าสู่ระบบเป็น"
   },
   "language": {
     "switchLabel": "เปลี่ยนภาษา"

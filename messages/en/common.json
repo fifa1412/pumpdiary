@@ -12,7 +12,11 @@
     "cabinets": "Cabinets",
     "login": "Log in",
     "register": "Sign up",
-    "logout": "Log out"
+    "logout": "Log out",
+    "addScore": "Add score",
+    "menu": "Menu",
+    "account": "Account menu",
+    "signedInAs": "Signed in as"
   },
   "language": {
     "switchLabel": "Switch language"

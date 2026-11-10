@@ -12,6 +12,7 @@ import {
 import { gameVersionLabel, gameVersionTone } from "@/lib/scores/game-versions";
 import { songDisplayTitle } from "@/lib/songs/song-title";
 import { createClient } from "@/lib/supabase/server";
+import { chartOn, VERSION_LEVELS, type VersionLevel } from "@/lib/songs/chart-levels";
 
 const RECENT_SCORE_LIMIT = 6;
 type StepType = "SINGLE" | "DOUBLE" | "HALFDOUBLE";
@@ -22,10 +23,12 @@ type RecentScore = {
   grade: string;
   plate: string | null;
   profile: { player_name: string } | null;
+  series_id: number;
   series: { name: string } | null;
   stepchart: {
     step_type: StepType;
     level: number;
+    levels: VersionLevel[];
     song: { title: string; song_type: string } | null;
   } | null;
 };
@@ -45,11 +48,14 @@ export async function RecentScores() {
 
   const { data, error } = await supabase
     .from("scores")
-    .select("id, score, grade, plate, profile:profiles!scores_user_id_fkey(player_name), series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, song_type))")
+    .select(`id, score, grade, plate, profile:profiles!scores_user_id_fkey(player_name), series_id, series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, ${VERSION_LEVELS}, song:songs!stepcharts_song_id_fkey(title, song_type))`)
     .order("created_at", { ascending: false })
     .limit(RECENT_SCORE_LIMIT);
 
-  const scores = (data ?? []) as unknown as RecentScore[];
+  const scores = ((data ?? []) as unknown as RecentScore[]).map((score) => ({
+    ...score,
+    stepchart: score.stepchart && chartOn(score.stepchart, score.series_id),
+  }));
 
   return (
     <section aria-labelledby="recent-scores-heading">

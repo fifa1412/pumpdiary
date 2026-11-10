@@ -6,9 +6,14 @@ import { DashboardView, type DashboardScore, type MediaFilter } from "@/componen
 import { getCurrentUser } from "@/lib/supabase/server";
 import { createClient } from "@/lib/supabase/server";
 import { levelKey, levelOptions, parseLevelFilter } from "@/lib/scores/level-filter";
+import { chartOn, VERSION_LEVELS, type VersionLevel } from "@/lib/songs/chart-levels";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
 
 const MY_SCORES_LIMIT = 50;
+
+type LeveledChart = { step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE"; level: number; levels: VersionLevel[] };
+type LevelRow = { id: number; series_id: number; screenshot_path: string | null; video_url: string | null; stepchart: LeveledChart | null };
+type ListRow = { series_id: number; screenshot_path: string | null; stepchart: LeveledChart | null };
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("dashboard");
@@ -31,18 +36,32 @@ export default async function DashboardPage({
   const rawMedia = Array.isArray(params.media) ? params.media[0] : params.media;
   const media: MediaFilter = rawMedia === "video" || rawMedia === "screenshot" ? rawMedia : "";
 
-  // Inner joins let the song title and chart level filter the scores themselves.
+  // Every score of the player, each chart at its level on the score's version.
+  const { data: allRows } = await supabase
+    .from("scores")
+    .select(`id, series_id, screenshot_path, video_url, stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, ${VERSION_LEVELS})`)
+    .eq("user_id", user.id);
+  const levelRows = ((allRows ?? []) as unknown as LevelRow[]).map((row) => ({
+    ...row,
+    stepchart: row.stepchart && chartOn(row.stepchart, row.series_id),
+  }));
+
+  // An inner join lets the song title filter the scores themselves.
   let countRequest = supabase
     .from("scores")
-    .select("id, stepchart:stepcharts!scores_stepchart_id_fkey!inner(step_type, level, song:songs!stepcharts_song_id_fkey!inner(title))", { count: "exact", head: true })
+    .select("id, stepchart:stepcharts!scores_stepchart_id_fkey!inner(song:songs!stepcharts_song_id_fkey!inner(title))", { count: "exact", head: true })
     .eq("user_id", user.id);
   let listRequest = supabase
     .from("scores")
-    .select("id, score, grade, plate, played_at, screenshot_path, video_url, youtube_video_id, series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey!inner(step_type, level, song:songs!stepcharts_song_id_fkey!inner(title, song_type, jacket_path))")
+    .select(`id, score, grade, plate, played_at, screenshot_path, video_url, youtube_video_id, series_id, series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey!inner(step_type, level, ${VERSION_LEVELS}, song:songs!stepcharts_song_id_fkey!inner(title, song_type, jacket_path))`)
     .eq("user_id", user.id);
   if (level) {
-    countRequest = countRequest.eq("stepchart.step_type", level.stepType).eq("stepchart.level", level.level);
-    listRequest = listRequest.eq("stepchart.step_type", level.stepType).eq("stepchart.level", level.level);
+    // The level depends on the version each score was played on, so match by score.
+    const ids = levelRows
+      .filter((row) => row.stepchart?.step_type === level.stepType && row.stepchart.level === level.level)
+      .map((row) => row.id);
+    countRequest = countRequest.in("id", ids);
+    listRequest = listRequest.in("id", ids);
   }
   if (query) {
     countRequest = countRequest.ilike("stepchart.song.title", `%${query}%`);
@@ -61,16 +80,10 @@ export default async function DashboardPage({
     listRequest = listRequest.or("video_url.is.null,video_url.eq.");
   }
 
-  const [{ count, error: countError }, { data: levelRows }] = await Promise.all([
-    countRequest,
-    supabase
-      .from("scores")
-      .select("screenshot_path, video_url, stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level)")
-      .eq("user_id", user.id),
-  ]);
+  const { count, error: countError } = await countRequest;
   // Totals over every saved score, counted the same way as the media filter.
   const mediaCounts = { video: 0, screenshot: 0 };
-  for (const row of levelRows ?? []) {
+  for (const row of levelRows) {
     if (!row.screenshot_path) continue;
     if (row.video_url) mediaCounts.video += 1;
     else mediaCounts.screenshot += 1;
@@ -87,8 +100,9 @@ export default async function DashboardPage({
     ? await supabase.storage.from("score-screenshots").createSignedUrls(paths, 3600)
     : { data: [] };
   const urlByPath = new Map((signed ?? []).flatMap((item) => (item.path && item.signedUrl ? [[item.path, item.signedUrl] as const] : [])));
-  const scores = (data ?? []).map((score) => ({
+  const scores = ((data ?? []) as unknown as ListRow[]).map((score) => ({
     ...score,
+    stepchart: score.stepchart && chartOn(score.stepchart, score.series_id),
     screenshotUrl: score.screenshot_path ? urlByPath.get(score.screenshot_path) ?? null : null,
   }));
 
@@ -101,6 +115,6 @@ export default async function DashboardPage({
     level={level ? levelKey(level) : ""}
     media={media}
     mediaCounts={mediaCounts}
-    levelOptions={levelOptions(levelRows ?? [])}
+    levelOptions={levelOptions(levelRows)}
   />;
 }

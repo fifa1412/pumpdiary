@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { chartOn, levelOn, VERSION_LEVELS } from "@/lib/songs/chart-levels";
 import { playableCharts } from "@/lib/songs/charts";
 import { matchSongTitle, songTitleSearchTerms } from "@/lib/songs/fuzzy-match";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
@@ -34,6 +35,7 @@ export function SongChartPicker({
   ocrStepType,
   ocrLevel,
   onSelectionChange,
+  seriesId,
 }: {
   initialSong: SongOption | null;
   selectedChartId: number;
@@ -43,6 +45,8 @@ export function SongChartPicker({
   ocrStepType?: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
   ocrLevel?: number;
   onSelectionChange?: (selection: ChartSelection | null) => void;
+  /** Game version the score is for; charts show their level on it. */
+  seriesId?: number;
 }) {
   const t = useTranslations("scores");
   const [song, setSong] = useState<SongOption | null>(initialSong);
@@ -71,7 +75,7 @@ export function SongChartPicker({
     async function matchTitle() {
       const { data, error: requestError } = await createClient()
         .from("songs")
-        .select("id, title, composer, song_type, is_available, stepcharts(id, step_type, level, is_available)")
+        .select(`id, title, composer, song_type, is_available, stepcharts(id, step_type, level, is_available, ${VERSION_LEVELS})`)
         .or(searchTerms.map((term) => `title.ilike.%${term}%`).join(","))
         .order("title", { ascending: true })
         .limit(100);
@@ -82,7 +86,7 @@ export function SongChartPicker({
       setSong(match);
       setOcrMatchedSong(true);
       const chartMatches = playableCharts(match.stepcharts, match.is_available).filter((chart) =>
-        chart.step_type === ocrStepType && chart.level === ocrLevel,
+        chart.step_type === ocrStepType && levelOn(chart, seriesId) === ocrLevel,
       );
       if (chartMatches.length === 1) {
         setOcrMatchedChartId(chartMatches[0].id);
@@ -94,7 +98,7 @@ export function SongChartPicker({
     return () => {
       matchRequest.current += 1;
     };
-  }, [initialSong, ocrLevel, ocrStepType, ocrTitle]);
+  }, [initialSong, ocrLevel, ocrStepType, ocrTitle, seriesId]);
 
   async function searchSongs() {
     const sanitized = sanitizeSongSearchQuery(query);
@@ -107,7 +111,7 @@ export function SongChartPicker({
     const supabase = createClient();
     const { data, error: requestError } = await supabase
       .from("songs")
-      .select("id, title, composer, song_type, is_available, stepcharts(id, step_type, level, is_available)")
+      .select(`id, title, composer, song_type, is_available, stepcharts(id, step_type, level, is_available, ${VERSION_LEVELS})`)
       .or(`title.ilike.%${sanitized}%,composer.ilike.%${sanitized}%`)
       .order("title", { ascending: true })
       .limit(10);
@@ -145,7 +149,8 @@ export function SongChartPicker({
     onChartChange(chartId);
   }
 
-  const selectedChart = song?.stepcharts.find((chart) => chart.id === selectedChartId);
+  const found = song?.stepcharts.find((chart) => chart.id === selectedChartId);
+  const selectedChart = found ? chartOn(found, seriesId) : undefined;
   const songTitle = song?.title;
   const songType = song?.song_type;
   const stepType = selectedChart?.step_type;
@@ -158,7 +163,8 @@ export function SongChartPicker({
   }, [onSelectionChange, songTitle, songType, stepType, level]);
 
   const charts = [
-    ...playableCharts(song?.stepcharts ?? [], song?.is_available ?? true, selectedChartId),
+    ...playableCharts(song?.stepcharts ?? [], song?.is_available ?? true, selectedChartId)
+      .map((chart) => chartOn(chart, seriesId)),
   ].sort((a, b) => {
     const order = { SINGLE: 0, DOUBLE: 1, HALFDOUBLE: 2 };
     return order[a.step_type] - order[b.step_type] || a.level - b.level;

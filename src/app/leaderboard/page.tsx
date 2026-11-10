@@ -12,6 +12,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { fetchGameVersions, pickGameVersion } from "@/lib/scores/game-versions";
+import { chartOn, VERSION_LEVELS, type VersionLevel } from "@/lib/songs/chart-levels";
 import { jacketUrl } from "@/lib/songs/jackets";
 import { sanitizeSongSearchQuery } from "@/lib/songs/search";
 import { songDisplayTitle } from "@/lib/songs/song-title";
@@ -25,6 +26,7 @@ type PlayedChart = {
   id: number;
   step_type: SongChart["step_type"];
   level: number;
+  levels: VersionLevel[];
   song: { title: string; song_type: string; jacket_path: string | null } | null;
 };
 
@@ -89,11 +91,11 @@ export default async function LeaderboardIndexPage({
     const { data: charts, error: chartError } = ids.length
       ? await supabase
         .from("stepcharts")
-        .select("id, step_type, level, song:songs!stepcharts_song_id_fkey(title, song_type, jacket_path)")
+        .select(`id, step_type, level, ${VERSION_LEVELS}, song:songs!stepcharts_song_id_fkey(title, song_type, jacket_path)`)
         .in("id", ids)
       : { data: [], error: null };
     failed = Boolean(error || chartError);
-    const chartById = new Map(((charts ?? []) as unknown as PlayedChart[]).map((chart) => [chart.id, chart]));
+    const chartById = new Map(((charts ?? []) as unknown as PlayedChart[]).map((chart) => [chart.id, chartOn(chart, version?.id)]));
     played = ids.flatMap((id) => {
       const chart = chartById.get(id);
       const stats = byChart.get(id);

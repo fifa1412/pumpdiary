@@ -7,6 +7,7 @@ import type { CabinetOption } from "@/components/cabinets/types";
 import type { SongOption } from "@/components/scores/types";
 import { fetchGameVersions } from "@/lib/scores/game-versions";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
+import { VERSION_LEVELS } from "@/lib/songs/chart-levels";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("scores");
@@ -40,7 +41,7 @@ export default async function EditScorePage({
   if (!chart) notFound();
   const [{ data: song }, { data: charts }, screenshotResult, versions] = await Promise.all([
     supabase.from("songs").select("id, title, composer, song_type, is_available").eq("id", chart.song_id).maybeSingle(),
-    supabase.from("stepcharts").select("id, step_type, level, is_available").eq("song_id", chart.song_id),
+    supabase.from("stepcharts").select(`id, step_type, level, is_available, ${VERSION_LEVELS}`).eq("song_id", chart.song_id),
     row.screenshot_path
       ? supabase.storage.from("score-screenshots").createSignedUrl(row.screenshot_path, 3600)
       : Promise.resolve({ data: null, error: null }),

@@ -11,6 +11,7 @@ import { VersionTabs, versionHref } from "@/components/scores/version-tabs";
 import { Button } from "@/components/ui/button";
 import { DEFAULT_GAME_VERSION, fetchGameVersions, pickGameVersion } from "@/lib/scores/game-versions";
 import { levelKey, parseLevelFilter, type LevelFilter } from "@/lib/scores/level-filter";
+import { levelOn, VERSION_LEVELS, type VersionLevel } from "@/lib/songs/chart-levels";
 import { jacketUrl } from "@/lib/songs/jackets";
 import { songDisplayTitle } from "@/lib/songs/song-title";
 import { createClient, getCurrentUser } from "@/lib/supabase/server";
@@ -24,6 +25,8 @@ const FALLBACK_LEVEL: LevelFilter = { stepType: "SINGLE", level: 20 };
 
 type OverviewChart = {
   id: number;
+  level: number;
+  levels: VersionLevel[];
   is_available: boolean;
   song: {
     title: string;
@@ -60,13 +63,13 @@ export default async function OverviewPage({
   if (!level || !LEVELS.some((option) => levelKey(option) === levelKey(level!))) {
     const { data: latest } = await supabase
       .from("scores")
-      .select("stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level)")
+      .select(`series_id, stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, ${VERSION_LEVELS})`)
       .eq("user_id", user.id)
       .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
-    const chart = latest?.stepchart as unknown as { step_type: LevelFilter["stepType"]; level: number } | null;
-    const fromLatest = chart ? { stepType: chart.step_type, level: chart.level } : null;
+    const chart = latest?.stepchart as unknown as { step_type: LevelFilter["stepType"]; level: number; levels: VersionLevel[] } | null;
+    const fromLatest = chart ? { stepType: chart.step_type, level: levelOn(chart, latest?.series_id) } : null;
     level = fromLatest && LEVELS.some((option) => levelKey(option) === levelKey(fromLatest)) ? fromLatest : FALLBACK_LEVEL;
   }
   const currentKey = levelKey(level);
@@ -74,15 +77,25 @@ export default async function OverviewPage({
   const previous = LEVELS[index - 1];
   const next = LEVELS[index + 1];
 
-  const { data: chartRows, error: chartError } = await supabase
-    .from("stepcharts")
-    .select("id, is_available, song:songs!stepcharts_song_id_fkey(title, song_type, jacket_path, is_available, series:game_series(sort_order))")
-    .eq("step_type", level.stepType)
+  // Charts this version rates at the level: those whose own level it is,
+  // plus those the version rerated to it. levelOn() drops the ones it rerated away.
+  const { data: rerated, error: reratedError } = await supabase
+    .from("stepchart_levels")
+    .select("stepchart_id")
+    .eq("series_id", version.id)
     .eq("level", level.level);
+  const reratedIds = (rerated ?? []).map((row) => row.stepchart_id as number);
+  const { data: chartRows, error: listError } = await supabase
+    .from("stepcharts")
+    .select(`id, level, ${VERSION_LEVELS}, is_available, song:songs!stepcharts_song_id_fkey(title, song_type, jacket_path, is_available, series:game_series(sort_order))`)
+    .eq("step_type", level.stepType)
+    .or(reratedIds.length ? `level.eq.${level.level},id.in.(${reratedIds.join(",")})` : `level.eq.${level.level}`);
+  const chartError = reratedError ?? listError;
   // An older version can't have songs that came out after it. Every chart new
   // in a version belongs to a song new in that version, so the song's debut
   // decides.
   const charts = ((chartRows ?? []) as unknown as OverviewChart[]).filter((chart) => chart.is_available && chart.song?.is_available
+    && levelOn(chart, version.id) === level.level
     && (chart.song.series?.sort_order ?? Infinity) <= version.sortOrder);
   const { data: bestRows, error: bestError } = charts.length
     ? await supabase

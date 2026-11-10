@@ -22,7 +22,8 @@ import { matchSongTitle } from "@/lib/songs/fuzzy-match";
 import { baseSongTitle } from "@/lib/songs/song-title";
 import { youtubeVideoId } from "@/lib/youtube/video-id";
 import { playlistTitle, videoDescription, videoTags, videoTitle, type VideoTextInput } from "@/lib/youtube/video-text";
-
+import { chartOn } from "@/lib/songs/chart-levels";
+import type { SongChart } from "@/components/songs/types";
 import { CabinetPicker } from "@/components/cabinets/cabinet-picker";
 import type { CabinetOption } from "@/components/cabinets/types";
 import { AiBudgetBar } from "./ai-budget-bar";
@@ -32,6 +33,10 @@ import { chartPrefix, SongChartPicker, type ChartSelection } from "./song-chart-
 import { SCORE_GRADES, SCORE_PLATES, type SongOption } from "./types";
 import { YouTubeUploader } from "./youtube-uploader";
 import { YouTubeVideoPanel } from "./youtube-video-panel";
+
+function chartOnVersion(chart: SongChart | undefined, seriesId: number): SongChart | undefined {
+  return chart ? chartOn(chart, seriesId) : undefined;
+}
 
 export type EditableScore = {
   id: number;
@@ -848,6 +853,7 @@ function ScoreEntryFormContent({
               ocrStepType={ocrStepType}
               ocrLevel={ocrLevel}
               onSelectionChange={setChartSelection}
+              seriesId={seriesId}
               error={fieldError("stepchartId")}
             />
 
@@ -1025,7 +1031,7 @@ function ScoreEntryFormContent({
                 videoUrl={initialScore.videoUrl || null}
                 label={scoreLabel(
                   initialSong?.title ?? "",
-                  initialSong?.stepcharts.find((chart) => chart.id === initialScore.stepchartId),
+                  chartOnVersion(initialSong?.stepcharts.find((chart) => chart.id === initialScore.stepchartId), initialScore.seriesId),
                   initialScore.score,
                 )}
               />

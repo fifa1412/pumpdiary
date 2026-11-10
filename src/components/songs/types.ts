@@ -1,3 +1,5 @@
+import type { VersionLevel } from "@/lib/songs/chart-levels";
+
 export const SONG_TYPES = ["NORMAL", "REMIX", "FULLSONG", "SHORTCUT"] as const;
 export type SongType = (typeof SONG_TYPES)[number];
 
@@ -7,8 +9,10 @@ export type StepType = (typeof STEP_TYPES)[number];
 export type SongChart = {
   id: number;
   step_type: StepType;
+  /** Phoenix 2 level; see `levels` for versions that rate it differently. */
   level: number;
   is_available: boolean;
+  levels?: VersionLevel[];
 };
 
 export type SongWithCharts = {

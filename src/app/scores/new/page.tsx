@@ -7,6 +7,7 @@ import type { CabinetOption } from "@/components/cabinets/types";
 import type { SongOption } from "@/components/scores/types";
 import { fetchGameVersions } from "@/lib/scores/game-versions";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
+import { VERSION_LEVELS } from "@/lib/songs/chart-levels";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -57,7 +58,7 @@ export default async function NewScorePage({
           .maybeSingle(),
         supabase
           .from("stepcharts")
-          .select("id, step_type, level, is_available")
+          .select(`id, step_type, level, is_available, ${VERSION_LEVELS}`)
           .eq("song_id", chart.song_id),
       ]);
 

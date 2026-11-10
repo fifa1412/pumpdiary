@@ -17,6 +17,7 @@ import { jacketUrl } from "@/lib/songs/jackets";
 import { songDisplayTitle } from "@/lib/songs/song-title";
 import { getCurrentUser, createClient } from "@/lib/supabase/server";
 import { youtubeVideoId } from "@/lib/youtube/video-id";
+import { chartOn, VERSION_LEVELS, type VersionLevel } from "@/lib/songs/chart-levels";
 
 type ScoreDetail = {
   id: number;
@@ -37,10 +38,12 @@ type ScoreDetail = {
   stage_pass: boolean;
   screenshot_path: string | null;
   cabinet: { name: string; location: string; model: string | null } | null;
+  series_id: number;
   series: { name: string } | null;
   stepchart: {
     step_type: "SINGLE" | "DOUBLE" | "HALFDOUBLE";
     level: number;
+    levels: VersionLevel[];
     song: { title: string; song_type: string; composer: string; jacket_path: string | null } | null;
   } | null;
 };
@@ -64,13 +67,13 @@ export default async function ScoreDetailPage({ params }: { params: Promise<{ id
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("scores")
-    .select("id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location, model), series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, song:songs!stepcharts_song_id_fkey(title, song_type, composer, jacket_path))")
+    .select(`id, user_id, score, grade, perfect, great, good, bad, miss, max_combo, played_at, video_url, youtube_video_id, note, plate, stage_pass, screenshot_path, cabinet:cabinets(name, location, model), series_id, series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, ${VERSION_LEVELS}, song:songs!stepcharts_song_id_fkey(title, song_type, composer, jacket_path))`)
     .eq("id", Number(rawId))
     .eq("user_id", user.id)
     .maybeSingle();
   const row = data as unknown as ScoreDetail | null;
   if (error || !row || row.user_id !== user.id) notFound();
-  const chart = row.stepchart;
+  const chart = row.stepchart && chartOn(row.stepchart, row.series_id);
   const song = chart?.song;
   if (!chart || !song) notFound();
 

@@ -8,6 +8,7 @@ import { LevelRingBadge } from "@/components/songs/level-ring-badge";
 import { fetchGameVersions, pickGameVersion } from "@/lib/scores/game-versions";
 import { songDisplayTitle } from "@/lib/songs/song-title";
 import { createClient } from "@/lib/supabase/server";
+import { levelOn, VERSION_LEVELS } from "@/lib/songs/chart-levels";
 
 type BestScoreRow = {
   id: number;
@@ -42,7 +43,7 @@ export default async function ChartLeaderboardPage({
   const version = pickGameVersion(versions, search.version);
   if (!version) notFound();
   const [{ data: chart, error: chartError }, { data: rows, error: scoreError }] = await Promise.all([
-    supabase.from("stepcharts").select("id, step_type, level, song_id").eq("id", chartId).maybeSingle(),
+    supabase.from("stepcharts").select(`id, step_type, level, song_id, ${VERSION_LEVELS}`).eq("id", chartId).maybeSingle(),
     supabase.from("best_scores")
       .select("id, user_id, score, grade, plate, played_at")
       .eq("stepchart_id", chartId)
@@ -80,7 +81,7 @@ export default async function ChartLeaderboardPage({
         </div>
         <LevelRingBadge
           stepType={chart.step_type}
-          level={chart.level}
+          level={levelOn(chart, version.id)}
           label={chart.step_type === "SINGLE" ? common("stepTypes.single") : chart.step_type === "DOUBLE" ? common("stepTypes.double") : common("stepTypes.halfDouble")}
           version={version.name}
           size={72}

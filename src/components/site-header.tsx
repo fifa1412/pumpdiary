@@ -50,6 +50,14 @@ export function SiteHeader({
               {t("nav.overview")}
             </Link>
           ) : null}
+          {user ? (
+            <Link
+              href="/dashboard/videos"
+              className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"
+            >
+              {t("nav.videos")}
+            </Link>
+          ) : null}
           <Link
             href="/songs"
             className="hidden text-sm text-muted-foreground transition-colors hover:text-foreground sm:block"

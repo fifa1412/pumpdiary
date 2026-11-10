@@ -1,0 +1,27 @@
+{
+  "title": "Video dashboard",
+  "description": "Views, likes and comments of the clips on your scores, as of the last sync with YouTube.",
+  "sync": "Sync data",
+  "syncing": "Syncing…",
+  "synced": "Synced {count, plural, one {# clip} other {# clips}}.",
+  "missing": "{count, plural, one {# clip was} other {# clips were}} not found on YouTube.",
+  "errors": {
+    "noKey": "YouTube sync isn't set up on this server yet.",
+    "failed": "Couldn't sync with YouTube. Please try again."
+  },
+  "lastSynced": "Last synced {date}",
+  "neverSynced": "Not synced yet. Press Sync data to fetch the numbers from YouTube.",
+  "clipCount": "{count, plural, one {# clip} other {# clips}}",
+  "columns": {
+    "clip": "Clip",
+    "views": "Views",
+    "likes": "Likes",
+    "comments": "Comments",
+    "played": "Played"
+  },
+  "sortBy": "Sort by {column}",
+  "notFound": "Not on YouTube",
+  "empty": "None of your scores has a clip yet.",
+  "total": "Total",
+  "watch": "Watch on YouTube"
+}

@@ -1,0 +1,27 @@
+{
+  "title": "Dashboard วิดีโอ",
+  "description": "ยอดวิว ไลค์ และคอมเมนต์ของคลิปในคะแนนของคุณ ตามการ Sync กับ YouTube ครั้งล่าสุด",
+  "sync": "Sync ข้อมูล",
+  "syncing": "กำลัง Sync…",
+  "synced": "Sync แล้ว {count} คลิป",
+  "missing": "ไม่พบใน YouTube {count} คลิป",
+  "errors": {
+    "noKey": "เซิร์ฟเวอร์นี้ยังไม่ได้ตั้งค่าการ Sync กับ YouTube",
+    "failed": "Sync กับ YouTube ไม่สำเร็จ กรุณาลองอีกครั้ง"
+  },
+  "lastSynced": "Sync ล่าสุด {date}",
+  "neverSynced": "ยังไม่เคย Sync กด Sync ข้อมูลเพื่อดึงตัวเลขจาก YouTube",
+  "clipCount": "{count} คลิป",
+  "columns": {
+    "clip": "ชื่อคลิป",
+    "views": "ยอดวิว",
+    "likes": "ไลค์",
+    "comments": "คอมเมนต์",
+    "played": "วันที่เล่น"
+  },
+  "sortBy": "เรียงตาม{column}",
+  "notFound": "ไม่พบใน YouTube",
+  "empty": "ยังไม่มีคะแนนที่มีคลิป",
+  "total": "รวม",
+  "watch": "ดูบน YouTube"
+}

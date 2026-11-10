@@ -123,7 +123,21 @@ export default async function VideoDashboardPage({
               : t("neverSynced")}
           </p>
         </div>
-        {rows.length > 0 ? <SyncButton /> : null}
+        {rows.length > 0 ? (
+          <div className="flex flex-wrap items-center gap-4">
+            <dl aria-label={t("total")} className="grid grid-cols-3 gap-2">
+              {columns.map((column) => (
+                <div key={column.sort} className="min-w-24 rounded-[3px] border bg-card px-3 py-2 text-right">
+                  <dt className="text-xs text-muted-foreground">{column.label}</dt>
+                  <dd className="font-numeric text-xl font-semibold tabular-nums">
+                    {number(lastSynced ? total(SORTS[column.sort]) : null)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <SyncButton />
+          </div>
+        ) : null}
       </div>
 
       {error ? (
@@ -168,17 +182,6 @@ export default async function VideoDashboardPage({
                 </tr>
               ))}
             </tbody>
-            {lastSynced ? (
-              <tfoot className="border-t bg-surface-deep font-semibold">
-                <tr>
-                  <th scope="row" className="px-4 py-3">{t("total")}</th>
-                  <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(total("youtube_views"))}</td>
-                  <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(total("youtube_likes"))}</td>
-                  <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(total("youtube_comments"))}</td>
-                  <td />
-                </tr>
-              </tfoot>
-            ) : null}
           </table>
         </div>
       )}

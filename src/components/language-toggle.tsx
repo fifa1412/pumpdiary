@@ -26,7 +26,7 @@ export function LanguageToggle() {
     <div
       role="group"
       aria-label={t("language.switchLabel")}
-      className="inline-flex shrink-0 items-center rounded-[3px] border border-border p-0.5 font-numeric"
+      className="inline-flex shrink-0 items-center rounded-full border border-border p-0.5 font-numeric"
     >
       {(["en", "th"] as const).map((option) => {
         const active = locale === option;
@@ -39,7 +39,7 @@ export function LanguageToggle() {
             aria-pressed={active}
             disabled={isPending}
             onClick={() => changeLocale(option)}
-            className={`min-w-8 rounded px-1.5 py-1 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+            className={`min-w-8 rounded-full px-2 py-1 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
               active
               ? "bg-foreground text-background"
                 : "text-muted-foreground hover:bg-secondary hover:text-foreground"

@@ -130,6 +130,21 @@ export default async function VideoDashboardPage({
     { sort: "comments", label: t("columns.comments") },
   ] as const;
 
+  // Shown above and below the table.
+  const pager = !error && totalPages > 1 ? (
+    <nav aria-label={t("pagination.label")} className="flex items-center justify-center gap-2">
+      {page > 1 ? (
+        <Button variant="outline" size="sm" asChild><Link href={pageHref(page - 1)}>{t("pagination.previous")}</Link></Button>
+      ) : <Button variant="outline" size="sm" disabled>{t("pagination.previous")}</Button>}
+      <span className="font-numeric text-sm text-muted-foreground">
+        {t("pagination.page", { page, total: totalPages })}
+      </span>
+      {page < totalPages ? (
+        <Button variant="outline" size="sm" asChild><Link href={pageHref(page + 1)}>{t("pagination.next")}</Link></Button>
+      ) : <Button variant="outline" size="sm" disabled>{t("pagination.next")}</Button>}
+    </nav>
+  ) : null;
+
   return (
     <div className="mx-auto w-full max-w-6xl flex-1 space-y-5 px-4 py-10 sm:py-12">
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -166,63 +181,54 @@ export default async function VideoDashboardPage({
       ) : rows.length === 0 ? (
         <Card><CardContent className="pt-6"><p className="text-muted-foreground">{t("empty")}</p></CardContent></Card>
       ) : (
-        <div className="overflow-x-auto rounded-[3px] border">
-          <table className="w-full min-w-[46rem] text-left text-sm">
-            <thead className="bg-surface-deep text-muted-foreground">
-              <tr>
-                <th scope="col" className="px-4 py-3">{t("columns.clip")}</th>
-                {columns.map((column) => (
-                  <SortHeader key={column.sort} column={column.sort} label={column.label} sortLabel={t("sortBy", { column: column.label })}
+        <>
+          {pager}
+          <div className="overflow-x-auto rounded-[3px] border">
+            <table className="w-full min-w-[46rem] text-left text-sm">
+              <thead className="bg-surface-deep text-muted-foreground">
+                <tr>
+                  <th scope="col" className="px-4 py-3">{t("columns.clip")}</th>
+                  {columns.map((column) => (
+                    <SortHeader key={column.sort} column={column.sort} label={column.label} sortLabel={t("sortBy", { column: column.label })}
+                      sort={sort} dir={dir} className="px-4 py-3 text-right" />
+                  ))}
+                  <SortHeader column="uploaded" label={t("columns.uploaded")} sortLabel={t("sortBy", { column: t("columns.uploaded") })}
                     sort={sort} dir={dir} className="px-4 py-3 text-right" />
-                ))}
-                <SortHeader column="uploaded" label={t("columns.uploaded")} sortLabel={t("sortBy", { column: t("columns.uploaded") })}
-                  sort={sort} dir={dir} className="px-4 py-3 text-right" />
-                <SortHeader column="played" label={t("columns.played")} sortLabel={t("sortBy", { column: t("columns.played") })}
-                  sort={sort} dir={dir} className="px-4 py-3" />
-              </tr>
-            </thead>
-            <tbody className="divide-y">
-              {pageRows.map((row) => (
-                <tr key={row.id}>
-                  <td className="max-w-md px-4 py-3">
-                    <a href={`https://www.youtube.com/watch?v=${row.videoId}`} target="_blank" rel="noopener noreferrer"
-                      className="inline-flex max-w-full items-center gap-1.5 font-medium hover:text-primary focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
-                      <span className="truncate">{row.youtube_title || row.song}</span>
-                      <ExternalLink aria-hidden="true" className="size-3.5 shrink-0" />
-                      <span className="sr-only">{t("watch")}</span>
-                    </a>
-                    <Link href={`/scores/${row.id}`} className="block truncate text-xs text-muted-foreground hover:text-foreground">
-                      {[row.song, row.series?.name].filter(Boolean).join(" · ")}
-                    </Link>
-                    {row.notFound ? <p className="text-xs text-destructive">{t("notFound")}</p> : null}
-                  </td>
-                  <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(row.youtube_views)}</td>
-                  <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(row.youtube_likes)}</td>
-                  <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(row.youtube_comments)}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-right font-numeric tabular-nums">{daysOnline(row.youtube_published_at)}</td>
-                  <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
-                    {new Date(row.played_at).toLocaleDateString(locale, { timeZone: "UTC", year: "numeric", month: "short", day: "numeric" })}
-                  </td>
+                  <SortHeader column="played" label={t("columns.played")} sortLabel={t("sortBy", { column: t("columns.played") })}
+                    sort={sort} dir={dir} className="px-4 py-3" />
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y">
+                {pageRows.map((row) => (
+                  <tr key={row.id}>
+                    <td className="max-w-md px-4 py-3">
+                      <a href={`https://www.youtube.com/watch?v=${row.videoId}`} target="_blank" rel="noopener noreferrer"
+                        className="inline-flex max-w-full items-center gap-1.5 font-medium hover:text-primary focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                        <span className="truncate">{row.youtube_title || row.song}</span>
+                        <ExternalLink aria-hidden="true" className="size-3.5 shrink-0" />
+                        <span className="sr-only">{t("watch")}</span>
+                      </a>
+                      <Link href={`/scores/${row.id}`} className="block truncate text-xs text-muted-foreground hover:text-foreground">
+                        {[row.song, row.series?.name].filter(Boolean).join(" · ")}
+                      </Link>
+                      {row.notFound ? <p className="text-xs text-destructive">{t("notFound")}</p> : null}
+                    </td>
+                    <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(row.youtube_views)}</td>
+                    <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(row.youtube_likes)}</td>
+                    <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(row.youtube_comments)}</td>
+                    <td className="whitespace-nowrap px-4 py-3 text-right font-numeric tabular-nums">{daysOnline(row.youtube_published_at)}</td>
+                    <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
+                      {new Date(row.played_at).toLocaleDateString(locale, { timeZone: "UTC", year: "numeric", month: "short", day: "numeric" })}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
 
-      {!error && totalPages > 1 ? (
-        <nav aria-label={t("pagination.label")} className="flex items-center justify-center gap-2">
-          {page > 1 ? (
-            <Button variant="outline" size="sm" asChild><Link href={pageHref(page - 1)}>{t("pagination.previous")}</Link></Button>
-          ) : <Button variant="outline" size="sm" disabled>{t("pagination.previous")}</Button>}
-          <span className="font-numeric text-sm text-muted-foreground">
-            {t("pagination.page", { page, total: totalPages })}
-          </span>
-          {page < totalPages ? (
-            <Button variant="outline" size="sm" asChild><Link href={pageHref(page + 1)}>{t("pagination.next")}</Link></Button>
-          ) : <Button variant="outline" size="sm" disabled>{t("pagination.next")}</Button>}
-        </nav>
-      ) : null}
+      {pager}
     </div>
   );
 }

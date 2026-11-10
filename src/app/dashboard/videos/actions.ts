@@ -49,6 +49,7 @@ export async function syncVideoStats(): Promise<SyncResult> {
     const found = stats.get(videoId);
     const row = {
       youtube_title: found?.title || null,
+      youtube_published_at: found?.publishedAt ?? null,
       youtube_views: found?.views ?? null,
       youtube_likes: found?.likes ?? null,
       youtube_comments: found?.comments ?? null,

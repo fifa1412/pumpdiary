@@ -17,11 +17,13 @@
     "views": "Views",
     "likes": "Likes",
     "comments": "Comments",
+    "uploaded": "Online for",
     "played": "Played"
   },
   "sortBy": "Sort by {column}",
   "notFound": "Not on YouTube",
   "empty": "None of your scores has a clip yet.",
   "total": "Total",
-  "watch": "Watch on YouTube"
+  "watch": "Watch on YouTube",
+  "daysOnline": "{days, plural, =0 {Today} one {# day} other {# days}}"
 }

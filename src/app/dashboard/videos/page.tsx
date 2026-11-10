@@ -15,6 +15,7 @@ const SORTS = {
   views: "youtube_views",
   likes: "youtube_likes",
   comments: "youtube_comments",
+  uploaded: "youtube_published_at",
   played: "played_at",
 } as const;
 type Sort = keyof typeof SORTS;
@@ -33,6 +34,7 @@ type VideoRow = {
   youtube_likes: number | null;
   youtube_comments: number | null;
   youtube_synced_at: string | null;
+  youtube_published_at: string | null;
   series: { name: string } | null;
   stepchart: {
     step_type: keyof typeof STEP_CODES;
@@ -41,6 +43,11 @@ type VideoRow = {
     song: { title: string; song_type: string } | null;
   } | null;
 };
+
+/** Whole days from a past moment to now. The page renders per request, so "now" is the request time. */
+function daysSince(iso: string): number {
+  return Math.max(0, Math.floor((Date.now() - Date.parse(iso)) / 86_400_000));
+}
 
 /** Column header that sorts by its column; a second press flips the direction. */
 function SortHeader({ column, label, sortLabel, sort, dir, className }: {
@@ -83,11 +90,12 @@ export default async function VideoDashboardPage({
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("scores")
-    .select(`id, series_id, played_at, video_url, youtube_video_id, youtube_title, youtube_views, youtube_likes, youtube_comments, youtube_synced_at, series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, ${VERSION_LEVELS}, song:songs!stepcharts_song_id_fkey(title, song_type))`)
+    .select(`id, series_id, played_at, video_url, youtube_video_id, youtube_title, youtube_views, youtube_likes, youtube_comments, youtube_synced_at, youtube_published_at, series:game_series(name), stepchart:stepcharts!scores_stepchart_id_fkey(step_type, level, ${VERSION_LEVELS}, song:songs!stepcharts_song_id_fkey(title, song_type))`)
     .eq("user_id", user.id)
     .or("youtube_video_id.not.is.null,video_url.neq.")
-    // Clips with no number yet go last either way.
-    .order(SORTS[sort], { ascending: dir === "asc", nullsFirst: false })
+    // Clips with no number yet go last either way. More days online means an
+    // earlier upload, so that column runs the other way round.
+    .order(SORTS[sort], { ascending: (dir === "asc") !== (sort === "uploaded"), nullsFirst: false })
     .order("played_at", { ascending: false });
   const rows = ((data ?? []) as unknown as VideoRow[]).flatMap((row) => {
     const videoId = row.youtube_video_id || (row.video_url ? youtubeVideoId(row.video_url) : null);
@@ -102,6 +110,8 @@ export default async function VideoDashboardPage({
   const total = (key: "youtube_views" | "youtube_likes" | "youtube_comments") =>
     rows.reduce((sum, row) => sum + (row[key] ?? 0), 0);
   const number = (value: number | null) => (value === null ? "–" : value.toLocaleString(locale));
+  const daysOnline = (publishedAt: string | null) =>
+    publishedAt ? t("daysOnline", { days: daysSince(publishedAt) }) : "–";
 
   const columns = [
     { sort: "views", label: t("columns.views") },
@@ -146,7 +156,7 @@ export default async function VideoDashboardPage({
         <Card><CardContent className="pt-6"><p className="text-muted-foreground">{t("empty")}</p></CardContent></Card>
       ) : (
         <div className="overflow-x-auto rounded-[3px] border">
-          <table className="w-full min-w-[40rem] text-left text-sm">
+          <table className="w-full min-w-[46rem] text-left text-sm">
             <thead className="bg-surface-deep text-muted-foreground">
               <tr>
                 <th scope="col" className="px-4 py-3">{t("columns.clip")}</th>
@@ -154,6 +164,8 @@ export default async function VideoDashboardPage({
                   <SortHeader key={column.sort} column={column.sort} label={column.label} sortLabel={t("sortBy", { column: column.label })}
                     sort={sort} dir={dir} className="px-4 py-3 text-right" />
                 ))}
+                <SortHeader column="uploaded" label={t("columns.uploaded")} sortLabel={t("sortBy", { column: t("columns.uploaded") })}
+                  sort={sort} dir={dir} className="px-4 py-3 text-right" />
                 <SortHeader column="played" label={t("columns.played")} sortLabel={t("sortBy", { column: t("columns.played") })}
                   sort={sort} dir={dir} className="px-4 py-3" />
               </tr>
@@ -176,6 +188,7 @@ export default async function VideoDashboardPage({
                   <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(row.youtube_views)}</td>
                   <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(row.youtube_likes)}</td>
                   <td className="px-4 py-3 text-right font-numeric tabular-nums">{number(row.youtube_comments)}</td>
+                  <td className="whitespace-nowrap px-4 py-3 text-right font-numeric tabular-nums">{daysOnline(row.youtube_published_at)}</td>
                   <td className="whitespace-nowrap px-4 py-3 text-muted-foreground">
                     {new Date(row.played_at).toLocaleDateString(locale, { timeZone: "UTC", year: "numeric", month: "short", day: "numeric" })}
                   </td>

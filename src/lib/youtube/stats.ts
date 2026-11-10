@@ -6,6 +6,7 @@ export const VIDEOS_PER_CALL = 50;
 
 export type VideoStats = {
   title: string;
+  publishedAt: string | null;
   views: number | null;
   likes: number | null;
   comments: number | null;
@@ -14,7 +15,7 @@ export type VideoStats = {
 type VideosResponse = {
   items?: {
     id: string;
-    snippet?: { title?: string };
+    snippet?: { title?: string; publishedAt?: string };
     statistics?: { viewCount?: string; likeCount?: string; commentCount?: string };
   }[];
 };
@@ -46,6 +47,7 @@ export async function fetchVideoStats(ids: string[], key: string): Promise<Map<s
   const body = (await response.json()) as VideosResponse;
   return new Map((body.items ?? []).map((item) => [item.id, {
     title: item.snippet?.title ?? "",
+    publishedAt: item.snippet?.publishedAt ?? null,
     views: count(item.statistics?.viewCount),
     likes: count(item.statistics?.likeCount),
     comments: count(item.statistics?.commentCount),

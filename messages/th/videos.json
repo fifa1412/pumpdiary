@@ -17,11 +17,13 @@
     "views": "ยอดวิว",
     "likes": "ไลค์",
     "comments": "คอมเมนต์",
+    "uploaded": "อัปโหลดมาแล้ว",
     "played": "วันที่เล่น"
   },
   "sortBy": "เรียงตาม{column}",
   "notFound": "ไม่พบใน YouTube",
   "empty": "ยังไม่มีคะแนนที่มีคลิป",
   "total": "รวม",
-  "watch": "ดูบน YouTube"
+  "watch": "ดูบน YouTube",
+  "daysOnline": "{days, plural, =0 {วันนี้} other {# วัน}}"
 }

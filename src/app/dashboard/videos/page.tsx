@@ -4,6 +4,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SyncButton } from "@/components/videos/sync-button";
 import { chartOn, VERSION_LEVELS, type VersionLevel } from "@/lib/songs/chart-levels";
@@ -20,6 +21,8 @@ const SORTS = {
 } as const;
 type Sort = keyof typeof SORTS;
 type Direction = "asc" | "desc";
+
+const PAGE_SIZE = 20;
 
 const STEP_CODES = { SINGLE: "S", DOUBLE: "D", HALFDOUBLE: "HD" } as const;
 
@@ -75,7 +78,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function VideoDashboardPage({
   searchParams,
 }: {
-  searchParams: Promise<{ sort?: string | string[]; dir?: string | string[] }>;
+  searchParams: Promise<{ sort?: string | string[]; dir?: string | string[]; page?: string | string[] }>;
 }) {
   const [user, params, t, tc, locale] = await Promise.all([
     getCurrentUser(), searchParams, getTranslations("videos"), getTranslations("common"), getLocale(),
@@ -86,6 +89,8 @@ export default async function VideoDashboardPage({
   const sort: Sort = rawSort && rawSort in SORTS ? (rawSort as Sort) : "views";
   const rawDir = Array.isArray(params.dir) ? params.dir[0] : params.dir;
   const dir: Direction = rawDir === "asc" ? "asc" : "desc";
+  const rawPage = Array.isArray(params.page) ? params.page[0] : params.page;
+  const requestedPage = rawPage && /^\d+$/.test(rawPage) ? Number(rawPage) : 1;
 
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -104,6 +109,12 @@ export default async function VideoDashboardPage({
     const song = chart?.song ? `${songDisplayTitle(chart.song.title, chart.song.song_type)} ${STEP_CODES[chart.step_type]}${chart.level}` : "";
     return [{ ...row, videoId, song, notFound: Boolean(row.youtube_synced_at) && row.youtube_views === null }];
   });
+
+  // Every clip counts toward the totals; the table shows one page of them.
+  const totalPages = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
+  const page = Math.min(Math.max(1, requestedPage), totalPages);
+  const pageRows = rows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pageHref = (target: number) => `/dashboard/videos?sort=${sort}&dir=${dir}&page=${target}`;
 
   const lastSynced = rows.reduce<string | null>((latest, row) =>
     row.youtube_synced_at && (!latest || row.youtube_synced_at > latest) ? row.youtube_synced_at : latest, null);
@@ -171,7 +182,7 @@ export default async function VideoDashboardPage({
               </tr>
             </thead>
             <tbody className="divide-y">
-              {rows.map((row) => (
+              {pageRows.map((row) => (
                 <tr key={row.id}>
                   <td className="max-w-md px-4 py-3">
                     <a href={`https://www.youtube.com/watch?v=${row.videoId}`} target="_blank" rel="noopener noreferrer"
@@ -198,6 +209,20 @@ export default async function VideoDashboardPage({
           </table>
         </div>
       )}
+
+      {!error && totalPages > 1 ? (
+        <nav aria-label={t("pagination.label")} className="flex items-center justify-center gap-2">
+          {page > 1 ? (
+            <Button variant="outline" size="sm" asChild><Link href={pageHref(page - 1)}>{t("pagination.previous")}</Link></Button>
+          ) : <Button variant="outline" size="sm" disabled>{t("pagination.previous")}</Button>}
+          <span className="font-numeric text-sm text-muted-foreground">
+            {t("pagination.page", { page, total: totalPages })}
+          </span>
+          {page < totalPages ? (
+            <Button variant="outline" size="sm" asChild><Link href={pageHref(page + 1)}>{t("pagination.next")}</Link></Button>
+          ) : <Button variant="outline" size="sm" disabled>{t("pagination.next")}</Button>}
+        </nav>
+      ) : null}
     </div>
   );
 }

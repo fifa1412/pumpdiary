@@ -25,5 +25,11 @@
   "empty": "ยังไม่มีคะแนนที่มีคลิป",
   "total": "รวม",
   "watch": "ดูบน YouTube",
-  "daysOnline": "{days, plural, =0 {วันนี้} other {# วัน}}"
+  "daysOnline": "{days, plural, =0 {วันนี้} other {# วัน}}",
+  "pagination": {
+    "label": "เปลี่ยนหน้ารายการวิดีโอ",
+    "previous": "ก่อนหน้า",
+    "next": "ถัดไป",
+    "page": "หน้า {page} จาก {total}"
+  }
 }
